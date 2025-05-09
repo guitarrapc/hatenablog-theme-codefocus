@@ -212,7 +212,7 @@ h6 {
         padding: 0 0 0.8em;
     }
     
-    /* 装飾線を削除して、シンプルにする */
+    /* 装飾線なし - 仕様通り */
 }
 
 .entry-title {
@@ -276,25 +276,27 @@ h6 {
     /* 日付の下に表示し、本文との間隔をさらに縮小 */
     font-size: .9rem;
     text-align: left;
-    /* カテゴリーを左揃えに変更 */
-
-    a {
+    /* カテゴリーを左揃えに変更 */    a {
         margin-right: .7em;
         margin-bottom: 8px;
-        background-color: #f5f5f5;
-        /* カテゴリーの背景色を追加 */
+        background-color: transparent; /* 背景色を透明に変更 */
         padding: 4px 10px;
-        /* パディングを増やして見やすくする */
-        border-radius: 4px;
-        /* 丸みを調整 */
+        border-radius: 20px; /* カテゴリーを丸く囲む（ホバー時に表示） */
         display: inline-block;
         transition: all 0.2s ease;
         text-decoration: none;
-        border-left: 3px solid $link;
-        
-        &:hover {
-            background-color: #eaeaea;
+        border: 1px solid transparent; /* 通常時は枠線を透明に */
+          /* カテゴリの前にハッシュ記号を追加 */        &::before {
+            content: "#";
+            margin-right: 3px;
+            color: $link; /* 元の青色に戻す */
+            font-weight: bold;
+        }&:hover {
+            background-color: rgba($link, 0.1); /* ホバー時にうっすらと青系の背景色 */
             transform: translateY(-1px);
+            border-color: $link; /* ホバー時に枠線を青系に */
+            border-radius: 20px; /* ホバー時に丸囲み */
+            color: darken($link, 10%); /* ホバー時にテキストを少し濃い青系に */
         }
     }
 }
@@ -379,23 +381,22 @@ h6 {
         position: relative;
         margin-top: 2em;
         margin-bottom: 0.8em;
+        padding-bottom: 0.4em;
+        border-bottom: 1px solid #eaeaea; /* 細いボーダーのみでシンプルに */
 
         @media #{$mq-md} {
             font-size: 1.5rem;
         }
-        
-        /* 装飾を削除してシンプルにする */
     }h3 {
         font-size: 1.2rem;
         position: relative;
         margin-top: 1.8em;
-        padding-left: 0; /* 左余白を削除 */
+        margin-bottom: 0.8em;
+        color: #444; /* h2より少し薄い色にして階層を表現 */
 
         @media #{$mq-md} {
             font-size: 1.3rem;
         }
-        
-        /* ドット装飾を削除して統一感を持たせる */
     }
 
     h4 {
