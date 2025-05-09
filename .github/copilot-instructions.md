@@ -18,9 +18,13 @@
 * レスポンシブデザインのテーマとして作成し、スマートフォン、タブレット、PCの各デバイスで適切に表示されるようにします。
 * シングルカラムで構成します。
 * ヘッダー画像は表示しません。
-* タイトルの上部に、記事の「作成日付」`class="entry-date"`と「更新日付」`class=date-last-updated`を表示します。
-* タイトルの下部に、記事の「カテゴリー」`class="entry-categories categories"`を表示します。
+* タイトルの下部に、記事の「作成日付」`class="entry-date"`と「更新日付」`class=date-last-updated`を表示します。
+* タイトルの下部の日付の下に、記事の「カテゴリー」`class="entry-categories categories"`を表示します。
 * 目次は`class="table-of-contents"`で表示されます。目次の上部に`目次`というテキストを表示します。
+* 目次は、h1-h3の見出しを自動的に取得して表示します。
+* 記事ブロック`main-inner`を`container-innner`と同じ幅にします。
+* コンテンツブロック`container-inner`はセンター寄せします。
+* h1などの見出し要素はセンター寄せしません。
 
 # デザインテーマ制作の手引き
 
