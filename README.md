@@ -60,7 +60,7 @@ $ npm start -- BLOG_DOMAIN_NAME
 コマンド実行例:
 
 ``` console
-$ npm start -- example.hatenablog.com
+$ npm start -- guitarrapc-theme.hatenablog.com
 ```
 
 以上が完了すると、動作確認用のブログに開発中のテーマが反映されます。ブログにアクセスし、表示を確認しながらテーマの開発を行なってください。
