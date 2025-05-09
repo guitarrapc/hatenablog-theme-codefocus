@@ -197,10 +197,26 @@ h6 {
     margin-bottom: 2em;
     border-bottom: 1px solid $border;
     position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.entry-title {
+    order: 1;
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: center;
+    /* タイトルは中央揃え */
+
+    @media #{$mq-md} {
+        font-size: 1.6rem;
+    }
 }
 
 .date {
-    margin-bottom: .5em;
+    order: 2;
+    margin: 0.8em 0;
+    /* タイトルの下に表示するために順序を変更 */
     font-size: .9rem;
     text-align: center;
     /* 日付は中央揃え */
@@ -231,21 +247,10 @@ h6 {
     }
 }
 
-.entry-title {
-    margin: 0 0 .8em;
-    /* マージンを増やして下のカテゴリーとの間隔を確保 */
-    font-size: 1.5rem;
-    text-align: center;
-    /* タイトルは中央揃え */
-
-    @media #{$mq-md} {
-        font-size: 1.6rem;
-    }
-}
-
 .categories {
+    order: 3;
     margin: 0 0 1em;
-    /* タイトルの下に表示されるようマージンを調整 */
+    /* 日付の下に表示されるようにする */
     font-size: .9rem;
     text-align: center;
     /* カテゴリーは中央揃え */
@@ -288,7 +293,9 @@ h6 {
         height: auto;
         display: block;
         margin: 0 auto;
-    }    h1,
+    }
+
+    h1,
     h2,
     h3,
     h4,
@@ -297,14 +304,18 @@ h6 {
         margin: 1.5em 0 0.8em 0;
         text-align: left;
         /* 見出しは左揃えに統一 */
-    }    h1 {
+    }
+
+    h1 {
         font-size: 1.5rem;
         position: relative;
         padding-bottom: 0.5em;
 
         @media #{$mq-md} {
             font-size: 1.7rem;
-        }        /* 装飾ラインを追加 - コンテンツ幅いっぱい */
+        }
+
+        /* 装飾ラインを追加 - コンテンツ幅いっぱい */
         &::after {
             content: "";
             display: block;
@@ -316,7 +327,9 @@ h6 {
             left: 0;
             transform: none;
         }
-    }    h2 {
+    }
+
+    h2 {
         font-size: 1.4rem;
         position: relative;
         padding-bottom: 0.3em;
