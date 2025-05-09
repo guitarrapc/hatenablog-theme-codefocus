@@ -69,7 +69,7 @@ h6 {
 #wrapper {
     margin: 0 auto;
     width: 100%;
-    
+
     /* メインコンテンツをcontainer-innerと同じ幅にする */
     .main-inner {
         width: 100%;
@@ -206,12 +206,12 @@ h6 {
     position: relative;
     display: flex;
     flex-direction: column;
-    
+
     /* タイトルを含むヘッダー全体に適用 */
     @media #{$mq-md} {
         padding: 0 0 0.8em;
     }
-    
+
     /* 装飾線なし - 仕様通り */
 }
 
@@ -219,7 +219,8 @@ h6 {
     order: 1;
     margin: 0;
     font-size: 1.5rem;
-    text-align: left; /* タイトルを左揃えに変更 */
+    text-align: left;
+    /* タイトルを左揃えに変更 */
     width: 100%;
 
     @media #{$mq-md} {
@@ -232,7 +233,8 @@ h6 {
     margin: 0.7em 0 0.4em;
     /* タイトルの下に表示するために順序を変更、余白を縮小 */
     font-size: .9rem;
-    text-align: left; /* 日付を左揃えに変更 */
+    text-align: left;
+    /* 日付を左揃えに変更 */
     color: $text-light;
 
     a {
@@ -249,7 +251,7 @@ h6 {
         margin-right: 1.2em;
         display: inline-block;
         position: relative;
-        
+
         &::after {
             content: "•";
             position: absolute;
@@ -276,27 +278,32 @@ h6 {
     /* 日付の下に表示し、本文との間隔をさらに縮小 */
     font-size: .9rem;
     text-align: left;
+
     /* カテゴリーを左揃えに変更 */    a {
         margin-right: .7em;
         margin-bottom: 8px;
-        background-color: transparent; /* 背景色を透明に変更 */
+        background-color: transparent; /* 通常時は背景色なし */
         padding: 4px 10px;
-        border-radius: 20px; /* カテゴリーを丸く囲む（ホバー時に表示） */
         display: inline-block;
         transition: all 0.2s ease;
         text-decoration: none;
-        border: 1px solid transparent; /* 通常時は枠線を透明に */
-          /* カテゴリの前にハッシュ記号を追加 */        &::before {
+        border: 1px solid transparent; /* 通常時は枠線なし */
+        color: $text; /* カテゴリ自体は本文と同じ色 */
+        
+        /* カテゴリの前にハッシュ記号を追加 */
+        &::before {
             content: "#";
             margin-right: 3px;
-            color: $link; /* 元の青色に戻す */
+            color: $link; /* ハッシュだけ青色 */
             font-weight: bold;
-        }&:hover {
+        }
+
+        &:hover {
             background-color: rgba($link, 0.1); /* ホバー時にうっすらと青系の背景色 */
             transform: translateY(-1px);
             border-color: $link; /* ホバー時に枠線を青系に */
             border-radius: 20px; /* ホバー時に丸囲み */
-            color: darken($link, 10%); /* ホバー時にテキストを少し濃い青系に */
+            color: $text; /* ホバー時もカテゴリ自体の色は本文と同じ */
         }
     }
 }
@@ -313,24 +320,24 @@ h6 {
     /* タイトルと合わせて本文の配置を調整 */
     display: block;
     margin: 0 auto;
-    
+
     /* テキスト選択時のスタイル */
     ::selection {
         background-color: rgba($link, 0.2);
     }
-    
+
     /* 段落スタイルを追加 */
     p {
         margin-bottom: 1.5em;
         line-height: 1.8;
     }
-    
+
     /* リンクのスタイルを改善 */
     a {
         text-decoration-thickness: 1px;
         text-underline-offset: 2px;
         transition: color 0.2s ease;
-        
+
         &:hover {
             text-decoration-thickness: 2px;
         }
@@ -376,23 +383,29 @@ h6 {
             left: 0;
             transform: none;
         }
-    }    h2 {
+    }
+
+    h2 {
         font-size: 1.4rem;
         position: relative;
         margin-top: 2em;
         margin-bottom: 0.8em;
         padding-bottom: 0.4em;
-        border-bottom: 1px solid #eaeaea; /* 細いボーダーのみでシンプルに */
+        border-bottom: 1px solid #eaeaea;
+        /* 細いボーダーのみでシンプルに */
 
         @media #{$mq-md} {
             font-size: 1.5rem;
         }
-    }h3 {
+    }
+
+    h3 {
         font-size: 1.2rem;
         position: relative;
         margin-top: 1.8em;
         margin-bottom: 0.8em;
-        color: #444; /* h2より少し薄い色にして階層を表現 */
+        color: #444;
+        /* h2より少し薄い色にして階層を表現 */
 
         @media #{$mq-md} {
             font-size: 1.3rem;
@@ -518,7 +531,9 @@ h6 {
         border: none;
         border-top: 1px solid $border;
         margin: 2.5em auto;
-    }    .table-of-contents {
+    }
+
+    .table-of-contents {
         position: relative;
         padding: 2.8em 1.5em 1.5em;
         margin: 2.5em 0;
@@ -540,9 +555,10 @@ h6 {
             padding-bottom: 0.5em;
             border-bottom: 2px solid $link;
             display: inline-block;
-            width: calc(100% - 3em); /* 左右余白を除いた幅 */
+            width: calc(100% - 3em);
+            /* 左右余白を除いた幅 */
         }
-        
+
         /* h3までを表示し、h4以降を非表示にする */
         ul {
             margin: 0.8em 0;
@@ -550,14 +566,14 @@ h6 {
             list-style: none;
 
             /* 第一階層のリスト（h2） */
-            & > li {
+            &>li {
                 margin: 0.8em 0;
                 padding: 0.4em 0;
                 position: relative;
                 transition: all 0.2s ease;
-                
+
                 /* h2見出しのスタイル */
-                & > a {
+                &>a {
                     display: flex;
                     align-items: center;
                     padding-left: 1.5em;
@@ -572,7 +588,7 @@ h6 {
                         color: $link;
                         transform: translateX(3px);
                     }
-                    
+
                     /* h2の前に小さいアイコン */
                     &::before {
                         content: "";
@@ -588,24 +604,24 @@ h6 {
                     }
                 }
 
-                &:hover > a::before {
+                &:hover>a::before {
                     background-color: darken($link, 10%);
                     transform: translateY(-50%) scale(1.2);
                 }
 
                 /* 第二階層（h3）は表示 */
-                & > ul {
+                &>ul {
                     margin: 0.5em 0 0.5em 1.5em;
                     padding-left: 0.5em;
                     border-left: 2px solid rgba($link, 0.2);
 
                     /* 第二階層のリスト（h3） */
-                    & > li {
+                    &>li {
                         margin: 0.5em 0;
                         padding: 0.2em 0;
-                        
+
                         /* h3見出しのスタイル */
-                        & > a {
+                        &>a {
                             display: flex;
                             align-items: center;
                             padding-left: 1.2em;
@@ -620,7 +636,7 @@ h6 {
                                 color: $link;
                                 transform: translateX(3px);
                             }
-                            
+
                             /* h3の前に小さいドット */
                             &::before {
                                 content: "";
@@ -636,20 +652,21 @@ h6 {
                             }
                         }
 
-                        &:hover > a::before {
+                        &:hover>a::before {
                             background-color: $link;
                             transform: translateY(-50%) scale(1.2);
                         }
 
                         /* 第三階層以降（h4以降）を非表示 */
-                        & > ul {
+                        &>ul {
                             display: none;
                         }
                     }
                 }
             }
         }
-          /* ホバー時の効果 */
+
+        /* ホバー時の効果 */
         &:hover {
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
         }
@@ -920,7 +937,7 @@ h6 {
         background-color: #ffffff;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
         transition: all 0.3s ease;
-        
+
         &:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
@@ -931,10 +948,10 @@ h6 {
         margin: .5em auto .7em;
         text-align: left;
         font-size: 1.3rem;
-        
+
         a {
             text-decoration: none;
-            
+
             &:hover {
                 color: $link;
             }
