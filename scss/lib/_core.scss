@@ -288,17 +288,15 @@ h6 {
         height: auto;
         display: block;
         margin: 0 auto;
-    }
-
-    h1,
+    }    h1,
     h2,
     h3,
     h4,
     h5,
     h6 {
         margin: 1.5em 0 0.8em 0;
-        text-align: center;
-        /* 見出しを中央揃え */
+        text-align: left;
+        /* 見出しは左揃えに統一 */
     }
 
     h1 {
@@ -308,9 +306,7 @@ h6 {
 
         @media #{$mq-md} {
             font-size: 1.7rem;
-        }
-
-        /* 装飾ラインを追加 */
+        }        /* 装飾ラインを追加 */
         &::after {
             content: "";
             display: block;
@@ -319,8 +315,8 @@ h6 {
             background-color: $border;
             position: absolute;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            transform: none;
         }
     }
 
@@ -331,9 +327,7 @@ h6 {
 
         @media #{$mq-md} {
             font-size: 1.5rem;
-        }
-
-        /* 装飾ラインを追加 */
+        }        /* 装飾ラインを追加 */
         &::after {
             content: "";
             display: block;
@@ -342,8 +336,8 @@ h6 {
             background-color: $border;
             position: absolute;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            transform: none;
         }
     }
 
@@ -494,6 +488,35 @@ h6 {
             font-weight: bold;
             font-size: 1em;
             color: $text-header;
+        }
+
+        /* h3までを表示し、h4以降を非表示にする */
+        ul {
+            margin: 0.5em 0;
+            padding-left: 1.5em;
+
+            /* 第一階層のリスト（h2） */
+            &>li {
+                margin: 0.3em 0;
+                list-style-type: decimal;
+
+                /* 第二階層（h3）は表示 */
+                &>ul {
+                    display: block;
+                    margin: 0.5em 0;
+
+                    /* 第二階層のリスト（h3） */
+                    &>li {
+                        margin: 0.2em 0;
+                        list-style-type: disc;
+
+                        /* 第三階層以降（h4以降）を非表示 */
+                        &>ul {
+                            display: none;
+                        }
+                    }
+                }
+            }
         }
     }
 }
