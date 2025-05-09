@@ -437,9 +437,7 @@ h6 {
                 margin-bottom: 0;
             }
         }
-    }
-
-    table {
+    }    table {
         border-collapse: collapse;
         border-spacing: 0;
         margin: 1.5em auto 2em;
@@ -448,8 +446,7 @@ h6 {
         overflow-x: auto;
         display: block;
         font-size: .85rem;
-        border-radius: 5px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        /* box-shadowとborder-radiusを削除 - テーブル自体にはボーダーを適用しない */
 
         @media #{$mq-md} {
             font-size: .9rem;
