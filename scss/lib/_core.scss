@@ -206,10 +206,11 @@ h6 {
     position: relative;
     display: flex;
     flex-direction: column;
+    padding-left: 10px; /* 全体を10pxパディングで左に統一して揃える */
 
     /* タイトルを含むヘッダー全体に適用 */
     @media #{$mq-md} {
-        padding: 0 0 0.8em;
+        padding: 0 0 0.8em 10px; /* 左パディングを維持 */
     }
 
     /* 装飾線なし - 仕様通り */
@@ -220,7 +221,6 @@ h6 {
     margin: 0;
     font-size: 1.5rem;
     text-align: left;
-    /* タイトルを左揃えに変更 */
     width: 100%;
 
     @media #{$mq-md} {
@@ -234,8 +234,8 @@ h6 {
     /* タイトルの下に表示するために順序を変更、余白を縮小 */
     font-size: .9rem;
     text-align: left;
-    /* 日付を左揃えに変更 */
     color: $text-light;
+    padding-left: 0; /* 左パディングを0にして親要素のパディングを継承 */
 
     a {
         color: $text-light;
@@ -278,12 +278,11 @@ h6 {
     /* 日付の下に表示し、本文との間隔をさらに縮小 */
     font-size: .9rem;
     text-align: left;
-
-    /* カテゴリーを左揃えに変更 */    a {
+    padding-left: 0; /* 左パディングを0にして親要素のパディングを継承 */    a {
         margin-right: .7em;
         margin-bottom: 8px;
         background-color: transparent; /* 通常時は背景色なし */
-        padding: 4px 10px;
+        padding: 4px 10px 4px 0; /* 左パディングを0に変更して揃える */
         display: inline-block;
         transition: all 0.2s ease;
         text-decoration: none;
@@ -296,13 +295,12 @@ h6 {
             margin-right: 3px;
             color: $link; /* ハッシュだけ青色 */
             font-weight: bold;
-        }
-
-        &:hover {
+        }        &:hover {
             background-color: rgba($link, 0.1); /* ホバー時にうっすらと青系の背景色 */
             transform: translateY(-1px);
             border-color: $link; /* ホバー時に枠線を青系に */
             border-radius: 20px; /* ホバー時に丸囲み */
+            padding: 4px 10px; /* ホバー時にパディングを調整して見栄えを良くする */
             color: $text; /* ホバー時もカテゴリ自体の色は本文と同じ */
         }
     }
