@@ -1,7 +1,23 @@
 このリポジトリは、はてなブログのデザインテーマを作成するためのリポジトリです。
 
-はてなブログのデザインテーマは、次の制作の手引きにしたがって作成してください。
+* はてなブログのデザインテーマは、デザインテーマ制作の手引きにしたがって作成してください。
+* デザインテーマで目指す見た目は、目指すテーマの仕様にしたがって作成してください。
+* 現在の見た目は次のURLで確認できます。
+  * ブログトップ: https://guitarrapc-theme.hatenablog.com/
+  * 最新の記事: https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/010118
+  * Aboutページ: https://guitarrapc-theme.hatenablog.com/about
+  * Archiveページ: https://guitarrapc-theme.hatenablog.com/archive
+  * Archive/Categoryページ: https://guitarrapc-theme.hatenablog.com/archive/category/test
+  * Searchページ: https://guitarrapc-theme.hatenablog.com/search?q=%E3%81%AF%E3%81%A6%E3%81%AA
 
+# 目指すテーマの仕様
+
+* レスポンシブデザインのテーマとして作成し、スマートフォン、タブレット、PCの各デバイスで適切に表示されるようにします。
+* シングルカラムで構成します。
+* ヘッダー画像は表示しません。
+* タイトルの上部に、記事の「作成日付」`class="entry-date"`と「更新日付」`class=date-last-updated`を表示します。
+* タイトルの下部に、記事の「カテゴリー」`class="entry-categories categories"`を表示します。
+* 目次は`class="table-of-contents"`で表示されます。目次の上部に`目次`というテキストを表示します。
 
 # デザインテーマ制作の手引き
 
