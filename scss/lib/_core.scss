@@ -42,20 +42,20 @@ h6 {
 /* container */
 #container,
 #footer {
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin: 0 auto;
 
     @media #{$mq-sm} {
-        width: 90%;
-        max-width: 720px;
+        width: 92%;
+        max-width: 750px;
         padding-left: 0;
         padding-right: 0;
     }
 
     @media #{$mq-md} {
-        width: 80%;
-        max-width: 720px;
+        width: 85%;
+        max-width: 750px;
     }
 }
 
@@ -69,6 +69,14 @@ h6 {
 #wrapper {
     margin: 0 auto;
     width: 100%;
+    
+    /* メインコンテンツをcontainer-innerと同じ幅にする */
+    .main-inner {
+        width: 100%;
+        max-width: 750px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
     @media #{$mq-sm} {
         width: 100%;
@@ -195,32 +203,37 @@ h6 {
 .entry-header {
     padding-bottom: 1em;
     margin-bottom: 2em;
-    /* カテゴリーと本文の間の線を削除 */
-    /* border-bottom: 1px solid $border; */
     position: relative;
     display: flex;
     flex-direction: column;
+    
+    /* タイトルを含むヘッダー全体に適用 */
+    @media #{$mq-md} {
+        padding: 0 0 1em;
+    }
+    
+    /* 装飾線を削除して、シンプルにする */
 }
 
 .entry-title {
     order: 1;
     margin: 0;
     font-size: 1.5rem;
-    text-align: center;
-    /* タイトルは中央揃え */
+    text-align: left; /* タイトルを左揃えに変更 */
+    width: 100%;
 
     @media #{$mq-md} {
-        font-size: 1.6rem;
+        font-size: 1.7rem;
     }
 }
 
 .date {
     order: 2;
-    margin: 0.8em 0;
+    margin: 1em 0 0.5em;
     /* タイトルの下に表示するために順序を変更 */
     font-size: .9rem;
-    text-align: center;
-    /* 日付は中央揃え */
+    text-align: left; /* 日付を左揃えに変更 */
+    color: $text-light;
 
     a {
         color: $text-light;
@@ -233,8 +246,17 @@ h6 {
 
     /* 日付を目立たせる */
     .entry-date {
-        margin-right: 1em;
+        margin-right: 1.2em;
         display: inline-block;
+        position: relative;
+        
+        &::after {
+            content: "•";
+            position: absolute;
+            right: -0.8em;
+            top: 0;
+            color: #ccc;
+        }
     }
 
     .date-last-updated {
@@ -243,29 +265,37 @@ h6 {
 
         &::before {
             content: "更新: ";
-            font-size: 0.8em;
+            font-size: 0.9em;
         }
     }
 }
 
 .categories {
     order: 3;
-    margin: 0 0 1.5em;
-    /* 日付の下に表示し、本文との間隔を十分にとる */
+    margin: 0 0 2em;
+    /* 日付の下に表示し、本文との間隔をさらに広げる */
     font-size: .9rem;
-    text-align: center;
-    /* カテゴリーは中央揃え */
+    text-align: left;
+    /* カテゴリーを左揃えに変更 */
 
     a {
-        margin-right: .5em;
-        margin-bottom: 5px;
+        margin-right: .7em;
+        margin-bottom: 8px;
         background-color: #f5f5f5;
         /* カテゴリーの背景色を追加 */
-        padding: 2px 8px;
-        /* パディングを追加 */
-        border-radius: 3px;
-        /* 丸みを持たせる */
+        padding: 4px 10px;
+        /* パディングを増やして見やすくする */
+        border-radius: 4px;
+        /* 丸みを調整 */
         display: inline-block;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        border-left: 3px solid $link;
+        
+        &:hover {
+            background-color: #eaeaea;
+            transform: translateY(-1px);
+        }
     }
 }
 
@@ -281,11 +311,27 @@ h6 {
     /* タイトルと合わせて本文の配置を調整 */
     display: block;
     margin: 0 auto;
-
+    
+    /* テキスト選択時のスタイル */
+    ::selection {
+        background-color: rgba($link, 0.2);
+    }
+    
     /* 段落スタイルを追加 */
     p {
         margin-bottom: 1.5em;
         line-height: 1.8;
+    }
+    
+    /* リンクのスタイルを改善 */
+    a {
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+        transition: color 0.2s ease;
+        
+        &:hover {
+            text-decoration-thickness: 2px;
+        }
     }
 
     img,
@@ -328,25 +374,28 @@ h6 {
             left: 0;
             transform: none;
         }
-    }
-
-    h2 {
+    }    h2 {
         font-size: 1.4rem;
         position: relative;
-        padding-bottom: 0.3em;
+        margin-top: 2em;
+        margin-bottom: 0.8em;
 
         @media #{$mq-md} {
             font-size: 1.5rem;
         }
-    }
-
-    h3 {
+        
+        /* 装飾を削除してシンプルにする */
+    }h3 {
         font-size: 1.2rem;
         position: relative;
+        margin-top: 1.8em;
+        padding-left: 0; /* 左余白を削除 */
 
         @media #{$mq-md} {
             font-size: 1.3rem;
         }
+        
+        /* ドット装飾を削除して統一感を持たせる */
     }
 
     h4 {
@@ -468,54 +517,140 @@ h6 {
         border: none;
         border-top: 1px solid $border;
         margin: 2.5em auto;
-    }
-
-    .table-of-contents {
+    }    .table-of-contents {
         position: relative;
-        padding: 2em 1em 1em 2em;
-        margin: 1.5em 0;
-        border: 1px solid $border;
-        background-color: #fafafa;
-        border-radius: 5px;
+        padding: 2.8em 1.5em 1.5em;
+        margin: 2.5em 0;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border: none;
+        transition: all 0.3s ease;
 
-        /* 目次というテキストを追加 */
+        /* 目次というテキストを追加 - より目立たせる */
         &::before {
             content: "目次";
             position: absolute;
-            top: 0.5em;
-            left: 1em;
+            top: 0.8em;
+            left: 1.5em;
             font-weight: bold;
-            font-size: 1em;
+            font-size: 1.2em;
             color: $text-header;
+            padding-bottom: 0.5em;
+            border-bottom: 2px solid $link;
+            display: inline-block;
+            width: calc(100% - 3em); /* 左右余白を除いた幅 */
         }
-
+        
         /* h3までを表示し、h4以降を非表示にする */
         ul {
-            margin: 0.5em 0;
-            padding-left: 1.5em;
+            margin: 0.8em 0;
+            padding-left: 0;
+            list-style: none;
 
             /* 第一階層のリスト（h2） */
-            &>li {
-                margin: 0.3em 0;
-                list-style-type: decimal;
+            & > li {
+                margin: 0.8em 0;
+                padding: 0.4em 0;
+                position: relative;
+                transition: all 0.2s ease;
+                
+                /* h2見出しのスタイル */
+                & > a {
+                    display: flex;
+                    align-items: center;
+                    padding-left: 1.5em;
+                    font-weight: 600;
+                    position: relative;
+                    text-decoration: none;
+                    color: $text-header;
+                    margin: 0.2em 0;
+                    line-height: 1.4;
+
+                    &:hover {
+                        color: $link;
+                        transform: translateX(3px);
+                    }
+                    
+                    /* h2の前に小さいアイコン */
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 10px;
+                        height: 10px;
+                        background-color: $link;
+                        border-radius: 2px;
+                        transition: all 0.2s ease;
+                    }
+                }
+
+                &:hover > a::before {
+                    background-color: darken($link, 10%);
+                    transform: translateY(-50%) scale(1.2);
+                }
 
                 /* 第二階層（h3）は表示 */
-                &>ul {
-                    display: block;
-                    margin: 0.5em 0;
+                & > ul {
+                    margin: 0.5em 0 0.5em 1.5em;
+                    padding-left: 0.5em;
+                    border-left: 2px solid rgba($link, 0.2);
 
                     /* 第二階層のリスト（h3） */
-                    &>li {
-                        margin: 0.2em 0;
-                        list-style-type: disc;
+                    & > li {
+                        margin: 0.5em 0;
+                        padding: 0.2em 0;
+                        
+                        /* h3見出しのスタイル */
+                        & > a {
+                            display: flex;
+                            align-items: center;
+                            padding-left: 1.2em;
+                            font-weight: normal;
+                            position: relative;
+                            font-size: 0.92em;
+                            color: $text-light;
+                            text-decoration: none;
+                            line-height: 1.3;
+
+                            &:hover {
+                                color: $link;
+                                transform: translateX(3px);
+                            }
+                            
+                            /* h3の前に小さいドット */
+                            &::before {
+                                content: "";
+                                position: absolute;
+                                left: 0;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                width: 5px;
+                                height: 5px;
+                                background-color: rgba($link, 0.7);
+                                border-radius: 50%;
+                                transition: all 0.2s ease;
+                            }
+                        }
+
+                        &:hover > a::before {
+                            background-color: $link;
+                            transform: translateY(-50%) scale(1.2);
+                        }
 
                         /* 第三階層以降（h4以降）を非表示 */
-                        &>ul {
+                        & > ul {
                             display: none;
                         }
                     }
                 }
             }
+        }
+          /* ホバー時の効果 */
+        &:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
         }
     }
 }
@@ -779,21 +914,42 @@ h6 {
         line-height: 1.3;
         width: 100%;
         text-align: left;
+        padding: 1.5em;
+        border-radius: 8px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
     }
 
     .entry-title {
-        margin: .3em auto;
+        margin: .5em auto .7em;
         text-align: left;
+        font-size: 1.3rem;
+        
+        a {
+            text-decoration: none;
+            
+            &:hover {
+                color: $link;
+            }
+        }
     }
 
     .entry-thumb {
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
         background-size: cover;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
         @media #{$mq-sm} {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
         }
     }
 
