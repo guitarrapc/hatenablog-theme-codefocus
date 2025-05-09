@@ -201,8 +201,8 @@ h6 {
 }
 
 .entry-header {
-    padding-bottom: 0.8em;
-    margin-bottom: 1.5em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em; /* エントリーヘッダーの下マージンを縮小 */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -210,7 +210,7 @@ h6 {
 
     /* タイトルを含むヘッダー全体に適用 */
     @media #{$mq-md} {
-        padding: 0 0 0.8em 10px; /* 左パディングを維持 */
+        padding: 0 0 0.5em 10px; /* 左パディングを維持、下パディングを調整 */
     }
 
     /* 装飾線なし - 仕様通り */
@@ -274,11 +274,10 @@ h6 {
 
 .categories {
     order: 3;
-    margin: 0 0 0.8em;
-    /* 日付の下に表示し、本文との間隔をさらに縮小 */
+    margin: 0 0 0.6em; /* カテゴリと本文の間の余白をやや縮小 */
     font-size: .9rem;
     text-align: left;
-    padding-left: 0; /* 左パディングを0にして親要素のパディングを継承 */    a {
+    padding-left: 0; /* 左パディングを0にして親要素のパディングを継承 */a {
         margin-right: .7em;
         margin-bottom: 8px;
         background-color: transparent; /* 通常時は背景色なし */
