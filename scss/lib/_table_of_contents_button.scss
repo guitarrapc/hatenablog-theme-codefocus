@@ -1,0 +1,105 @@
+@use "sass:color";
+@use "./_variable" as var;
+
+/* 目次ボタンとフロート表示のスタイル */
+
+/* 目次ボタン */
+.toc-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 8px 15px;
+    background-color: var.$link;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: var.$hover;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    @media #{var.$mq-xs} {
+        padding: 6px 12px;
+        font-size: 12px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* フローティング目次コンテナ */
+.floating-toc {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    width: 280px;
+    max-height: 70vh;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    display: none;
+    /* 初期状態は非表示 */
+    transform: translateX(10px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
+    /* スクロールバーのスタイル */
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+
+    /* 表示状態 */
+    &.show {
+        display: block;
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    /* 目次のタイトル */
+    .floating-toc-title {
+        padding: 15px 20px 5px;
+        margin: 0;
+        font-size: 16px;
+        font-weight: bold;
+        color: var.$text-header;
+        border-bottom: 1px solid var.$border;
+    }
+
+    /* 目次のスタイルを継承 */
+    ul.table-of-contents {
+        margin: 0;
+        box-shadow: none;
+        padding: 15px;
+        max-height: calc(70vh - 50px);
+    }
+
+    @media #{var.$mq-xs} {
+        width: 85%;
+        right: 10px;
+        left: auto;
+        max-height: 80vh;
+    }
+}
