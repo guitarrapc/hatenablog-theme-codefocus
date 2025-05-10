@@ -113,7 +113,8 @@
     li {
         margin-bottom: 5px;
         position: relative;
-        padding-left: 22px;
+        // 左インデントを揃える
+        padding-left: 0px;
         /* ボックスのリセット */
         background: none;
         border: none;
@@ -149,8 +150,33 @@
 
     /* h2以下のスタイル */
     li li>a {
-        color: #666; // 少し薄い色に
+        color: #777; // 少し薄い色に
         font-weight: normal;
+    }
+
+    /* h2のネストを解除 - 左インデントを揃える */
+    ul li ul {
+        margin-top: 5px;
+        margin-bottom: 0;
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    /* 全てのネストレベルを均一にする */
+    ul li ul,
+    ul li ul li ul,
+    ul li ul li ul li ul,
+    ul li ul li ul li ul li ul {
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    /* h2以降のすべてのレベルのマーカー位置を揃える */
+    ul li ul li:before,
+    ul li ul li ul li:before,
+    ul li ul li ul li ul li:before,
+    ul li ul li ul li ul li ul li:before {
+        left: 4px;
     }
 
     /* 元のはてなブログの目次スタイルをリセット */
@@ -218,9 +244,12 @@
         margin-bottom: 0;
     }
 
+    ul li a {
+        font-weight: bold;
+    }
+
     ul li ul li a {
         color: #777; // h2は薄い文字色に
-        font-size: 0.95em;
         /* 目次内の標準リストマーカーをすべて消す */
         list-style: none !important;
         list-style-type: none !important;
