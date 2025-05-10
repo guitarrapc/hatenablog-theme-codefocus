@@ -57,7 +57,7 @@
     right: 20px;
     width: 250px;
     max-width: 80vw;
-    max-height: 60vh;
+    max-height: 80vh;
     overflow-y: auto;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -86,8 +86,34 @@
 
     /* 目次のリスト要素のスタイル調整 */
     ul {
-        padding-left: 20px;
+        padding-left: 0;
         margin-bottom: 0;
+        /* ボックスのリセット */
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding-top: 0;
+        padding-bottom: 0;
+        position: relative;
+    }
+
+    /* 縦線を追加 - 位置を調整して青マーカーと合わせる */
+    ul:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        /* マーカーの中心に合わせて調整 */
+        left: 2px;
+        width: 2px;
+        background-color: #e6f2ff;
+        z-index: 0;
+    }
+
+    li {
+        margin-bottom: 5px;
+        position: relative;
+        padding-left: 22px;
         /* ボックスのリセット */
         background: none;
         border: none;
@@ -96,22 +122,35 @@
         padding-bottom: 0;
     }
 
-    li {
-        margin-bottom: 5px;
-        /* ボックスのリセット */
-        background: none;
-        border: none;
-        box-shadow: none;
-        padding: 0;
+    /* 青い丸のマーカー */
+    li:before {
+        content: '';
+        position: absolute;
+        top: 7px;
+        left: 4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #4a89dc;
+        z-index: 1;
     }
 
-    a {
+    /* h1タイトルのスタイル */
+    li>a {
         color: #333;
         text-decoration: none;
+        font-weight: bold;
+        display: block;
 
         &:hover {
             text-decoration: underline;
         }
+    }
+
+    /* h2以下のスタイル */
+    li li>a {
+        color: #666; // 少し薄い色に
+        font-weight: normal;
     }
 
     /* 元のはてなブログの目次スタイルをリセット */
@@ -131,16 +170,67 @@
         border: none;
         box-shadow: none;
     }
+
+    /* 「ページトップへ」リンク */
+    >a {
+        display: block;
+        padding-left: 22px;
+        position: relative;
+        color: #4a89dc;
+        text-decoration: none;
+        margin-bottom: 10px;
+        font-size: 14px;
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: 7px;
+            left: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #4a89dc;
+            z-index: 1;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 8px;
+            /* 縦線の位置を調整 - 上の縦線と揃える */
+            width: 2px;
+            height: 12px;
+            background-color: #e6f2ff;
+            z-index: 0;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 // 目次の見出しレベルに応じたスタイル
 .floating-toc {
     ul li ul {
         margin-top: 5px;
+        margin-bottom: 0;
     }
 
     ul li ul li a {
-        color: #666; // h2は薄い文字色に
+        color: #777; // h2は薄い文字色に
         font-size: 0.95em;
+        /* 目次内の標準リストマーカーをすべて消す */
+        list-style: none !important;
+        list-style-type: none !important;
+        list-style-image: none !important;
+    }
+
+    /* 特殊なケース: 標準のブラウザスタイルを上書き */
+    .table-of-contents li::marker,
+    .table-of-contents ul li::marker,
+    .table-of-contents li::before {
+        content: none !important;
     }
 }
