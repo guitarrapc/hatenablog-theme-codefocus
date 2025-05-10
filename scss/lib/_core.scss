@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "./_variable" as var;
+@use "./_table_of_contents";
 
 html,
 body {
@@ -552,79 +553,7 @@ h6 {
         margin: 2.5em auto;
     }
 
-    .table-of-contents {
-        position: relative;
-        padding: 1.5em 1.5em 1.5em;
-        margin: 2.5em 0;
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        border: none;
-        transition: all 0.3s ease;
-
-        /* h2までを表示し、h3以降を非表示にする */
-        ul {
-            margin: 0.8em 0;
-            padding-left: 0;
-            list-style: none;
-
-            /* h2階層のリスト */
-            &>li {
-                margin: 0.8em 0;
-                padding-left: 0;
-                position: relative;
-                transition: all 0.2s ease;
-
-                /* h2見出しのスタイル */
-                &>a {
-                    display: flex;
-                    align-items: center;
-                    padding-left: 1.0em;
-                    font-weight: normal;
-                    position: relative;
-                    text-decoration: none;
-                    color: var.$text-light;
-                    margin: 0.2em 0;
-                    line-height: 1.4;
-                    font-size: 1.05rem;
-
-                    &:hover {
-                        color: var.$link;
-                        transform: translateX(3px);
-                    }
-
-                    /* h2の前に小さい青点のアイコン */
-                    &::before {
-                        content: "";
-                        position: absolute;
-                        left: 0;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        width: 5px;
-                        height: 5px;
-                        background-color: var.$link;
-                        border-radius: 50%;
-                        transition: all 0.2s ease;
-                    }
-                }
-
-                &:hover>a::before {
-                    background-color: color.adjust(var.$link, $lightness: -10%);
-                    transform: translateY(-50%) scale(1.2);
-                }
-
-                /* h3以降を非表示 */
-                &>ul {
-                    display: none;
-                }
-            }
-        }
-
-        /* ホバー時の効果 */
-        &:hover {
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
-        }
-    }
+    /* 目次のスタイルは _table_of_contents.scss に移行しました */
 
 }
 

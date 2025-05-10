@@ -1,0 +1,125 @@
+@use "sass:color";
+@use "./_variable" as var;
+
+/* 目次のスタイル */
+ul.table-of-contents {
+    position: relative;
+    padding: 1.5em;
+    margin: 2.5em 0;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: none;
+    transition: all 0.3s ease;
+    list-style: none;
+
+    /* 目次全体のホバー効果 */
+    &:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    }
+
+    /* トップレベルの項目（h1とその他の見出し） */
+    &>li {
+        margin: 0.8em 0;
+        padding-left: 0;
+        position: relative;
+        transition: all 0.2s ease;
+
+        /* すべてのトップレベル見出しのリンクスタイル基本設定 */
+        &>a {
+            display: flex;
+            align-items: center;
+            padding-left: 1.0em;
+            font-weight: normal;
+            position: relative;
+            text-decoration: none;
+            color: var.$text;
+            /* 通常の文字色 */
+            margin: 0.2em 0;
+            line-height: 1.4;
+            font-size: 1.05rem;
+
+            &:hover {
+                color: var.$link;
+                transform: translateX(3px);
+            }
+
+            /* すべての見出しの前の青点のアイコン */
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 5px;
+                height: 5px;
+                background-color: var.$link;
+                border-radius: 50%;
+                transition: all 0.2s ease;
+            }
+        }
+
+        &:hover>a::before {
+            background-color: color.adjust(var.$link, $lightness: -10%);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        /* h2階層（h1の下の階層） */
+        &>ul {
+            display: block;
+            /* 表示する */
+            padding-left: 1.2em;
+            /* インデントを追加 */
+            margin: 0.3em 0;
+
+            /* h2階層の項目 */
+            li {
+                margin: 0.5em 0;
+
+                a {
+                    display: flex;
+                    align-items: center;
+                    padding-left: 1.0em;
+                    font-weight: normal;
+                    position: relative;
+                    text-decoration: none;
+                    color: var.$text-light;
+                    /* h2は薄い文字色 */
+                    margin: 0.2em 0;
+                    line-height: 1.4;
+                    font-size: 1.05rem;
+                    /* h1と同じサイズ */
+
+                    &:hover {
+                        color: var.$link;
+                        transform: translateX(3px);
+                    }
+
+                    /* h2の前にも青点のアイコン */
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 5px;
+                        height: 5px;
+                        background-color: var.$link;
+                        border-radius: 50%;
+                        transition: all 0.2s ease;
+                    }
+                }
+
+                &:hover>a::before {
+                    background-color: color.adjust(var.$link, $lightness: -10%);
+                    transform: translateY(-50%) scale(1.2);
+                }
+
+                /* h3以降を非表示 */
+                &>ul {
+                    display: none;
+                }
+            }
+        }
+    }
+}
