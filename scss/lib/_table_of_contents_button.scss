@@ -9,97 +9,138 @@
     top: 20px;
     right: 20px;
     z-index: 1000;
-    padding: 8px 15px;
-    background-color: var.$link;
-    color: white;
-    border: none;
+    display: inline-flex; // インラインフレックスに変更
+    align-items: center; // 縦方向の中央揃え
+    padding: 8px 12px;
+    border: 1px solid #ccc; // 薄い灰色の枠線
     border-radius: 4px;
+    background-color: transparent; // 背景色なし
     font-size: 14px;
-    font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    white-space: nowrap; // テキスト折り返しを防止
 
     &:hover {
-        background-color: var.$hover;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        border-color: #aaa;
     }
 
-    @media #{var.$mq-xs} {
-        padding: 6px 12px;
-        font-size: 12px;
-        top: 10px;
-        right: 10px;
+    .toc-button-text {
+        margin-right: 4px; // テキストとアイコンの間に余白を追加（調整）
+    }
+
+    .toc-button-icon {
+        position: relative;
+        display: inline-block;
+        margin-top: 1px; // アイコンの位置を微調整
+
+        &::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            border-top: 2px solid #666;
+            border-right: 2px solid #666;
+            transform: rotate(-45deg); // 上向き矢印
+            transition: transform 0.3s ease;
+        }
+    }
+
+    &.active .toc-button-icon::before {
+        transform: rotate(135deg); // 下向き矢印に切り替え
     }
 }
 
 /* フローティング目次コンテナ */
 .floating-toc {
     position: fixed;
-    top: 70px;
+    top: 60px;
     right: 20px;
-    width: 280px;
-    max-height: 70vh;
+    width: 250px;
+    max-width: 80vw;
+    max-height: 60vh;
     overflow-y: auto;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
     z-index: 999;
     display: none;
-    /* 初期状態は非表示 */
-    transform: translateX(10px);
     opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(-10px);
+    transition: opacity 0.3s, transform 0.3s;
 
-    /* スクロールバーのスタイル */
-    &::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: #c1c1c1;
-        border-radius: 3px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background: #a8a8a8;
-    }
-
-    /* 表示状態 */
     &.show {
         display: block;
-        transform: translateX(0);
         opacity: 1;
+        transform: translateY(0);
     }
 
-    /* 目次のタイトル */
     .floating-toc-title {
-        padding: 15px 20px 5px;
-        margin: 0;
+        margin-top: 0;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #eee;
         font-size: 16px;
-        font-weight: bold;
-        color: var.$text-header;
-        border-bottom: 1px solid var.$border;
     }
 
-    /* 目次のスタイルを継承 */
-    ul.table-of-contents {
-        margin: 0;
+    /* 目次のリスト要素のスタイル調整 */
+    ul {
+        padding-left: 20px;
+        margin-bottom: 0;
+        /* ボックスのリセット */
+        background: none;
+        border: none;
         box-shadow: none;
-        padding: 15px;
-        max-height: calc(70vh - 50px);
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
-    @media #{var.$mq-xs} {
-        width: 85%;
-        right: 10px;
-        left: auto;
-        max-height: 80vh;
+    li {
+        margin-bottom: 5px;
+        /* ボックスのリセット */
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
+
+    a {
+        color: #333;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    /* 元のはてなブログの目次スタイルをリセット */
+    .table-of-contents {
+        padding: 0;
+        margin: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+
+    /* 内部のdivボックスのリセット */
+    >div {
+        padding: 0;
+        margin: 0;
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+}
+
+// 目次の見出しレベルに応じたスタイル
+.floating-toc {
+    ul li ul {
+        margin-top: 5px;
+    }
+
+    ul li ul li a {
+        color: #666; // h2は薄い文字色に
+        font-size: 0.95em;
     }
 }

@@ -17,7 +17,19 @@
         // 目次ボタンを作成
         const tocButton = document.createElement('button');
         tocButton.className = 'toc-button';
-        tocButton.textContent = '目次';
+
+        // 目次テキストとアイコンを含む要素を作成
+        const buttonText = document.createElement('span');
+        buttonText.className = 'toc-button-text';
+        buttonText.textContent = '目次';
+
+        // アイコン要素を作成
+        const buttonIcon = document.createElement('span');
+        buttonIcon.className = 'toc-button-icon';
+
+        // ボタンに要素を追加
+        tocButton.appendChild(buttonText);
+        tocButton.appendChild(buttonIcon);
 
         // フローティング目次コンテナを作成
         const floatingToc = document.createElement('div');
@@ -40,8 +52,11 @@
         document.body.appendChild(floatingToc);
 
         // クリックイベントを設定
-        tocButton.addEventListener('click', function () {
+        tocButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
             floatingToc.classList.toggle('show');
+            tocButton.classList.toggle('active');
         });
 
         // 目次内のリンクがクリックされたときの処理
@@ -50,13 +65,15 @@
             link.addEventListener('click', function () {
                 // 目次を閉じる
                 floatingToc.classList.remove('show');
+                tocButton.classList.remove('active');
             });
         });
 
         // 画面外をクリックしたときに目次を閉じる
         document.addEventListener('click', function (event) {
-            if (!floatingToc.contains(event.target) && event.target !== tocButton) {
+            if (!floatingToc.contains(event.target) && event.target !== tocButton && !tocButton.contains(event.target)) {
                 floatingToc.classList.remove('show');
+                tocButton.classList.remove('active');
             }
         });
 
@@ -80,6 +97,7 @@
             } else {
                 tocButton.style.display = 'none';
                 floatingToc.classList.remove('show'); // 非表示エリアでは目次も閉じる
+                tocButton.classList.remove('active'); // ボタンの状態もリセット
             }
 
             lastScrollTop = scrollTop;
