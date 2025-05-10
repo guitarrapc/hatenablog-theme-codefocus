@@ -5,13 +5,8 @@
 * デザインテーマの確認には、README.mdに記載されているnpmコマンドを実行してローカル開発サーバーを立ち上げてください。
 * はてなブログのデザインテーマは、デザインテーマ制作の手引きにしたがって作成してください。
 * デザインテーマで目指す見た目は、目指すテーマの仕様にしたがって作成してください。
-* 現在の見た目は次のURLで確認できます。
-  * ブログトップ: https://guitarrapc-theme.hatenablog.com/
-  * 最新の記事: https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/010118
-  * Aboutページ: https://guitarrapc-theme.hatenablog.com/about
-  * Archiveページ: https://guitarrapc-theme.hatenablog.com/archive
-  * Archive/Categoryページ: https://guitarrapc-theme.hatenablog.com/archive/category/test
-  * Searchページ: https://guitarrapc-theme.hatenablog.com/search?q=%E3%81%AF%E3%81%A6%E3%81%AA
+* 動作確認に必要なローカル開発サーバーは、ユーザーがすでに起動済みです。Copilot Agent中のローカルサーバー起動は不要です。
+* テーマのレンダリングは[最新の記事](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/010118)を使って確認してください。
 
 # 目指すテーマの仕様
 
@@ -25,8 +20,8 @@
 * エントリーヘッダーに装飾線はつけません。
 * エントリーヘッダーと本文の間に余白をつけますが、必要以上に大きくしないでください。
 * 記事ブロック`main-inner`を`container-innner`と同じ幅にします。
-* 目次は`class="table-of-contents"`で表示されます。目次の上部に`目次`というテキストを表示します。
-* 目次は、h1-h3の見出しを自動的に取得して表示します。
+* 目次は`class="table-of-contents"`でスタイル制御され、目次の中身は見出しh1-h3を自動的に取得して表示します。
+* ページの右上に「目次」ボタンを表示し、クリックすると目次コンテンツを表示します。目次はページの右上に固定され、スクロールしても常に表示されるようにします。
 * h1などの見出し要素はセンター寄せしません。
 
 # デザインテーマ制作の手引き
