@@ -1,22 +1,25 @@
+@use "sass:color";
+@use "./_variable" as var;
+
 html,
 body {
-    font-family: $font-family-base;
-    color: $text;
-    background-color: $background;
+    font-family: var.$font-family-base;
+    color: var.$text;
+    background-color: var.$background;
     line-height: 1.6;
 }
 
 a {
-    color: $link;
+    color: var.$link;
 
     &:hover {
-        color: $hover;
+        color: var.$hover;
     }
 
     &.keyword {
         text-decoration: none;
-        border-bottom: 1px dotted $border;
-        color: $text;
+        border-bottom: 1px dotted var.$border;
+        color: var.$text;
     }
 }
 
@@ -26,15 +29,15 @@ h3,
 h4,
 h5,
 h6 {
-    color: $text-header;
+    color: var.$text-header;
     line-height: 1.3;
 
     a {
-        color: $text-header;
+        color: var.$text-header;
         text-decoration: none;
 
         &:hover {
-            color: $hover;
+            color: var.$hover;
         }
     }
 }
@@ -44,16 +47,14 @@ h6 {
 #footer {
     padding-left: 15px;
     padding-right: 15px;
-    margin: 0 auto;
-
-    @media #{$mq-sm} {
+    margin: 0 auto;    @media #{var.$mq-sm} {
         width: 92%;
         max-width: 750px;
         padding-left: 0;
         padding-right: 0;
     }
 
-    @media #{$mq-md} {
+    @media #{var.$mq-md} {
         width: 85%;
         max-width: 750px;
     }
@@ -76,13 +77,11 @@ h6 {
         max-width: 750px;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    @media #{$mq-sm} {
+    }    @media #{var.$mq-sm} {
         width: 100%;
     }
 
-    @media #{$mq-md} {
+    @media #{var.$mq-md} {
         width: 100%;
     }
 }
@@ -98,29 +97,25 @@ h6 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0 auto;
-
-    @media #{$mq-sm} {
+    margin: 0 auto;    @media #{var.$mq-sm} {
         flex-direction: row;
         justify-content: center;
         margin: 0 -10px;
     }
 
-    @media #{$mq-md} {
+    @media #{var.$mq-md} {
         margin: 0 -15px;
     }
 }
 
 .hatena-module {
     width: 100%;
-    text-align: center;
-
-    @media #{$mq-sm} {
+    text-align: center;    @media #{var.$mq-sm} {
         width: 31%;
         margin: 0 1%;
     }
 
-    @media #{$mq-md} {
+    @media #{var.$mq-md} {
         width: 30%;
         margin: 0 1.5%;
     }
@@ -129,9 +124,7 @@ h6 {
 /* ヘッダ - センター揃え */
 #blog-title {
     margin: 2em 0;
-    text-align: center;
-
-    @media #{$mq-sm} {
+    text-align: center;    @media #{var.$mq-sm} {
         margin: 3em 0;
         text-align: center;
         /* すべての画面サイズでセンター揃え */
@@ -140,14 +133,12 @@ h6 {
 
 #title {
     margin: 0;
-    font-size: 1.5rem;
-
-    @media #{$mq-md} {
+    font-size: 1.5rem;    @media #{var.$mq-md} {
         font-size: 1.7rem;
     }
 
     a {
-        color: $text;
+        color: var.$text;
     }
 }
 
@@ -206,10 +197,8 @@ h6 {
     position: relative;
     display: flex;
     flex-direction: column;
-    padding-left: 10px; /* 全体を10pxパディングで左に統一して揃える */
-
-    /* タイトルを含むヘッダー全体に適用 */
-    @media #{$mq-md} {
+    padding-left: 10px; /* 全体を10pxパディングで左に統一して揃える */    /* タイトルを含むヘッダー全体に適用 */
+    @media #{var.$mq-md} {
         padding: 0 0 0.5em 10px; /* 左パディングを維持、下パディングを調整 */
     }
 
@@ -218,27 +207,25 @@ h6 {
 
 .entry-title {
     order: 1;
-    margin: 0;
-    font-size: 1.5rem;
+    margin: 0;    font-size: 1.5rem;
     text-align: left;
     width: 100%;
 
-    @media #{$mq-md} {
+    @media #{var.$mq-md} {
         font-size: 1.7rem;
     }
 }
 
 .date {
-    order: 2;
-    margin: 0.7em 0 0.4em;
+    order: 2;    margin: 0.7em 0 0.4em;
     /* タイトルの下に表示するために順序を変更、余白を縮小 */
     font-size: .9rem;
     text-align: left;
-    color: $text-light;
+    color: var.$text-light;
     padding-left: 0; /* 左パディングを0にして親要素のパディングを継承 */
 
     a {
-        color: $text-light;
+        color: var.$text-light;
         text-decoration: none;
 
         &:hover {
@@ -262,7 +249,7 @@ h6 {
     }
 
     .date-last-updated {
-        color: $text-light;
+        color: var.$text-light;
         display: inline-block;
 
         &::before {
@@ -283,24 +270,22 @@ h6 {
         background-color: transparent; /* 通常時は背景色なし */
         padding: 4px 10px 4px 0; /* 左パディングを0に変更して揃える */
         display: inline-block;
-        transition: all 0.2s ease;
-        text-decoration: none;
+        transition: all 0.2s ease;        text-decoration: none;
         border: 1px solid transparent; /* 通常時は枠線なし */
-        color: $text; /* カテゴリ自体は本文と同じ色 */
+        color: var.$text; /* カテゴリ自体は本文と同じ色 */
         
-        /* カテゴリの前にハッシュ記号を追加 */
-        &::before {
+        /* カテゴリの前にハッシュ記号を追加 */        &::before {
             content: "#";
             margin-right: 3px;
-            color: $link; /* ハッシュだけ青色 */
+            color: var.$link; /* ハッシュだけ青色 */
             font-weight: bold;
         }        &:hover {
-            background-color: rgba($link, 0.1); /* ホバー時にうっすらと青系の背景色 */
+            background-color: rgba(var.$link, 0.1); /* ホバー時にうっすらと青系の背景色 */
             transform: translateY(-1px);
-            border-color: $link; /* ホバー時に枠線を青系に */
+            border-color: var.$link; /* ホバー時に枠線を青系に */
             border-radius: 20px; /* ホバー時に丸囲み */
             padding: 4px 10px; /* ホバー時にパディングを調整して見栄えを良くする */
-            color: $text; /* ホバー時もカテゴリ自体の色は本文と同じ */
+            color: var.$text; /* ホバー時もカテゴリ自体の色は本文と同じ */
         }
     }
 }
@@ -316,11 +301,9 @@ h6 {
 .entry-content {
     /* タイトルと合わせて本文の配置を調整 */
     display: block;
-    margin: 0 auto;
-
-    /* テキスト選択時のスタイル */
+    margin: 0 auto;    /* テキスト選択時のスタイル */
     ::selection {
-        background-color: rgba($link, 0.2);
+        background-color: rgba(var.$link, 0.2);
     }
 
     /* 段落スタイルを追加 */
@@ -362,9 +345,7 @@ h6 {
     h1 {
         font-size: 1.5rem;
         position: relative;
-        padding-bottom: 0.5em;
-
-        @media #{$mq-md} {
+        padding-bottom: 0.5em;        @media #{var.$mq-md} {
             font-size: 1.7rem;
         }
 
@@ -374,7 +355,7 @@ h6 {
             display: block;
             width: 100%;
             height: 1px;
-            background-color: $border;
+            background-color: var.$border;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -391,7 +372,7 @@ h6 {
         border-bottom: 1px solid #eaeaea;
         /* 細いボーダーのみでシンプルに */
 
-        @media #{$mq-md} {
+        @media #{var.$mq-md} {
             font-size: 1.5rem;
         }
     }
@@ -402,9 +383,7 @@ h6 {
         margin-top: 1.8em;
         margin-bottom: 0.8em;
         color: #444;
-        /* h2より少し薄い色にして階層を表現 */
-
-        @media #{$mq-md} {
+        /* h2より少し薄い色にして階層を表現 */        @media #{var.$mq-md} {
             font-size: 1.3rem;
         }
     }
@@ -445,10 +424,9 @@ h6 {
         max-width: 100%;
         overflow-x: auto;
         display: block;
-        font-size: .85rem;
-        /* box-shadowとborder-radiusを削除 - テーブル自体にはボーダーを適用しない */
+        font-size: .85rem;        /* box-shadowとborder-radiusを削除 - テーブル自体にはボーダーを適用しない */
 
-        @media #{$mq-md} {
+        @media #{var.$mq-md} {
             font-size: .9rem;
             width: 85%;
         }
@@ -456,18 +434,16 @@ h6 {
 
     table th,
     table td {
-        border: 1px solid $border;
+        border: 1px solid var.$border;
         padding: 8px 12px;
         text-align: left;
-    }
-
-    table th {
-        background: $bg-light;
+    }    table th {
+        background: var.$bg-light;
         font-weight: bold;
     }
 
     blockquote {
-        border: 1px solid $border;
+        border: 1px solid var.$border;
         margin: 1.5em auto;
         padding: 20px;
         max-width: 90%;
@@ -481,15 +457,13 @@ h6 {
         p:last-of-type {
             margin-bottom: 0;
         }
-    }
-
-    pre,
+    }    pre,
     code {
-        font-family: $font-family-monospace;
+        font-family: var.$font-family-monospace;
     }
 
     pre {
-        background: $bg-light;
+        background: var.$bg-light;
         border: none;
         white-space: pre-wrap;
         text-overflow: ellipsis;
@@ -504,10 +478,9 @@ h6 {
         &>code {
             margin: 0;
             padding: 0;
-            white-space: pre;
-            border: none;
+            white-space: pre;            border: none;
             background-color: transparent;
-            font-family: $font-family-monospace;
+            font-family: var.$font-family-monospace;
         }
     }
 
@@ -515,15 +488,14 @@ h6 {
         font-size: 90%;
         margin: 0 2px;
         padding: 2px 5px;
-        background-color: $bg-light;
+        background-color: var.$bg-light;
         border-radius: 3px;
     }
 
     hr {
         width: 50%;
         border: 0;
-        border: none;
-        border-top: 1px solid $border;
+        border: none;        border-top: 1px solid var.$border;
         margin: 2.5em auto;
     }
 
@@ -545,9 +517,9 @@ h6 {
             left: 1.5em;
             font-weight: bold;
             font-size: 1.2em;
-            color: $text-header;
+            color: var.$text-header;
             padding-bottom: 0.5em;
-            border-bottom: 2px solid $link;
+            border-bottom: 2px solid var.$link;
             display: inline-block;
             width: calc(100% - 3em);
             /* 左右余白を除いた幅 */
@@ -573,17 +545,14 @@ h6 {
                     padding-left: 1.5em;
                     font-weight: 600;
                     position: relative;
-                    text-decoration: none;
-                    color: $text-header;
+                    text-decoration: none;                    color: var.$text-header;
                     margin: 0.2em 0;
                     line-height: 1.4;
 
                     &:hover {
-                        color: $link;
+                        color: var.$link;
                         transform: translateX(3px);
-                    }
-
-                    /* h2の前に小さいアイコン */
+                    }                    /* h2の前に小さい青点のアイコン */
                     &::before {
                         content: "";
                         position: absolute;
@@ -592,22 +561,18 @@ h6 {
                         transform: translateY(-50%);
                         width: 10px;
                         height: 10px;
-                        background-color: $link;
-                        border-radius: 2px;
+                        background-color: var.$link;
+                        border-radius: 50%; /* 正方形から円形に変更 */
                         transition: all 0.2s ease;
                     }
-                }
-
-                &:hover>a::before {
-                    background-color: darken($link, 10%);
+                }                &:hover>a::before {
+                    background-color: color.adjust(var.$link, $lightness: -10%);
                     transform: translateY(-50%) scale(1.2);
-                }
-
-                /* 第二階層（h3）は表示 */
+                }                /* 第二階層（h3）は表示 */
                 &>ul {
                     margin: 0.5em 0 0.5em 1.5em;
                     padding-left: 0.5em;
-                    border-left: 2px solid rgba($link, 0.2);
+                    border-left: 2px solid rgba(var.$link, 0.2);
 
                     /* 第二階層のリスト（h3） */
                     &>li {
@@ -621,17 +586,14 @@ h6 {
                             padding-left: 1.2em;
                             font-weight: normal;
                             position: relative;
-                            font-size: 0.92em;
-                            color: $text-light;
+                            font-size: 0.92em;                            color: var.$text-light;
                             text-decoration: none;
                             line-height: 1.3;
 
                             &:hover {
-                                color: $link;
+                                color: var.$link;
                                 transform: translateX(3px);
-                            }
-
-                            /* h3の前に小さいドット */
+                            }                            /* h3の前に小さい青点 */
                             &::before {
                                 content: "";
                                 position: absolute;
@@ -640,14 +602,12 @@ h6 {
                                 transform: translateY(-50%);
                                 width: 5px;
                                 height: 5px;
-                                background-color: rgba($link, 0.7);
+                                background-color: var.$link; /* 半透明から通常の青色に変更 */
                                 border-radius: 50%;
                                 transition: all 0.2s ease;
                             }
-                        }
-
-                        &:hover>a::before {
-                            background-color: $link;
+                        }                        &:hover>a::before {
+                            background-color: var.$link;
                             transform: translateY(-50%) scale(1.2);
                         }
 
@@ -675,11 +635,11 @@ h6 {
 }
 
 .entry-footer-section {
-    color: $text-light;
+    color: var.$text-light;
     font-size: .9rem;
 
     a {
-        color: $text-light;
+        color: var.$text-light;
     }
 }
 
@@ -691,21 +651,20 @@ h6 {
         list-style: none;
         margin: 0 0 15px 0;
         padding: 0;
-        line-height: 1.7;
-        font-size: .85rem;
+        line-height: 1.7;        font-size: .85rem;
 
-        @media #{$mq-sm} {
+        @media #{var.$mq-sm} {
             font-size: .9rem;
         }
     }
 
     .entry-comment {
         padding: 10px 0 10px 60px;
-        border-bottom: 1px solid $border;
+        border-bottom: 1px solid var.$border;
         position: relative;
 
         &:first-child {
-            border-top: 1px solid $border;
+            border-top: 1px solid var.$border;
         }
     }
 
@@ -728,10 +687,9 @@ h6 {
     font-weight: bold;
 }
 
-.comment-content {
-    margin: 0 0 .4em 0;
+.comment-content {    margin: 0 0 .4em 0;
     word-wrap: break-word;
-    color: $text;
+    color: var.$text;
     font-size: .85rem;
 
     p {
@@ -740,19 +698,19 @@ h6 {
 }
 
 .comment-metadata {
-    color: $text-light;
+    color: var.$text-light;
     margin: 0;
     font-size: .8rem;
 
     a {
-        color: $text-light;
+        color: var.$text-light;
     }
 }
 
 .leave-comment-title {
     padding: .6em 1em;
     font-size: .85rem;
-    border: 1px solid $border;
+    border: 1px solid var.$border;
 }
 
 /* Pager */
@@ -767,10 +725,9 @@ h6 {
 /* サイドバーモジュール */
 .hatena-module {
     box-sizing: border-box;
-    margin-bottom: 3em;
-    font-size: .85rem;
+    margin-bottom: 3em;    font-size: .85rem;
 
-    @media #{$mq-sm} {
+    @media #{var.$mq-sm} {
         font-size: .9rem;
     }
 }
@@ -778,14 +735,12 @@ h6 {
 .hatena-module-title {
     margin-bottom: .6em;
     padding-bottom: .2em;
-    border-bottom: 1px solid $border;
+    border-bottom: 1px solid var.$border;
     font-size: 1rem;
     font-weight: bold;
     text-align: center;
-    /* モジュールタイトルは中央揃え */
-
-    a {
-        color: $text;
+    /* モジュールタイトルは中央揃え */    a {
+        color: var.$text;
         text-decoration: none;
 
         &:hover {
@@ -849,7 +804,7 @@ h6 {
     }
 
     .urllist-date-link a {
-        color: $text-light;
+        color: var.$text-light;
     }
 
     .urllist-entry-body {
@@ -860,7 +815,7 @@ h6 {
 /* Search module */
 .hatena-module-search-box {
     .search-form {
-        border: 1px solid $border;
+        border: 1px solid var.$border;
         border-radius: 3px;
         width: 100%;
         box-sizing: border-box;
@@ -869,9 +824,8 @@ h6 {
     }
 
     .search-module-input {
-        flex: 1 0;
-        padding: 5px;
-        color: $text;
+        flex: 1 0;        padding: 5px;
+        color: var.$text;
         background: none;
         border: none;
         outline: none;
@@ -902,7 +856,7 @@ h6 {
     .entry-content {
         dt {
             font-weight: bold;
-            border-bottom: 1px solid $border;
+            border-bottom: 1px solid var.$border;
             margin-bottom: .5em;
         }
 
@@ -944,10 +898,8 @@ h6 {
         font-size: 1.3rem;
 
         a {
-            text-decoration: none;
-
-            &:hover {
-                color: $link;
+            text-decoration: none;            &:hover {
+                color: var.$link;
             }
         }
     }
@@ -959,7 +911,7 @@ h6 {
         border-radius: 5px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
-        @media #{$mq-sm} {
+        @media #{var.$mq-sm} {
             width: 130px;
             height: 130px;
         }
@@ -969,7 +921,7 @@ h6 {
         margin: 0;
         font-size: .85rem;
 
-        @media #{$mq-sm} {
+        @media #{var.$mq-sm} {
             font-size: .9rem;
         }
     }
@@ -989,10 +941,10 @@ h6 {
     padding-bottom: 2rem;
     text-align: center;
     font-size: .8rem;
-    color: $text-light;
+    color: var.$text-light;
 
     a {
-        color: $text-light;
+        color: var.$text-light;
     }
 
     p {

@@ -1,4 +1,5 @@
 // Variables
+@use "sass:color";
 
 // Font
 $font-family-base: 'Helvetica Neue', 'Helvetica', 'Arial', 'Hiragino Kaku Gothic Pro', 'Meiryo', 'MS PGothic';
@@ -15,7 +16,7 @@ $text-header: #333;
 
 // link
 $link: #1487bd;
-$hover: darken($link, 10%);
+$hover: color.adjust($link, $lightness: -10%);
 
 // border
 $border: #ddd;
