@@ -14,7 +14,7 @@
     padding: 8px 12px;
     border: 1px solid #ccc; // 薄い灰色の枠線
     border-radius: 4px;
-    background-color: transparent; // 背景色なし
+    background-color: var.$background;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
