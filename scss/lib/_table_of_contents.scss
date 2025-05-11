@@ -4,9 +4,9 @@
 /* 目次のスタイル */
 ul.table-of-contents {
     position: relative;
-    background-color: #ffffff;
+    background-color: var.$background;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px var.$shadow;
     border: none;
     transition: all 0.3s ease;
     /* .entry-content ul の max-width を上書き */
@@ -16,7 +16,7 @@ ul.table-of-contents {
 
     /* 目次全体のホバー効果 */
     &:hover {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 5px 15px var.$shadow-hover;
     }
 
     /* 目次内の縦線（Zenn風） */
