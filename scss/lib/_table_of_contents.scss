@@ -133,12 +133,11 @@ ul.table-of-contents {
                         left: 0em;
                         /* 縦線と中心を合わせる */
                         top: 50%;
-                        transform: translateY(-50%) translateX(-50%);
                         /* 中心を基準にする */
-                        width: 8px;
-                        /* h1と同じサイズ */
-                        height: 8px;
-                        /* h1と同じサイズ */
+                        transform: translateY(-50%) translateX(-50%);
+                        /* h1より一回り小さいサイズ */
+                        width: 4px;
+                        height: 4px;
                         background-color: var.$toc-marker;
                         border-radius: 50%;
                         z-index: 1;
