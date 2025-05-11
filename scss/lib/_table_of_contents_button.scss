@@ -86,6 +86,15 @@
 
     /* 目次のリスト要素のスタイル調整 */
     ul {
+        padding-left: 0;
+        margin-bottom: 0;
+        /* ボックスのリセット */
+        background: none;
+        border: none;
+        box-shadow: none;
+        padding-top: 0;
+        padding-bottom: 0;
+        position: relative;
 
         /* 元の縦線位置を調整して青マーカーと合わせる */
         &:before {
@@ -95,9 +104,78 @@
             bottom: 1.0rem;
             /* 青丸マーカーの中心に合わせる */
             left: 0rem;
-            width: 0.2em;
+            width: 3px;
             background-color: #e6f2ff;
             z-index: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+            position: relative;
+            // 左インデントを揃える
+            padding-left: 0;
+            /* ボックスのリセット */
+            background: none;
+            border: none;
+            box-shadow: none;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        /* 青い丸のマーカー */
+        li:before {
+            content: '';
+            position: absolute;
+            top: 7px;
+            left: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #4a89dc;
+            z-index: 1;
+        }
+
+        /* h1タイトルのスタイル */
+        li>a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        /* h2以下のスタイル */
+        li li>a {
+            color: #777; // 少し薄い色に
+            font-weight: normal;
+        }
+
+        /* h2のネストを解除 - 左インデントを揃える */
+        ul li ul {
+            margin-top: 5px;
+            margin-bottom: 0;
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+        /* 全てのネストレベルを均一にする */
+        ul li ul,
+        ul li ul li ul,
+        ul li ul li ul li ul,
+        ul li ul li ul li ul li ul {
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+        /* h2以降のすべてのレベルのマーカー位置を揃える */
+        ul li ul li:before,
+        ul li ul li ul li:before,
+        ul li ul li ul li ul li:before,
+        ul li ul li ul li ul li ul li:before {
+            left: 4px;
         }
     }
 
@@ -118,5 +196,16 @@
         background: none;
         border: none;
         box-shadow: none;
+    }
+}
+
+// 目次の見出しレベルに応じたスタイル
+.floating-toc {
+
+    /* 特殊なケース: 標準のブラウザスタイルを上書き */
+    .table-of-contents li::marker,
+    .table-of-contents ul li::marker,
+    .table-of-contents li::before {
+        content: none !important;
     }
 }
