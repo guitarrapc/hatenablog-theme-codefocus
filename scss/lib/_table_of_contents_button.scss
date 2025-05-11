@@ -90,7 +90,8 @@
     }
 
     /* 目次のリスト要素のスタイル調整 */
-    ul {
+    ul.floating-toc-list {
+        position: relative;
         padding-left: 0;
         margin-bottom: 0;
         /* ボックスのリセット */
@@ -99,7 +100,9 @@
         box-shadow: none;
         padding-top: 0;
         padding-bottom: 0;
-        position: relative;
+
+        /* 目次内の標準リストマーカーをすべて消す */
+        list-style: none !important;
 
         /* 目次内の縦線（Zenn風） */
         &:before {
@@ -114,103 +117,127 @@
             z-index: 0;
         }
 
-        li {
-            margin-bottom: 5px;
+        /* トップレベルの項目（h1とその他の見出し） */
+        &>li {
+            margin: 0.8em 0;
+            padding-left: 0;
             position: relative;
-            // 左インデントを揃える
-            padding-left: 0;
-            /* ボックスのリセット */
-            background: none;
-            border: none;
-            box-shadow: none;
-            padding-top: 0;
-            padding-bottom: 0;
+            transition: all 0.2s ease;
+
+            /* すべてのトップレベル見出しのリンクスタイル基本設定 */
+            &>a {
+                display: flex;
+                align-items: center;
+                padding-left: 1em;
+                /* 青丸マーカーの右側に十分なスペースを確保 */
+                font-weight: bold;
+                /* h1は太字 */
+                position: relative;
+                text-decoration: none;
+                color: var.$text-low-priority;
+                /* 濃い文字色 */
+                margin: 0.2em 0;
+                line-height: 1.4;
+                font-size: 1rem;
+
+                &:hover {
+                    color: var.$text;
+                    transform: translateX(3px);
+                    background-color: rgba(20, 135, 189, 0.05);
+                    /* var.$link-rgb の値を直接指定 */
+                    border-radius: 15px;
+                    padding-right: 10px;
+                }
+
+                /* すべての見出しの前の青点のアイコン（Zenn風） */
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 0em;
+                    /* 縦線と中心を合わせる */
+                    top: 50%;
+                    transform: translateY(-50%) translateX(-50%);
+                    /* 中心を基準にする */
+                    width: 8px;
+                    height: 8px;
+                    background-color: var.$toc-marker;
+                    border-radius: 50%;
+                    z-index: 1;
+                    /* 縦線の上に表示 */
+                    transition: all 0.2s ease;
+                }
+            }
+
+            &:hover>a::before {
+                background-color: color.adjust(var.$link, $lightness: -10%);
+            }
+
+            /* h2階層（h1の下の階層） */
+            &>ul {
+                display: block;
+                /* 表示する */
+                padding-left: 0;
+                /* Zenn風にインデントをなくす */
+                margin: 0.3em 0;
+
+                /* h2階層の項目 */
+                li {
+                    margin: 0.5em 0;
+
+                    /* 目次内の標準リストマーカーをすべて消す */
+                    list-style: none !important;
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        padding-left: 1em;
+                        /* 青丸マーカーの右側に十分なスペースを確保 */
+                        /* h1と同じ位置からスタート */
+                        font-weight: normal;
+                        position: relative;
+                        text-decoration: none;
+                        color: var.$text-low-priority;
+                        /* Zenn風の薄い色 */
+                        margin: 0.2em 0;
+                        line-height: 1.4;
+                        font-size: 0.95rem;
+                        /* h1よりやや小さく */
+
+                        &:hover {
+                            color: var.$link;
+                            transform: translateX(3px);
+                            background-color: rgba(20, 135, 189, 0.05);
+                            /* var.$link-rgb の値を直接指定 */
+                            border-radius: 15px;
+                            padding-right: 10px;
+                        }
+
+                        /* h2の前にも同じ青点のアイコン */
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            left: 0em;
+                            /* 縦線と中心を合わせる */
+                            top: 50%;
+                            /* 中心を基準にする */
+                            transform: translateY(-50%) translateX(-50%);
+                            /* h1より一回り小さいサイズ */
+                            width: 4px;
+                            height: 4px;
+                            background-color: var.$toc-marker;
+                            border-radius: 50%;
+                            z-index: 1;
+                            /* 縦線の上に表示 */
+                            transition: all 0.2s ease;
+                        }
+                    }
+
+                    /* h3以降を非表示 */
+                    &>ul {
+                        display: none;
+                    }
+                }
+            }
         }
-
-        /* 青い丸のマーカー */
-        li:before {
-            content: '';
-            position: absolute;
-            top: 7px;
-            left: 4px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var.$toc-marker;
-            z-index: 1;
-        }
-
-        /* h1タイトルのスタイル */
-        li>a {
-            color: var.$text-low-priority;
-            text-decoration: none;
-            font-weight: bold;
-            display: block;
-        }
-
-        /* h2以下のスタイル */
-        li li>a {
-            color: var.$text-low-priority; // 少し薄い色に
-            font-weight: normal;
-        }
-
-        /* h2のネストを解除 - 左インデントを揃える */
-        ul li ul {
-            margin-top: 5px;
-            margin-bottom: 0;
-            padding-left: 0;
-            margin-left: 0;
-        }
-
-        /* 全てのネストレベルを均一にする */
-        ul li ul,
-        ul li ul li ul,
-        ul li ul li ul li ul,
-        ul li ul li ul li ul li ul {
-            padding-left: 0;
-            margin-left: 0;
-        }
-
-        /* h2以降のすべてのレベルのマーカー位置を揃える */
-        ul li ul li:before,
-        ul li ul li ul li:before,
-        ul li ul li ul li ul li:before,
-        ul li ul li ul li ul li ul li:before {
-            left: 4px;
-        }
-    }
-
-    /* 元のはてなブログの目次スタイルをリセット */
-    .table-of-contents {
-        padding: 0;
-        padding-left: 0.1rem;
-        margin: 0;
-        background: none;
-        border: none;
-        box-shadow: none;
-
-        &:hover {
-            box-shadow: none;
-        }
-    }
-}
-
-/* 内部のdivボックスのリセット */
->div {
-    padding: 0;
-    margin: 0;
-    background: none;
-    border: none;
-    box-shadow: none;
-}
-
-// 目次の見出しレベルに応じたスタイル
-.floating-toc {
-
-    /* 特殊なケース: 標準のブラウザスタイルを上書き */
-    .table-of-contents li::marker,
-    .table-of-contents ul li::marker,
-    .table-of-contents li::before {
-        content: none !important;
     }
 }

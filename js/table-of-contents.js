@@ -42,7 +42,7 @@
         const tocClone = tableOfContents.cloneNode(true);
 
         // フローティング目次用のクラスを追加
-        tocClone.classList.add('floating-toc-list');
+        tocClone.classList = 'floating-toc-list';
 
         // フローティング目次に要素を追加
         floatingToc.appendChild(tocTitle);
