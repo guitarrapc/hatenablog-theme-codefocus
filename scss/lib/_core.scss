@@ -314,7 +314,7 @@ h6 {
         }
 
         &:hover {
-            background-color: rgba(var.$link, 0.1);
+            background-color: rgba(20, 135, 189, 0.1);
             /* ホバー時にうっすらと青系の背景色 */
             transform: translateY(-1px);
             border-color: var.$link;
@@ -449,8 +449,8 @@ h6 {
     ol,
     dd {
         margin: 0 auto 1.5em;
-        padding: 0 0 0 2em;
-        max-width: 90%;
+        padding: 0 0 0 1em;
+        max-width: 100%;
 
         li {
             margin-bottom: 0.5em;

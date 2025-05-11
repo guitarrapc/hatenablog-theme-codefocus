@@ -125,12 +125,148 @@
         border-bottom: 1px solid var.$border;
     }
 
-    /* 目次のスタイルを継承 */
-    ul.table-of-contents {
-        margin: 0;
+    /* フローティング目次専用のスタイル */
+    ul.floating-toc-list {
+        position: relative;
+        margin: 0 !important;
         box-shadow: none;
-        padding: 15px;
+        padding: 15px !important;
         max-height: calc(70vh - 50px);
+        list-style: none !important;
+        max-width: none !important;
+        /* .entry-content ul の max-width を上書き */
+
+        /* 縦線を追加（Zenn風） */
+        &::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            bottom: 15px;
+            left: 15px;
+            /* 青丸マーカーの中心に合わせる */
+            width: 2px;
+            background-color: rgba(20, 135, 189, 0.3);
+            /* var.$link-rgb の値を直接指定 */
+            border-radius: 1px;
+        }
+
+        /* トップレベルの項目（h1とその他の見出し） */
+        &>li {
+            margin: 0.8em 0;
+            padding-left: 0;
+            position: relative;
+            transition: all 0.2s ease;
+
+            /* すべてのトップレベル見出しのリンクスタイル */
+            &>a {
+                display: flex;
+                align-items: center;
+                padding-left: 3em;
+                /* 青丸マーカーの右側に十分なスペース */
+                font-weight: bold;
+                /* h1は太字 */
+                position: relative;
+                text-decoration: none;
+                color: #333;
+                /* 濃い文字色 */
+                margin: 0.2em 0;
+                line-height: 1.4;
+                font-size: 1rem;
+
+                &:hover {
+                    color: var.$link;
+                    transform: translateX(3px);
+                    background-color: rgba(20, 135, 189, 0.05);
+                    border-radius: 15px;
+                    padding-right: 10px;
+                }
+
+                /* 青点マーカー */
+                &::before {
+                    content: "";
+                    position: absolute;
+                    left: 15px;
+                    /* 縦線と中心を合わせる */
+                    top: 50%;
+                    transform: translateY(-50%) translateX(-50%);
+                    /* 中心を基準にする */
+                    width: 8px;
+                    height: 8px;
+                    background-color: var.$link;
+                    border-radius: 50%;
+                    z-index: 1;
+                    transition: all 0.2s ease;
+                }
+            }
+
+            &:hover>a::before {
+                background-color: color.adjust(var.$link, $lightness: -10%);
+                transform: translateY(-50%) translateX(-50%) scale(1.2);
+            }
+
+            /* h2階層（h1の下の階層） */
+            &>ul {
+                display: block;
+                padding-left: 0;
+                /* Zenn風にインデントをなくす */
+                margin: 0.3em 0;
+
+                /* h2階層の項目 */
+                li {
+                    margin: 0.5em 0;
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        padding-left: 3em;
+                        /* h1と同じ位置 */
+                        font-weight: normal;
+                        position: relative;
+                        text-decoration: none;
+                        color: #777;
+                        /* Zenn風の薄い色 */
+                        margin: 0.2em 0;
+                        line-height: 1.4;
+                        font-size: 0.95rem;
+                        /* h1よりやや小さく */
+
+                        &:hover {
+                            color: var.$link;
+                            transform: translateX(3px);
+                            background-color: rgba(20, 135, 189, 0.05);
+                            border-radius: 15px;
+                            padding-right: 10px;
+                        }
+
+                        /* h2の青点マーカー */
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            left: 15px;
+                            /* 縦線と中心を合わせる */
+                            top: 50%;
+                            transform: translateY(-50%) translateX(-50%);
+                            width: 8px;
+                            height: 8px;
+                            background-color: var.$link;
+                            border-radius: 50%;
+                            z-index: 1;
+                            transition: all 0.2s ease;
+                        }
+                    }
+
+                    &:hover>a::before {
+                        background-color: color.adjust(var.$link, $lightness: -10%);
+                        transform: translateY(-50%) translateX(-50%) scale(1.2);
+                    }
+
+                    /* h3以降を非表示 */
+                    &>ul {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
 
     @media #{var.$mq-xs} {

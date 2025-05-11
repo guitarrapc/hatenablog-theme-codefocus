@@ -17,6 +17,7 @@ $text-header: #333;
 // link
 $link: #1487bd;
 $hover: color.adjust($link, $lightness: -10%);
+$link-bg: rgba(20, 135, 189, 0.1); // カテゴリホバー用の薄い青背景色
 
 // border
 $border: #ddd;
