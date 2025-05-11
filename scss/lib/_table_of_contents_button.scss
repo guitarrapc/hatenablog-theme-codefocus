@@ -70,6 +70,11 @@
     transform: translateY(-10px);
     transition: opacity 0.3s, transform 0.3s;
 
+    /* 目次全体のホバー効果 */
+    &:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+    }
+
     &.show {
         display: block;
         opacity: 1;
@@ -187,16 +192,20 @@
         background: none;
         border: none;
         box-shadow: none;
-    }
 
-    /* 内部のdivボックスのリセット */
-    >div {
-        padding: 0;
-        margin: 0;
-        background: none;
-        border: none;
-        box-shadow: none;
+        &:hover {
+            box-shadow: none;
+        }
     }
+}
+
+/* 内部のdivボックスのリセット */
+>div {
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
 }
 
 // 目次の見出しレベルに応じたスタイル
