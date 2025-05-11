@@ -3,10 +3,13 @@
     // このスクリプトは目次ボタンと目次表示を実装します
     (function () {
         'use strict';
+
+        // DOMの読み込み完了後に実行
         document.addEventListener('DOMContentLoaded', function () {
             // 記事ページ（エントリーページ）かどうかをチェック
             const entryContent = document.querySelector('.entry-content');
             if (!entryContent) return; // 記事ページでなければ何もしない
+
             // 目次の要素を取得
             const tableOfContents = document.querySelector('.entry-content .table-of-contents');
             if (!tableOfContents) return; // 目次がなければ何もしない
@@ -17,6 +20,7 @@
 
             // 目次テキストとアイコンを含む要素を作成
             const buttonText = document.createElement('span');
+            buttonText.className = 'toc-button-text';
             buttonText.textContent = '目次';
 
             // アイコン要素を作成
@@ -35,9 +39,11 @@
             const tocTitle = document.createElement('h4');
             tocTitle.className = 'floating-toc-title';
             tocTitle.textContent = '目次';
-
             // 目次のクローンを作成
             const tocClone = tableOfContents.cloneNode(true);
+
+            // フローティング目次用のクラスを追加
+            tocClone.classList = 'floating-toc-list';
 
             // フローティング目次に要素を追加
             floatingToc.appendChild(tocTitle);
@@ -80,6 +86,9 @@
             window.addEventListener('scroll', function () {
                 const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
+                // スクロール方向を判定（上下）
+                const isScrollingDown = scrollTop > lastScrollTop;
+
                 // 記事が表示されているエリアかどうかをチェック
                 const entryRect = entryContent.getBoundingClientRect();
                 const isEntryVisible = entryRect.top < window.innerHeight && entryRect.bottom > 0;
@@ -90,7 +99,7 @@
                 } else {
                     tocButton.style.display = 'none';
                     floatingToc.classList.remove('show'); // 非表示エリアでは目次も閉じる
-                    tocButton.classList.remove('active');
+                    tocButton.classList.remove('active'); // ボタンの状態もリセット
                 }
 
                 lastScrollTop = scrollTop;

@@ -38,7 +38,8 @@
         // 目次のタイトル要素を作成
         const tocTitle = document.createElement('h4');
         tocTitle.className = 'floating-toc-title';
-        tocTitle.textContent = '目次';        // 目次のクローンを作成
+        tocTitle.textContent = '目次';
+        // 目次のクローンを作成
         const tocClone = tableOfContents.cloneNode(true);
 
         // フローティング目次用のクラスを追加
