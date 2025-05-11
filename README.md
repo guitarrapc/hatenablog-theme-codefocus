@@ -45,7 +45,7 @@ $ npm install
     ``` css
     /* Responsive: yes */
     ```
-3. 1.のブログの「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」を下記に置き換えて保存します。
+3. 1.のブログの「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
     ``` html
     <script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/boilerplate.scss" crossorigin="anonymous" />
@@ -55,7 +55,7 @@ $ npm install
 
 本テーマには、ページ右上に固定表示される「目次」ボタンの機能が含まれています。この機能を使用するには、上記の設定に加えて以下の手順を行ってください。
 
-1. 「デザイン」->「カスタマイズ」->「記事」にアクセスし、「記事上HTML（記事本文上）」に次のスクリプトタグを追加します。
+1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
    ``` html
    <script type="text/javascript" src="http://localhost:5173/js/table-of-contents.js" crossorigin="anonymous"></script>
    ```
