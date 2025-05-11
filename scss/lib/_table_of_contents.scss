@@ -28,7 +28,7 @@ ul.table-of-contents {
         /* 青丸マーカーの中心に合わせる */
         left: 1.9rem;
         width: 3px;
-        background-color: #e6f2ff;
+        background-color: var.$toc-border-bg;
     }
 
     /* トップレベルの項目（h1とその他の見出し） */
@@ -74,7 +74,7 @@ ul.table-of-contents {
                 /* 中心を基準にする */
                 width: 8px;
                 height: 8px;
-                background-color: var.$link;
+                background-color: var.$toc-marker;
                 border-radius: 50%;
                 z-index: 1;
                 /* 縦線の上に表示 */
@@ -139,7 +139,7 @@ ul.table-of-contents {
                         /* h1と同じサイズ */
                         height: 8px;
                         /* h1と同じサイズ */
-                        background-color: var.$link;
+                        background-color: var.$toc-marker;
                         border-radius: 50%;
                         z-index: 1;
                         /* 縦線の上に表示 */

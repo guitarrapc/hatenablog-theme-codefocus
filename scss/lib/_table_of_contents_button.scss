@@ -38,8 +38,8 @@
             display: block;
             width: 6px;
             height: 6px;
-            border-top: 2px solid #666;
-            border-right: 2px solid #666;
+            border-top: 2px solid var.$border;
+            border-right: 2px solid var.$border;
             transform: rotate(-45deg); // 上向き矢印
             transition: transform 0.3s ease;
         }
@@ -85,7 +85,7 @@
         margin-top: 0;
         margin-bottom: 10px;
         padding-bottom: 5px;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var.$border;
         font-size: 16px;
     }
 
@@ -101,7 +101,7 @@
         padding-bottom: 0;
         position: relative;
 
-        /* 元の縦線位置を調整して青マーカーと合わせる */
+        /* 目次内の縦線（Zenn風） */
         &:before {
             content: '';
             position: absolute;
@@ -110,7 +110,7 @@
             /* 青丸マーカーの中心に合わせる */
             left: 0rem;
             width: 3px;
-            background-color: #e6f2ff;
+            background-color: var.$toc-border-bg;
             z-index: 0;
         }
 
@@ -136,7 +136,7 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background-color: #4a89dc;
+            background-color: var.$toc-marker;
             z-index: 1;
         }
 
