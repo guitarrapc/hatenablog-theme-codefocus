@@ -106,7 +106,7 @@
             content: '';
             position: absolute;
             top: 1.0rem;
-            bottom: 1.0rem;
+            bottom: 1.5rem;
             /* 青丸マーカーの中心に合わせる */
             left: 0rem;
             width: 3px;
@@ -142,19 +142,15 @@
 
         /* h1タイトルのスタイル */
         li>a {
-            color: #333;
+            color: var.$text-low-priority;
             text-decoration: none;
             font-weight: bold;
             display: block;
-
-            &:hover {
-                text-decoration: underline;
-            }
         }
 
         /* h2以下のスタイル */
         li li>a {
-            color: #777; // 少し薄い色に
+            color: var.$text-low-priority; // 少し薄い色に
             font-weight: normal;
         }
 

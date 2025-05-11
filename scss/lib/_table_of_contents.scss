@@ -48,14 +48,14 @@ ul.table-of-contents {
             /* h1は太字 */
             position: relative;
             text-decoration: none;
-            color: #333;
+            color: var.$text-low-priority;
             /* 濃い文字色 */
             margin: 0.2em 0;
             line-height: 1.4;
             font-size: 1rem;
 
             &:hover {
-                color: var.$link;
+                color: var.$text;
                 transform: translateX(3px);
                 background-color: rgba(20, 135, 189, 0.05);
                 /* var.$link-rgb の値を直接指定 */
@@ -84,7 +84,6 @@ ul.table-of-contents {
 
         &:hover>a::before {
             background-color: color.adjust(var.$link, $lightness: -10%);
-            transform: translateY(-50%) scale(1.2);
         }
 
         /* h2階層（h1の下の階層） */
@@ -111,7 +110,7 @@ ul.table-of-contents {
                     font-weight: normal;
                     position: relative;
                     text-decoration: none;
-                    color: #777;
+                    color: var.$text-low-priority;
                     /* Zenn風の薄い色 */
                     margin: 0.2em 0;
                     line-height: 1.4;
@@ -146,11 +145,6 @@ ul.table-of-contents {
                         /* 縦線の上に表示 */
                         transition: all 0.2s ease;
                     }
-                }
-
-                &:hover>a::before {
-                    background-color: color.adjust(var.$link, $lightness: -10%);
-                    transform: translateY(-50%) scale(1.2);
                 }
 
                 /* h3以降を非表示 */
