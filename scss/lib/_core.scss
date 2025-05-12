@@ -728,10 +728,18 @@ h6 {
 /* Pager */
 
 .pager {
-    margin: 2em auto;
+    margin: 3em auto;
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    justify-content: center;
+}
+
+.pager a {
+    padding: .7em;
+    background: var.$background;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
 }
 
 /* サイドバーモジュール */
@@ -742,6 +750,7 @@ h6 {
 
     @media #{var.$mq-sm} {
         font-size: .9rem;
+        padding-left: 30px;
     }
 }
 
