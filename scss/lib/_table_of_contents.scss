@@ -9,10 +9,8 @@ ul.table-of-contents {
     box-shadow: 0 2px 8px var.$shadow;
     border: none;
     transition: all 0.3s ease;
-    /* .entry-content ul の max-width を上書き */
-    max-width: none !important;
-    /* 目次内の標準リストマーカーをすべて消す */
-    list-style: none !important;
+    padding: 0; // 全方向のパディングをリセット
+    margin: 0; // 全方向のマージンをリセット
 
     /* 目次全体のホバー効果 */
     &:hover {
@@ -26,28 +24,32 @@ ul.table-of-contents {
         top: 1.0rem;
         bottom: 1.0rem;
         /* 青丸マーカーの中心に合わせる */
-        left: 1.1rem;
+        left: 1.25rem;
         width: 3px;
         background-color: var.$toc-border-bg;
+        z-index: 0;
     }
 
     /* トップレベルの項目（h1とその他の見出し） */
     &>li {
         margin: 0.8em 0;
-        padding-left: 1em;
+        padding-left: 1.2em;
         position: relative;
         transition: all 0.2s ease;
+
+        /* 目次内の標準リストマーカーをすべて消す */
+        list-style: none;
 
         /* h1項目の青丸マーカー */
         &::before {
             content: "";
             position: absolute;
-            left: 0em;
-            top: 0.5em;
-            /* 位置を調整 */
+            left: 0em; // 左端に配置
+            top: 0.25em;
             width: 8px;
             height: 8px;
             background-color: var.$toc-marker;
+            border: 2px solid var.$background;
             border-radius: 50%;
             z-index: 1;
             transition: all 0.2s ease;
@@ -83,31 +85,30 @@ ul.table-of-contents {
             }
         }
 
-        /* h2階層（h1の下の階層） */
+        /* 子リスト（h2）のスタイル */
         &>ul {
             display: block;
-            /* 表示する */
-            padding-left: 0;
-            /* Zenn風にインデントをなくす */
-            margin: 0.3em 0;
+            padding: 0; // 子リストのパディングもリセット
+            margin: 0.3em 0; // 上下のみマージン
 
             /* h2階層の項目 */
             li {
                 margin: 0.5em 0;
                 position: relative;
+
                 /* 目次内の標準リストマーカーをすべて消す */
-                list-style: none !important;
+                list-style: none;
 
                 /* h2の青丸マーカー */
                 &::before {
                     content: "";
                     position: absolute;
-                    left: 0em;
+                    left: -1.1em; // 左端に配置
                     top: 0.5em;
-                    /* 位置を調整 */
                     width: 4px;
                     height: 4px;
                     background-color: var.$toc-marker;
+                    border: 2px solid var.$background;
                     border-radius: 50%;
                     z-index: 1;
                     transition: all 0.2s ease;
@@ -120,7 +121,7 @@ ul.table-of-contents {
                 a {
                     display: flex;
                     align-items: center;
-                    padding-left: 1em;
+                    padding-left: 0em;
                     /* マーカーのスペースを確保 */
                     font-weight: normal;
                     position: relative;
