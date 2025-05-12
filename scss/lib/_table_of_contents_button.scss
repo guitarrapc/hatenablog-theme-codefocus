@@ -92,14 +92,14 @@
     /* 目次のリスト要素のスタイル調整 */
     ul.floating-toc-list {
         position: relative;
-        padding-left: 0;
-        margin-bottom: 0;
         /* ボックスのリセット */
         background: none;
         border: none;
         box-shadow: none;
         padding-top: 0;
         padding-bottom: 0;
+        padding-left: 0;
+        margin-bottom: 0;
 
         /* 目次内の標準リストマーカーをすべて消す */
         list-style: none !important;
@@ -111,7 +111,7 @@
             top: 1.0rem;
             bottom: 1.5rem;
             /* 青丸マーカーの中心に合わせる */
-            left: 0rem;
+            left: 0.1rem;
             width: 3px;
             background-color: var.$toc-border-bg;
             z-index: 0;
@@ -124,12 +124,31 @@
             position: relative;
             transition: all 0.2s ease;
 
+            /* h1項目の青丸マーカー */
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0em;
+                top: 0.5em;
+                /* 位置を調整 */
+                width: 8px;
+                height: 8px;
+                background-color: var.$toc-marker;
+                border-radius: 50%;
+                z-index: 1;
+                transition: all 0.2s ease;
+            }
+
+            &:hover::before {
+                background-color: color.adjust(var.$link, $lightness: -10%);
+            }
+
             /* すべてのトップレベル見出しのリンクスタイル基本設定 */
             &>a {
                 display: flex;
                 align-items: center;
                 padding-left: 1em;
-                /* 青丸マーカーの右側に十分なスペースを確保 */
+                /* マーカーのスペースを確保 */
                 font-weight: bold;
                 /* h1は太字 */
                 position: relative;
@@ -148,28 +167,6 @@
                     border-radius: 15px;
                     padding-right: 10px;
                 }
-
-                /* すべての見出しの前の青点のアイコン（Zenn風） */
-                &::before {
-                    content: "";
-                    position: absolute;
-                    left: 0em;
-                    /* 縦線と中心を合わせる */
-                    top: 50%;
-                    transform: translateY(-50%) translateX(-50%);
-                    /* 中心を基準にする */
-                    width: 8px;
-                    height: 8px;
-                    background-color: var.$toc-marker;
-                    border-radius: 50%;
-                    z-index: 1;
-                    /* 縦線の上に表示 */
-                    transition: all 0.2s ease;
-                }
-            }
-
-            &:hover>a::before {
-                background-color: color.adjust(var.$link, $lightness: -10%);
             }
 
             /* h2階層（h1の下の階層） */
@@ -183,16 +180,34 @@
                 /* h2階層の項目 */
                 li {
                     margin: 0.5em 0;
-
+                    position: relative;
                     /* 目次内の標準リストマーカーをすべて消す */
                     list-style: none !important;
+
+                    /* h2の青丸マーカー */
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: 0em;
+                        top: 0.5em;
+                        /* 位置を調整 */
+                        width: 4px;
+                        height: 4px;
+                        background-color: var.$toc-marker;
+                        border-radius: 50%;
+                        z-index: 1;
+                        transition: all 0.2s ease;
+                    }
+
+                    &:hover::before {
+                        background-color: color.adjust(var.$link, $lightness: -10%);
+                    }
 
                     a {
                         display: flex;
                         align-items: center;
                         padding-left: 1em;
-                        /* 青丸マーカーの右側に十分なスペースを確保 */
-                        /* h1と同じ位置からスタート */
+                        /* マーカーのスペースを確保 */
                         font-weight: normal;
                         position: relative;
                         text-decoration: none;
@@ -210,25 +225,6 @@
                             /* var.$link-rgb の値を直接指定 */
                             border-radius: 15px;
                             padding-right: 10px;
-                        }
-
-                        /* h2の前にも同じ青点のアイコン */
-                        &::before {
-                            content: "";
-                            position: absolute;
-                            left: 0em;
-                            /* 縦線と中心を合わせる */
-                            top: 50%;
-                            /* 中心を基準にする */
-                            transform: translateY(-50%) translateX(-50%);
-                            /* h1より一回り小さいサイズ */
-                            width: 4px;
-                            height: 4px;
-                            background-color: var.$toc-marker;
-                            border-radius: 50%;
-                            z-index: 1;
-                            /* 縦線の上に表示 */
-                            transition: all 0.2s ease;
                         }
                     }
 
