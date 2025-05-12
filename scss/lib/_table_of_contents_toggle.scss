@@ -62,6 +62,11 @@
     transform: scaleY(0);
 }
 
+/* 閉じているときのタイトル部分の角丸調整 */
+.toc-closed .toc-title {
+    border-radius: 10px;
+}
+
 /* 目次コンテンツ部分のトランジション */
 .toc-content {
     max-height: 800px;
