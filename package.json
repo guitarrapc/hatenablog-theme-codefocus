@@ -7,9 +7,17 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "build": "vite build"
+    "build": "vite build",
+    "test": "playwright test --reporter=list",
+    "test:visual": "playwright test tests/visual.spec.js --reporter=list",
+    "test:responsive": "playwright test tests/responsive.spec.js --reporter=list",
+    "test:article": "playwright test tests/article.spec.js --reporter=list",
+    "test:toc": "playwright test tests/toc.spec.js --reporter=list",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "autoprefixer": "^10.4.17",
     "normalize.css": "^8.0.1",
     "sass": "^1.88.0",
