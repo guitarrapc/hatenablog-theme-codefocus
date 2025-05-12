@@ -260,8 +260,8 @@ h6 {
             text-decoration: underline;
         }
 
-        &::after {
-            content: 'に公開';
+        &::before {
+            content: 'Posted on ';
             font-size: 0.9em;
         }
     }
