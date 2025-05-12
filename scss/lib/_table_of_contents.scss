@@ -26,7 +26,7 @@ ul.table-of-contents {
         top: 1.0rem;
         bottom: 1.0rem;
         /* 青丸マーカーの中心に合わせる */
-        left: 2.1rem;
+        left: 1.1rem;
         width: 3px;
         background-color: var.$toc-border-bg;
     }
@@ -34,7 +34,7 @@ ul.table-of-contents {
     /* トップレベルの項目（h1とその他の見出し） */
     &>li {
         margin: 0.8em 0;
-        padding-left: 0;
+        padding-left: 1em;
         position: relative;
         transition: all 0.2s ease;
 
@@ -61,7 +61,7 @@ ul.table-of-contents {
         &>a {
             display: flex;
             align-items: center;
-            padding-left: 1em;
+            padding-left: 0em;
             /* マーカーのスペースを確保 */
             font-weight: bold;
             /* h1は太字 */
