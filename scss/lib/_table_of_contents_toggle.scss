@@ -1,0 +1,92 @@
+@use "./_variable" as var;
+
+/* 目次のタイトル部分のスタイル */
+.toc-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.8em 1em;
+    margin: 0;
+    font-weight: bold;
+    color: var.$text;
+    background-color: var.$background;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid var.$border;
+    user-select: none;
+
+    &:hover {
+        border-color: #aaa;
+    }
+
+    /* 開閉アイコンのスタイル */
+    .toc-toggle-icon {
+        transition: transform 0.3s ease;
+        width: 12px;
+        height: 12px;
+        position: relative;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            background-color: var.$text;
+            transition: all 0.3s ease;
+        }
+
+        /* 横線 */
+        &::before {
+            width: 100%;
+            height: 2px;
+            top: 5px;
+            left: 0;
+        }
+
+        /* 縦線（開いているときは表示、閉じているときは非表示） */
+        &::after {
+            width: 2px;
+            height: 100%;
+            top: 0;
+            left: 5px;
+        }
+    }
+}
+
+/* 閉じている状態のアイコン（縦線を表示） */
+.toc-closed .toc-toggle-icon::after {
+    transform: scaleY(1);
+}
+
+/* 開いている状態のアイコン（縦線を非表示） */
+.toc-open .toc-toggle-icon::after {
+    transform: scaleY(0);
+}
+
+/* 目次コンテンツ部分のトランジション */
+.toc-content {
+    max-height: 800px;
+    /* 十分な高さを設定 */
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+/* 閉じているときのスタイル */
+.toc-closed .toc-content {
+    max-height: 0;
+}
+
+/* 目次全体のマージン調整 */
+ul.table-of-contents {
+    margin-top: 0 !important;
+    margin-bottom: 1em !important;
+
+    /* 閉じているときの角丸調整 */
+    &.toc-closed {
+        border-radius: 10px;
+    }
+}
+
+/* タイトルがあるときの目次部分の角丸調整 */
+.toc-container .table-of-contents {
+    border-radius: 0 0 10px 10px !important;
+}

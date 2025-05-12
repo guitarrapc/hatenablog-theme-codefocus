@@ -51,19 +51,6 @@ $ npm install
     <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/boilerplate.scss" crossorigin="anonymous" />
     ```
 
-### 目次ボタン機能を使用する場合
-
-本テーマには、ページ右上に固定表示される「目次」ボタンの機能が含まれています。この機能を使用するには、上記の設定に加えて以下の手順を行ってください。
-
-1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
-   ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
-   ```
-
-2. 本番環境で使用する場合は、[toc-script.html](toc-script.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
-
-   この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
-
 つづいて下記のコマンドで、開発サーバーを起動します。`BLOG_DOMAIN_NAME` の部分には、上で用意した動作確認に使うブログのドメイン名 (例: `example.hatenablog.com`) を入力してください。
 
 ``` console
@@ -77,6 +64,34 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 ```
 
 以上が完了すると、動作確認用のブログに開発中のテーマが反映されます。ブログにアクセスし、表示を確認しながらテーマの開発を行なってください。
+
+### 記事中の目次開閉機能を使用する場合
+
+本テーマには、記事中の目次を開閉する機能が含まれています。この機能を使用するには、上記の設定に加えて以下の手順を行ってください。
+
+1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
+
+   ``` html
+   <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
+   ```
+
+2. 本番環境で使用する場合は、[toc-toggle.html](toc-toggle.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+
+   この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
+
+
+### 目次ボタン機能を使用する場合
+
+本テーマには、ページ右上に固定表示される「目次」ボタンの機能が含まれています。この機能を使用するには、上記の設定に加えて以下の手順を行ってください。
+
+1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
+   ``` html
+   <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
+   ```
+
+2. 本番環境で使用する場合は、[toc-button.html](toc-button.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+
+   この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
 
 ## コンパイル
 
