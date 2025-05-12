@@ -110,12 +110,12 @@ h6 {
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: top;
     margin: 0 auto;
 
     @media #{var.$mq-sm} {
         flex-direction: row;
-        justify-content: center;
+        justify-content: left;
         margin: 0 -10px;
     }
 
@@ -213,13 +213,12 @@ h6 {
 }
 
 .entry-header {
-    padding-bottom: 0.5em;
-    margin-bottom: 1em;
-    /* エントリーヘッダーの下マージンを縮小 */
     position: relative;
     display: flex;
     flex-direction: column;
-    padding-left: 10px;
+    // エントリーヘッダーの末尾にカテゴリをおいて本文と一体にみせるため、ボトムのパディングはミニマムに
+    padding-bottom: 0;
+    margin-bottom: 1em;
 
     /* 全体を10pxパディングで左に統一して揃える */
     /* タイトルを含むヘッダー全体に適用 */
@@ -244,14 +243,14 @@ h6 {
 }
 
 .date {
+    // タイトルの下に表示するために順序を変更、余白を縮小
     order: 2;
     margin: 0.7em 0 0.4em;
-    /* タイトルの下に表示するために順序を変更、余白を縮小 */
-    font-size: 0.9rem;
+    padding-bottom: 2em;
+    // 少し小さく
+    font-size: 0.8rem;
     text-align: left;
     color: var.$text-low-priority;
-    padding-left: 0;
-    /* 左パディングを0にして親要素のパディングを継承 */
 
     a {
         color: var.$text-light;
@@ -259,6 +258,11 @@ h6 {
 
         &:hover {
             text-decoration: underline;
+        }
+
+        &::after {
+            content: 'に公開';
+            font-size: 0.9em;
         }
     }
 
@@ -282,7 +286,6 @@ h6 {
         display: inline-block;
 
         &::before {
-            content: "更新: ";
             font-size: 0.9em;
         }
     }
@@ -290,50 +293,37 @@ h6 {
 
 .categories {
     order: 3;
-    margin: 0 0 0.6em;
-    /* カテゴリと本文の間の余白をやや縮小 */
-    font-size: .9rem;
+    font-size: 0.9rem;
     text-align: left;
+    // 左パディングを0にして親要素のパディングを継承
     padding-left: 0;
 
-    /* 左パディングを0にして親要素のパディングを継承 */
     a {
-        margin-right: 0.7em; // ::beforeのmargin-leftと合わせる
-        margin-bottom: 0.5em;
+        // 通常時は背景色なし
         background-color: transparent;
-        /* 通常時は背景色なし */
-        padding: 4px 10px 4px 0;
-        /* 左パディングを0に変更して揃える */
+        // 右パディングは#がない分だけ大きくする
+        padding-right: 8px;
         display: inline-block;
-        transition: all 0.2s ease;
         text-decoration: none;
-        border: 1px solid transparent;
-        /* 通常時は枠線なし */
         color: var.$text;
-        /* カテゴリ自体は本文と同じ色 */
+        // 枠線は丸囲み
+        border: 1px solid var.$category-border;
+        border-radius: 15px;
 
         /* カテゴリの前にハッシュ記号を追加 */
         &::before {
             content: "#";
             margin-left: 0.7em; // aのmargin-rightと合わせる
             margin-right: 3px;
+            // ハッシュだけリンク色
             color: var.$link;
-            /* ハッシュだけ青色 */
-            font-weight: bold;
+            font-weight: normal;
+            font-size: 0.95em;
         }
 
         &:hover {
             // ホバー時にうっすらと青系の背景色
-            background-color: rgba(20, 135, 189, 0.1);
-            //transform: translateY(-1px);
-            border-color: var.$link;
-            /* ホバー時に枠線を青系に */
-            border-radius: 10px;
-            /* ホバー時に丸囲み */
-            //padding: 4px 10px;
-            /* ホバー時にパディングを調整して見栄えを良くする */
-            color: var.$text;
-            /* ホバー時もカテゴリ自体の色は本文と同じ */
+            background-color: var.$category-hover;
         }
     }
 }
@@ -349,6 +339,7 @@ h6 {
 .entry-content {
     /* タイトルと合わせて本文の配置を調整 */
     display: block;
+    padding: 0 0 5px 5px;
     margin: 0 auto;
     line-height: 1.9;
 
@@ -728,10 +719,10 @@ h6 {
 .hatena-module-title {
     margin-bottom: .6em;
     padding-bottom: .2em;
-    border-bottom: 1px solid var.$border;
     font-size: 1rem;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
+    color: var.$text-header;
 
     /* モジュールタイトルは中央揃え */
     a {
@@ -746,18 +737,18 @@ h6 {
 
 /* Profile module */
 .hatena-module-profile {
-    text-align: center;
+    text-align: left;
 
     .profile-icon {
-        float: none;
-        margin: 0 auto 10px;
+        float: left;
+        margin: 0 10px 10px 0;
         display: block;
     }
 
     .id {
         display: block;
         font-weight: bold;
-        margin-bottom: .7em;
+        margin-bottom: .5em;
     }
 
     .profile-description {
