@@ -2,26 +2,33 @@
 @use "sass:color";
 
 // Font
-$font-family-base: 'Helvetica Neue', 'Helvetica', 'Arial', 'Hiragino Kaku Gothic Pro', 'Meiryo', 'MS PGothic';
+$font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', 'Meiryo', sans-serif, "Segoe UI Emoji";
 $font-family-monospace: 'Monaco', 'Consolas', 'Courier New', Courier, monospace, sans-serif;
+$font-family-title: 'Kaushan Script', -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', 'Meiryo', sans-serif, "Segoe UI Emoji";
 
 // Background color
 $background: #fff;
 $bg-light: #f5f5f5;
+$bg-code: #1a2638;
+$bg-span: #215aa012;
+$bg-table-th: #edf2f7;
 
 // text color
-$text: #454545;
+$text: #000000d1;
+$text-body: #454545;
 $text-low-priority: #747474;
-$text-light: #999;
+$text-light: #65717b;
 $text-header: #333;
 
 // link
-$link: #1487bd;
+$link: #0f83fd;
 $hover: color.adjust($link, $lightness: -10%);
 $link-bg: rgba(20, 135, 189, 0.1); // カテゴリホバー用の薄い青背景色
 
 // border
-$border: #ddd; // 薄い灰色の枠線
+$border: #ddd; // 灰色の枠線
+$border-light: #d6e3ed; // 薄い灰色の枠線
+$border-bq: #8f9faa; // 薄い灰色の枠線
 
 // shadow
 $shadow: rgba(0, 0, 0, 0.08);
