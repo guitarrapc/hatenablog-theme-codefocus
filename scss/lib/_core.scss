@@ -719,6 +719,10 @@ h6 {
     padding: .6em 1em;
     font-size: .85rem;
     border: 1px solid var.$border;
+
+    &:hover {
+        background-color: var.$btn-hover;
+    }
 }
 
 /* Pager */
