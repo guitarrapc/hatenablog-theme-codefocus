@@ -2,6 +2,7 @@
 @use "sass:color";
 @use "./lib/_variable" as var;
 @use "./lib/_core" as core;
+@use "./lib/_table_of_contents_toggle";
 @use "./lib/_table_of_contents_button";
 
 /*
