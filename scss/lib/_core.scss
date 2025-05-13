@@ -219,11 +219,10 @@ h6 {
     padding-bottom: 0;
     margin-bottom: 1em;
 
-    /* 全体を10pxパディングで左に統一して揃える */
     /* タイトルを含むヘッダー全体に適用 */
     @media #{var.$mq-md} {
-        padding: 0 0 0.5em 10px;
-        /* 左パディングを維持、下パディングを調整 */
+        padding: 0 0 0.5em 0;
+        /* 下パディングを調整 */
     }
 
     /* 装飾線なし - 仕様通り */
@@ -336,10 +335,10 @@ h6 {
 
 /* 記事内の書式 */
 .entry-content {
-    /* タイトルと合わせて本文の配置を調整 */
+    /* タイトルと合わせて本文の配置を調整（タイトルより右に5pxインデント、右側にも5px余白） */
     display: block;
-    padding: 0 0 5px 5px;
-    margin: 0 auto;
+    padding: 0 0 5px 0;
+    margin: 0 5px 0 5px;
     line-height: 1.9;
 
     /* テキスト選択時のスタイル */
