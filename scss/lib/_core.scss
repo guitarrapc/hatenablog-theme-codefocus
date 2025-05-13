@@ -291,6 +291,7 @@ h6 {
     }
 }
 
+/* カテゴリ */
 .categories {
     order: 3;
     font-size: 0.9rem;
@@ -306,7 +307,7 @@ h6 {
         display: inline-block;
         text-decoration: none;
         color: var.$text;
-        // 枠線は丸囲み
+        // 枠線は丸囲みで表示
         border: 1px solid var.$category-border;
         border-radius: 15px;
 
@@ -315,8 +316,7 @@ h6 {
             content: "#";
             margin-left: 0.7em; // aのmargin-rightと合わせる
             margin-right: 3px;
-            // ハッシュだけリンク色
-            color: var.$link;
+            color: var.$link; // ハッシュだけリンク色
             font-weight: normal;
             font-size: 0.95em;
         }

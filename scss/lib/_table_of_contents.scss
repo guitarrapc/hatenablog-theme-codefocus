@@ -40,7 +40,7 @@ ul.table-of-contents {
         /* 目次内の標準リストマーカーをすべて消す */
         list-style: none;
 
-        /* h1項目の青丸マーカー */
+        /* h1項目の青い丸マーカー */
         &::before {
             content: "";
             position: absolute;
@@ -49,7 +49,7 @@ ul.table-of-contents {
             width: 8px;
             height: 8px;
             background-color: var.$toc-marker;
-            border: 2px solid var.$background;
+            border: 2px solid var.$background; // 縦線と重なった時にいい感じにつながって見えるようにする
             border-radius: 50%;
             z-index: 1;
             transition: all 0.2s ease;
@@ -78,7 +78,7 @@ ul.table-of-contents {
             &:hover {
                 color: var.$text;
                 transform: translateX(3px);
-                background-color: rgba(20, 135, 189, 0.05);
+                background-color: var.$bg-toc-hover;
                 /* var.$link-rgb の値を直接指定 */
                 border-radius: 15px;
                 padding-right: 10px;
@@ -99,7 +99,7 @@ ul.table-of-contents {
                 /* 目次内の標準リストマーカーをすべて消す */
                 list-style: none;
 
-                /* h2の青丸マーカー */
+                /* h2の青い丸マーカー */
                 &::before {
                     content: "";
                     position: absolute;
@@ -108,7 +108,7 @@ ul.table-of-contents {
                     width: 4px;
                     height: 4px;
                     background-color: var.$toc-marker;
-                    border: 2px solid var.$background;
+                    border: 2px solid var.$background; // 縦線と重なった時にいい感じにつながって見えるようにする
                     border-radius: 50%;
                     z-index: 1;
                     transition: all 0.2s ease;
@@ -136,7 +136,7 @@ ul.table-of-contents {
                     &:hover {
                         color: var.$link;
                         transform: translateX(3px);
-                        background-color: rgba(20, 135, 189, 0.05);
+                        background-color: var.$bg-toc-hover;
                         /* var.$link-rgb の値を直接指定 */
                         border-radius: 15px;
                         padding-right: 10px;
