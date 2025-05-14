@@ -54,7 +54,11 @@
     * 記事コンテンツは、記事ヘッダー`<header class="entry-header">`、記事本文`<div class="entry-content hatenablog-entry">`、記事フッター`<footer class="entry-fotter">`の3つのブロックで構成されます。
         * 記事ヘッダーは、記事タイトル`<h1 class="entry-title">` (トップページでは`<div class="entry-title">`)、作成日付`<time class="date entry-date first">`、更新日付`<span class="date-last-updated">`(トップページでは省略される)、カテゴリ`<div class="entry-categories categories categories">`(0-複数ありえる)で構成されます。
         * 記事本文は、`<div class="entry-content hatenablog-entry">`ブロックに直接配置されます。
-        * 記事フッターは、使っていない`<div class="entry-tags-wrapper">`、著者と記事日付の`<div class="entry-footer-selection">`、ソーシャルボタン`<div class="social-buttons">`、カスタマイズフッター`<div class="customized-fotter">`、コメント`div class="comment-box js-comment-box">`が含まれます。
+        * 記事フッターは、描画されていない`<div class="entry-tags-wrapper">`、著者と記事日付の`<div class="entry-footer-selection">`、ソーシャルボタン`<div class="social-buttons">`、カスタマイズフッター`<div class="customized-fotter">`、コメント`div class="comment-box js-comment-box">`が含まれます。
+          * カスタマイズフッターは、記事詳細では関連記事が表示されます。トップページでは描画されません。
+            * 関連記事は、`<div class="hatena-module hatena-module-related-entries">`要素で描画され、関連記事のタイトルは`<div class="hatena-module-title">`、関連記事の中身は`<div class="hatena-module-body"><ul class="related-entries hatena-urllist urllist-with-thumbnails">関連記事のliが並ぶ</ul></div>`で構成されます。
+            * 関連記事は`<li class="uirllist-item rlated-entries-item">`にサムネイル、タイトル、日付、記事冒頭部の4つの要素が含まれます。
+              * サムネイルは`<a class="urllist-image-link related-entries-image-link"><image class="urllist-imagerelated-entries-image"></a>`、タイトルは`<a class="urllist-title-link related-entries-title-link  urllist-title related-entries-title">`、日付は`<div class="urllist-date-link related-entries-date-link">`、記事冒頭部は`<div class="urllist-entry-body related-entries-entry-body">`で構成されます。
 * ブログフッター部分は、ブログパーツを配置する`<div id="box2-inner">`があり、flexboxでブログパーツを配置します。flexboxは、横に最大3つ配置されます。ブログパーツはユーザーがカスタマイズ可能です。
     * ブログパーツは、それぞれ`<div class="hatena-module hatena-module-XXXXX">`で構成されます。ブログパーツごとにXXXXはユーザーがカスタマイズ可能です。ブログテーマとしてはXXXXに入る文字は予想できず静的に決め打つしかありません。テーマカスタマイズのため、XXXXはユーザーに提示する必要があります。
     * ブログパーツの中身は、モジュールタイトル`div class="hatena-module-title">`、モジュールの中身`<div class="hatena-module-body">`で構成されます。
@@ -105,6 +109,11 @@
 ブログフッターについて
 
 * ブログパーツのタイトルはどのパーツでも縦軸を揃えてください。
+
+カスタマイズフッターの関連記事について
+
+* 関連記事が複数ある場合、関連記事を2列で表示し、左から右の順に並べます。
+* 個別の関連記事は左にサムネイル、回り込んでサムネイルの右にタイトルと日付を描画します。記事冒頭部は表示しません。日付はタイトルの下に表示します。
 
 ## 目次スタイルの実装とデザイン仕様
 
