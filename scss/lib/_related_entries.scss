@@ -1,0 +1,191 @@
+// 関連記事のスタイル定義
+@use "./_variable" as var;
+
+// 共通スタイル（両方の関連記事エリアで使用）
+@mixin related-entries-common {
+
+    // 記事冒頭部分を非表示
+    .urllist-entry-body,
+    .related-entries-entry-body {
+        display: none;
+    }
+
+    // サムネイル画像共通スタイル
+    .urllist-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    // タイトル・日付の共通スタイル
+    .urllist-title-link {
+        font-size: 1rem;
+        font-weight: bold;
+        line-height: 1.4;
+        color: var.$text;
+        text-decoration: none;
+
+        &:hover {
+            color: var.$link;
+        }
+    }
+
+    .urllist-date-link a {
+        font-size: 0.85em;
+        color: var.$text-low-priority;
+    }
+}
+
+// ブログパーツの関連記事
+box2-inner .hatena-module-related-entries {
+    margin-top: 2em;
+
+    @include related-entries-common;
+
+    // 関連記事のコンテナ
+    .hatena-module-body {
+        .related-entries {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 0;
+
+            @media #{var.$mq-sm} {
+                grid-template-columns: 1fr 1fr; // タブレット以上で2列表示
+            }
+        }
+
+        // 関連記事の各アイテム
+        .related-entries-item {
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    // 関連記事のアイテム内部のレイアウト
+    .related-entries-item-inner {
+        position: relative;
+        padding: 10px;
+        background-color: var.$background;
+        border-radius: 5px;
+        transition: all 0.2s ease;
+        min-height: 90px; // サムネイルの高さ+パディング分を確保
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+
+        // サムネイル画像とリンクは左に配置
+        .urllist-image-link {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+        }
+
+        // タイトルは日付の上に絶対配置
+        .urllist-title-link {
+            display: block;
+            position: relative;
+            margin-left: 95px; // サムネイル幅 + 余白
+            margin-bottom: 5px;
+        }
+
+        // 日付はタイトルの下に絶対配置
+        .urllist-date-link {
+            display: block;
+            position: relative;
+            margin-left: 95px; // サムネイル幅 + 余白
+            margin-top: 0;
+            line-height: 1.2em;
+        }
+    }
+
+    // タイトルリンクが日付の下にある場合のスタイル調整（HTML構造の順序に対応）
+    .urllist-date-link+.urllist-title-link {
+        margin-top: 10px;
+    }
+
+    // 日付が個別記事リンクの中にある場合のスタイル
+    .urllist-title-link time {
+        display: block;
+        font-size: 0.85em;
+        color: var.$text-low-priority;
+        font-weight: normal;
+        margin-top: 5px;
+        line-height: 1.2;
+    }
+}
+
+// カスタマイズフッター内の関連記事
+.customized-footer .hatena-module-related-entries {
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    @include related-entries-common;
+
+    .hatena-module-title {
+        margin-bottom: 15px;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    // コンテナスタイル
+    .hatena-module-body {
+        .related-entries {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 0;
+
+            @media #{var.$mq-sm} {
+                grid-template-columns: 1fr 1fr; // タブレット以上で2列表示
+            }
+        }
+    }
+
+    // 関連記事アイテム
+    .related-entries-item {
+        margin-bottom: 10px;
+        list-style-type: none;
+    }
+
+    // アイテム内部レイアウト
+    .related-entries-item-inner {
+        position: relative;
+        padding: 8px;
+        border-radius: 4px;
+        background-color: var.$background;
+        transition: all 0.2s ease;
+        min-height: 80px; // サムネイルの高さに合わせる
+
+        // サムネイル画像
+        .urllist-image-link {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+        }
+
+        // タイトル
+        .urllist-title-link {
+            display: block;
+            margin-left: 92px; // サムネイル幅 + 余白
+            margin-top: 5px; // 日付の下に表示されるようマージン追加
+        }
+
+        // 日付
+        .urllist-date-link {
+            display: block;
+            margin-left: 92px; // サムネイル幅 + 余白
+            margin-bottom: 0;
+            line-height: 1.2;
+        }
+    }
+
+    // 日付が先に来てからタイトルの場合（HTMLの構造に対応）
+    .urllist-date-link+.urllist-title-link {
+        margin-top: 3px;
+    }
+}
