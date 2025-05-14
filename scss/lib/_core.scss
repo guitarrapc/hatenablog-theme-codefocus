@@ -706,7 +706,6 @@ h6 {
 }
 
 /* Pager */
-
 .pager {
     margin: 3em auto;
     display: flex;
@@ -717,9 +716,13 @@ h6 {
 
 .pager a {
     padding: .7em;
+    margin: 0 10px;
     background: var.$background;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-decoration: none;
+    border: 1px solid var.$border;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
 
     &:hover {
         background: var.$btn-hover;
