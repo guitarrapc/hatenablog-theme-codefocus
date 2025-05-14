@@ -50,16 +50,18 @@
 これははてなブログのHTMLの要素についての説明です。はてなブログのHTMLは、以下のような構成になっています。
 
 * ページは大きく分けて、記事部分`<div id="wrapper">`、ブログフッター部分`<aside id="box">`の2つのブロックで構成されます。 記事部分の下に、ブログフッター部分があります。
-* 記事部分は、記事全体(記事全体コンテンツ)は`<div id="main"><div id="main-inner"><記事の数分のarticle要素></div></div>`で構成されます。
+* 記事部分は、記事全体(記事全体コンテンツ)は`<div id="main"><div id="main-inner"><記事の数分のarticle要素><div class="pager pager-permalink permalink"></div></div></div>`で構成されます。
     * 記事全体コンテンツは、各記事(記事コンテンツ)が`<article class="entry 他"><div class="entry-innner">記事ごとの構成要素</div></article>`のように構成されます。トップページなら`<article>`要素は複数あり、記事ページなら1つだけ存在します。
-    * 記事コンテンツは、記事ヘッダー`<header class="entry-header">`、記事本文`<div class="entry-content hatenablog-entry">`、記事フッター`<footer class="entry-fotter">`の3つのブロックで構成されます。
-        * 記事ヘッダーは、記事タイトル`<h1 class="entry-title">` (トップページでは`<div class="entry-title">`)、作成日付`<time class="date entry-date first">`、更新日付`<span class="date-last-updated">`(トップページでは省略される)、カテゴリ`<div class="entry-categories categories categories">`(0-複数ありえる)で構成されます。
-        * 記事本文は、`<div class="entry-content hatenablog-entry">`ブロックに直接配置されます。
-        * 記事フッターは、描画されていない`<div class="entry-tags-wrapper">`、著者と記事日付の`<div class="entry-footer-selection">`、ソーシャルボタン`<div class="social-buttons">`、カスタマイズフッター`<div class="customized-fotter">`、コメント`div class="comment-box js-comment-box">`が含まれます。
-          * カスタマイズフッターは、記事詳細では関連記事が表示されます。トップページでは描画されません。
-            * 関連記事は、`<div class="hatena-module hatena-module-related-entries">`要素で描画され、関連記事のタイトルは`<div class="hatena-module-title">`、関連記事の中身は`<div class="hatena-module-body"><ul class="related-entries hatena-urllist urllist-with-thumbnails">関連記事のliが並ぶ</ul></div>`で構成されます。
-            * 関連記事は`<li class="uirllist-item rlated-entries-item">`にサムネイル、タイトル、日付、記事冒頭部の4つの要素が含まれます。
-              * サムネイルは`<a class="urllist-image-link related-entries-image-link"><image class="urllist-imagerelated-entries-image"></a>`、タイトルは`<a class="urllist-title-link related-entries-title-link  urllist-title related-entries-title">`、日付は`<div class="urllist-date-link related-entries-date-link">`、記事冒頭部は`<div class="urllist-entry-body related-entries-entry-body">`で構成されます。
+      * 記事コンテンツは、記事ヘッダー`<header class="entry-header">`、記事本文`<div class="entry-content hatenablog-entry">`、記事フッター`<footer class="entry-fotter">`の3つのブロックで構成されます。
+          * 記事ヘッダーは、記事タイトル`<h1 class="entry-title">` (トップページでは`<div class="entry-title">`)、作成日付`<time class="date entry-date first">`、更新日付`<span class="date-last-updated">`(トップページでは省略される)、カテゴリ`<div class="entry-categories categories categories">`(0-複数ありえる)で構成されます。
+          * 記事本文は、`<div class="entry-content hatenablog-entry">`ブロックに直接配置されます。
+          * 記事フッターは、描画されていない`<div class="entry-tags-wrapper">`、著者と記事日付の`<div class="entry-footer-selection">`、ソーシャルボタン`<div class="social-buttons">`、カスタマイズフッター`<div class="customized-fotter">`、コメント`div class="comment-box js-comment-box">`、が含まれます。
+            * カスタマイズフッターは、記事詳細では関連記事が表示されます。トップページでは描画されません。
+              * 関連記事は、`<div class="hatena-module hatena-module-related-entries">`要素で描画され、関連記事のタイトルは`<div class="hatena-module-title">`、関連記事の中身は`<div class="hatena-module-body"><ul class="related-entries hatena-urllist urllist-with-thumbnails">関連記事のliが並ぶ</ul></div>`で構成されます。
+              * 関連記事は`<li class="uirllist-item rlated-entries-item">`にサムネイル、タイトル、日付、記事冒頭部の4つの要素が含まれます。
+                * サムネイルは`<a class="urllist-image-link related-entries-image-link"><image class="urllist-imagerelated-entries-image"></a>`、タイトルは`<a class="urllist-title-link related-entries-title-link  urllist-title related-entries-title">`、日付は`<div class="urllist-date-link related-entries-date-link">`、記事冒頭部は`<div class="urllist-entry-body related-entries-entry-body">`で構成されます。
+      * 記事コンテンツの下に、ページャー`<div class="pager pager-permalink permalink">`があり、次の記事へのリンクが配置されます。
+        * ページャーは、前の記事へのリンク`<span class="prev-entry">`、次の記事へのリンク`<span class="next-entry">`で構成されます。もし前の記事がなければ`<span class="prev-entry">`は描画されません。もし次の記事がなければ`<span class="next-entry">`は描画されません。
 * ブログフッター部分は、ブログパーツを配置する`<div id="box2-inner">`があり、flexboxでブログパーツを配置します。flexboxは、横に最大3つ配置されます。ブログパーツはユーザーがカスタマイズ可能です。
     * ブログパーツは、それぞれ`<div class="hatena-module hatena-module-XXXXX">`で構成されます。ブログパーツごとにXXXXはユーザーがカスタマイズ可能です。ブログテーマとしてはXXXXに入る文字は予想できず静的に決め打つしかありません。テーマカスタマイズのため、XXXXはユーザーに提示する必要があります。
     * ブログパーツの中身は、モジュールタイトル`div class="hatena-module-title">`、モジュールの中身`<div class="hatena-module-body">`で構成されます。
@@ -70,6 +72,7 @@
 * レスポンシブデザインのテーマとして作成し、スマートフォン、タブレット、PCの各デバイスで適切に表示されるようにします。
 * シングルカラムで構成します。
 * zennのスタイルを参考にし、シンプルで読みやすいデザインを目指します。
+* borderで囲む場合、角に丸みをつけます。丸みは要素によって異なります。
 
 記事全体コンテンツについて
 
@@ -106,6 +109,12 @@
 * 記事ページの右上に「目次」ボタンを表示し、ボタンをクリックすると目次コンテンツを表示します。目次はページの右上に固定され、スクロールしても常に表示されます。
 * 「目次」ボタンの見た目は、閉じているときは「目次^」、開いているときは「目次v」のように表示します。(^やvは文字ではなくいい感じのアイコン置き換えて開く/閉じるを表現します)。ボタンの背景色はページ背景と同色、ボタンの周りに薄い灰色の枠線をつけます。目次ボタンを開いた時、画面外をクリックしたり目次内のリンクをクリックしてもボタン状態をリセットする必要はありません。
 * 目次ボタンはcss`.toc-button`クラス、目次ボタン中の目次はcss`.floating-toc`でスタイル制御します。
+
+ページャーについて
+
+* ページャーは、センター寄せにします。
+* ページャーの前の記事へのリンクと次の記事へのリンクの間隔を開けますが、必要以上に大きくしないでください。
+* ページャーのリンクはボーダーで囲み、8pxの角丸をつけます。ボーダーは薄い色で、マウスホバー時に色が変わるようにします。
 
 ブログフッターについて
 
