@@ -628,22 +628,30 @@ h6 {
 }
 
 .urllist-with-thumbnails li .urllist-image {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
 }
 
 .urllist-date-link {
-    line-height: 0.8em;
+    line-height: 1.0em;
 }
 
-.urllist-entry-body.related-entries-entry-body,
+.urllist-item .related-entries-item-inner {
+    display: block;
+}
+
 .hatena-urllist .urllist-date-link a {
-    font-size: 0.8em;
-    line-height: 0.8em;
+    font-size: 0.95em;
+    line-height: 1.0em;
+}
+
+.urllist-entry-body.related-entries-entry-body {
+    font-size: 0.95em;
+    line-height: 1.0em;
 }
 
 .urllist-title-link.related-entries-title-link.urllist-title.related-entries-title {
-    font-size: 0.8em;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
@@ -806,8 +814,7 @@ h6 {
     list-style: none;
     margin: 0;
     padding: 0;
-    text-align: left;
-    /* 一覧は左揃えに統一 */
+    text-align: left; // 一覧は左揃えに統一
 
     li {
         padding: .5em 0;
