@@ -38,7 +38,7 @@
 }
 
 // ブログパーツの関連記事
-box2-inner .hatena-module-related-entries {
+.box2-inner .hatena-module-related-entries {
     margin-top: 2em;
 
     @include related-entries-common;
@@ -152,40 +152,56 @@ box2-inner .hatena-module-related-entries {
         list-style-type: none;
     }
 
-    // アイテム内部レイアウト
+    // アイテム内部レイアウト - グリッドレイアウトを使用
     .related-entries-item-inner {
-        position: relative;
+        display: grid;
+        // 左エリア: サムネイル用(80px)、右エリア: コンテンツ用(残り)
+        grid-template-columns: 80px 1fr;
+        // 2行: 1行目がタイトル、2行目が日付
+        grid-template-rows: auto auto;
+        // エリアの名前付け
+        grid-template-areas:
+            "thumbnail title"
+            "thumbnail date";
+        gap: 5px 12px;
         padding: 8px;
         border-radius: 4px;
         background-color: var.$background;
         transition: all 0.2s ease;
-        min-height: 80px; // サムネイルの高さに合わせる
 
-        // サムネイル画像
+        &:hover {
+            transform: translateY(-2px);
+        }
+
+        // サムネイル画像 - 縦2行分の領域を占める
         .urllist-image-link {
-            position: absolute;
-            left: 8px;
-            top: 8px;
+            grid-area: thumbnail;
+            align-self: start; // 上揃え
+            width: 80px;
+            height: 80px;
         }
 
-        // タイトル
+        // タイトル - 常に1行目に配置
         .urllist-title-link {
-            display: block;
-            margin-left: 92px; // サムネイル幅 + 余白
-            margin-top: 5px; // 日付の下に表示されるようマージン追加
+            grid-area: title;
+            margin: 0;
+            padding: 0;
+            font-weight: bold;
+            align-self: end; // 下揃え
         }
 
-        // 日付
+        // 日付 - 常に2行目に配置
         .urllist-date-link {
-            display: block;
-            margin-left: 92px; // サムネイル幅 + 余白
-            margin-bottom: 0;
+            grid-area: date;
+            margin: 0;
+            padding: 0;
+            align-self: start; // 上揃え
             line-height: 1.2;
         }
     }
 
-    // 日付が先に来てからタイトルの場合（HTMLの構造に対応）
+    // HTML構造が日付→タイトルの順になっている場合の調整
     .urllist-date-link+.urllist-title-link {
-        margin-top: 3px;
+        order: -1; // タイトルを先に表示（グリッドエリアの指定で位置は決まっている）
     }
 }
