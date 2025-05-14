@@ -717,6 +717,7 @@ h6 {
     padding: .6em 1em;
     font-size: .85rem;
     border: 1px solid var.$border;
+    border-radius: 15px;
 
     &:hover {
         background-color: var.$btn-hover;
@@ -842,11 +843,15 @@ h6 {
 .hatena-module-search-box {
     .search-form {
         border: 1px solid var.$border;
-        border-radius: 3px;
+        border-radius: 8px;
         width: 100%;
         box-sizing: border-box;
         display: flex;
         align-items: center;
+
+        &:focus-within {
+            box-shadow: 0 2px 5px var.$shadow-hover;
+        }
     }
 
     .search-module-input {
