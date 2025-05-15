@@ -1,0 +1,6 @@
+{
+  // SCSS fotmatting settings. This avoid Strict Unary Operators issue.
+  "scss.format.spaceAroundSelectorSeparator": true,
+  "scss.format.braceStyle": "collapse",
+  "scss.format.enable": true,
+}

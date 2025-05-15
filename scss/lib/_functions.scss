@@ -1,13 +1,16 @@
 // SVG文字列やカラー値を加工するためのユーティリティ関数
+@use "sass:string";
 
 // 文字列置換
 @function str-replace($string, $search, $replace: '') {
-    $index: str-index($string, $search);
+    $index: string.index($string, $search);
 
     @if $index {
-        @return str-slice($string, 1, $index - 1)+$replace +str-replace(str-slice($string, $index + str-length($search)),
-            $search,
-            $replace );
+        // 完全に改行した構造にして、フォーマットが壊れないようにする
+        $first_part: string.slice($string, 1, $index - 1);
+        $second_part: string.slice($string, $index + string.length($search));
+        $recursive: str-replace($second_part, $search, $replace);
+        @return $first_part + $replace + $recursive;
     }
 
     @return $string;
@@ -15,11 +18,12 @@
 
 // # → %23 だけを置き換え
 @function escape-color($color) {
-    $hex: unquote("#{$color}");
+    // 文字列として扱うために#{$color}を使用
+    $hex: "#{$color}";
     @return str-replace($hex, "#", "%23");
 }
 
-// SVG 全体を最小限エンコード
+// SVG全体を最小限エンコード
 @function escape-svg($svg) {
     $svg: str-replace($svg, "#", "%23");
     $svg: str-replace($svg, "<", "%3C");
@@ -28,8 +32,10 @@
     @return $svg;
 }
 
-// currentColor を差し替えて data-URI を返す
-@function create-svg-url($svg, $color){
-$svg-colored: str-replace($svg, "currentColor", escape-color($color));
-@return url("data:image/svg+xml,#{escape-svg($svg-colored)}");
+// currentColorを差し替えてdata-URIを返す
+@function url-svg($svg, $color) {
+    // 色を置換したSVGを生成
+    $svg-colored: str-replace($svg, "currentColor", escape-color($color));
+    // data URI形式でURLを返す
+    @return url("data:image/svg+xml,#{escape-svg($svg-colored)}");
 }
