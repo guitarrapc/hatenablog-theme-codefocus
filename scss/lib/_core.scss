@@ -660,7 +660,7 @@ h6 {
 
     // コメントがない場合は描画されない
     .entry-comment {
-        // グリッドレイアウトを適用
+        // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
         display: grid;
         // 左上エリア: アイコン+名前用、右上エリア: 時間、下エリア: コンテンツ用(合算値)
         grid-template-columns: auto 1fr;
@@ -854,7 +854,7 @@ h6 {
 
     /* モジュールタイトルは中央揃え */
     a {
-        color: var.$text;
+        color: var.$text-body;
         text-decoration: none;
 
         &:hover {
@@ -869,7 +869,7 @@ h6 {
 
     .profile-icon {
         float: left;
-        margin: 0 10px 10px 0;
+        margin: 5px 10px 10px 0;
         display: block;
         width: 40px;
         height: 40px;
@@ -878,7 +878,12 @@ h6 {
     .id {
         display: block;
         font-weight: bold;
-        margin-bottom: .5em;
+        margin-bottom: .3em;
+
+        a {
+            color: var.$text-body; // リンクは色をつけない
+            text-decoration: none; // 名前はアンダーラインもつけない
+        }
     }
 
     .profile-description {
@@ -905,7 +910,7 @@ h6 {
         }
 
         a {
-            color: var.$text; // はてなモジュールのリンクは色をつけない
+            color: var.$text-body; // はてなモジュールのリンクは色をつけない
             text-decoration: none;
 
             &:hover {
@@ -936,7 +941,7 @@ h6 {
         font-size: 1rem;
         font-weight: bold;
         line-height: 1.4;
-        color: var.$text;
+        color: var.$text-body;
         text-decoration: none;
     }
 
