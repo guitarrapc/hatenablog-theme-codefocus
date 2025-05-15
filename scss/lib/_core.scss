@@ -730,26 +730,60 @@ h6 {
 
 /* Pager */
 .pager {
-    margin: 3em auto;
     display: flex;
     flex-wrap: wrap;
     -webkit-box-pack: justify;
-    justify-content: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 2em 0;
+    // コメントとの間に薄い灰色線を引く（上部）
+    border-top: 1px solid var.$border;
 }
 
-.pager a {
-    padding: .7em;
+// 前の記事と次の記事のスタイル調整
+.prev-entry,
+.next-entry {
+    padding: 0 1.5em;
     margin: 0 10px;
-    background: var.$background;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 45%;
+}
+
+// リンクスタイル
+.pager a {
+    padding: 0 1.0em;
     text-decoration: none;
-    border: 1px solid var.$border;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
+    display: block;
+    position: relative;
+    color: var.$text-body;
+    font-weight: bold;
+
+    // <<や>>を非表示にする
+    span {
+        display: none;
+    }
+
+    // 「前の記事」「次の記事」のラベルを表示
+    &::before {
+        display: block;
+        font-size: 0.8rem;
+        color: var.$text-light;
+        margin-bottom: 0.5em;
+    }
 
     &:hover {
-        background: var.$btn-hover;
+        text-decoration: underline;
     }
+}
+
+// 「前の記事」のラベル
+.prev-entry a::before {
+    content: "前の記事";
+}
+
+// 「次の記事」のラベル
+.next-entry a::before {
+    content: "次の記事";
 }
 
 /* サイドバーモジュール */
