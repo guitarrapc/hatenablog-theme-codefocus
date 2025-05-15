@@ -955,6 +955,10 @@ h6 {
         line-height: 1.4;
         color: var.$text-body;
         text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+        }
     }
 
     .urllist-date-link a {
