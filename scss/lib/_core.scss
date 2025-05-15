@@ -630,6 +630,7 @@ h6 {
 
 /* コメント */
 .comment-box {
+    position: relative;
     margin: 1em 0;
     // 関連記事との間に薄い灰色線を引く（上部）
     border-top: 1px solid var.$border;
@@ -649,52 +650,87 @@ h6 {
 
     // コメントがない場合は描画されない
     .entry-comment {
-        padding: 10px 0 10px 60px;
+        // グリッドレイアウトを適用
+        display: grid;
+        // 左上エリア: アイコン+名前用、右上エリア: 時間、下エリア: コンテンツ用(合算値)
+        grid-template-columns: auto 1fr;
+        // 2行: 1行目がユーザー名と日付、2行目がコメント本文
+        grid-template-rows: auto auto;
+        // エリアの名前付け
+        grid-template-areas:
+            "user metadata"
+            "content content";
+        gap: 5px 10px; // 行間と列間の余白
+        padding: 12px 0;
         // 次のコメントとの間に薄い灰色線を引く（下部）
         border-bottom: 1px dotted var.$border;
-        position: relative;
-        width: 80%;
+        width: 90%;
+        margin: 0;
+        transition: all 0.2s ease;
     }
 
     .read-more-comments {
         padding: 10px 0;
     }
 
-    .hatena-id-icon {
-        position: absolute;
-        top: 10px;
-        left: 0;
-        width: 40px;
-        height: 40px;
-        border-radius: 3px;
+    // ユーザーアイコン+ユーザー名のスタイル
+    .comment-user-name {
+        grid-area: user;
+        display: flex;
+        align-items: center; // 中央揃え
+        margin: 0;
+        padding: 0;
+        font-size: .9rem;
+        font-weight: bold;
+        line-height: 1.3;
+
+        .hatena-id-icon {
+            align-self: start; // 上揃え
+            width: 40px;
+            height: 40px;
+            border-radius: 3px;
+        }
+
+        // ユーザー名のスタイル
+        .comment-user-id {
+            margin-left: 10px; // アイコンと少し間を与える
+            color: var.$text-body;
+            text-decoration: none;
+        }
     }
-}
 
-.comment-user-name {
-    margin: 0 0 .4em 0;
-    font-weight: bold;
-}
-
-.comment-content {
-    margin: 0 0 .4em 0;
-    word-wrap: break-word;
-    color: var.$text;
-    font-size: .85rem;
-
-    p {
-        margin: 0 0 .6em 0;
-    }
-}
-
-.comment-metadata {
-    color: var.$text-light;
-    margin: 0;
-    font-size: .8rem;
-
-    a {
+    // 日付のスタイル
+    .comment-metadata {
+        grid-area: metadata;
         color: var.$text-light;
+        align-self: center; // 中央揃え
+        padding: 0;
+        font-size: .9rem;
+        line-height: 1.3; // ユーザー名と同じ行高
+
+        a {
+            color: var.$text-light;
+        }
+    }
+
+    // コメント本文のスタイル
+    .comment-content {
+        grid-area: content;
+        margin: 0;
+        padding: 0;
+        word-wrap: break-word;
+        color: var.$text;
+        font-size: .85rem;
+
+        p {
+            margin: 0 0 .6em 0;
+        }
     }
 }
+
+// コメントの各要素のスタイルは既にグリッド内部で定義済み
+// .comment-user-name, .comment-metadata, .comment-content のスタイルは
+// コメントボックス内で定義されています
 
 .leave-comment-title {
     position: relative;
@@ -825,6 +861,8 @@ h6 {
         float: left;
         margin: 0 10px 10px 0;
         display: block;
+        width: 40px;
+        height: 40px;
     }
 
     .id {
