@@ -68,6 +68,17 @@
 * ブログフッター部分は、ブログパーツを配置する`<div id="box2-inner">`があり、flexboxでブログパーツを配置します。flexboxは、横に最大3つ配置されます。ブログパーツはユーザーがカスタマイズ可能です。
     * ブログパーツは、それぞれ`<div class="hatena-module hatena-module-XXXXX">`で構成されます。ブログパーツごとにXXXXはユーザーがカスタマイズ可能です。ブログテーマとしてはXXXXに入る文字は予想できず静的に決め打つしかありません。テーマカスタマイズのため、XXXXはユーザーに提示する必要があります。
     * ブログパーツの中身は、モジュールタイトル`div class="hatena-module-title">`、モジュールの中身`<div class="hatena-module-body">`で構成されます。
+    * ブログパーツの一つに検索`div class="hatena-module hatena-module-search-box"`があります。
+    * ブログパーツの一つにカテゴリー`div class="hatena-module hatena-module-category"`があります。
+    * ブログパーツの一つにリンク`div class="hatena-module hatena-module-links"`があります。
+    * ブログパーツの一つに最新記事`div class="hatena-module hatena-module-recent-entries"`があります。
+    * ブログパーツの一つに月別アーカイブ`div class="hatena-module hatena-module-archive"`があります。
+    * ブログパーツの一つに関連記事`div class="hatena-module hatena-module-related-entries"`があります。
+    * ブログパーツの一つにプロフィール`div class="hatena-module hatena-module-profile"`があります。
+    * ブログパーツの一つに注目記事`div class="hatena-module hatena-module-entries-access-ranking"`があります。
+    * ブログパーツの一つに最近のコメント`div class="hatena-module hatena-module-entries-recent-comments"`があります。
+    * ブログパーツの一つに最近の参加グループ`div class="hatena-module hatena-module-entries-circles"`があります。
+    * ブログパーツの一つに最近の執筆者リスト`div class="hatena-module hatena-module-authors-list"`があります。
 
 ## 目指すテーマの仕様
 
