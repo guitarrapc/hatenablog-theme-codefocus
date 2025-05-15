@@ -732,42 +732,23 @@ h6 {
             margin: 0 0 .6em 0;
         }
     }
-}
 
-// コメントの各要素のスタイルは既にグリッド内部で定義済み
-// .comment-user-name, .comment-metadata, .comment-content のスタイルは
-// コメントボックス内で定義されています
+    // コメントを書くボタン
+    .leave-comment-title {
+        position: relative;
+        display: inline-block;
+        border: 1px solid var.$border;
+        padding: 0 10px 0 10px; // 文字列が自動的にボタンに収まるようパディングで調整
+        border-radius: 18px;
+        color: var.$text-low-priority;
+        font-size: 0.8rem;
 
-.leave-comment-title {
-    position: relative;
-    display: inline-block;
-    width: 40px; // 仕様通り40pxサイズに調整
-    height: 40px;
-    border-radius: 50%; // 円形にする
-    text-indent: -9999px; // アクセシビリティのため文字を画面外に
-    overflow: hidden;
-
-    &::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        // 吹き出し風のSVGアイコンを表示 - 外部リソースなので直接灰色(#7d7d7d)を指定する。(変数にしても参照させようがない)
-        //background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237d7d7d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 16v3.1l3.1-2.2A12.6 12.6 0 0 0 12 17c5 0 8-2.6 8-6s-3-6-8-6S4 7.4 4 11c0 1.8.7 3.4 2.2 4.5L7 16Z'/></svg>");
-
-        // scss関数を利用してSVGのurl生成前に色を差し替え
-        background-image: fn.url-svg("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 16v3.1l3.1-2.2A12.6 12.6 0 0 0 12 17c5 0 8-2.6 8-6s-3-6-8-6S4 7.4 4 11c0 1.8.7 3.4 2.2 4.5L7 16Z'/></svg>", var.$text-light);
-
-        background-repeat: no-repeat;
-        background-position: center;
-        /* アイコンしか表示したいのでサイズは維持 */
-        background-size: 100%;
+        &:hover {
+            background-color: var.$btn-hover;
+            text-decoration: none;
+            color: var.$text-low-priority;
+        }
     }
-
-    // ホバーでなにもしない
 }
 
 /* Pager */
