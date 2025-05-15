@@ -927,6 +927,67 @@ h6 {
     }
 }
 
+/* recent-entry module */
+.hatena-module-recent-entries {
+
+    // タイトル・日付の共通スタイル
+    .urllist-title-link {
+        font-size: 1rem;
+        font-weight: bold;
+        line-height: 1.4;
+        color: var.$text;
+        text-decoration: none;
+    }
+
+    .urllist-date-link a {
+        font-size: 0.85em;
+        color: var.$text-low-priority;
+    }
+
+    // 最新記事のアイテム内部のレイアウト
+    .recent-entries-item-inner {
+        // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
+        display: grid;
+        grid-template-columns: auto 1fr;
+        // 2行: 1行目がユーザー名と日付、2行目がコメント本文
+        grid-template-rows: auto auto;
+        // エリアの名前付け
+        grid-template-areas:
+            "title"
+            "date"
+            "categories";
+        gap: 2px auto; // 行間と列間の余白
+
+        // タイトル
+        .urllist-title-link {
+            grid-area: title;
+            padding: 0;
+        }
+
+        // 日付
+        .urllist-date-link {
+            grid-area: date;
+            padding: 0;
+            color: var.$text-low-priority;
+        }
+
+        // カテゴリ
+        .urllist-categories {
+            grid-area: categories;
+            padding: 0;
+
+            a {
+                color: var.$text-low-priority;
+            }
+
+            .urllist-category-link {
+                padding: 0;
+            }
+        }
+    }
+
+}
+
 /* Search module */
 .hatena-module-search-box {
     .search-form {
