@@ -104,7 +104,7 @@
     }
 
     // タイトルリンクが日付の下にある場合のスタイル調整（HTML構造の順序に対応）
-    .urllist-date-link+.urllist-title-link {
+    .urllist-date-link + .urllist-title-link {
         margin-top: 10px;
     }
 
@@ -201,7 +201,7 @@
     }
 
     // HTML構造が日付→タイトルの順になっている場合の調整
-    .urllist-date-link+.urllist-title-link {
+    .urllist-date-link + .urllist-title-link {
         order: -1; // タイトルを先に表示（グリッドエリアの指定で位置は決まっている）
     }
 }
