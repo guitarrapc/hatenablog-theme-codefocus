@@ -62,7 +62,7 @@
                 * サムネイルは`<a class="urllist-image-link related-entries-image-link"><image class="urllist-imagerelated-entries-image"></a>`、タイトルは`<a class="urllist-title-link related-entries-title-link  urllist-title related-entries-title">`、日付は`<div class="urllist-date-link related-entries-date-link">`、記事冒頭部は`<div class="urllist-entry-body related-entries-entry-body">`で構成されます。
             * コメントは、一連のコメント`<ul class="comment js-comment"></ul>`、コメントは、ul要素の中に`<li class="entry-comment js-entry-comment">`、コメント用のボタン`<a class="leave-comment-title js-leave-comment-title">`で構成されます
               * コメントがない場合は、コメント用のボタンのみ表示され、コメントは描画されません。
-              * liコメント要素の中に、ユーザー名`<p class="comment-user-name">`、コメント本文`<p class="comment-content">`、投稿日付`<p class="comment-metadata">`、コメント削除用のボタン`<a class="comment-delete-button js-comment-delete-button">` (管理者のみ)、が含まれます。
+              * li要素の中に、ユーザー名`<p class="comment-user-name">`、コメント本文`<p class="comment-content">`、投稿日付`<p class="comment-metadata">`、コメント削除用のボタン`<a class="comment-delete-button js-comment-delete-button">` (管理者のみ)、が含まれます。
       * 記事コンテンツの下に、ページャー`<div class="pager pager-permalink permalink">`があり、次の記事へのリンクが配置されます。
         * ページャーは、前の記事へのリンク`<span class="prev-entry">`、次の記事へのリンク`<span class="next-entry">`で構成されます。もし前の記事がなければ`<span class="prev-entry">`は描画されません。もし次の記事がなければ`<span class="next-entry">`は描画されません。
 * ブログフッター部分は、ブログパーツを配置する`<div id="box2-inner">`があり、flexboxでブログパーツを配置します。flexboxは、横に最大3つ配置されます。ブログパーツはユーザーがカスタマイズ可能です。
@@ -122,7 +122,7 @@
 
 * コメントと関連記事の間に薄い灰色の線を引きます。
 * コメントが複数ある場合、コメントの間にdottedな薄い灰色の線を引きます。
-* 個別のコメントは左にコメントユーザーのアイコン(liで描画)、回り込んでアイコンの右にユーザー名、コメント本文、投稿日付を描画します。ユーザー名と投稿日付は同じ行に表示し、コメント本文をその下に表示します。配置の調整がしやすいようにグリッドレイアウトを使用します。
+* 個別のコメントは左にコメントユーザーのアイコン(liで描画)、回り込んでアイコンの右にユーザー名、コメント本文、投稿日付を描画します。上段にユーザー名、投稿日付の順に表示し、コメント本文を下段に表示します。配置の調整がしやすいようにグリッドレイアウトを使用します。
 * コメントユーザー名は黒色、投稿日付は薄い色、コメント本文は記事本文と同色で表示します。
 * コメントボタンは別途下にスタイルを示します。
 
