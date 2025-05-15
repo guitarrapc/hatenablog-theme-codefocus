@@ -82,8 +82,8 @@
 
 /* 目次全体のマージン調整 */
 ul.table-of-contents {
-    margin-top: 0 !important;
-    margin-bottom: 1em !important;
+    margin-top: 0;
+    margin-bottom: 1em;
 
     /* 閉じているときの角丸調整 */
     &.toc-closed {
@@ -93,5 +93,5 @@ ul.table-of-contents {
 
 /* タイトルがあるときの目次部分の角丸調整 */
 .toc-container .table-of-contents {
-    border-radius: 0 0 10px 10px !important;
+    border-radius: 0 0 10px 10px;
 }

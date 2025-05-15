@@ -6,7 +6,6 @@ ul.table-of-contents {
     position: relative;
     background-color: var.$background;
     border-radius: 10px;
-    box-shadow: 0 2px 8px var.$shadow;
     border: none;
     transition: all 0.3s ease;
     padding: 0; // 全方向のパディングをリセット
@@ -31,7 +30,7 @@ ul.table-of-contents {
     }
 
     /* トップレベルの項目（h1とその他の見出し） */
-    &>li {
+    & > li {
         margin: 0.8em 0;
         padding-left: 1.2em;
         position: relative;
@@ -60,7 +59,7 @@ ul.table-of-contents {
         }
 
         /* すべてのトップレベル見出しのリンクスタイル基本設定 */
-        &>a {
+        & > a {
             display: flex;
             align-items: center;
             padding-left: 0em;
@@ -86,7 +85,7 @@ ul.table-of-contents {
         }
 
         /* 子リスト（h2）のスタイル */
-        &>ul {
+        & > ul {
             display: block;
             padding: 0; // 子リストのパディングもリセット
             margin: 0.3em 0; // 上下のみマージン
@@ -144,7 +143,7 @@ ul.table-of-contents {
                 }
 
                 /* h3以降を非表示 */
-                &>ul {
+                & > ul {
                     display: none;
                 }
             }
