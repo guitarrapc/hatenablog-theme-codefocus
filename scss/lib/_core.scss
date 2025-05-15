@@ -1054,6 +1054,48 @@ h6 {
     }
 }
 
+/* 最近のコメント */
+.hatena-module-recent-comments {
+    .recent-comments {
+        li {
+            // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
+            display: grid;
+            // 左上エリア: アイコン+名前用、右上エリア: 時間、下エリア: コンテンツ用(合算値)
+            grid-template-columns: auto 1fr;
+            // 2行: 1行目がユーザー名と日付、2行目がコメント本文
+            grid-template-rows: auto auto;
+            // エリアの名前付け
+            grid-template-areas:
+                "title title"
+                "user date";
+            gap: 5px 10px; // 行間と列間の余白
+            padding: 12px 0;
+
+            .user-id {
+                grid-area: user;
+                display: flex;
+                align-items: center;
+                margin-left: 2px;
+
+                span {
+                    font-size: .7rem;
+                    margin-left: 2px;
+                }
+            }
+
+            a {
+                grid-area: title;
+            }
+
+            .recent-comment-time {
+                grid-area: date;
+                color: var.$text-low-priority;
+                font-size: .7rem;
+            }
+        }
+    }
+}
+
 /* About ページ */
 .page-about {
     .entry-content {
