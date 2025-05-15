@@ -628,10 +628,11 @@ h6 {
     display: none;
 }
 
-/* 関連記事スタイル */
 /* コメント */
 .comment-box {
     margin: 1em 0;
+    // 関連記事との間に薄い灰色線を引く（上部）
+    border-top: 1px solid var.$border;
 
     .comment {
         list-style: none;
@@ -645,15 +646,13 @@ h6 {
         }
     }
 
+    // コメントがない場合は描画されない
     .entry-comment {
         padding: 10px 0 10px 60px;
+        // 次のコメントとの間に薄い灰色線を引く（下部）
         border-bottom: 1px solid var.$border;
         position: relative;
-        width: 80%;
-
-        &:first-child {
-            border-top: 1px solid var.$border;
-        }
+        //width: 80%;
     }
 
     .read-more-comments {
