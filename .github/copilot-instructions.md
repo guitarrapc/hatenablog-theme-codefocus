@@ -60,6 +60,9 @@
               * 関連記事は、`<div class="hatena-module hatena-module-related-entries">`要素で描画され、関連記事のタイトルは`<div class="hatena-module-title">`、関連記事の中身は`<div class="hatena-module-body"><ul class="related-entries hatena-urllist urllist-with-thumbnails">関連記事のliが並ぶ</ul></div>`で構成されます。
               * 関連記事は`<li class="uirllist-item rlated-entries-item">`にサムネイル、タイトル、日付、記事冒頭部の4つの要素が含まれます。
                 * サムネイルは`<a class="urllist-image-link related-entries-image-link"><image class="urllist-imagerelated-entries-image"></a>`、タイトルは`<a class="urllist-title-link related-entries-title-link  urllist-title related-entries-title">`、日付は`<div class="urllist-date-link related-entries-date-link">`、記事冒頭部は`<div class="urllist-entry-body related-entries-entry-body">`で構成されます。
+            * コメントは、一連のコメント`<ul class="comment js-comment"></ul>`、コメントは、ul要素の中に`<li class="entry-comment js-entry-comment">`、コメント用のボタン`<a class="leave-comment-title js-leave-comment-title">`で構成されます
+              * コメントがない場合は、コメント用のボタンのみ表示され、コメントは描画されません。
+              * liコメント要素の中に、ユーザー名`<p class="comment-user-name">`、コメント本文`<p class="comment-content">`、投稿日付`<p class="comment-metadata">`、コメント削除用のボタン`<a class="comment-delete-button js-comment-delete-button">` (管理者のみ)、が含まれます。
       * 記事コンテンツの下に、ページャー`<div class="pager pager-permalink permalink">`があり、次の記事へのリンクが配置されます。
         * ページャーは、前の記事へのリンク`<span class="prev-entry">`、次の記事へのリンク`<span class="next-entry">`で構成されます。もし前の記事がなければ`<span class="prev-entry">`は描画されません。もし次の記事がなければ`<span class="next-entry">`は描画されません。
 * ブログフッター部分は、ブログパーツを配置する`<div id="box2-inner">`があり、flexboxでブログパーツを配置します。flexboxは、横に最大3つ配置されます。ブログパーツはユーザーがカスタマイズ可能です。
@@ -110,12 +113,25 @@
 * 「目次」ボタンの見た目は、閉じているときは「目次^」、開いているときは「目次v」のように表示します。(^やvは文字ではなくいい感じのアイコン置き換えて開く/閉じるを表現します)。ボタンの背景色はページ背景と同色、ボタンの周りに薄い灰色の枠線をつけます。目次ボタンを開いた時、画面外をクリックしたり目次内のリンクをクリックしてもボタン状態をリセットする必要はありません。
 * 目次ボタンはcss`.toc-button`クラス、目次ボタン中の目次はcss`.floating-toc`でスタイル制御します。
 
+カスタマイズフッターの関連記事について
+
+* 関連記事が複数ある場合、関連記事を2列で表示し、左から右の順に並べます。
+* 個別の関連記事は左にサムネイル、回り込んでサムネイルの右にタイトルと日付を描画します。記事冒頭部は表示しません。日付はタイトルの下に表示します。
+
+コメントについて
+
+* コメントと関連記事の間に薄い灰色の線を引きます。
+* コメントが複数ある場合、コメントの間にdottedな薄い灰色の線を引きます。
+* 個別のコメントは左にコメントユーザーのアイコン(liで描画)、回り込んでアイコンの右にユーザー名、コメント本文、投稿日付を描画します。ユーザー名と投稿日付は同じ行に表示し、コメント本文をその下に表示します。
+* コメントユーザー名は黒色、投稿日付は薄い色、コメント本文は記事本文と同色で表示します。
+* コメントボタンは別途下にスタイルを示します。
+
 コメントボタンについて
 
 * コメントのaタグにははてなブログが自動的に文字列を仕込みますが表示させず、代わりに吹き出しSVGを背景として表示します。
 * はてなブログが仕込む文字列は`text-indent: -9999px;`で画面外に飛ばします。
 * 吹き出しアイコンは大きさはは40px、`background-size: 100%`にします。
-* 吹き出しアイコンは円形、灰色、背景色なし、ホバー時も変化しません。
+* 吹き出しアイコンは円形吹き出し、灰色に設定、背景色なし、ホバー時も変化しません。
 
 ページャーについて
 
@@ -130,10 +146,6 @@
 
 * ブログパーツのタイトルはどのパーツでも縦軸を揃えてください。
 
-カスタマイズフッターの関連記事について
-
-* 関連記事が複数ある場合、関連記事を2列で表示し、左から右の順に並べます。
-* 個別の関連記事は左にサムネイル、回り込んでサムネイルの右にタイトルと日付を描画します。記事冒頭部は表示しません。日付はタイトルの下に表示します。
 
 ## 目次スタイルの実装とデザイン仕様
 
