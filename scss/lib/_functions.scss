@@ -1,0 +1,35 @@
+// SVG文字列やカラー値を加工するためのユーティリティ関数
+
+// 文字列置換
+@function str-replace($string, $search, $replace: '') {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1)+$replace +str-replace(str-slice($string, $index + str-length($search)),
+            $search,
+            $replace );
+    }
+
+    @return $string;
+}
+
+// # → %23 だけを置き換え
+@function escape-color($color) {
+    $hex: unquote("#{$color}");
+    @return str-replace($hex, "#", "%23");
+}
+
+// SVG 全体を最小限エンコード
+@function escape-svg($svg) {
+    $svg: str-replace($svg, "#", "%23");
+    $svg: str-replace($svg, "<", "%3C");
+    $svg: str-replace($svg, ">", "%3E");
+    $svg: str-replace($svg, '"', "'");
+    @return $svg;
+}
+
+// currentColor を差し替えて data-URI を返す
+@function create-svg-url($svg, $color){
+$svg-colored: str-replace($svg, "currentColor", escape-color($color));
+@return url("data:image/svg+xml,#{escape-svg($svg-colored)}");
+}

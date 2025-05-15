@@ -1,39 +1,7 @@
 @use "sass:color";
 @use "./_variable" as var;
+@use "./_functions" as fn;
 @use "./_table_of_contents";
-
-@function str-replace($string, $search, $replace: '') {
-    $index: str-index($string, $search);
-
-    @if $index {
-        @return str-slice($string, 1, $index - 1)+$replace +str-replace(str-slice($string, $index + str-length($search)),
-            $search,
-            $replace );
-    }
-
-    @return $string;
-}
-
-// # → %23 だけを置き換え
-@function escape-color($color) {
-    $hex: unquote("#{$color}");
-    @return str-replace($hex, "#", "%23");
-}
-
-// SVG 全体を最小限エンコード
-@function escape-svg($svg) {
-    $svg: str-replace($svg, "#", "%23");
-    $svg: str-replace($svg, "<", "%3C");
-    $svg: str-replace($svg, ">", "%3E");
-    $svg: str-replace($svg, '"', "'");
-    @return $svg;
-}
-
-// currentColor を差し替えて data-URI を返す
-@function create-svg-url($svg, $color){
-$svg-colored: str-replace($svg, "currentColor", escape-color($color));
-@return url("data:image/svg+xml,#{escape-svg($svg-colored)}");
-}
 
 html,
 body {
@@ -748,7 +716,7 @@ h6 {
         //background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237d7d7d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 16v3.1l3.1-2.2A12.6 12.6 0 0 0 12 17c5 0 8-2.6 8-6s-3-6-8-6S4 7.4 4 11c0 1.8.7 3.4 2.2 4.5L7 16Z'/></svg>");
 
         // scss関数を利用してSVGのurl生成前に色を差し替え
-        background-image: create-svg-url("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 16v3.1l3.1-2.2A12.6 12.6 0 0 0 12 17c5 0 8-2.6 8-6s-3-6-8-6S4 7.4 4 11c0 1.8.7 3.4 2.2 4.5L7 16Z'/></svg>", var.$text-light);
+        background-image: fn.create_svg_url("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 16v3.1l3.1-2.2A12.6 12.6 0 0 0 12 17c5 0 8-2.6 8-6s-3-6-8-6S4 7.4 4 11c0 1.8.7 3.4 2.2 4.5L7 16Z'/></svg>", var.$text-light);
 
         background-repeat: no-repeat;
         background-position: center;
