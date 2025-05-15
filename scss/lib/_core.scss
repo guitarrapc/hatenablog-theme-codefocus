@@ -905,6 +905,7 @@ h6 {
         }
 
         a {
+            color: var.$text; // はてなモジュールのリンクは色をつけない
             text-decoration: none;
 
             &:hover {
