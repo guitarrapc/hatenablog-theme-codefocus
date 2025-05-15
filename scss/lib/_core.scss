@@ -719,12 +719,7 @@ h6 {
         background-size: 100%;
     }
 
-    // ホバー時も変化なし（仕様通り）
-    &:hover,
-    &:focus,
-    &:active {
-        background-color: transparent; // 背景色なし
-    }
+    // ホバーでなにもしない
 }
 
 /* Pager */
