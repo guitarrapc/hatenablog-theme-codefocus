@@ -633,6 +633,7 @@ h6 {
     margin: 1em 0;
     // 関連記事との間に薄い灰色線を引く（上部）
     border-top: 1px solid var.$border;
+    padding-left: 30px; // 関連記事と合わせる
 
     .comment {
         list-style: none;
@@ -650,9 +651,9 @@ h6 {
     .entry-comment {
         padding: 10px 0 10px 60px;
         // 次のコメントとの間に薄い灰色線を引く（下部）
-        border-bottom: 1px solid var.$border;
+        border-bottom: 1px dotted var.$border;
         position: relative;
-        //width: 80%;
+        width: 80%;
     }
 
     .read-more-comments {
@@ -663,8 +664,8 @@ h6 {
         position: absolute;
         top: 10px;
         left: 0;
-        width: 50px !important;
-        height: 50px !important;
+        width: 40px;
+        height: 40px;
         border-radius: 3px;
     }
 }
