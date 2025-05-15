@@ -646,6 +646,16 @@ h6 {
         @media #{var.$mq-sm} {
             font-size: .9rem;
         }
+
+        &::before {
+            content: "Discussion";
+            display: flex; // フレックスボックスを使用して中央配置
+            width: 100%;
+            font-weight: bold;
+            font-size: 1.2em;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
     }
 
     // コメントがない場合は描画されない
