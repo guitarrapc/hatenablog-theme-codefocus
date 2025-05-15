@@ -893,6 +893,18 @@ h6 {
             margin-top: 0;
         }
     }
+
+    .profile-about {
+
+        a {
+            color: var.$text-body;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 /* urllist module */
