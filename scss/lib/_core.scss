@@ -703,19 +703,6 @@ h6 {
     text-indent: -9999px; // アクセシビリティのため文字を画面外に
     overflow: hidden;
 
-    // アクセシビリティ対応
-    &::after {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        margin: -1px;
-        padding: 0;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        border: 0;
-        content: "コメントを書く";
-    }
-
     &::before {
         content: "";
         position: absolute;
