@@ -13,7 +13,7 @@ $bg-code: #1a2638;
 $bg-span: #215aa012;
 $bg-table-th: #edf2f7;
 $bg-toc-hover: rgba(20, 135, 189, 0.05);
-$bg-archive-category: #222a20B3; // サムネイルの上にかぶせる黒い背景色
+$bg-archive-category: #222a20B3; // アーカイブページではサムネイルの上にかぶせる黒い背景色
 $bg-archive-category-hover: color.adjust($bg-archive-category, $lightness: +15%); // 少し明るくした色
 
 // text color
@@ -22,7 +22,7 @@ $text-body: #454545;
 $text-low-priority: #747474;
 $text-light: #999;
 $text-header: #333;
-$text-archive-category: #FFFFFF; // カテゴリのテキスト色
+$text-archive-category: #FFFFFF; // アーカイブページのカテゴリのテキスト色
 
 // link
 //$link: #0682C4;
