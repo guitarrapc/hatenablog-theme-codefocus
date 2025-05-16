@@ -1182,6 +1182,20 @@ h6 {
 /* About ページ */
 .page-about {
     .entry-content {
+        .profile-icon {
+            float: left;
+            margin: 8px 10px 10px 0;
+            display: block;
+            //width: 40px;
+            height: 40px;
+        }
+
+        a {
+            font-weight: bold;
+            color: var.$text-body; // リンクは色をつけない
+            text-decoration: none; // 名前はアンダーラインもつけない
+        }
+
         dt {
             font-weight: bold;
             border-bottom: 1px solid var.$border;
