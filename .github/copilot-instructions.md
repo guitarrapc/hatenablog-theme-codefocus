@@ -26,7 +26,7 @@
 
 * テーマの名前やコンセプトは、`scss/style.scss`に書いています。
 * テーマの紹介エントリーは`introduce-entry.md`に書きます。
-* 紹介のスクリーンショット素材として、[サンプルエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[コードのハイライトエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/12/131258)、を用います。テーマの紹介エントリーは
+* 紹介のスクリーンショット素材として、[サンプルエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[コードのハイライトエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/12/131258)、[アーカイブ一覧ページ](https://guitarrapc-theme.hatenablog.com/archive/author/guitarrapc_tech)を用います。カテゴリー表示は、サンプルエントリーのタイトル下にあるカテゴリーセクション用います。コメントは、サンプルエントリーのコメントセクションを用います。
 * 紹介記事には、テーマの特徴、デザイン・見た目 (PC、タブレット、スマートフォンそれぞれのみためスクリーンショット)、テーマを導入してから行う設定 (はてなブログの管理画面からスマートフォンでレスポンシブデザインに設定すること、はてなブログProの契約者はトップページを一覧形式にすること)、カスタマイズ方法について触れてください。
 * テーマの見た目は、[サンプルエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[コードのハイライトエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/12/131258)、を用います。
 * スクリーンショットは、ページ上部(画面解像度のheight分だけ)、目次、コードハイライトの部分を切り取ってスクリーンショットを取得し、それぞれ適切な紹介セクションで利用します。
