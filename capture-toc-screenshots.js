@@ -72,16 +72,16 @@ import { chromium } from '@playwright/test';
       if (tocContentVisible) {
         console.log('目次コンテンツが表示されています');
 
-        // 目次の位置とサイズを取得
-        const tocBox = await page.locator('ul.table-of-contents').boundingBox();
-        console.log(`目次の位置: x=${tocBox.x}, y=${tocBox.y}, width=${tocBox.width}, height=${tocBox.height}`);
+        // 目次コンテナ全体（タイトルを含む）の位置とサイズを取得
+        const tocContainerBox = await page.locator('.toc-container').boundingBox();
+        console.log(`目次コンテナの位置: x=${tocContainerBox.x}, y=${tocContainerBox.y}, width=${tocContainerBox.width}, height=${tocContainerBox.height}`);
 
-        // 記事内目次のスクリーンショット
-        await page.locator('ul.table-of-contents').screenshot({
+        // 記事内目次のスクリーンショット（タイトルを含む全体）
+        await page.locator('.toc-container').screenshot({
           path: 'articles/screenshots/pc-toc.png',
           timeout: 5000
         });
-        console.log('記事内目次のスクリーンショットを保存しました');
+        console.log('記事内目次（全体）のスクリーンショットを保存しました');
       } else {
         console.log('目次コンテンツが表示されていません');
       }

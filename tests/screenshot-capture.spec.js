@@ -29,8 +29,8 @@ test.describe('Screenshot Capture', () => {
         await page.waitForTimeout(500); // アニメーション待機
       }
 
-      // 記事内目次のスクリーンショット
-      await page.locator('ul.table-of-contents').screenshot({ path: 'articles/screenshots/pc-toc.png' });
+      // 記事内目次のスクリーンショット（タイトルを含む全体）
+      await page.locator('.toc-container').screenshot({ path: 'articles/screenshots/pc-toc.png' });
 
       // スクロールして目次ボタンを表示させる（200px以上スクロールが必要）
       await page.evaluate(() => {
