@@ -24,7 +24,7 @@
 
 テーマの紹介記事を書いて、このテーマをユーザーが利用できるようにします。
 
-* テーマの名前やコンセプトは、`scss/boilerplate.scss`に書いています。
+* テーマの名前やコンセプトは、`scss/style.scss`に書いています。
 * テーマの紹介エントリーは`introduce-entry.md`に書きます。
 * 紹介のスクリーンショット素材として、[サンプルエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[コードのハイライトエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/12/131258)、を用います。テーマの紹介エントリーは
 * 紹介記事には、テーマの特徴、デザイン・見た目 (PC、タブレット、スマートフォンそれぞれのみためスクリーンショット)、テーマを導入してから行う設定 (はてなブログの管理画面からスマートフォンでレスポンシブデザインに設定すること、はてなブログProの契約者はトップページを一覧形式にすること)、カスタマイズ方法について触れてください。
@@ -294,7 +294,7 @@ scssは以下のように分割して実装します。
 | `lib/_table_of_contents_toggle.scss` | 記事本文中の目次開閉スタイルを定義します。 |
 | `lib/_table_of_contents_button.scss` | 目次ボタンとそのスタイルを定義します。 |
 | `lib/_variable.scss` | 変数を定義します。 |
-| `boilerplate.scss` | SCSSのビルドに必要なスタイルを定義します。 |
+| `style.scss` | SCSSのビルドに必要なスタイルを定義します。 |
 
 <basic-instructions>
 
