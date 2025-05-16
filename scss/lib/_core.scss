@@ -48,7 +48,7 @@ h6 {
         text-decoration: none;
 
         &:hover {
-            color: var.$link-hover;
+            color: var.$text-header;
         }
     }
 }
@@ -1367,7 +1367,8 @@ h6 {
         width: 25%; // サムネイルに合わせる。少しだけ小さくするとちょうど溢れない
         // 画面を小さくしてもサムネイルの上から溢れないように
         overflow: hidden;
-        max-height: 1.6em;
+        max-height: 8.4em; // 3行分の高さを確保。これを超えるとhiddenで隠してサムネイルを超えないように制御
+        ;
         max-width: 25%;
 
         @media #{var.$mq-sm} {
