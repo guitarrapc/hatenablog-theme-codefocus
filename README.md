@@ -1,8 +1,8 @@
-# Hatena-Blog-Theme-Boilerplate
+# HatenaBlog-Theme
 
-Boilerplate は、はてなブログのデザインCSSカスタマイズの土台に適したデザインテーマです。
+HatenaBlog-Themeは、はてなブログのデザインCSSカスタマイズの土台をベースに作ったデザインテーマです。
 
-はてなブログの必要最小限の見た目が調整されています。「オリジナルテーマの制作にチャレンジしたいけど、0から作るのが大変」という方は、このデザインテーマをもとにしてCSSを書くと比較的楽にテーマが作れます。
+Boilerplateは、はてなブログの必要最小限の見た目が調整されています。「オリジナルテーマの制作にチャレンジしたいけど、0から作るのが大変」という方は、このBoilerPlateテーマをもとにしてCSSを書くと比較的楽にテーマが作れます。
 
 *Boilerplateは自己責任でご利用ください。お問い合わせははてなブログのサポートフォームではなく、本リポジトリのIssueにお願いします。*
 
@@ -12,9 +12,9 @@ Boilerplate は、はてなブログのデザインCSSカスタマイズの土�
 
 # CSSのダウンロード
 
-最新のバージョンから `boilerplate.css` をダウンロードしてください。
+最新のバージョンから `style.css` をダウンロードしてください。
 
-- <https://github.com/hatena/Hatena-Blog-Theme-Boilerplate/releases>
+- https://github.com/guitarrapc/HatenaBlog-Theme/releases
 
 # セットアップ
 
@@ -27,8 +27,8 @@ SCSSで開発する場合は、下記の手順でリポジトリのcloneとモ�
 ## モジュールのインストール
 
 ``` console
-$ git clone https://github.com/hatena/Hatena-Blog-Theme-Boilerplate.git
-$ cd Hatena-Blog-Theme-Boilerplate
+$ git clone https://github.com/guitarrapc/HatenaBlog-Theme.git
+$ cd HatenaBlog-Theme
 $ npm install
 ```
 
@@ -48,7 +48,7 @@ $ npm install
 3. 1.のブログの「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
     ``` html
     <script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/boilerplate.scss" crossorigin="anonymous" />
+    <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/style.scss" crossorigin="anonymous" />
     ```
 
 つづいて下記のコマンドで、開発サーバーを起動します。`BLOG_DOMAIN_NAME` の部分には、上で用意した動作確認に使うブログのドメイン名 (例: `example.hatenablog.com`) を入力してください。
@@ -95,7 +95,7 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 
 ## コンパイル
 
-テーマの開発が完了したら、下記のコマンドでSCSSをコンパイルします。コンパイルの結果は `build/boilderplate.css` に出力されます。
+テーマの開発が完了したら、下記のコマンドでSCSSをコンパイルします。コンパイルの結果は `build/style.css` に出力されます。
 
 ``` console
 $ npm run build
@@ -104,12 +104,12 @@ $ npm run build
 # 構成
 
 ```
-boilerplate/
+.
 ┣┳ scss/
 ┃┗┳ lib/
-┃ ┗ boilerplate.scss
+┃ ┗ style.scss
 ┗┳ build/
- ┗ boilerplate.css
+ ┗ style.css
 ```
 
 # ライセンス
