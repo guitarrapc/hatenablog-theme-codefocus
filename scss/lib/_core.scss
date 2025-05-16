@@ -331,8 +331,21 @@ h6 {
 /* 「編集する」ボタン */
 .entry-header-menu {
     position: absolute;
-    top: 0;
+    top: 60px;
     right: 0;
+
+    a {
+        padding: 0.3em 0.6em;
+        border: solid 1px var.$border;
+        border-radius: 16px;
+
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+            background-color: var.$btn-hover;
+        }
+    }
 }
 
 /* 記事内の書式 */
