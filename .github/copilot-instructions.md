@@ -24,8 +24,10 @@
 
 テーマの紹介記事を書いて、このテーマをユーザーが利用できるようにします。
 
-* テーマの名前やコンセプトは、`scss/style.scss`に書いています。
-* テーマの紹介エントリーは`introduce-entry.md`に書きます。
+* テーマの名前やコンセプトは、`scss/style.scss`に書かれています。
+* テーマの紹介エントリーは`articles/introduce-entry.md`に書きます。
+* 記事で利用するスクリーンショットは、`capture-code-screenshots.js`、`capture-additional-scrrenshots.js`と既存のPlaywrightのテストを実行することで取得できます。
+  * 記事用のスクリーンショットは、`articles/screenshots/`においてください。ただし記事からのスクリーンショット参照は`screenshots/`を用います。
 * 紹介のスクリーンショット素材として、[サンプルエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[コードのハイライトエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/12/131258)、[アーカイブ一覧ページ](https://guitarrapc-theme.hatenablog.com/archive/author/guitarrapc_tech)を用います。カテゴリー表示は、サンプルエントリーのタイトル下にあるカテゴリーセクション用います。コメントは、サンプルエントリーのコメントセクションを用います。
 * 紹介記事には、テーマの特徴、デザイン・見た目 (PC、タブレット、スマートフォンそれぞれのみためスクリーンショット)、テーマを導入してから行う設定 (はてなブログの管理画面からスマートフォンでレスポンシブデザインに設定すること、はてなブログProの契約者はトップページを一覧形式にすること)、カスタマイズ方法について触れてください。
 * テーマの見た目は、[サンプルエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[コードのハイライトエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/12/131258)、を用います。
@@ -33,7 +35,6 @@
   * PC向けのスクリーンショットは、Surface Pro7の解像度(912x1368px)で取得してください。
   * スマートフォン向けのスクリーンショットは、iPhone 14 Pro Maxの解像度(430x932px)で取得してください。
   * タブレット向けのスクリーンショットは、iPad Pro 12.9インチの解像度(1024x1366px)で取得してください。
-  * 記事用のスクリーンショットは、`articles/screenshots/`においてください。
 * レスポンシブテーマの設定方法を、テーマインストール後に必ず設定する必要がある点を強調してください。
 * 「美しい」などの抽象的な表現は避け、具体的なデザイン要素や機能に焦点を当ててください。
 
