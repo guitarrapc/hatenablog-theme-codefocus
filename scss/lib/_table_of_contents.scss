@@ -77,6 +77,7 @@ ul.table-of-contents {
             &:hover {
                 color: var.$text;
                 transform: translateX(3px);
+                text-decoration: none;
                 background-color: var.$bg-toc-hover;
                 /* var.$link-rgb の値を直接指定 */
                 border-radius: 15px;
