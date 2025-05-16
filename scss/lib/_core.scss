@@ -649,7 +649,7 @@ h6 {
             font-weight: bold;
             font-size: 1.2em;
             padding-top: 15px;
-            padding-bottom: 15px;
+            padding-bottom: 10px;
         }
     }
 
@@ -690,9 +690,9 @@ h6 {
         line-height: 1.3;
 
         .hatena-id-icon {
-            align-self: start; // 上揃え
-            width: 40px;
-            height: 40px;
+            align-self: center; // 中央揃え
+            width: 28px;
+            height: 28px;
             border-radius: 3px;
         }
 
@@ -1175,6 +1175,25 @@ h6 {
                 color: var.$text-low-priority;
                 font-size: .7rem;
             }
+        }
+    }
+}
+
+/* 執筆者リスト */
+.hatena-module-authors-list {
+    .hatena-urllist {
+        a {
+            color: var.$text-body;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .authors-user-icon {
+            width: 28px;
+            height: 28px;
         }
     }
 }
