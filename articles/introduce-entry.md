@@ -45,11 +45,75 @@ CodeFocusテーマはプログラミング記事に最適なスタイルを提�
 
 以下は、Python、C#、Goで同一処理を記述したコードの表示例です：
 
-![Python コードハイライト](screenshots/pc-code-python.png)
+Pythonコードハイライト
 
-![C# コードハイライト](screenshots/pc-code-csharp.png)
+```python
+#!/usr/bin/env python3
+from dataclasses import dataclass
+from typing import List
 
-![Go コードハイライト](screenshots/pc-code-go.png)
+# 2-D immutable point
+@dataclass(frozen=True)
+class Point:
+    x: float; y: float
+    def __add__(self, o: "Point") -> "Point":
+        return Point(self.x + o.x, self.y + o.y)
+
+def sum_points(ps: List[Point]) -> Point:
+    total = Point(0, 0)
+    for p in ps:
+        total += p
+    return total
+
+if __name__ == "__main__":
+    pts = [Point(i, (i * i) % 5) for i in range(5)]
+    print(sum_points(pts))
+```
+
+C#コードハイライト
+
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+var points = Enumerable.Range(0, 5)
+    .Select(i => new Point(i, (i * i) % 5));
+Console.WriteLine($"Total = {Sum(points)}");
+
+static Point Sum(IEnumerable<Point> pts)
+    => pts.Aggregate(new Point(0, 0), (acc, p) => acc + p);
+
+// immutable value object
+public readonly record struct Point(double X, double Y)
+{
+    public static Point operator +(Point a, Point b) => new(a.X + b.X, a.Y + b.Y);
+}
+```
+
+Goコードハイライト
+
+```go
+package main
+
+import "fmt"
+
+// Point is a simple 2-D vector
+type Point struct{ X, Y int }
+
+func (p Point) Add(o Point) Point { return Point{p.X + o.X, p.Y + o.Y} }
+
+func Sum(ps []Point) (t Point) {
+	for _, p := range ps { t = t.Add(p) }
+	return
+}
+
+func main() {
+	pts := make([]Point, 5)
+	for i := range pts { pts[i] = Point{i, (i * i) % 5} }
+	fmt.Printf("Total = %+v\n", Sum(pts))
+}
+```
 
 ### タグクラウドスタイル
 
@@ -73,7 +137,7 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 ※ テーマ導入後、後述するJavaScriptの設定が必要です。
 
-記事右上に常に表示される目次ボタンを提供します。このボタンをクリックすると、いつでも目次を表示できるため、長い記事でも迷子になることがありません。
+記事右上に常に表示される目次ボタンを提供します。このボタンをクリックすると、いつでも目次を表示できるため、長い記事でも迷子になることがありません。目次ボタンは、ページトップから少しスクロールすると表示されます。
 
 ![フローティング目次ボタンのスクリーンショット](screenshots/pc-toc-button.png)
 ![フローティング目次コンテンツのスクリーンショット](screenshots/pc-floating-toc.png)
