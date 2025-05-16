@@ -23,6 +23,7 @@ $text-low-priority: #747474;
 $text-light: #999;
 $text-header: #333;
 $text-archive-category: #FFFFFF; // アーカイブページのカテゴリのテキスト色
+$text-header-visited: color.adjust($text-header, $lightness: +30%); // 少し明るくした色
 
 // link
 //$link: #0682C4;

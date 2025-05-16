@@ -388,6 +388,11 @@ h6 {
         text-decoration: none;
         transition: color 0.2s ease;
 
+        &:visited {
+            color: inherit;
+            /* 訪問済みリンクも同じ色を継承 */
+        }
+
         &:hover {
             text-decoration: underline;
             text-decoration-thickness: 1px;
@@ -1316,6 +1321,11 @@ h6 {
 
                 &:hover {
                     color: var.$text-header;
+                }
+
+                /* アーカイブページだけ訪問済みリンクの色を変える */
+                &:visited {
+                    color: var.$text-header-visited;
                 }
             }
         }
