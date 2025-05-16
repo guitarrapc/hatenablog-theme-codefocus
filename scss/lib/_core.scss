@@ -1230,7 +1230,7 @@ h6 {
         background-color: var.$background;
 
         @media #{var.$mq-sm} {
-            flex-direction: column; // PC版は横並び、スマホ版は縦並びにする
+            flex-direction: column; // 小さい画面では縦に並べる
         }
     }
 
