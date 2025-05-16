@@ -1297,12 +1297,19 @@ h6 {
             margin: 0.5em 0 0 0;
         }
 
+        h1 {
+            font-size: 1.05rem;
+            line-break: strict;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.5rem;
+        }
+
         .entry-title {
             order: 1;
             margin: 0;
             padding: 0;
             text-align: left;
-            font-size: 1.3rem;
 
             a {
                 text-decoration: none;
