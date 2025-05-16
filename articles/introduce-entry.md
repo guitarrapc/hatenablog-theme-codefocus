@@ -1,16 +1,17 @@
-# CodeFocus - シンプルで美しいはてなブログデザインテーマ
+# CodeFocus - コードと記事に集中できるはてなブログデザインテーマ
 
-はてなブログをもっとシンプルに、もっと読みやすく。CodeFocusテーマは、[Zenn](https://zenn.dev/)からインスピレーションを得た、コンテンツに集中できるミニマルデザインのはてなブログテーマです。
+はてなブログをもっとシンプルに、もっと読みやすく。CodeFocusテーマは、[Zenn](https://zenn.dev/)スタイルからインスピレーションを得た、プログラミングブログに最適なシングルカラムデザインのはてなブログテーマです。
 
 ## テーマの特徴
 
 CodeFocusテーマは、以下の特徴を持つ現代的なデザインテーマです：
 
-- **シンプルなシングルカラムレイアウト** - コンテンツを中心に置いたデザイン
-- **美しい目次表示機能** - 記事内の目次とフローティング目次の両方をサポート
-- **完全レスポンシブデザイン** - あらゆるデバイスで最適な表示
-- **洗練されたタイポグラフィ** - 読みやすさを追求したフォント設定
-- **カスタマイズしやすい構造** - 自分好みにアレンジ可能
+- **シンプルなシングルカラムレイアウト** - コンテンツに集中できる余白と配置を重視したデザイン
+- **美しいコードハイライト** - プログラミング記事に最適な読みやすいコード表示
+- **便利な目次機能** - 記事内の目次とフローティング目次の両方をサポート
+- **完全レスポンシブデザイン** - PC、タブレット、スマートフォンすべてで最適表示
+- **タグクラウドスタイル** - カテゴリーを記事数に応じて視覚的に分類
+- **Zenn風コメントデザイン** - スッキリと読みやすいディスカッション表示
 
 ## デザインと見た目
 
@@ -20,25 +21,41 @@ CodeFocusテーマは、すべてのデバイスで美しく表示されるよ�
 
 PCでは、コンテンツを中心に配置し、十分な余白を持たせることで読みやすさを重視しています。サイドバーが下部に移動することで、記事本文に集中できる環境を提供します。
 
-![PC表示のスクリーンショット](screenshots/visual-article.png)
+![PC表示のスクリーンショット](screenshots/article-page.png)
 
 ### タブレットでの表示
 
 タブレットでは、PCと同様のレイアウトを保ちながらも、画面サイズに合わせて最適化されています。コンテンツの読みやすさはそのままに、タッチ操作にも対応しています。
 
-![タブレット表示のスクリーンショット](screenshots/visual-tablet.png)
+![タブレット表示のスクリーンショット](screenshots/responsive-tablet.png)
 
 ### スマートフォンでの表示
 
 スマートフォンでは、限られた画面サイズを最大限に活用するレイアウトに自動調整されます。不要な要素を省き、本文を読むことに集中できるデザインになっています。
 
-![スマートフォン表示のスクリーンショット](screenshots/visual-mobile.png)
+![スマートフォン表示のスクリーンショット](screenshots/responsive-smartphone.png)
 
 記事ページのスマートフォン表示では、読みやすさを最優先したレイアウトになっています。
 
-![スマートフォン記事表示のスクリーンショット](screenshots/visual-mobile-article.png)
+![スマートフォン記事表示のスクリーンショット](screenshots/responsive-smartphone-article.png)
 
-## 特別機能：目次表示
+## 特別機能：美しいコードハイライトとタグクラウド
+
+CodeFocusテーマはプログラミング記事に最適なスタイルを提供します。
+
+### コードハイライト表示
+
+プログラミング言語のコードブロックを見やすく表示します。複数言語に対応し、長いコードでも読みやすいデザインです。
+
+![コードハイライトのスクリーンショット](screenshots/toc-style-overview.png)
+
+### タグクラウドスタイル
+
+カテゴリーを記事数に応じて視覚的に表示します。記事数が多いカテゴリーほど大きく表示されるため、ブログの主要テーマが一目でわかります。
+
+![カテゴリー表示のスクリーンショット](screenshots/category-container.png)
+
+## 便利な目次機能
 
 CodeFocusテーマでは、2種類の目次表示方法を提供しています：
 
@@ -46,18 +63,18 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 記事内に目次を自動的に表示します。クリックで開閉可能な目次は、長い記事でも読者が迷わずに読み進められるようサポートします。
 
-![記事内目次のスクリーンショット](screenshots/visual-in-page-toc.png)
+![記事内目次のスクリーンショット](screenshots/in-page-toc.png)
 
 ### 2. フローティング目次ボタン
 
 記事右上に常に表示される目次ボタンを提供します。このボタンをクリックすると、いつでも目次を表示できるため、長い記事でも迷子になることがありません。
 
-![フローティング目次ボタンのスクリーンショット](screenshots/visual-toc-button.png)
-![目次コンテンツのスクリーンショット](screenshots/visual-toc-content.png)
+![フローティング目次ボタンのスクリーンショット](screenshots/toc-button-style-closed.png)
+![目次コンテンツのスクリーンショット](screenshots/toc-content.png)
 
 ## テーマの導入方法
 
-1. [Hatena-Blog-Theme-Boilerplate](https://github.com/hatena/Hatena-Blog-Theme-Boilerplate) リポジトリから最新版の `codefocus.css` をダウンロード
+1. [HatenaBlog-Theme](https://github.com/guitarrapc/HatenaBlog-Theme) リポジトリから最新版の `style.css` をダウンロード
 2. はてなブログの管理画面から「デザイン設定」→「カスタマイズ」→「デザインCSS」にCSSをコピー＆ペースト
 3. 「保存」ボタンをクリックしてテーマを適用
 
@@ -75,7 +92,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 記事中の目次を開閉する機能を使用するには、以下の設定を行ってください：
 
-1. [toc-toggle.html](https://github.com/hatena/Hatena-Blog-Theme-Boilerplate/blob/master/toc-toggle.html) ファイルの内容をコピー
+1. [toc-toggle.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/toc-toggle.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「デザイン」→「カスタマイズ」→「記事」→「記事上HTML（記事本文上）」に貼り付け
 3. 変更を保存
 
@@ -83,7 +100,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 ページ右上に固定される目次ボタンを使用するには：
 
-1. [toc-button.html](https://github.com/hatena/Hatena-Blog-Theme-Boilerplate/blob/master/toc-button.html) ファイルの内容をコピー
+1. [toc-button.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/toc-button.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「デザイン」→「カスタマイズ」→「記事」→「記事上HTML（記事本文上）」に貼り付け
 3. 変更を保存
 
@@ -95,7 +112,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 2. 「デザイン」→「カスタマイズ」→「レイアウト」で「トップページを一覧形式にする」を選択
 3. 変更を保存
 
-トップページを一覧形式に設定することで、CodeFocusテーマの美しいアーカイブ表示を活用できます。
+トップページを一覧形式に設定することで、CodeFocusテーマの美しいアーカイブ表示を活用できます。いくつかの記事を一覧で表示することで、読者は興味のある記事にすぐにアクセスできます。
 
 ![アーカイブ表示のスクリーンショット](screenshots/archive-grid.png)
 
@@ -133,6 +150,8 @@ body {
 
 ### カテゴリーの表示スタイル変更
 
+カテゴリーは丸みを帯びたタグスタイルで表示されます。ホバー時の挙動も設定可能です。
+
 ```css
 .entry-categories .entry-category-link {
   border-radius: 16px;
@@ -140,15 +159,19 @@ body {
 }
 ```
 
+通常表示:
 ![カテゴリー表示のスクリーンショット](screenshots/category-item.png)
+
+ホバー時:
+![カテゴリーホバーのスクリーンショット](screenshots/category-item-hover.png)
 
 ### コメントセクションのカスタマイズ
 
-CodeFocusテーマでは、コメントセクションもZennのDiscussionスタイルに似た美しいデザインになっています。
+CodeFocusテーマでは、コメントセクションもZennのDiscussionスタイルに似た美しいデザインになっています。ユーザー名や日付が見やすく配置され、コメント内容も読みやすくレイアウトされています。
 
 ![コメントセクションのスクリーンショット](screenshots/comment-section.png)
 
-より高度なカスタマイズをしたい方は、[GitHub リポジトリ](https://github.com/hatena/Hatena-Blog-Theme-Boilerplate)からSCSSファイルをダウンロードして、ローカルで開発することもできます。
+より高度なカスタマイズをしたい方は、[GitHub リポジトリ](https://github.com/guitarrapc/HatenaBlog-Theme)からSCSSファイルをダウンロードして、ローカルで開発することもできます。
 
 ## 開発者向け情報
 
@@ -156,19 +179,46 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 
 - `_variable.scss` - カラーやフォントなどの変数定義
 - `_core.scss` - 全体のベーススタイル
-- `_table_of_contents.scss` - 目次のスタイル
+- `_table_of_contents.scss` - 記事内目次のスタイル
 - `_table_of_contents_toggle.scss` - 目次開閉機能のスタイル
 - `_table_of_contents_button.scss` - 目次ボタンのスタイル
 - `_related_entries.scss` - 関連記事のスタイル
+- `_functions.scss` - SCSSで使用する関数定義
 
 この構造により、特定の部分だけを変更したい場合も簡単に対応できます。
 
+### ローカル開発環境の構築
+
+開発環境を構築することで、リアルタイムで変更を確認しながらテーマをカスタマイズできます：
+
+```bash
+# リポジトリのクローン
+git clone https://github.com/guitarrapc/HatenaBlog-Theme.git
+cd HatenaBlog-Theme
+
+# 必要なモジュールをインストール
+npm install
+
+# 開発サーバーの起動（ブログドメイン名を指定）
+npm start -- your-blog.hatenablog.com
+```
+
+これにより、SCSSの変更がリアルタイムでブログに反映され、即座に効果を確認できます。
+
+## 関連記事の表示
+
+CodeFocusテーマでは、関連記事も美しくレイアウトされています。サムネイル画像とタイトル、日付が見やすく配置されており、読者が関連コンテンツを探しやすくなっています。
+
+![関連記事表示のスクリーンショット](screenshots/related-entries.png)
+
 ## まとめ
 
-CodeFocusテーマは、美しく読みやすいブログを簡単に実現できる、モダンなはてなブログテーマです。シンプルなデザインながらも必要な機能をすべて備えており、ブログ執筆に集中できる環境を提供します。
+CodeFocusテーマは、美しく読みやすいブログを簡単に実現できる、モダンなはてなブログテーマです。特にプログラミングやコード記事を書くブロガーにおすすめのデザインで、コンテンツの表示を最適化しています。
+
+シンプルなデザインながらも必要な機能をすべて備えており、ブログ執筆に集中できる環境を提供します。レスポンシブデザインにより、あらゆるデバイスからの閲覧にも対応しています。
 
 ぜひあなたのブログに取り入れて、読者に快適な読書体験を提供してください！
 
 ---
 
-*CodeFocusテーマに関するフィードバックやご質問は、[GitHub Issues](https://github.com/hatena/Hatena-Blog-Theme-Boilerplate/issues)にてお待ちしております。*
+*CodeFocusテーマに関するフィードバックやご質問は、[GitHub Issues](https://github.com/guitarrapc/HatenaBlog-Theme/issues)にてお待ちしております。*
