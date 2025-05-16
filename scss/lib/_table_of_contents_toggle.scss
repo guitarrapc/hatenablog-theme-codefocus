@@ -69,15 +69,17 @@
 
 /* 目次コンテンツ部分のトランジション */
 .toc-content {
-    max-height: 800px;
-    /* 十分な高さを設定 */
-    overflow: hidden;
+    // 画面の70%の高さに制限
+    max-height: 70vh;
     transition: max-height 0.3s ease;
+
+    // スクロールのスタイリングは_table_of_contents.scssで行っている。トグルで行うと重複してスタイルが壊れるので行わない。
 }
 
 /* 閉じているときのスタイル */
 .toc-closed .toc-content {
     max-height: 0;
+    overflow: hidden;
 }
 
 /* 目次全体のマージン調整 */
