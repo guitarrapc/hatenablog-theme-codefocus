@@ -10,7 +10,7 @@
 * デザインテーマの確認には、[README.md](../README.md)に記載されているnpmコマンドを実行してローカル開発サーバーを立ち上げる必要がありますが、あなたに指示する前に実行されているものとします。開発サーバーを起動しておくことで、変更されたscssやJSは自動的にブログへ反映されます。反映のための`npm run build`は不要です。
 * scssやjsが正常に利用できるかは`npm run build`がエラーなく実行できて、成果物が`build/`に出力されていることを確認してください。
 * すでに存在するHTML構造の順序を変更するために、JavaScriptを用いてDOMを操作することは避けてください。HTMLの順序を変更する場合は、SCSSでスタイルを調整してください。
-* テーマのレンダリング結果は、[トップページ](https://guitarrapc-theme.hatenablog.com/)の個別記事、及び[最新の記事](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)を参照してください。
+* テーマのレンダリング結果は、[トップページ](https://guitarrapc-theme.hatenablog.com/)の個別記事、及び[最新の記事](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[アーカイブ](https://guitarrapc-theme.hatenablog.com/archive/author/guitarrapc_tech)、[アバウト](https://guitarrapc-theme.hatenablog.com/about)を参照してください。
 * SCSSやJavaScriptの変更をした場合、PlaywrightでE2Eテストを実行します。
     * E2Eテストのレンダリング結果を適宜スクリーンショットで確認してください。スクリーンショットは`screenshots/`に保存されます。
     * E2EテストのPlaywrightコードは、`tests/`以下に配置されています。
