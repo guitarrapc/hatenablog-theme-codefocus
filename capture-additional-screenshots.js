@@ -12,37 +12,83 @@ import { chromium } from '@playwright/test';
     // PC解像度（Surface Pro 7: 912x1368）を設定
     await page.setViewportSize({ width: 912, height: 1368 });
 
+    // retry機能を自前で実装
+    const retryAction = async (action, maxRetries = 3, delay = 1000) => {
+      let lastError;
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          return await action();
+        } catch (error) {
+          lastError = error;
+          console.log(`Attempt ${attempt} failed, retrying after ${delay}ms...`);
+          await page.waitForTimeout(delay);
+          // 次の試行で遅延を2倍に
+          delay *= 2;
+        }
+      }
+      throw lastError;
+    };
+
     // 1. フローティング目次のスクリーンショット
     console.log('フローティング目次のスクリーンショット取得中...');
     await page.goto('https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601');
     await page.waitForLoadState('networkidle');
 
     // スクロールして目次ボタンを表示させる
-    await page.retryAction(async () => {
+    await retryAction(async () => {
+      // より確実にスクロールして目次ボタンを表示させる
       await page.evaluate(() => {
-        window.scrollBy(0, 250);
+        // 画面の少し下までスクロール（目次ボタンが表示される位置まで）
+        window.scrollBy(0, 300);
       });
       await page.waitForTimeout(2000);
+
+      // 目次ボタンが表示されているか確認
+      const isVisible = await page.locator('.toc-button').isVisible();
+      if (!isVisible) {
+        throw new Error('目次ボタンがまだ表示されていません');
+      }
     });
 
     // 目次ボタンを見つけてクリック
     const tocButton = await page.locator('.toc-button');
     if (await tocButton.isVisible()) {
       // クリック前のボタンのスクリーンショット（すでに取得済み）
-      // await tocButton.screenshot({ path: 'articles/screenshots/pc-toc-button.png' });
+      await tocButton.screenshot({ path: 'articles/screenshots/pc-toc-button.png' });
+      console.log('目次ボタンのスクリーンショットを撮影しました');
 
       // 目次ボタンをクリックするときに発生する可能性のあるエラーを回避
       try {
+        // 直接DOMを操作してクリックイベントを発火させる（iframeの影響を避ける）
         await page.evaluate(() => {
-          // JavaScriptでクリックイベントを発火させる
-          document.querySelector('.toc-button').click();
+          // クリックイベントを手動で作成して発火
+          const button = document.querySelector('.toc-button');
+          if (button) {
+            const event = new MouseEvent('click', {
+              view: window,
+              bubbles: true,
+              cancelable: true
+            });
+            button.dispatchEvent(event);
+          }
         });
         console.log('目次ボタンをクリックしました');
 
-        // フローティング目次が表示されるまで少し待機
-        await page.waitForTimeout(500);
+        // フローティング目次が表示されるまで十分待機（長めに設定）
+        await page.waitForTimeout(2000);
 
+        // フローティング目次を探す
         const floatingToc = await page.locator('.floating-toc');
+
+        // 表示されるまで少し待つ
+        await retryAction(async () => {
+          const isVisible = await floatingToc.isVisible();
+          if (!isVisible) {
+            throw new Error('フローティング目次がまだ表示されていません');
+          }
+          return true;
+        }, 3, 500);
+
         if (await floatingToc.isVisible()) {
           await floatingToc.screenshot({ path: 'articles/screenshots/pc-floating-toc.png' });
           console.log('フローティング目次のスクリーンショットを撮影しました');
@@ -113,7 +159,17 @@ import { chromium } from '@playwright/test';
     await page.goto('https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601');
     await page.waitForLoadState('networkidle');
 
-    const relatedEntries = await page.locator('.hatena-module-related-entries');
+    // 記事フッターまでスクロール
+    await page.evaluate(() => {
+      const footer = document.querySelector('.entry-footer');
+      if (footer) {
+        footer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+    await page.waitForTimeout(1000);
+
+    // より具体的なセレクタを使用
+    const relatedEntries = await page.locator('.entry-footer .customized-footer .hatena-module-related-entries').first();
     if (await relatedEntries.isVisible()) {
       await relatedEntries.screenshot({ path: 'articles/screenshots/pc-related-entries.png' });
       console.log('関連記事表示のスクリーンショットを撮影しました');
