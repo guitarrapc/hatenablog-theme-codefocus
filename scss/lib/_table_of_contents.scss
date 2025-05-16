@@ -13,12 +13,11 @@ ul.table-of-contents {
 
     /* 目次内の縦線（Zenn風） */
     &::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 1.0rem;
         bottom: 1.0rem;
-        /* 青丸マーカーの中心に合わせる */
-        left: 1.25rem;
+        left: 1.25rem; // 青丸マーカーの中心に線を配置
         width: 3px;
         background-color: var.$toc-border-bg;
         z-index: 0;
@@ -34,9 +33,9 @@ ul.table-of-contents {
         /* 目次内の標準リストマーカーをすべて消す */
         list-style: none;
 
-        /* h1項目の青い丸マーカー */
+        /* h1項目の青丸マーカー */
         &::before {
-            content: "";
+            content: '';
             position: absolute;
             left: 0em; // 左端に配置
             top: 0.25em;
@@ -54,27 +53,34 @@ ul.table-of-contents {
         }
 
         /* すべてのトップレベル見出しのリンクスタイル基本設定 */
+        a {
+            // マーカーのスペースを確保
+            padding-left: 0em;
+            margin: 0.2em 0;
+            text-decoration: none;
+            // Zenn風の薄い色
+            color: var.$text-low-priority;
+            // h1よりやや小さく
+            line-height: 1.4;
+        }
+
+        /* h1見出しのリンクスタイル基本設定 */
         & > a {
+            position: relative;
             display: flex;
             align-items: center;
-            padding-left: 0em;
-            /* マーカーのスペースを確保 */
             font-weight: bold;
-            /* h1は太字 */
-            position: relative;
-            text-decoration: none;
-            color: var.$text-low-priority;
-            /* 濃い文字色 */
-            margin: 0.2em 0;
-            line-height: 1.4;
             font-size: 1rem;
+
+            &:visited {
+                color: var.$text-low-priority;
+            }
 
             &:hover {
                 color: var.$text;
                 transform: translateX(3px);
                 text-decoration: none;
                 background-color: var.$bg-toc-hover;
-                /* var.$link-rgb の値を直接指定 */
                 border-radius: 15px;
                 padding-right: 10px;
             }
@@ -84,6 +90,7 @@ ul.table-of-contents {
         & > ul {
             display: block;
             padding: 0; // 子リストのパディングもリセット
+            // Zenn風にインデントをなくす
             margin: 0.3em 0; // 上下のみマージン
 
             /* h2階層の項目 */
@@ -94,7 +101,7 @@ ul.table-of-contents {
                 /* 目次内の標準リストマーカーをすべて消す */
                 list-style: none;
 
-                /* h2の青い丸マーカー */
+                /* h2の青丸マーカー */
                 &::before {
                     content: "";
                     position: absolute;
@@ -113,26 +120,24 @@ ul.table-of-contents {
                     background-color: color.adjust(var.$link, $lightness: -10%);
                 }
 
+                /* h2見出しのリンクスタイル基本設定 */
                 a {
+                    position: relative;
                     display: flex;
                     align-items: center;
-                    padding-left: 0em;
-                    /* マーカーのスペースを確保 */
                     font-weight: normal;
-                    position: relative;
-                    text-decoration: none;
-                    color: var.$text-low-priority;
-                    /* Zenn風の薄い色 */
-                    margin: 0.2em 0;
-                    line-height: 1.4;
+                    // h1よりやや小さく
                     font-size: 0.95rem;
-                    /* h1よりやや小さく */
+
+                    &:visited {
+                        color: var.$text-low-priority;
+                    }
 
                     &:hover {
-                        color: var.$link;
+                        color: var.$text;
                         transform: translateX(3px);
+                        text-decoration: none;
                         background-color: var.$bg-toc-hover;
-                        /* var.$link-rgb の値を直接指定 */
                         border-radius: 15px;
                         padding-right: 10px;
                     }
