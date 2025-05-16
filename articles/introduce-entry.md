@@ -157,6 +157,15 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 ## テーマの導入方法
 
+はてなブログのテーマストアか、GitHubから直接ダウンロードして導入できます。
+
+### テーマストアからの導入
+
+1. [テーマストア](https://blog.hatena.ne.jp/-/store/theme/)から、「CodeFocus」を選択
+2. 自分のブログにインストール
+
+### GitHubからの導入
+
 1. [HatenaBlog-Theme](https://github.com/guitarrapc/HatenaBlog-Theme) リポジトリから最新版の `style.css` をダウンロード
 2. はてなブログの管理画面から「デザイン設定」→「カスタマイズ」→「デザインCSS」にCSSをコピー＆ペースト
 3. 「保存」ボタンをクリックしてテーマを適用
