@@ -121,6 +121,14 @@ func main() {
 
 タグクラウド風の表示でカテゴリーを記事数に応じて視覚的に表示します。記事数が多いカテゴリーほど大きく表示されるため、ブログの主要テーマが一目でわかります。サイドバーのカテゴリーモジュールは、タグクラウドスタイルになっており、記事数に応じてフォントサイズが自動調整されます。
 
+具体的な記事数に応じた表示は以下のようになっています：
+
+- **1～5記事**: 小さめのフォント (0.8em)
+- **6～10記事**: やや小さめのフォント (0.9em)
+- **11～20記事**: 標準サイズ (1em)
+- **21～50記事**: やや大きめのフォント (1.1～1.2em)、太字
+- **51記事以上**: 大きめのフォント (1.3em)、太字
+
 ![サイドバーのタグクラウド表示](screenshots/pc-sidebar-tag-cloud.png)
 
 ## 便利な目次機能
@@ -159,9 +167,11 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 CodeFocusテーマはレスポンシブデザインに完全対応していますが、正しく表示するには以下の設定が必要です：
 
-1. はてなブログの管理画面から「設定」→「詳細設定」に進む
-2. 「スマートフォン向けデザイン」のセクションで「レスポンシブデザインを適用する」にチェック
+1. はてなブログの管理画面から「デザイン設定」→「スマートフォン」に進む
+2. 「詳細設定」のセクションで「レスポンシブデザインを適用する」にチェック
 3. 変更を保存
+
+![デザイン設定からスマートフォンをレスポンシブデザイン設定のスクリーンショット](screenshots/smartphone-responsive-design.png)
 
 ### 目次開閉機能を利用する
 
@@ -254,9 +264,40 @@ body {
   transition: all 0.3s ease;
 }
 
-/* 記事数の多いカテゴリーのスタイル */
-.hatena-module-category .hatena-urllist li a[href*="(2"][href$=")]"] {
+/* 記事数による大きさの調整 */
+/* 1-5記事 (小) */
+.hatena-module-category .hatena-urllist li a[href*="(1)"],
+.hatena-module-category .hatena-urllist li a[href*="(2)"],
+.hatena-module-category .hatena-urllist li a[href*="(3)"],
+.hatena-module-category .hatena-urllist li a[href*="(4)"],
+.hatena-module-category .hatena-urllist li a[href*="(5)"] {
+  font-size: 0.8em;
+}
+
+/* 6-10記事 (やや小) */
+.hatena-module-category .hatena-urllist li a[href*="(6)"],
+.hatena-module-category .hatena-urllist li a[href*="(7)"],
+.hatena-module-category .hatena-urllist li a[href*="(8)"],
+.hatena-module-category .hatena-urllist li a[href*="(9)"],
+.hatena-module-category .hatena-urllist li a[href*="(10)"] {
+  font-size: 0.9em;
+}
+
+/* 21-50記事 (やや大) */
+.hatena-module-category .hatena-urllist li a[href*="(2"][href$=")]"]:not([href*="(2)"]),
+.hatena-module-category .hatena-urllist li a[href*="(3"][href$=")]"]:not([href*="(3)"]),
+.hatena-module-category .hatena-urllist li a[href*="(4"][href$=")]"]:not([href*="(4)"])  {
   font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* 51記事以上 (大) */
+.hatena-module-category .hatena-urllist li a[href*="(5"][href$=")]"]:not([href*="(5)"]),
+.hatena-module-category .hatena-urllist li a[href*="(6"][href$=")]"],
+.hatena-module-category .hatena-urllist li a[href*="(7"][href$=")]"],
+.hatena-module-category .hatena-urllist li a[href*="(8"][href$=")]"],
+.hatena-module-category .hatena-urllist li a[href*="(9"][href$=")]"] {
+  font-size: 1.3em;
   font-weight: bold;
 }
 ```
