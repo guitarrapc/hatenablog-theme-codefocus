@@ -1,6 +1,6 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
-import { url } from './helpers';
+import { test as baseTest, expect } from '@playwright/test';
+import { test, url } from './helpers';
 
 test.describe('Screenshot Capture', () => {
   // Surface Pro 7 (912x1368)
@@ -13,13 +13,47 @@ test.describe('Screenshot Capture', () => {
 
     // 目次のスクリーンショット
     const tocExists = await page.locator('ul.table-of-contents').isVisible();
-    if (tocExists) {
+    if (tocExists) {      // 目次が閉じている場合は開く
+      // 目次コンテナを確認
+      const tocContainerClosed = await page.evaluate(() => {
+        const tocContainer = document.querySelector('.toc-container');
+        return tocContainer && tocContainer.classList.contains('toc-closed');
+      });
+
+      if (tocContainerClosed) {
+        // 目次のトグルをクリックして開く（正しいクラス名は toc-title）
+        await page.evaluate(() => {
+          const tocTitle = document.querySelector('.toc-title');
+          if (tocTitle) tocTitle.click();
+        });
+        await page.waitForTimeout(500); // アニメーション待機
+      }
+
       // 記事内目次のスクリーンショット
       await page.locator('ul.table-of-contents').screenshot({ path: 'articles/screenshots/pc-toc.png' });
 
+      // スクロールして目次ボタンを表示させる（200px以上スクロールが必要）
+      await page.evaluate(() => {
+        window.scrollBy(0, 250);
+      });
+      await page.waitForTimeout(1000);
+
+      // 目次ボタンが表示されるか確認
+      const tocButton = page.locator('.toc-button');
+      let isButtonVisible = false;
+
+      await expect(tocButton).toBeVisible({ timeout: 15000 });
+      isButtonVisible = true;
+
       // フローティング目次ボタンと目次のスクリーンショット
       await page.locator('.toc-button').screenshot({ path: 'articles/screenshots/pc-toc-button.png' });
-      await page.locator('.toc-button').click();
+      // iframeの干渉を避けるためにJavaScriptを使用して目次ボタンをクリック
+      await page.evaluate(() => {
+        const tocButton = document.querySelector('.toc-button');
+        if (tocButton) tocButton.click();
+      });
+      // ボタンクリック後に目次が表示されるまで少し待つ
+      await page.waitForTimeout(500);
       await page.locator('.floating-toc').screenshot({ path: 'articles/screenshots/pc-floating-toc.png' });
     }
 
