@@ -88,9 +88,10 @@
 
 * アーカイブ全体(アーカイブ全体コンテンツ)は、`<div id="main"><div id="main-inner"><div class="archive-entries"><アーカイブ記事分のsection要素></div></div></div>`のように構成されます。
   * アーカイブ記事は各アーカイブ記事が`<section class="archive-entry">アーカイブの構成要素</section>`で構成されます。
-    * アーカイブの構成要素は、エントリーヘッダー`<div class="archive-entry-header">`、カテゴリー`<div class="categories">`、サムネイル`<a class="entry-thumblink">`、記事の冒頭部分`<div class="entry-body">`、ソーシャルボタン`<span class="social-buttons">`で構成されます。
+    * アーカイブの構成要素は、エントリーヘッダー`<div class="archive-entry-header">`、カテゴリー`<div class="categories">`、サムネイル`<a class="entry-thumblink">`、記事のボディ`<div class="entry-body">`で構成されます。
       * エントリーヘッダーは、記事タイトル`<h1 class="entry-title">`、作成日付`<div class="date archive-date"`で構成されています。
       * カテゴリーは、`<a class="archive-category-link">`(0-複数ありえる)で構成されます。
+      * 記事ボディは、記事冒頭部分`<p class="entry-description">`、タグラッパー`<div class="archive-entry-tags-wrapper">`、ソーシャルボタン`<span class="social-buttons">`で構成されています。
 
 アバウトページについて
 
