@@ -493,32 +493,27 @@ h6 {
     }
 
     table {
-        border-collapse: collapse;
-        border-spacing: 2px;
-        margin: 1.2em auto;
+        margin: 1.2rem auto;
         width: auto;
-        overflow: auto;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+        line-height: 1.5;
         word-break: normal;
         display: block;
-        font-size: 0.95rem;
-        /* box-shadowとborder-radiusを削除 - テーブル自体にはボーダーを適用しない */
+        overflow: auto;
+    }
 
-        @media #{var.$mq-md} {
-            font-size: .9rem;
-            width: 85%;
-        }
+    table th {
+        background: var.$table-th-bg;
+        font-weight: 700;
+        color: var.$text-body;
     }
 
     table th,
     table td {
-        border: 1px solid var.$border;
-        padding: 8px 12px;
+        padding: 0.5rem;
+        border: 1px solid var.$table-border;
         text-align: left;
-    }
-
-    table th {
-        background: var.$bg-table-th;
-        font-weight: bold;
     }
 
     blockquote {
