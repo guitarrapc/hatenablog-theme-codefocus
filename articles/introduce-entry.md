@@ -33,7 +33,7 @@ PCでは、コンテンツを中心に配置し、サイドバーが下部に移
 
 <!-- | screenshots/pc-article-top.png | screenshots/tablet-article-top.png | screenshots/smartphone-article-top.png | -->
 
-## コードブロック
+## コードブロックとタグクラウド
 
 CodeFocusテーマはプログラミング記事に最適なスタイルを提供します。
 
@@ -55,13 +55,13 @@ Goコードハイライト
 
 [f:id:guitarrapc_tech:20250517234232p:plain:alt=Goコードハイライトのスクリーンショット] <!-- screenshots/pc-code-go.png -->
 
-## コードコピーボタン
+### コードコピーボタン
 
 ワンクリックでコードをコピーできるコードコピーボタン機能を搭載しています。コードブロックにマウスオーバーすると、右上にコピーボタンが表示され、クリックするだけでコードを簡単にコピーできます。
 
 コードブロックにマウスオーバーすると、右上にコピーボタンが表示されます。このボタンをクリックすることでコードをコピーできます。
 
-[f:id:guitarrapc_tech:20250517234310p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/pc-code-block-with-copy-button.png -->
+[f:id:guitarrapc_tech:20250518051404p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/pc-code-block-with-copy-button.png -->
 
 ### タグクラウドスタイル
 
