@@ -64,7 +64,8 @@ import { chromium } from '@playwright/test';
       // 目次が閉じている場合は開く
       const tocContainerClosed = await page.evaluate(() => {
         const tocContainer = document.querySelector('.toc-container');
-        return tocContainer && tocContainer.classList.contains('toc-closed');
+        // 必ず boolean を返すように修正
+        return tocContainer ? tocContainer.classList.contains('toc-closed') : false;
       });
 
       if (tocContainerClosed) {
@@ -92,7 +93,8 @@ import { chromium } from '@playwright/test';
         for (let attempt = 0; attempt < 3; attempt++) {
           isOpen = await page.evaluate(() => {
             const tocContainer = document.querySelector('.toc-container');
-            return tocContainer && tocContainer.classList.contains('toc-open');
+            // 必ず boolean を返すように修正
+            return tocContainer ? tocContainer.classList.contains('toc-open') : false;
           });
 
           if (isOpen) {
@@ -137,7 +139,11 @@ import { chromium } from '@playwright/test';
 
         // 目次コンテナ全体（タイトルを含む）の位置とサイズを取得
         const tocContainerBox = await page.locator('.toc-container').boundingBox();
-        console.log(`目次コンテナの位置: x=${tocContainerBox.x}, y=${tocContainerBox.y}, width=${tocContainerBox.width}, height=${tocContainerBox.height}`);
+        if (tocContainerBox) {
+          console.log(`目次コンテナの位置: x=${tocContainerBox.x}, y=${tocContainerBox.y}, width=${tocContainerBox.width}, height=${tocContainerBox.height}`);
+        } else {
+          console.log('目次コンテナの位置情報が取得できませんでした');
+        }
 
         // 記事内目次のスクリーンショット（タイトルを含む全体）
         await page.locator('.toc-container').screenshot({
