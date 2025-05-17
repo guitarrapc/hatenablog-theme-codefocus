@@ -157,6 +157,13 @@
                 background-color: color.adjust(var.$link, $lightness: -10%);
             }
 
+            /* アクティブ状態の青丸マーカーのスタイル */
+            &.active::before {
+                background-color: color.adjust(var.$link, $lightness: -10%);
+                box-shadow: 0 0 4px rgba(20, 135, 189, 0.5);
+                transform: scale(1.2);
+            }
+
             /* すべてのトップレベル見出しのリンクスタイル基本設定 */
             a {
                 // マーカーのスペースを確保
@@ -167,6 +174,16 @@
                 color: var.$text-low-priority;
                 // h1よりやや小さく
                 line-height: 1.4;
+
+                /* アクティブ状態のリンクスタイル */
+                &.active {
+                    color: var.$text;
+                    font-weight: bold;
+                    background-color: var.$bg-toc-hover;
+                    border-radius: 15px;
+                    padding-right: 5px;
+                    transform: translateX(3px);
+                }
             }
 
             /* h1見出しのリンクスタイル基本設定 */
@@ -225,6 +242,13 @@
                         background-color: color.adjust(var.$link, $lightness: -10%);
                     }
 
+                    /* アクティブ状態のh2の青丸マーカーのスタイル */
+                    &.active::before {
+                        background-color: color.adjust(var.$link, $lightness: -10%);
+                        box-shadow: 0 0 4px rgba(20, 135, 189, 0.5);
+                        transform: scale(1.2);
+                    }
+
                     /* h2見出しのリンクスタイル基本設定 */
                     a {
                         position: relative;
@@ -245,6 +269,16 @@
                             background-color: var.$bg-toc-hover;
                             border-radius: 15px;
                             padding-right: 5px;
+                        }
+
+                        /* アクティブ状態のリンクスタイル */
+                        &.active {
+                            color: var.$text;
+                            font-weight: bold;
+                            background-color: var.$bg-toc-hover;
+                            border-radius: 15px;
+                            padding-right: 5px;
+                            transform: translateX(3px);
                         }
                     }
 
