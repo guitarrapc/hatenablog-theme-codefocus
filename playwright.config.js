@@ -8,7 +8,8 @@ export default defineConfig({
   timeout: 60 * 1000, // メイン全体のタイムアウトを60秒に拡張
   expect: {
     timeout: 10000 // 期待値の検証タイムアウトを10秒に拡張
-  }, fullyParallel: true,
+  },
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 3 : 1, // テストの失敗時に再試行する回数を増やす
   workers: process.env.CI ? 1 : undefined,
@@ -24,17 +25,25 @@ export default defineConfig({
   ],
   projects: [
     {
-      name: 'chromium',
+      name: 'desktop',
       use: {
         browserName: 'chromium',
-        viewport: { width: 1280, height: 720 },
+        viewport: { width: 912, height: 1368 }, // Surface Pro7の解像度
+      },
+    },
+    {
+      name: 'tablet',
+      use: {
+        browserName: 'chromium',
+        viewport: { width: 1024, height: 1366 }, // iPad Pro 12.9インチの解像度
+        deviceScaleFactor: 1.5,
       },
     },
     {
       name: 'mobile',
       use: {
         browserName: 'chromium',
-        viewport: { width: 414, height: 896 },
+        viewport: { width: 430, height: 932 }, // iPhone 14 Pro Maxの解像度
         deviceScaleFactor: 2,
         isMobile: true,
       },
