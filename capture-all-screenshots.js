@@ -219,6 +219,64 @@ import { chromium } from '@playwright/test';
           if (await floatingToc.isVisible()) {
             await floatingToc.screenshot({ path: 'articles/screenshots/pc-floating-toc.png' });
             console.log('✓ フローティング目次のスクリーンショットを撮影しました');
+
+            // アクティブな目次項目のスクリーンショットを撮影する追加処理
+            console.log('アクティブな目次項目のスクリーンショット取得中...');
+
+            // 目次内の最初の項目を取得してターゲットIDを特定
+            const firstTocItem = await page.locator('.floating-toc-list > li').first();
+
+            try {
+              // 目次項目内のリンクを取得
+              const firstTocLink = await firstTocItem.locator('a').first();
+              const href = await firstTocLink.getAttribute('href');
+
+              if (href) {
+                // href属性からIDを抽出
+                const targetId = href.substring(1); // '#'を除去
+                console.log(`最初の目次項目のターゲットID: ${targetId}`);
+
+                // 対応する見出し要素へスクロール（instantで瞬時に移動）
+                await page.evaluate((id) => {
+                  const element = document.getElementById(id);
+                  if (element) {
+                    console.log(`ID: ${id}の要素へスクロール`);
+                    element.scrollIntoView({ behavior: 'instant', block: 'start' });
+                  } else {
+                    console.log(`ID: ${id}の要素が見つかりません`);
+                  }
+                }, targetId);
+
+                // スクロール位置が安定するまで待機（十分な時間を確保）
+                await page.waitForTimeout(2000);
+
+                // アクティブアイテムのハイライトが適用されるのを確認
+                const isActiveHighlighted = await page.evaluate(() => {
+                  const activeItem = document.querySelector('.floating-toc-list .toc-active');
+                  return activeItem != null;
+                });
+
+                if (isActiveHighlighted) {
+                  console.log('目次アクティブハイライトが適用されました');
+                } else {
+                  console.log('警告: 目次アクティブハイライトが適用されていない可能性があります');
+                }
+
+                // 記事と目次の状態を同時に表示したスクリーンショット
+                await page.screenshot({ path: 'articles/screenshots/toc-first-section-scrolled.png', fullPage: false });
+                console.log('✓ 記事と目次の状態を同時に表示したスクリーンショットを撮影しました');
+
+                // アクティブな目次項目を含む目次全体のスクリーンショットを撮影
+                if (await floatingToc.isVisible()) {
+                  await floatingToc.screenshot({ path: 'articles/screenshots/toc-active-first-section.png' });
+                  console.log('✓ アクティブな目次項目のスクリーンショットを撮影しました');
+                }
+              } else {
+                console.log('目次リンクのhref属性が見つかりません');
+              }
+            } catch (error) {
+              console.error('アクティブな目次項目のスクリーンショット取得中にエラーが発生しました:', error);
+            }
           } else {
             console.log('フローティング目次が表示されませんでした');
           }
