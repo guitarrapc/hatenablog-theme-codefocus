@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
           copyButton.title = copyButtonTitleDefault;
           copyButton.classList.remove('copied');
         }, 2000);
-      }).catch(function (err) {        // コピー失敗
+      }).catch(function (err) {
+        // コピー失敗
         console.error('Copy failed:', err);
         copyButton.title = 'Copy failed';
         copyButton.classList.add('copy-error');
