@@ -72,10 +72,10 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
 
    ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
+   <script type="text/javascript" src="http://localhost:5173/js/customize-toc-toggle.js" crossorigin="anonymous"></script>
    ```
 
-2. 本番環境で使用する場合は、[toc-toggle.html](toc-toggle.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+2. 本番環境で使用する場合は、[customize-toc-toggle.html](customize-toc-toggle.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
 
    この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
 
@@ -86,10 +86,10 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 
 1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
    ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
+   <script type="text/javascript" src="http://localhost:5173/js/customize-toc-button.js" crossorigin="anonymous"></script>
    ```
 
-2. 本番環境で使用する場合は、[toc-button.html](toc-button.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+2. 本番環境で使用する場合は、[customize-toc-button.html](customize-toc-button.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
 
    この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
 

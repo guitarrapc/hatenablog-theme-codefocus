@@ -144,7 +144,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 記事中の目次を開閉する機能を使用するには、以下の設定を行ってください：
 
-1. [toc-toggle.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/toc-toggle.html) ファイルの内容をコピー
+1. [toc-toggle.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-toc-toggle.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
 
@@ -152,7 +152,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 ページ右上に固定される目次ボタンを使用するには、以下の設定を行ってください：
 
-1. [toc-button.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/toc-button.html) ファイルの内容をコピー
+1. [toc-button.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-toc-button.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
 
