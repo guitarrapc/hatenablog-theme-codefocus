@@ -61,7 +61,7 @@ Goコードハイライト
 
 コードブロックにマウスオーバーすると、右上にコピーボタンが表示されます。このボタンをクリックすることでコードをコピーできます。
 
-[f:id:guitarrapc_tech:20250517234310p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/code-block-with-copy-button.png -->
+[f:id:guitarrapc_tech:20250517234310p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/pc-code-block-with-copy-button.png -->
 
 ### タグクラウドスタイル
 

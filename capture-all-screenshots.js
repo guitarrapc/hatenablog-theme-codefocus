@@ -339,6 +339,86 @@ import { chromium } from '@playwright/test';
         await codeBlocks[2].screenshot({ path: 'articles/screenshots/pc-code-go.png' });
         console.log('✓ Goコードのスクリーンショットを撮影しました');
       }
+
+      // コードコピーボタンのスクリーンショット取得
+      console.log('コードコピーボタンのスクリーンショット取得中...');
+
+      try {
+        // 最初のコードブロックを使用（Pythonコード）
+        const firstCodeBlock = codeBlocks[0];
+        await firstCodeBlock.scrollIntoViewIfNeeded();
+
+        // ホバー前のスクリーンショット
+        await firstCodeBlock.screenshot({ path: 'articles/screenshots/pc-code-block-before-hover.png' });
+        console.log('✓ ホバー前のコードブロックのスクリーンショットを保存しました');
+
+        // コードブロックにホバー
+        await firstCodeBlock.hover();
+        await page.waitForTimeout(500); // アニメーションを待つ
+
+        // コードブロックラッパーを見つける
+        const codeBlockWrapper = await page.locator('.code-block-wrapper').first();
+
+        if (await codeBlockWrapper.isVisible()) {
+          // ホバー後のスクリーンショット（コピーボタンが表示される）
+          await codeBlockWrapper.screenshot({ path: 'articles/screenshots/pc-code-block-with-copy-button.png' });
+          console.log('✓ コピーボタン表示状態のスクリーンショットを保存しました');
+
+          // コピーボタンにホバーしてツールチップを表示
+          const copyButton = await page.locator('.code-copy-button').first();
+
+          if (await copyButton.isVisible()) {
+            await copyButton.hover();
+            await page.waitForTimeout(300);
+
+            // ツールチップ表示のスクリーンショット - ページスクリーンショットを使用
+            const boundingBox = await codeBlockWrapper.boundingBox();
+            if (boundingBox) {
+              await page.screenshot({
+                path: 'articles/screenshots/pc-code-block-tooltip.png',
+                clip: {
+                  x: boundingBox.x - 20,
+                  y: boundingBox.y - 50, // ツールチップの分、上側に余白を追加
+                  width: boundingBox.width + 40,
+                  height: boundingBox.height + 70 // ツールチップ用に高さを増やす
+                }
+              });
+              console.log('✓ ツールチップ表示状態のスクリーンショットを保存しました');
+            }
+
+            // コピー成功状態のシミュレーション
+            await page.evaluate(() => {
+              const button = document.querySelector('.code-copy-button');
+              if (button instanceof HTMLElement) {
+                button.title = 'Copied!';
+                button.classList.add('copied');
+              }
+            });
+
+            await page.waitForTimeout(300);
+
+            // コピー成功状態のスクリーンショット - ページスクリーンショットを使用
+            if (boundingBox) {
+              await page.screenshot({
+                path: 'articles/screenshots/pc-code-block-copied.png',
+                clip: {
+                  x: boundingBox.x - 20,
+                  y: boundingBox.y - 50,
+                  width: boundingBox.width + 40,
+                  height: boundingBox.height + 70
+                }
+              });
+              console.log('✓ コピー成功状態のスクリーンショットを保存しました');
+            }
+          } else {
+            console.log('コピーボタンが見つかりませんでした');
+          }
+        } else {
+          console.log('コードブロックラッパーが見つかりませんでした');
+        }
+      } catch (error) {
+        console.error('コードコピーボタンのスクリーンショット取得中にエラーが発生しました:', error);
+      }
     } else {
       console.log('コードブロックが見つかりませんでした');
     }
@@ -538,6 +618,10 @@ import { chromium } from '@playwright/test';
  * - pc-code-python.png: Pythonコードハイライト
  * - pc-code-csharp.png: C#コードハイライト
  * - pc-code-go.png: Goコードハイライト
+ * - pc-code-block-before-hover.png: ホバー前のコードブロック
+ * - pc-code-block-with-copy-button.png: コピーボタン表示状態
+ * - pc-code-block-tooltip.png: ツールチップ表示状態
+ * - pc-code-block-copied.png: コピー成功状態
  * - pc-comment-section.png: コメントセクション
  * - pc-related-entries.png: 関連記事
  * - pc-archive-grid.png: アーカイブページのグリッド
