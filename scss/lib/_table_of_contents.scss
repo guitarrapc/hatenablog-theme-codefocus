@@ -96,7 +96,7 @@ ul.table-of-contents {
             }
 
             &:hover {
-                color: var.$text;
+                color: var.$text-body;
                 transform: translateX(3px);
                 text-decoration: none;
                 background-color: var.$bg-toc-hover;
@@ -153,7 +153,7 @@ ul.table-of-contents {
                     }
 
                     &:hover {
-                        color: var.$text;
+                        color: var.$text-body;
                         transform: translateX(3px);
                         text-decoration: none;
                         background-color: var.$bg-toc-hover;

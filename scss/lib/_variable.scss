@@ -11,14 +11,13 @@ $background: #fff;
 $bg-light: #f5f5f5;
 $bg-code: #1a2638;
 $bg-span: #215aa012;
-$bg-table-th: #edf2f7;
 $bg-toc-hover: rgba(20, 135, 189, 0.05);
 $bg-archive-category: #222a20B3; // アーカイブページではサムネイルの上にかぶせる黒い背景色
 $bg-archive-category-hover: color.adjust($bg-archive-category, $lightness: +15%); // 少し明るくした色
+$bg-btn-hover: #f5f5f5; // ボタンのホバー時の背景色
 
 // text color
-$text: #000000d1;
-$text-body: #454545;
+$text-body: #08131a;
 $text-low-priority: #747474;
 $text-light: #999;
 $text-header: #333;
@@ -34,19 +33,20 @@ $link-bg: rgba(20, 135, 189, 0.1); // カテゴリホバー用の薄い青背景
 // border
 $border: #ddd; // 灰色の枠線
 $border-light: #d6e3ed; // 薄い灰色の枠線
-$border-bq: #8f9faa; // 薄い灰色の枠線
+$border-bq: #8f9faa; // 引用
 
 // shadow
 $shadow: rgba(0, 0, 0, 0.08);
 $shadow-light: rgba(0, 0, 0, 0.05);
 $shadow-hover: rgba(0, 0, 0, 0.12); // ホバー時の影
 
-// button
-$btn-hover: #f5f5f5;
-
 // toc
 $toc-border-bg: #e6f2ff;
 $toc-marker: #bfdcff;
+
+// table
+$table-th-bg: #edf2f7;
+$table-border: #d6e3ed; // 薄い灰色の枠線
 
 // Media Queries
 $mq-xs: "(max-width: 480px)";

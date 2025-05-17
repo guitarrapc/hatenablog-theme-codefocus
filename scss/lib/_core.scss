@@ -26,7 +26,7 @@ a {
     &.keyword {
         text-decoration: none;
         border-bottom: 1px dotted var.$border;
-        color: var.$text;
+        color: var.$text-body;
     }
 }
 
@@ -51,6 +51,11 @@ h6 {
             color: var.$text-header;
         }
     }
+}
+
+table {
+    border-spacing: 2px;
+    border-color: gray;
 }
 
 /* container */
@@ -162,7 +167,7 @@ h6 {
     }
 
     a {
-        color: var.$text;
+        color: var.$text-body;
     }
 }
 
@@ -306,7 +311,7 @@ h6 {
         padding-right: 8px;
         display: inline-block;
         text-decoration: none;
-        color: var.$text;
+        color: var.$text-body;
         // 枠線は丸囲みで表示
         border: 1px solid var.$border;
         border-radius: 15px;
@@ -323,7 +328,7 @@ h6 {
 
         &:hover {
             // ホバー時にうっすらと青系の背景色
-            background-color: var.$btn-hover;
+            background-color: var.$bg-btn-hover;
         }
     }
 }
@@ -343,7 +348,7 @@ h6 {
 
         &:hover {
             text-decoration: none;
-            background-color: var.$btn-hover;
+            background-color: var.$bg-btn-hover;
         }
     }
 }
@@ -738,7 +743,7 @@ h6 {
         margin: 0;
         padding: 0;
         word-wrap: break-word;
-        color: var.$text;
+        color: var.$text-body;
         font-size: .85rem;
 
         p {
@@ -757,7 +762,7 @@ h6 {
         font-size: 0.8rem;
 
         &:hover {
-            background-color: var.$btn-hover;
+            background-color: var.$bg-btn-hover;
             text-decoration: none;
             color: var.$text-low-priority;
         }
@@ -1098,7 +1103,7 @@ h6 {
                     }
 
                     &:hover {
-                        background-color: var.$btn-hover;
+                        background-color: var.$bg-btn-hover;
                         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
                     }
                 }
@@ -1125,7 +1130,7 @@ h6 {
     .search-module-input {
         flex: 1 0;
         padding: 5px;
-        color: var.$text;
+        color: var.$text-body;
         background: none;
         border: none;
         outline: none;

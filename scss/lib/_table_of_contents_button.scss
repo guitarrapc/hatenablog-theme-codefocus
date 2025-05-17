@@ -197,7 +197,7 @@
 
                 /* アクティブ状態のリンクスタイル */
                 &.active {
-                    color: var.$text;
+                    color: var.$text-body;
                     font-weight: bold;
                     background-color: var.$bg-toc-hover;
                     border-radius: 15px;
@@ -219,7 +219,7 @@
                 }
 
                 &:hover {
-                    color: var.$text;
+                    color: var.$text-body;
                     transform: translateX(3px);
                     text-decoration: none;
                     background-color: var.$bg-toc-hover;
@@ -283,7 +283,7 @@
                         }
 
                         &:hover {
-                            color: var.$text;
+                            color: var.$text-body;
                             transform: translateX(3px);
                             text-decoration: none;
                             background-color: var.$bg-toc-hover;
@@ -293,7 +293,7 @@
 
                         /* アクティブ状態のリンクスタイル */
                         &.active {
-                            color: var.$text;
+                            color: var.$text-body;
                             font-weight: bold;
                             background-color: var.$bg-toc-hover;
                             border-radius: 15px;
