@@ -67,6 +67,7 @@
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s, transform 0.3s;
+    font-size: 0.9em;
 
     // スクロールバーの出現条件
     max-height: 70vh; // 画面の高さの70%までに制限
@@ -100,31 +101,28 @@
 
     /* ページトップへボタンのコンテナ */
     .page-top-button-container {
-        margin-top: 5px;
-        margin-bottom: 15px;
-        text-align: center;
-        border-bottom: 1px solid var.$border;
-        padding-bottom: 10px;
+        margin-bottom: .3em;
+        text-align: left;
+        line-height: 1.4;
     }
 
     /* ページトップへボタン */
     .page-top-button {
         width: 100%;
-        padding: 8px 12px;
-        background-color: var.$link;
-        color: white;
+        margin: 0;
+        padding: 0;
+        background-color: var.$background;
+        color: var.$text-low-priority;
         border: none;
         border-radius: 4px;
-        font-size: 0.9em;
         cursor: pointer;
         transition: background-color 0.2s ease;
+        text-align: left;
 
-        &:hover {
-            background-color: var.$link-hover;
-        }
-
-        &:active {
-            transform: translateY(1px);
+        &::before {
+            content: '↑';
+            margin: 0 12px 0 1px;
+            color: var.$text-low-priority;
         }
     }
 
