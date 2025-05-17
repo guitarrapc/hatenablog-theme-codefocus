@@ -315,11 +315,11 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 
 - `_variable.scss` - カラーやフォントなどの変数定義
 - `_core.scss` - 全体のベーススタイル
+- `_functions.scss` - SCSSで使用する関数定義
+- `_related_entries.scss` - 関連記事のスタイル
 - `_table_of_contents.scss` - 記事内目次のスタイル
 - `_table_of_contents_toggle.scss` - 目次開閉機能のスタイル
 - `_table_of_contents_button.scss` - 目次ボタンのスタイル
-- `_related_entries.scss` - 関連記事のスタイル
-- `_functions.scss` - SCSSで使用する関数定義
 
 この構造により、特定の部分だけを変更したい場合も簡単に対応できます。
 
@@ -337,6 +337,13 @@ npm install
 
 # 開発サーバーの起動（ブログドメイン名を指定）
 npm start -- your-blog.hatenablog.com
+```
+
+ブログ記事で開発サーバーのスタイルを参照させるため、はてなブログ → 詳細設定 → `<head>要素にメタデータを追加` に以下を追加してください：
+
+```html
+<script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/style.scss" crossorigin="anonymous" />
 ```
 
 これにより、SCSSの変更がリアルタイムでブログに反映され、即座に効果を確認できます。
