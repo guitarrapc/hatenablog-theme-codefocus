@@ -10,7 +10,7 @@
     "build": "vite build",
     "test": "playwright test --reporter=list",
     "test:ui": "playwright test --ui",
-    "report": "playwright show-report"
+    "test:report": "playwright show-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",
