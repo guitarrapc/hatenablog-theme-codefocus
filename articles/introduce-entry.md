@@ -173,11 +173,22 @@ CodeFocusテーマは、カスタマイズしやすい構造になっていま�
 ### 色の変更
 
 ```css
-:root {
-  --primary-color: #3366ff; /* メインカラー */
-  --text-color: #333333; /* 文字色 */
-  --link-color: #0066cc; /* リンク色 */
-  --background-color: #ffffff; /* 背景色 */
+/* 文字色の変更 */
+body {
+  color: #333333; /* 文字色 */
+}
+
+/* リンク色の変更 */
+a {
+  color: #3366ff; /* リンク色 */
+}
+a:hover {
+  color: #0044cc; /* ホバー時のリンク色 */
+}
+
+/* 背景色の変更 */
+body {
+  background-color: #ffffff; /* 背景色 */
 }
 ```
 
@@ -192,7 +203,7 @@ body {
 ### 目次スタイルのカスタマイズ
 
 ```css
-.table-of-contents {
+ul.table-of-contents {
   border-radius: 8px;
   background-color: #f8f9fa;
 }
@@ -207,7 +218,7 @@ body {
 ホバー時の挙動も設定可能です。
 
 ```css
-.entry-categories .entry-category-link {
+.categories a {
   border-radius: 16px;
   padding: 3px 10px;
 }
@@ -225,76 +236,76 @@ body {
 
 ```css
 /* タグクラウドのベーススタイル */
-.hatena-module-category .hatena-urllist li a {
+.hatena-module-category .hatena-module-body .hatena-urllist li a {
   display: inline-block;
   padding: 0.3em 0.6em;
   border-radius: 20px;
   text-decoration: none;
-  border: 1px solid #e6e6e6; /* --border-light変数の値 */
+  border: 1px solid #d6e3ed; /* border-light変数の値 */
   transition: all 0.2s ease;
 }
 
 /* 記事数による大きさの調整 */
 /* 1-5記事 (小) */
-.hatena-module-category .hatena-urllist li a[href*="(1)"],
-.hatena-module-category .hatena-urllist li a[href*="(2)"],
-.hatena-module-category .hatena-urllist li a[href*="(3)"],
-.hatena-module-category .hatena-urllist li a[href*="(4)"],
-.hatena-module-category .hatena-urllist li a[href*="(5)"] {
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(1)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(2)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(3)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(4)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(5)"] {
   font-size: 0.8em;
 }
 
 /* 6-10記事 (やや小) */
-.hatena-module-category .hatena-urllist li a[href*="(6)"],
-.hatena-module-category .hatena-urllist li a[href*="(7)"],
-.hatena-module-category .hatena-urllist li a[href*="(8)"],
-.hatena-module-category .hatena-urllist li a[href*="(9)"],
-.hatena-module-category .hatena-urllist li a[href*="(10)"] {
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(6)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(7)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(8)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(9)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(10)"] {
   font-size: 0.9em;
 }
 
 /* 11-20記事 (標準) */
-.hatena-module-category .hatena-urllist li a[href*="(11)"],
-.hatena-module-category .hatena-urllist li a[href*="(12)"],
-.hatena-module-category .hatena-urllist li a[href*="(13)"],
-.hatena-module-category .hatena-urllist li a[href*="(14)"],
-.hatena-module-category .hatena-urllist li a[href*="(15)"],
-.hatena-module-category .hatena-urllist li a[href*="(16)"],
-.hatena-module-category .hatena-urllist li a[href*="(17)"],
-.hatena-module-category .hatena-urllist li a[href*="(18)"],
-.hatena-module-category .hatena-urllist li a[href*="(19)"],
-.hatena-module-category .hatena-urllist li a[href*="(20)"] {
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(11)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(12)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(13)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(14)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(15)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(16)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(17)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(18)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(19)"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(20)"] {
   font-size: 1em;
 }
 
 /* 21-50記事 (やや大) */
-.hatena-module-category .hatena-urllist li a[href*="(2"][href$=")"],
-.hatena-module-category .hatena-urllist li a[href*="(3"][href$=")"],
-.hatena-module-category .hatena-urllist li a[href*="(4"][href$=")"] {
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(2"][href$=")"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(3"][href$=")"],
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(4"][href$=")"] {
   font-size: 1.1em;
   font-weight: bold;
 }
 
 /* 21-50記事のうち、2桁以上の記事数 (除外条件付き) */
-.hatena-module-category .hatena-urllist li a[href*="(2"][href$=")"]:not([href*="(2)"]),
-.hatena-module-category .hatena-urllist li a[href*="(3"][href$=")"]:not([href*="(3)"]),
-.hatena-module-category .hatena-urllist li a[href*="(4"][href$=")"]:not([href*="(4)"]) {
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(2"][href$=")"]:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]),
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(3"][href$=")"]:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]),
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(4"][href$=")"]:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]) {
   font-size: 1.2em;
 }
 
 /* 51記事以上 (大) */
-.hatena-module-category .hatena-urllist li a[href*="(5"][href$=")"]:not([href*="(5)"]),
-.hatena-module-category .hatena-urllist li a[href*="(6"][href$=")"]:not([href*="(6)"]),
-.hatena-module-category .hatena-urllist li a[href*="(7"][href$=")"]:not([href*="(7)"]),
-.hatena-module-category .hatena-urllist li a[href*="(8"][href$=")"]:not([href*="(8)"]),
-.hatena-module-category .hatena-urllist li a[href*="(9"][href$=")"]:not([href*="(9)"]) {
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(5"][href$=")"]:not([href*="(5)"]),
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(6"][href$=")"]:not([href*="(6)"]),
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(7"][href$=")"]:not([href*="(7)"]),
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(8"][href$=")"]:not([href*="(8)"]),
+.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(9"][href$=")"]:not([href*="(9)"]) {
   font-size: 1.3em;
   font-weight: bold;
 }
 
 /* ホバー効果 */
-.hatena-module-category .hatena-urllist li a:hover {
-  background-color: #f0f7ff; /* --btn-hover変数の値 */
+.hatena-module-category .hatena-module-body .hatena-urllist li a:hover {
+  background-color: #f5f5f5; /* テーマのbtn-hover変数の値 */
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 ```
