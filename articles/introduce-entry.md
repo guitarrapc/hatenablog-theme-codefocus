@@ -33,11 +33,11 @@ PCでは、コンテンツを中心に配置し、サイドバーが下部に移
 
 <!-- | screenshots/pc-article-top.png | screenshots/tablet-article-top.png | screenshots/smartphone-article-top.png | -->
 
-## コードハイライトとタグクラウド
+## コードブロック
 
 CodeFocusテーマはプログラミング記事に最適なスタイルを提供します。
 
-### コードハイライト表示
+### コードハイライト
 
 プログラミング言語のコードブロックを見やすく表示します。色彩がはっきりしており、長いコードでも読みやすいデザインです。
 
@@ -54,6 +54,14 @@ C#コードハイライト
 Goコードハイライト
 
 [f:id:guitarrapc_tech:20250517234232p:plain:alt=Goコードハイライトのスクリーンショット] <!-- screenshots/pc-code-go.png -->
+
+## コードコピーボタン
+
+ワンクリックでコードをコピーできるコードコピーボタン機能を搭載しています。コードブロックにマウスオーバーすると、右上にコピーボタンが表示され、クリックするだけでコードを簡単にコピーできます。
+
+コードブロックにマウスオーバーすると、右上にコピーボタンが表示されます。このボタンをクリックすることでコードをコピーできます。
+
+[f:id:guitarrapc_tech:20250517234310p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/code-block-with-copy-button.png -->
 
 ### タグクラウドスタイル
 
@@ -144,7 +152,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 記事中の目次を開閉する機能を使用するには、以下の設定を行ってください：
 
-1. [toc-toggle.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-toc-toggle.html) ファイルの内容をコピー
+1. [customize-toc-toggle.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-toc-toggle.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
 
@@ -152,9 +160,25 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 ページ右上に固定される目次ボタンを使用するには、以下の設定を行ってください：
 
-1. [toc-button.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-toc-button.html) ファイルの内容をコピー
+1. [customize-toc-button.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-toc-button.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
+
+### コードコピーボタン機能を利用する
+
+コードブロック右上に表示されるコピーボタンを利用するには、以下の設定を行ってください：
+
+1. [customize-code-copy.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-code-copy.html) ファイルの内容をコピー
+2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
+3. 変更を保存
+
+この設定により、すべてのコードブロックに自動的にコピーボタンが追加されます。ユーザーの操作に応じて以下のような挙動が実装されます：
+
+- コードブロックにマウスオーバーすると、右上にコピーボタンが表示される
+- コピーボタンにマウスオーバーすると「Copy」というツールチップが表示される
+- ボタンをクリックするとクリップボードにコードがコピーされる
+- コピー成功時は「Copied!」というフィードバックが表示される
+- スマートフォン・タブレットでもタップでコピー機能が利用できる
 
 ### はてなブログPro契約者向け設定
 
@@ -311,6 +335,78 @@ ul.table-of-contents {
 .hatena-module-category .hatena-module-body .hatena-urllist li a:hover {
   background-color: #f5f5f5; /* テーマのbtn-hover変数の値 */
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+```
+
+### コードコピーボタンのカスタマイズ
+
+コードコピー機能の見た目や挙動を変更したい場合は、はてなブログの「デザイン設定」→「カスタマイズ」→「デザインCSS」に以下のようなCSSを追加できます：
+
+```css
+/* コピーボタンの色を変更 */
+.code-copy-button {
+  background-color: #465670; /* ボタンの背景色 */
+  border-color: #465670; /* ボタンの枠線色 */
+}
+
+/* コピーボタンのホバー時の表示 */
+.code-copy-button:hover {
+  opacity: 1;
+  background-color: #566b8c; /* ホバー時の背景色 */
+}
+
+/* ツールチップのスタイル変更 */
+.code-copy-button[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  top: -35px;
+  right: 0;
+  padding: 4px 10px; /* 内側の余白を大きく */
+  background-color: rgba(0, 0, 0, 0.8); /* ツールチップの背景色を濃く */
+  color: white;
+  border-radius: 6px; /* 角の丸みを増やす */
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+}
+```
+
+コピーボタンの表示設定をカスタマイズする例：
+
+```css
+/* ホバーなしで常にコピーボタンを表示 */
+.code-block-wrapper .code-copy-button {
+  opacity: 0.5; /* 通常時の不透明度 */
+}
+
+/* コピーボタンのサイズを変更 */
+.code-copy-button {
+  width: 32px; /* 少し大きく */
+  height: 32px;
+}
+
+/* コピー成功時のフィードバックカラーを変える */
+.code-copy-button.copied {
+  background-color: #28a745; /* 成功時は緑色に */
+  border-color: #28a745;
+}
+
+/* モバイルでの表示サイズ調整 */
+@media screen and (max-width: 768px) {
+  .code-copy-button {
+    width: 30px;
+    height: 30px;
+  }
+}
+```
+
+SVGアイコンを変更したい場合は、以下のように背景画像を置き換えることができます：
+
+```css
+/* コピーアイコンの変更 */
+.code-copy-button {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 24 24'%3E%3Cpath d='M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E");
+  background-size: 20px 20px; /* アイコンサイズ調整 */
 }
 ```
 
