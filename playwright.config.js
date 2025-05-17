@@ -15,7 +15,7 @@ export default defineConfig({
   use: {
     actionTimeout: 30000, // アクションタイムアウトを30秒に設定
     baseURL: 'https://guitarrapc-theme.hatenablog.com',
-    trace: 'on-first-retry', // 最初の再試行時にトレースを取得
+    trace: 'on', // 常にトレースを取得
     screenshot: 'only-on-failure', // 失敗時のみスクリーンショットを取得
   },
   reporter: [
