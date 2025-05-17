@@ -35,10 +35,23 @@
     const floatingToc = document.createElement('div');
     floatingToc.className = 'floating-toc';
 
-    // 目次のタイトル要素を作成
-    const tocTitle = document.createElement('h4');
-    tocTitle.className = 'floating-toc-title';
-    tocTitle.textContent = '目次';
+    // ページトップへスクロールするボタンを作成
+    const topButton = document.createElement('button');
+    topButton.className = 'page-top-button';
+    topButton.textContent = 'ページトップへ';
+    topButton.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // 目次を閉じる
+      floatingToc.classList.remove('show');
+      tocButton.classList.remove('active');
+    });
+
+    // ページトップボタンを追加するコンテナ
+    const topButtonContainer = document.createElement('div');
+    topButtonContainer.className = 'page-top-button-container';
+    topButtonContainer.appendChild(topButton);
+
     // 目次のクローンを作成
     const tocClone = tableOfContents.cloneNode(true);
 
@@ -46,7 +59,7 @@
     tocClone.classList = 'floating-toc-list';
 
     // フローティング目次に要素を追加
-    floatingToc.appendChild(tocTitle);
+    floatingToc.appendChild(topButtonContainer);
     floatingToc.appendChild(tocClone);
 
     // bodyに要素を追加
