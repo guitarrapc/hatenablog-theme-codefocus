@@ -9,6 +9,7 @@
 * デザインテーマで目指す見た目は、目指すテーマの仕様にしたがって作成してください。
 * デザインテーマの確認には、[README.md](../README.md)に記載されているnpmコマンドを実行してローカル開発サーバーを立ち上げる必要がありますが、あなたに指示する前に実行されているものとします。開発サーバーを起動しておくことで、変更されたscssやJSは自動的にブログへ反映されます。反映のための`npm run build`は不要です。
 * scssやjsが正常に利用できるかは`npm run build`がエラーなく実行できて、成果物が`build/`に出力されていることを確認してください。
+* 本プロジェクトにおいて、jsはESモジュール形式で書きます。
 * すでに存在するHTML構造の順序を変更するために、JavaScriptを用いてDOMを操作することは避けてください。HTMLの順序を変更する場合は、SCSSでスタイルを調整してください。
 * テーマのレンダリング結果は、[トップページ](https://guitarrapc-theme.hatenablog.com/)の個別記事、及び[最新の記事](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[アーカイブ](https://guitarrapc-theme.hatenablog.com/archive/author/guitarrapc_tech)、[アバウト](https://guitarrapc-theme.hatenablog.com/about)を参照してください。
 * SCSSやJavaScriptの変更をした場合、PlaywrightでE2Eテストを実行します。
@@ -26,17 +27,17 @@
 
 * テーマの名前やコンセプトは、`scss/style.scss`に書かれています。
 * テーマの紹介エントリーは`articles/introduce-entry.md`に書きます。
-* 記事で利用するスクリーンショットは、`capture-code-screenshots.js`、`capture-additional-scrrenshots.js`と既存のPlaywrightのテストを実行することで取得できます。
+* 記事で利用するスクリーンショットは`capture-all-screenshots.js`を実行して取得します。スクリーンショット取得に、他のjsファイルは作らないでください。
   * 記事用のスクリーンショットは、`articles/screenshots/`においてください。ただし記事からのスクリーンショット参照は`screenshots/`を用います。
-* 紹介のスクリーンショット素材として、[サンプルエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[アーカイブ一覧ページ](https://guitarrapc-theme.hatenablog.com/archive/author/guitarrapc_tech)を用います。カテゴリー表示は、サンプルエントリーのタイトル下にあるカテゴリーセクション用います。コメントは、サンプルエントリーのコメントセクションを用います。
+* 紹介のスクリーンショット素材として、テーマがすでに適用されている[サンプルエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[アーカイブ一覧ページ](https://guitarrapc-theme.hatenablog.com/archive/author/guitarrapc_tech)、[コードのハイライトエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/12/131258)を用います。カテゴリー表示は、サンプルエントリーのタイトル下にあるカテゴリーセクション用います。コメントは、サンプルエントリーのコメントセクションを用います。
 * 紹介記事には、テーマの特徴、デザイン・見た目 (PC、タブレット、スマートフォンそれぞれのみためスクリーンショット)、テーマを導入してから行う設定 (はてなブログの管理画面からスマートフォンでレスポンシブデザインに設定すること、はてなブログProの契約者はトップページを一覧形式にすること)、カスタマイズ方法について触れてください。
-* テーマの見た目は、[サンプルエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601)、[コードのハイライトエントリー](https://guitarrapc-theme.hatenablog.com/entry/2025/05/12/131258)、を用います。
 * スクリーンショットは、ページ上部(画面解像度のheight分だけ)、目次、コードハイライトの部分を切り取ってスクリーンショットを取得し、それぞれ適切な紹介セクションで利用します。
   * PC向けのスクリーンショットは、Surface Pro7の解像度(912x1368px)で取得してください。
   * スマートフォン向けのスクリーンショットは、iPhone 14 Pro Maxの解像度(430x932px)で取得してください。
   * タブレット向けのスクリーンショットは、iPad Pro 12.9インチの解像度(1024x1366px)で取得してください。
 * レスポンシブテーマの設定方法を、テーマインストール後に必ず設定する必要がある点を強調してください。
 * 「美しい」などの抽象的な表現は避け、具体的なデザイン要素や機能に焦点を当ててください。
+* 関連エントリーは、`.customized-footer .hatena-module-related-entries`を意図しています。スクリーンショットもこれを利用してください。
 
 コードのハイライトエントリーは、Python、C#、Goで同一処理内容を書いています。
 

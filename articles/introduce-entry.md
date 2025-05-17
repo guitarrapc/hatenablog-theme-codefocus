@@ -19,23 +19,17 @@ CodeFocusテーマは、以下の特徴を持つ現代的なデザインテー�
 
 CodeFocusテーマは、すべてのデバイスで美しく表示されるよう設計されています。
 
-### PCでの表示
+CodeFocusテーマは複数のデバイスサイズに最適化されており、それぞれのデバイスで読みやすく美しい表示を実現しています。
 
-PCでは、コンテンツを中心に配置し、十分な余白を持たせることで読みやすさを重視しています。サイドバーが下部に移動することで、記事本文に集中できる環境を提供します。
+### デバイス別の記事表示
 
-![PC表示のスクリーンショット](screenshots/pc-article-top.png)
+各デバイスでの表示の違いを以下に示します。PCでは十分な余白を持ったレイアウト、タブレットではタッチ操作に適したサイズ調整、スマートフォンでは限られた画面サイズを最大限に活用するレイアウトになっています。
 
-### タブレットでの表示
+| PC表示 | タブレット表示 | スマートフォン表示 |
+| --- | --- | --- |
+| ![PC表示](screenshots/pc-article-top.png) | ![タブレット表示](screenshots/tablet-article-top.png) | ![スマートフォン表示](screenshots/smartphone-article-top.png) |
 
-タブレットでは、PCと同様のレイアウトを保ちながらも、画面サイズに合わせて最適化されています。コンテンツの読みやすさはそのままに、タッチ操作にも対応しています。
-
-![タブレット表示のスクリーンショット](screenshots/tablet-article-top.png)
-
-### スマートフォンでの表示
-
-スマートフォンでは、限られた画面サイズを最大限に活用するレイアウトに自動調整されます。不要な要素を省き、本文を読むことに集中できるデザインになっています。
-
-![スマートフォン表示のスクリーンショット](screenshots/smartphone-article-top.png)
+PCでは、コンテンツを中心に配置し、サイドバーが下部に移動することで、記事本文に集中できる環境を提供します。タブレットとスマートフォンでは、デバイスの特性に合わせて余白やフォントサイズが自動調整され、それぞれのデバイスに最適化された読みやすさを実現しています。
 
 ## コードハイライトとタグクラウド
 
@@ -208,7 +202,9 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 トップページを一覧形式に設定することで、CodeFocusテーマの美しいアーカイブ表示を活用できます。いくつかの記事を一覧で表示することで、読者は興味のある記事にすぐにアクセスできます。
 
-![アーカイブ表示のスクリーンショット](screenshots/pc-archive-grid.png)
+| PC表示 | タブレット表示 | スマートフォン表示 |
+| --- | --- | --- |
+| ![アーカイブPC表示のスクリーンショット](screenshots/pc-archive-top.png) | ![アーカイブタブレット表示のスクリーンショット](screenshots/tablet-archive-top.png) | ![アーカイブスマートフォン表示のスクリーンショット](screenshots/smartphone-archive-top.png) |
 
 ## カスタマイズ方法
 
@@ -267,10 +263,11 @@ body {
 /* タグクラウドのベーススタイル */
 .hatena-module-category .hatena-urllist li a {
   display: inline-block;
-  padding: 4px 8px;
-  margin: 4px;
+  padding: 0.3em 0.6em;
   border-radius: 20px;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  border: 1px solid #e6e6e6; /* --border-light変数の値 */
+  transition: all 0.2s ease;
 }
 
 /* 記事数による大きさの調整 */
@@ -292,22 +289,49 @@ body {
   font-size: 0.9em;
 }
 
+/* 11-20記事 (標準) */
+.hatena-module-category .hatena-urllist li a[href*="(11)"],
+.hatena-module-category .hatena-urllist li a[href*="(12)"],
+.hatena-module-category .hatena-urllist li a[href*="(13)"],
+.hatena-module-category .hatena-urllist li a[href*="(14)"],
+.hatena-module-category .hatena-urllist li a[href*="(15)"],
+.hatena-module-category .hatena-urllist li a[href*="(16)"],
+.hatena-module-category .hatena-urllist li a[href*="(17)"],
+.hatena-module-category .hatena-urllist li a[href*="(18)"],
+.hatena-module-category .hatena-urllist li a[href*="(19)"],
+.hatena-module-category .hatena-urllist li a[href*="(20)"] {
+  font-size: 1em;
+}
+
 /* 21-50記事 (やや大) */
-.hatena-module-category .hatena-urllist li a[href*="(2"][href$=")]"]:not([href*="(2)"]),
-.hatena-module-category .hatena-urllist li a[href*="(3"][href$=")]"]:not([href*="(3)"]),
-.hatena-module-category .hatena-urllist li a[href*="(4"][href$=")]"]:not([href*="(4)"])  {
-  font-size: 1.2em;
+.hatena-module-category .hatena-urllist li a[href*="(2"][href$=")"],
+.hatena-module-category .hatena-urllist li a[href*="(3"][href$=")"],
+.hatena-module-category .hatena-urllist li a[href*="(4"][href$=")"] {
+  font-size: 1.1em;
   font-weight: bold;
 }
 
+/* 21-50記事のうち、2桁以上の記事数 (除外条件付き) */
+.hatena-module-category .hatena-urllist li a[href*="(2"][href$=")"]:not([href*="(2)"]),
+.hatena-module-category .hatena-urllist li a[href*="(3"][href$=")"]:not([href*="(3)"]),
+.hatena-module-category .hatena-urllist li a[href*="(4"][href$=")"]:not([href*="(4)"]) {
+  font-size: 1.2em;
+}
+
 /* 51記事以上 (大) */
-.hatena-module-category .hatena-urllist li a[href*="(5"][href$=")]"]:not([href*="(5)"]),
-.hatena-module-category .hatena-urllist li a[href*="(6"][href$=")]"],
-.hatena-module-category .hatena-urllist li a[href*="(7"][href$=")]"],
-.hatena-module-category .hatena-urllist li a[href*="(8"][href$=")]"],
-.hatena-module-category .hatena-urllist li a[href*="(9"][href$=")]"] {
+.hatena-module-category .hatena-urllist li a[href*="(5"][href$=")"]:not([href*="(5)"]),
+.hatena-module-category .hatena-urllist li a[href*="(6"][href$=")"]:not([href*="(6)"]),
+.hatena-module-category .hatena-urllist li a[href*="(7"][href$=")"]:not([href*="(7)"]),
+.hatena-module-category .hatena-urllist li a[href*="(8"][href$=")"]:not([href*="(8)"]),
+.hatena-module-category .hatena-urllist li a[href*="(9"][href$=")"]:not([href*="(9)"]) {
   font-size: 1.3em;
   font-weight: bold;
+}
+
+/* ホバー効果 */
+.hatena-module-category .hatena-urllist li a:hover {
+  background-color: #f0f7ff; /* --btn-hover変数の値 */
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 ```
 
@@ -315,7 +339,9 @@ body {
 
 CodeFocusテーマでは、コメントセクションもZennのDiscussionスタイルに似たデザインになっています。ユーザー名や日付が見やすく配置され、コメント内容も読みやすくレイアウトされています。
 
-![コメントセクションのスクリーンショット](screenshots/pc-comment-section.png)
+| PC表示 | タブレット表示 | スマートフォン表示 |
+| --- | --- | --- |
+| ![コメントセクションPC表示のスクリーンショット](screenshots/pc-comment-section.png) | ![コメントセクションタブレット表示のスクリーンショット](screenshots/tablet-comment-section.png) | ![コメントセクションスマートフォン表示のスクリーンショット](screenshots/smartphone-comment-section.png) |
 
 より高度なカスタマイズをしたい方は、[GitHub リポジトリ](https://github.com/guitarrapc/HatenaBlog-Theme)からSCSSファイルをダウンロードして、ローカルで開発することもできます。
 
