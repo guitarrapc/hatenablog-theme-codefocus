@@ -10,10 +10,6 @@ import { chromium } from '@playwright/test';
  * - タブレット (iPad Pro 12.9): 1024x1366
  * - スマートフォン (iPhone 14 Pro Max): 430x932
  *
- * このスクリプトは以下のファイルの機能を統合しています:
- * - capture-code-screenshots.js
- * - capture-additional-screenshots.js
- * - capture-toc-screenshots.js
  */
 (async () => {
   try {
