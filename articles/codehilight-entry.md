@@ -4,33 +4,6 @@
 
 中のコードブロックは`dict`のように表示されます。
 
-## .cssコードハイライト
-
-```css
-.XXX {
-width: 999px;
-height: 999px;
-}
-
-.propA, .propB, .propC {
-width: 999px;
-height: 999px;
-}
-
-#YYY {
-width: 9px;
-height: 999px;
-}
-```
-
-## Terraformコードハイライト
-
-```terraform
-resource "aws_s3_bucket" "example" {
-  bucket = "terraform-example-s3-cloudfront"
-}
-```
-
 ## Pythonコードハイライト
 
 ```python
@@ -98,5 +71,32 @@ func main() {
 	pts := make([]Point, 5)
 	for i := range pts { pts[i] = Point{i, (i * i) % 5} }
 	fmt.Printf("Total = %+v\n", Sum(pts))
+}
+```
+
+## .cssコードハイライト
+
+```css
+.XXX {
+width: 999px;
+height: 999px;
+}
+
+.propA, .propB, .propC {
+width: 999px;
+height: 999px;
+}
+
+#YYY {
+width: 9px;
+height: 999px;
+}
+```
+
+## Terraformコードハイライト
+
+```terraform
+resource "aws_s3_bucket" "example" {
+  bucket = "terraform-example-s3-cloudfront"
 }
 ```
