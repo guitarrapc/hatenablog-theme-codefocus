@@ -29,7 +29,9 @@ PCでは、コンテンツを中心に配置し、サイドバーが下部に移
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| ![PC表示](screenshots/pc-article-top.png) | ![タブレット表示](screenshots/tablet-article-top.png) | ![スマートフォン表示](screenshots/smartphone-article-top.png) |
+| [f:id:guitarrapc_tech:20250517234003p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20250517234019p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20250517234031p:plain:alt=スマートフォン表示] |
+
+<!-- | screenshots/pc-article-top.png | screenshots/tablet-article-top.png | screenshots/smartphone-article-top.png | -->
 
 ## コードハイライトとタグクラウド
 
@@ -43,15 +45,15 @@ CodeFocusテーマはプログラミング記事に最適なスタイルを提�
 
 Pythonコードハイライト
 
-![Pythonコードハイライトのスクリーンショット](screenshots/pc-code-python.png)
+[f:id:guitarrapc_tech:20250517234158p:plain:alt=Pythonコードハイライトのスクリーンショット] <!-- screenshots/pc-code-python.png -->
 
 C#コードハイライト
 
-![Pythonコードハイライトのスクリーンショット](screenshots/pc-code-csharp.png)
+[f:id:guitarrapc_tech:20250517234210p:plain:alt=C#コードハイライトのスクリーンショット] <!-- screenshots/pc-code-csharp.png -->
 
 Goコードハイライト
 
-![Pythonコードハイライトのスクリーンショット](screenshots/pc-code-go.png)
+[f:id:guitarrapc_tech:20250517234232p:plain:alt=Goコードハイライトのスクリーンショット] <!-- screenshots/pc-code-go.png -->
 
 ### タグクラウドスタイル
 
@@ -65,7 +67,7 @@ Goコードハイライト
 - **21～50記事**: やや大きめのフォント (1.1～1.2em)、太字
 - **51記事以上**: 大きめのフォント (1.3em)、太字
 
-![サイドバーのタグクラウド表示](screenshots/pc-sidebar-tag-cloud.png)
+[f:id:guitarrapc_tech:20250517234514p:plain:alt=サイドバーのタグクラウド表示] <!-- screenshots/pc-sidebar-tag-cloud.png -->
 
 ## 便利な目次機能
 
@@ -77,17 +79,17 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 記事の`[:contents]`で生成される目次をスタイリングしました。タイトル部分をクリックすることで開閉可能な目次は、長い記事でも読者が迷わずに読み進められるようサポートします。
 
-![記事内目次のスクリーンショット](screenshots/pc-toc.png)
+[f:id:guitarrapc_tech:20250517234600p:plain:alt=記事内目次のスクリーンショット] <!-- screenshots/pc-toc.png -->
 
 ### 2. フローティング目次ボタン
 
 記事右上に常に表示される目次ボタンを提供します。このボタンをクリックするといつでも目次を表示できるため、長い記事でも迷子になることがありません。
 
-![フローティング目次ボタンのスクリーンショット](screenshots/pc-toc-button.png)
+[f:id:guitarrapc_tech:20250517234703p:plain:alt=フローティング目次ボタンのスクリーンショット] <!-- screenshots/pc-toc-button.png -->
 
 目次スタイルはシンプルでありながらも機能的です。
 
-![フローティング目次コンテンツのスクリーンショット](screenshots/pc-floating-toc.png)
+[f:id:guitarrapc_tech:20250517234722p:plain:alt=フローティング目次コンテンツのスクリーンショット] <!-- screenshots/pc-floating-toc.png -->
 
 フローティング目次には、閲覧体験を向上させる機能が搭載されています：
 
@@ -95,7 +97,7 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 記事をスクロールすると、現在読んでいるセクションに対応する目次項目が自動でハイライトされます。これにより、長い記事でも現在どのセクションを読んでいるかが一目でわかります。
 
-![現在のセクションがハイライトされた目次](screenshots/toc-first-section-scrolled.png)
+[f:id:guitarrapc_tech:20250517234755p:plain:alt=現在のセクションがハイライトされた目次] <!-- screenshots/toc-first-section-scrolled.png -->
 
 #### 2. ワンクリックでページトップへ移動
 
@@ -136,7 +138,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 2. 「詳細設定」のセクションで「レスポンシブデザインを適用する」にチェック
 3. 変更を保存
 
-![デザイン設定からスマートフォンをレスポンシブデザイン設定のスクリーンショット](screenshots/smartphone-responsive-design.png)
+[f:id:guitarrapc_tech:20250517234922p:plain:alt=デザイン設定からスマートフォンをレスポンシブデザイン設定のスクリーンショット] <!-- screenshots/smartphone-responsive-design.png -->
 
 ### 目次開閉機能を利用する
 
@@ -164,7 +166,9 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| ![アーカイブPC表示のスクリーンショット](screenshots/pc-archive-top.png) | ![アーカイブタブレット表示のスクリーンショット](screenshots/tablet-archive-top.png) | ![アーカイブスマートフォン表示のスクリーンショット](screenshots/smartphone-archive-top.png) |
+|[f:id:guitarrapc_tech:20250517235000p:plain:alt=PC表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20250517235046p:plain:alt=タブレット表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20250517235104p:plain:alt=スマートフォン表示の一覧スクリーンショット] |
+
+<!-- | ![PC表示の一覧スクリーンショット](screenshots/pc-archive-top.png) | ![タブレット表示の一覧スクリーンショット](screenshots/tablet-archive-top.png) | ![スマートフォン表示の一覧スクリーンショット](screenshots/smartphone-archive-top.png) | -->
 
 ## カスタマイズ方法
 
@@ -213,7 +217,7 @@ ul.table-of-contents {
 
 記事内のカテゴリーは丸みを帯びたタグスタイルで表示されます。
 
-![記事タイトル下のカテゴリー表示のスクリーンショット](screenshots/pc-category-container.png)
+[f:id:guitarrapc_tech:20250517235245p:plain:alt=記事タイトル下のカテゴリー表示のスクリーンショット] <!-- screenshots/pc-category-container.png -->
 
 ホバー時の挙動も設定可能です。
 
@@ -225,10 +229,10 @@ ul.table-of-contents {
 ```
 
 通常表示:
-![カテゴリー表示のスクリーンショット](screenshots/pc-category-item.png)
+[f:id:guitarrapc_tech:20250517235312p:plain:alt=カテゴリー表示のスクリーンショット] <!-- screenshots/pc-category-item.png -->
 
 ホバー時:
-![カテゴリーホバーのスクリーンショット](screenshots/pc-category-item-hover.png)
+[f:id:guitarrapc_tech:20250517235325p:plain:alt=カテゴリーホバーのスクリーンショット] <!-- screenshots/pc-category-item-hover.png -->
 
 ### タグクラウドのカスタマイズ
 
@@ -316,7 +320,9 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| ![コメントセクションPC表示のスクリーンショット](screenshots/pc-comment-section.png) | ![コメントセクションタブレット表示のスクリーンショット](screenshots/tablet-comment-section.png) | ![コメントセクションスマートフォン表示のスクリーンショット](screenshots/smartphone-comment-section.png) |
+| [f:id:guitarrapc_tech:20250517235429p:plain:alt=PC表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20250517235508p:plain:alt=タブレット表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20250517235524p:plain:alt=スマートフォン表示のコメントセクションのスクリーンショット] |
+
+<!-- | screenshots/pc-comment-section.png | screenshots/tablet-comment-section.png | screenshots/smartphone-comment-section.png | -->
 
 より高度なカスタマイズをしたい方は、[GitHub リポジトリ](https://github.com/guitarrapc/HatenaBlog-Theme)からSCSSファイルをダウンロードして、ローカルで開発することもできます。
 
@@ -363,7 +369,7 @@ npm start -- your-blog.hatenablog.com
 
 CodeFocusテーマでは、関連記事もレイアウトされています。サムネイル画像とタイトル、日付が見やすく配置されており、読者が関連コンテンツを探しやすくなっています。
 
-![関連記事表示のスクリーンショット](screenshots/pc-related-entries.png)
+[f:id:guitarrapc_tech:20250517235646p:plain:alt=関連記事表示のスクリーンショット] <!-- screenshots/pc-related-entries.png -->
 
 ## まとめ
 
