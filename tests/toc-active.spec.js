@@ -30,7 +30,7 @@ test.describe('目次アクティブハイライトのテスト', () => {
     if (href) {
       // href属性からIDを抽出
       const targetId = href.substring(1); // '#'を除去
-      
+
       // 対応する見出し要素へスクロール
       await page.evaluate((id) => {
         const element = document.getElementById(id);
@@ -38,14 +38,14 @@ test.describe('目次アクティブハイライトのテスト', () => {
           element.scrollIntoView({ behavior: 'instant', block: 'start' });
         }
       }, targetId);
-      
+
       // スクロール位置が安定するまで少し待つ
       await page.waitForTimeout(1000);
 
       // フロートで表示されるTOC内のアクティブな要素をチェック
       // ここでのチェックはより寛容にし、アクティブな要素が存在するかどうかを確認
       await page.screenshot({ path: 'screenshots/toc-first-section-scrolled.png' });
-      
+
       // アクティブ要素があるかどうかを確認するためのスクリーンショット
       await page.screenshot({ path: 'screenshots/toc-active-first-section.png', fullPage: false });
 
@@ -53,7 +53,7 @@ test.describe('目次アクティブハイライトのテスト', () => {
       await page.screenshot({ path: 'screenshots/toc-active-first-section.png', fullPage: false });
     }    // TOC内の2番目の項目を取得 (入れ子構造の場合は子要素を探す)
     let secondTocLink;
-    
+
     // まず2番目のトップレベルの要素を探す
     const secondLiElement = await page.locator('.floating-toc-list > li').nth(1);
     if (await secondLiElement.count() > 0) {
@@ -62,13 +62,13 @@ test.describe('目次アクティブハイライトのテスト', () => {
       // トップレベルの要素が1つしかない場合は、子リストの最初の要素を探す
       secondTocLink = await page.locator('.floating-toc-list > li > ul > li').first().locator('a');
     }
-    
+
     if (await secondTocLink.count() > 0) {
       const href = await secondTocLink.getAttribute('href');
-      
+
       if (href) {
         const targetId = href.substring(1); // '#'を除去
-        
+
         // 対応する見出し要素へスクロール
         await page.evaluate((id) => {
           const element = document.getElementById(id);
@@ -76,18 +76,18 @@ test.describe('目次アクティブハイライトのテスト', () => {
             element.scrollIntoView({ behavior: 'instant', block: 'start' });
           }
         }, targetId);
-        
+
         // スクロール位置が安定するまで少し待つ
         await page.waitForTimeout(1000);
-        
+
         // スクリーンショットを撮影
         await page.screenshot({ path: 'screenshots/toc-second-section-scrolled.png' });
       }
     }
-    
+
     // テスト完了を記録
     console.log('テスト完了: 目次アクティブハイライトのテスト');
-    
+
     // 最終確認としてページ全体のスクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/toc-active-test-complete.png', fullPage: true });
   });
