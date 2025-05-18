@@ -27,14 +27,16 @@
       background: #f4f4f4;
       position: relative;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .devices-container {
       display: flex;
       align-items: flex-end;
       justify-content: center;
-      height: 350px;
-      padding: 20px;
+      height: 300px;
+      padding: 50px 20px 0 20px;
       background: #f4f4f4;
       position: relative;
       overflow: hidden;
@@ -42,15 +44,17 @@
 
     .devices-inner {
       display: flex;
-      align-items: flex-end;
+      align-items: baseline;
       justify-content: center;
       position: relative;
       z-index: 2;
       width: 100%;
       max-width: 520px;
       margin: 0 auto;
-      padding: 0;
-      gap: 20px;
+      padding: 10px 0 5px 0;
+      /* パディングを調整して上に移動 */
+      gap: 40px;
+      /* デバイス間の間隔を広げる */
     }
 
     .device {
@@ -61,74 +65,71 @@
       transition: transform 0.3s ease;
     }
 
-    /* PC */
-    .desktop {
-      width: 320px;
-      height: 220px;
-      margin-left: 40px;
+    /* Tablet */
+    .tablet {
+      width: 185px;
+      /* さらに幅を狭くする */
+      height: 260px;
+      /* さらに高さを小さくする */
+      margin-left: 30px;
+      /* 左マージンを減らす */
       border: 8px solid #444;
-      border-bottom-width: 20px;
-      border-radius: 8px;
+      border-radius: 20px;
       z-index: 3;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
       position: relative;
       background-color: #000;
+      align-self: baseline;
+      margin-bottom: 0;
     }
 
-    .desktop:before {
+    .tablet:before {
       content: "";
       position: absolute;
-      width: 100%;
-      height: 5px;
-      background-color: #333;
-      top: -5px;
-      left: 0;
-      border-radius: 2px 2px 0 0;
-    }
-
-    .desktop-camera {
-      position: absolute;
-      width: 6px;
-      height: 6px;
+      width: 10px;
+      height: 10px;
       background-color: #555;
       border-radius: 50%;
-      top: -18px;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 5;
     }
 
-    /* SVG Monitor Stand */
-    .desktop-stand-container {
+    .tablet:after {
+      content: "";
       position: absolute;
-      width: 120px;
-      height: 60px;
-      bottom: -60px;
+      width: 40px;
+      height: 4px;
+      background-color: #555;
+      border-radius: 2px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: -1;
+      z-index: 5;
     }
 
-    .desktop-stand-svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Tablet - Hidden */
-    .tablet {
+    /* Desktop - Hidden */
+    .desktop {
       display: none;
     }
 
     /* Smartphone */
     .smartphone {
-      width: 100px;
-      height: 180px;
+      width: 90px;
+      /* さらに小さくする */
+      height: 170px;
+      /* さらに小さくする */
       border: 4px solid #333;
       border-radius: 15px;
-      margin-bottom: 25px;
-      margin-right: 40px;
-      z-index: 1;
+      margin-right: 30px;
+      /* 右マージンを減らす */
+      z-index: 2;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      align-self: baseline;
+      margin-bottom: 0;
+      margin-top: 10px;
+      /* さらに下げてタブレットとの高さバランスを調整 */
     }
 
     .smartphone:before {
@@ -157,32 +158,38 @@
       background-position: top center;
     }
 
-    .desktop .device-screen {
+    .tablet .device-screen {
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      border-radius: 0;
+      border-radius: 12px;
+      background-size: cover;
+      background-position: top center;
     }
 
     .title-area {
       text-align: center;
-      padding: 20px 0;
-      height: 110px;
+      padding: 30px 0 15px 0;
+      height: 120px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
       background: #f4f4f4
     }
 
     .theme-title {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      font-size: 48px;
+      font-size: 52px;
+      /* フォントサイズを少し大きくする */
       font-weight: 300;
       color: #222;
       letter-spacing: -1px;
-      margin-bottom: 5px;
+      margin-bottom: 2px;
+      /* マージンをさらに小さくする */
+      margin-top: 5px;
+      /* 上部に少しマージンを追加 */
     }
 
     .theme-subtitle {
@@ -190,14 +197,16 @@
       font-size: 16px;
       font-weight: 300;
       color: #333;
-      margin-top: 5px;
+      margin-top: 2px;
+      /* マージンをさらに小さくする */
       letter-spacing: 0.3px;
     }
 
     .responsive-badge {
       position: absolute;
-      top: 25px;
-      right: -50px;
+      top: 35px;
+      /* 帯を下げて文字を中央に配置 */
+      right: -45px;
       background-color: #3a7bd5;
       color: white;
       transform: rotate(45deg);
@@ -216,13 +225,12 @@
     <div class="responsive-badge">レスポンシブ対応</div>
     <div class="devices-container">
       <div class="devices-inner">
-        <div class="device desktop" style="z-index: 1;">
-          <div class="device-screen" style="background-image: url('screenshots/responsive-desktop.png');">
+        <div class="device tablet" style="z-index: 1;">
+          <div class="device-screen" style="background-image: url('screenshots/visual-tablet.png');">
           </div>
-          <div class="desktop-camera"></div>
         </div>
         <div class="device smartphone" style="z-index: 2;">
-          <div class="device-screen" style="background-image: url('screenshots/responsive-smartphone.png');">
+          <div class="device-screen" style="background-image: url('screenshots/visual-mobile.png');">
           </div>
         </div>
       </div>

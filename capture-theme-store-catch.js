@@ -21,7 +21,7 @@ async function captureThemeStore() {
 
   try {
     // Navigate to the HTML file
-    const htmlPath = path.join(__dirname, 'theme-store-devices.html');
+    const htmlPath = path.join(__dirname, 'theme-store-catch.html');
     await page.goto(`file://${htmlPath}`);
 
     console.log('Page loaded, waiting for rendering...');
@@ -29,7 +29,7 @@ async function captureThemeStore() {
     // Wait a moment for any animations or rendering to complete
     await page.waitForTimeout(1000);    // Take screenshot of the page
     await page.screenshot({
-      path: path.join(__dirname, 'theme-store.png'),
+      path: path.join(__dirname, 'theme-store-catch.png'),
       clip: {
         x: 0,
         y: 0,
@@ -38,7 +38,7 @@ async function captureThemeStore() {
       }
     });
 
-    console.log('Screenshot saved to theme-store.png');
+    console.log('Screenshot saved to theme-store-catch.png');
   } catch (error) {
     console.error('Error capturing screenshot:', error);
   } finally {
