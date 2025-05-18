@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeFocus - はてなブログテーマ</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 620px;
+      height: 460px;
+      background: #f4f4f4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .devices-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 350px;
+      padding: 20px;
+      background: #f4f4f4;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .devices-inner {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0;
+      gap: 20px;
+    }
+
+    .device {
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    /* PC */
+    .desktop {
+      width: 320px;
+      height: 220px;
+      margin-left: 40px;
+      border: 8px solid #444;
+      border-bottom-width: 20px;
+      border-radius: 8px;
+      z-index: 3;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      position: relative;
+      background-color: #000;
+    }
+
+    .desktop:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 5px;
+      background-color: #333;
+      top: -5px;
+      left: 0;
+      border-radius: 2px 2px 0 0;
+    }
+
+    .desktop-camera {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: #555;
+      border-radius: 50%;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+    }
+
+    /* SVG Monitor Stand */
+    .desktop-stand-container {
+      position: absolute;
+      width: 120px;
+      height: 60px;
+      bottom: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -1;
+    }
+
+    .desktop-stand-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Tablet - Hidden */
+    .tablet {
+      display: none;
+    }
+
+    /* Smartphone */
+    .smartphone {
+      width: 100px;
+      height: 180px;
+      border: 4px solid #333;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      margin-right: 40px;
+      z-index: 1;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .smartphone:before {
+      content: "";
+      position: absolute;
+      width: 30px;
+      height: 3px;
+      background-color: #333;
+      border-radius: 3px;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .smartphone:after {
+      display: none;
+    }
+
+    .device-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: top center;
+    }
+
+    .desktop .device-screen {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+    }
+
+    .title-area {
+      text-align: center;
+      padding: 20px 0;
+      height: 110px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #f4f4f4
+    }
+
+    .theme-title {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: #222;
+      letter-spacing: -1px;
+      margin-bottom: 5px;
+    }
+
+    .theme-subtitle {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: #333;
+      margin-top: 5px;
+      letter-spacing: 0.3px;
+    }
+
+    .responsive-badge {
+      position: absolute;
+      top: 25px;
+      right: -50px;
+      background-color: #3a7bd5;
+      color: white;
+      transform: rotate(45deg);
+      padding: 6px 60px;
+      font-size: 12px;
+      font-weight: 500;
+      z-index: 10;
+      box-shadow: 0 2px 10px rgba(58, 123, 213, 0.3);
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="responsive-badge">レスポンシブ対応</div>
+    <div class="devices-container">
+      <div class="devices-inner">
+        <div class="device desktop" style="z-index: 1;">
+          <div class="device-screen" style="background-image: url('screenshots/responsive-desktop.png');">
+          </div>
+          <div class="desktop-camera"></div>
+        </div>
+        <div class="device smartphone" style="z-index: 2;">
+          <div class="device-screen" style="background-image: url('screenshots/responsive-smartphone.png');">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="title-area">
+      <h1 class="theme-title">CodeFocus</h1>
+      <p class="theme-subtitle">コードと記事に集中できるシングルカラムデザイン</p>
+    </div>
+  </div>
+</body>
+
+</html>

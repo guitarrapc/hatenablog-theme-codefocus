@@ -79,9 +79,9 @@ GitHub ActionsでCIを実行して、SCSSやJavaScriptの動作を担保しま�
 
 テーマストアは、はてなブログのテーマをユーザーが選べる無料ストア機能で、本テーマを登録するには、テーマの魅力が伝わるキャッチ画像を作成する必要があります。
 
-* はてなブログテーマストアで用いる、このテーマの魅力を伝えるキャッチ画像`theme-store.png`を作ってください。
-* テーマストアのHTMLは、`theme-store-generator.html`とします。CSSはHTML内に記載します。
-* テーマストア画像をキャプチャするJavaScriptは、`capture-theme-store-generator.js`とします。
+* はてなブログテーマストアで用いる、このテーマの魅力を伝えるキャッチ画像`theme-store-catch.png`を作ってください。
+* テーマストアのHTMLは、`theme-store-catch.html`とします。CSSはHTML内に記載します。
+* テーマストア画像をキャプチャするJavaScriptは、`capture-theme-store-catch.js`とします。
 * 利用できる画像は、620×460ピクセル、対応画像形式：JPEG、PNG、GIFです。
 * テーマストア画像は、HTML/CSSを使用して1つの画像に複数のスクリーンショットを配置し、テーマ名やキャッチコピーを追加します。
 * このHTMLファイルをブラウザでレンダリングした結果をキャプチャします。キャプチャには、Playwrightを用いましょう。
