@@ -29,7 +29,7 @@ PCでは、コンテンツを中心に配置し、サイドバーが下部に移
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| [f:id:guitarrapc_tech:20250517234003p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20250517234019p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20250517234031p:plain:alt=スマートフォン表示] |
+| [f:id:guitarrapc_tech:20250518222608p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20250518222640p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20250518222656p:plain:alt=スマートフォン表示] |
 
 <!-- | screenshots/pc-article-top.png | screenshots/tablet-article-top.png | screenshots/smartphone-article-top.png | -->
 
@@ -45,15 +45,73 @@ CodeFocusテーマはプログラミング記事に最適なスタイルを提�
 
 Pythonコードハイライト
 
-[f:id:guitarrapc_tech:20250517234158p:plain:alt=Pythonコードハイライトのスクリーンショット] <!-- screenshots/pc-code-python.png -->
+```python
+#!/usr/bin/env python3
+from dataclasses import dataclass
+from typing import List
+
+# 2-D immutable point
+@dataclass(frozen=True)
+class Point:
+    x: float; y: float
+    def __add__(self, o: "Point") -> "Point":
+        return Point(self.x + o.x, self.y + o.y)
+
+def sum_points(ps: List[Point]) -> Point:
+    total = Point(0, 0)
+    for p in ps:
+        total += p
+    return total
+
+if __name__ == "__main__":
+    pts = [Point(i, (i * i) % 5) for i in range(5)]
+    print(sum_points(pts))
+```
 
 C#コードハイライト
 
-[f:id:guitarrapc_tech:20250517234210p:plain:alt=C#コードハイライトのスクリーンショット] <!-- screenshots/pc-code-csharp.png -->
+```cs
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+var points = Enumerable.Range(0, 5)
+    .Select(i => new Point(i, (i * i) % 5));
+Console.WriteLine($"Total = {Sum(points)}");
+
+static Point Sum(IEnumerable<Point> pts)
+    => pts.Aggregate(new Point(0, 0), (acc, p) => acc + p);
+
+// immutable value object
+public readonly record struct Point(double X, double Y)
+{
+    public static Point operator +(Point a, Point b) => new(a.X + b.X, a.Y + b.Y);
+}
+```
 
 Goコードハイライト
 
-[f:id:guitarrapc_tech:20250517234232p:plain:alt=Goコードハイライトのスクリーンショット] <!-- screenshots/pc-code-go.png -->
+```go
+package main
+
+import "fmt"
+
+// Point is a simple 2-D vector
+type Point struct{ X, Y int }
+
+func (p Point) Add(o Point) Point { return Point{p.X + o.X, p.Y + o.Y} }
+
+func Sum(ps []Point) (t Point) {
+	for _, p := range ps { t = t.Add(p) }
+	return
+}
+
+func main() {
+	pts := make([]Point, 5)
+	for i := range pts { pts[i] = Point{i, (i * i) % 5} }
+	fmt.Printf("Total = %+v\n", Sum(pts))
+}
+```
 
 ### コードコピーボタン
 
@@ -107,7 +165,7 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 記事をスクロールすると、現在読んでいるセクションに対応する目次項目が自動でハイライトされます。これにより、長い記事でも現在どのセクションを読んでいるかが一目でわかります。
 
-[f:id:guitarrapc_tech:20250517234755p:plain:alt=現在のセクションがハイライトされた目次] <!-- screenshots/toc-first-section-scrolled.png -->
+[f:id:guitarrapc_tech:20250518222920p:plain:alt=現在のセクションがハイライトされた目次] <!-- screenshots/toc-first-section-scrolled.png -->
 
 #### 2. ワンクリックでページトップへ移動
 
@@ -184,7 +242,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-|[f:id:guitarrapc_tech:20250517235000p:plain:alt=PC表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20250517235046p:plain:alt=タブレット表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20250517235104p:plain:alt=スマートフォン表示の一覧スクリーンショット] |
+|[f:id:guitarrapc_tech:20250518223005p:plain:alt=PC表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20250518223026p:plain:alt=タブレット表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20250518223039p:plain:alt=スマートフォン表示の一覧スクリーンショット] |
 
 <!-- | ![PC表示の一覧スクリーンショット](screenshots/pc-archive-top.png) | ![タブレット表示の一覧スクリーンショット](screenshots/tablet-archive-top.png) | ![スマートフォン表示の一覧スクリーンショット](screenshots/smartphone-archive-top.png) | -->
 
@@ -459,7 +517,7 @@ npm start -- your-blog.hatenablog.com
 
 CodeFocusテーマでは、関連記事もレイアウトされています。サムネイル画像とタイトル、日付が見やすく配置されており、読者が関連コンテンツを探しやすくなっています。
 
-[f:id:guitarrapc_tech:20250517235646p:plain:alt=関連記事表示のスクリーンショット] <!-- screenshots/pc-related-entries.png -->
+[f:id:guitarrapc_tech:20250518223136p:plain:alt=関連記事表示のスクリーンショット] <!-- screenshots/pc-related-entries.png -->
 
 ## まとめ
 
