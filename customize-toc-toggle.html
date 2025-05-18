@@ -32,8 +32,8 @@
         tocContent.appendChild(toc.cloneNode(true));
         tocContainer.replaceChild(tocContent, toc);
 
-        // 目次を開閉するための状態を設定（デフォルトは開いた状態）
-        tocContainer.classList.add('toc-open');
+        // 目次を開閉するための状態を設定（デフォルトは閉じた状態）
+        tocContainer.classList.add('toc-closed');
 
         // クリックイベントの設定
         tocTitle.addEventListener('click', function () {

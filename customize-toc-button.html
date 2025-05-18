@@ -35,10 +35,23 @@
       const floatingToc = document.createElement('div');
       floatingToc.className = 'floating-toc';
 
-      // 目次のタイトル要素を作成
-      const tocTitle = document.createElement('h4');
-      tocTitle.className = 'floating-toc-title';
-      tocTitle.textContent = '目次';
+      // ページトップへスクロールするボタンを作成
+      const topButton = document.createElement('button');
+      topButton.className = 'page-top-button';
+      topButton.textContent = 'ページトップへ';
+      topButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // 目次を閉じる
+        floatingToc.classList.remove('show');
+        tocButton.classList.remove('active');
+      });
+
+      // ページトップボタンを追加するコンテナ
+      const topButtonContainer = document.createElement('div');
+      topButtonContainer.className = 'page-top-button-container';
+      topButtonContainer.appendChild(topButton);
+
       // 目次のクローンを作成
       const tocClone = tableOfContents.cloneNode(true);
 
@@ -46,7 +59,7 @@
       tocClone.classList = 'floating-toc-list';
 
       // フローティング目次に要素を追加
-      floatingToc.appendChild(tocTitle);
+      floatingToc.appendChild(topButtonContainer);
       floatingToc.appendChild(tocClone);
 
       // bodyに要素を追加
@@ -79,6 +92,23 @@
         }
       });
 
+      // 記事内の各見出し要素を取得
+      const headings = Array.from(entryContent.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+      // リンク先の要素と対応するTOCリンク要素のマッピング
+      const headingMap = new Map();
+
+      // 各目次リンクに対応する見出しをマッピング
+      tocLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const targetId = href.substring(1);
+          const targetHeading = document.getElementById(targetId);
+          if (targetHeading) {
+            headingMap.set(targetHeading, link);
+          }
+        }
+      });
+
       // スクロールイベントを設定
       let lastScrollTop = 0;
       const scrollThreshold = 200; // スクロールしきい値（px）
@@ -100,6 +130,45 @@
           tocButton.style.display = 'none';
           floatingToc.classList.remove('show'); // 非表示エリアでは目次も閉じる
           tocButton.classList.remove('active'); // ボタンの状態もリセット
+        }
+
+        // 現在表示されている見出しを検出して強調表示
+        if (isEntryVisible) {
+          // すべてのアクティブクラスをクリア
+          tocLinks.forEach(link => {
+            link.classList.remove('active');
+            // 親のli要素からもアクティブクラスを削除
+            if (link.parentElement) {
+              link.parentElement.classList.remove('active');
+            }
+          });
+
+          // 現在表示されている見出しを検出
+          // 表示中の見出しのうち、画面上部に最も近いものを取得
+          let activeHeading = null;
+          let minDistance = Infinity;
+
+          headings.forEach(heading => {
+            const rect = heading.getBoundingClientRect();
+            // 要素が画面内に表示されているか、すぐ上にあるかをチェック
+            if (rect.top <= 100) { // 100pxは調整可能な値
+              const distance = Math.abs(rect.top);
+              if (distance < minDistance) {
+                minDistance = distance;
+                activeHeading = heading;
+              }
+            }
+          });
+
+          // 対応するTOCリンクをアクティブに
+          if (activeHeading && headingMap.has(activeHeading)) {
+            const activeLink = headingMap.get(activeHeading);
+            activeLink.classList.add('active');
+            // 親のli要素にもアクティブクラスを追加
+            if (activeLink.parentElement) {
+              activeLink.parentElement.classList.add('active');
+            }
+          }
         }
 
         lastScrollTop = scrollTop;
