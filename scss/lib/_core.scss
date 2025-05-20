@@ -998,12 +998,52 @@ table {
         grid-template-columns: auto 1fr;
         // 2行: 1行目がユーザー名と日付、2行目がコメント本文
         grid-template-rows: auto auto;
-        // エリアの名前付け
+        // PCではすべて縦に並べる
         grid-template-areas:
+            "thumbnail"
             "title"
             "date"
-            "categories";
+            "categories"
+            "bookmark-widget-counter";
         gap: 2px auto; // 行間と列間の余白
+
+        @media #{var.$mq-xs} {
+            // スマホでは左に画像、右に残り。タイトル/日付/カテゴリは縦並びに配置
+            grid-template-areas:
+                "thumbnail title"
+                "thumbnail date"
+                "thumbnail categories"
+                "thumbnail bookmark-widget-counter";
+            gap: 2px auto; // 行間と列間の余白
+        }
+
+        // 画像
+        .urllist-image-link {
+            grid-area: thumbnail;
+            // PCでは画像とタイトルの縦に余白を与える
+            margin-bottom: 10px;
+            width: 100%;
+            height: 100px; // 最大で100pxに収める
+            display: block;
+            overflow: hidden; // はみ出した部分は消す
+            border-radius: 5px;
+
+            @media #{var.$mq-xs} {
+                // スマホでは画像とタイトルの横に余白を与える
+                margin-right: 10px;
+                margin-bottom: 0px;
+                width: 128px;
+                height: 100px;
+            }
+
+            img {
+                width: 100%;
+                // 画像を100pxに収めつつ真ん中を抜き取る
+                max-height: 100px;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
 
         // タイトル
         .urllist-title-link {
