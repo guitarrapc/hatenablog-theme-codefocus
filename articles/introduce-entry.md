@@ -192,7 +192,7 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 ### GitHubからの導入
 
-1. [HatenaBlog-Theme](https://github.com/guitarrapc/HatenaBlog-Theme) リポジトリから最新版の `style.css` をダウンロード
+1. [HatenaBlog-Theme](https://github.com/guitarrapc/hatenablog-theme-codefocus) リポジトリから最新版の `style.css` をダウンロード
 2. はてなブログの管理画面から「デザイン設定」→「カスタマイズ」→「デザインCSS」にCSSをコピー＆ペースト
 3. 「保存」ボタンをクリックしてテーマを適用
 
@@ -212,7 +212,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 記事中の目次を開閉する機能を使用するには、以下の設定を行ってください：
 
-1. [customize-toc-toggle.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-toc-toggle.html) ファイルの内容をコピー
+1. [customize-toc-toggle.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-toc-toggle.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
 
@@ -220,7 +220,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 ページ右上に固定される目次ボタンを使用するには、以下の設定を行ってください：
 
-1. [customize-toc-button.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-toc-button.html) ファイルの内容をコピー
+1. [customize-toc-button.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-toc-button.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
 
@@ -228,7 +228,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 コードブロック右上に表示されるコピーボタンを利用するには、以下の設定を行ってください：
 
-1. [customize-code-copy.html](https://github.com/guitarrapc/HatenaBlog-Theme/blob/master/customize-code-copy.html) ファイルの内容をコピー
+1. [customize-code-copy.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-code-copy.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
 
@@ -246,223 +246,15 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 <!-- | ![PC表示の一覧スクリーンショット](screenshots/pc-archive-top.png) | ![タブレット表示の一覧スクリーンショット](screenshots/tablet-archive-top.png) | ![スマートフォン表示の一覧スクリーンショット](screenshots/smartphone-archive-top.png) | -->
 
-## カスタマイズ方法
+## カスタマイズについて
 
-CodeFocusテーマは、カスタマイズしやすい構造になっています。CSSの知識があれば、以下のような部分を簡単にカスタマイズできます：
+CodeFocusテーマは、カスタマイズしやすい構造になっています。様々なパーツを自分好みにアレンジすることができます。
 
-### 色の変更
+カスタマイズの詳細については、別記事「[CodeFocusテーマのカスタマイズガイド](https://codefocus.hatenablog.jp/entry/2025/05/20/221750)」で詳しく解説していますので、ぜひご覧ください。テーマの色やフォント、目次やカテゴリーのスタイル、さらには高度なカスタマイズ方法まで網羅しています。
 
-```css
-/* 文字色の変更 */
-body {
-  color: #333333; /* 文字色 */
-}
+[f:id:guitarrapc_tech:20250517235245p:plain:alt=カスタマイズ例：カテゴリー表示] <!-- screenshots/pc-category-container.png -->
 
-/* リンク色の変更 */
-a {
-  color: #3366ff; /* リンク色 */
-}
-a:hover {
-  color: #0044cc; /* ホバー時のリンク色 */
-}
-
-/* 背景色の変更 */
-body {
-  background-color: #ffffff; /* 背景色 */
-}
-```
-
-### フォントの変更
-
-```css
-body {
-  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-}
-```
-
-### 目次スタイルのカスタマイズ
-
-```css
-ul.table-of-contents {
-  border-radius: 8px;
-  background-color: #f8f9fa;
-}
-```
-
-### カテゴリーの表示スタイル変更
-
-記事内のカテゴリーは丸みを帯びたタグスタイルで表示されます。
-
-[f:id:guitarrapc_tech:20250517235245p:plain:alt=記事タイトル下のカテゴリー表示のスクリーンショット] <!-- screenshots/pc-category-container.png -->
-
-ホバー時の挙動も設定可能です。
-
-```css
-.categories a {
-  border-radius: 16px;
-  padding: 3px 10px;
-}
-```
-
-通常表示:
-[f:id:guitarrapc_tech:20250517235312p:plain:alt=カテゴリー表示のスクリーンショット] <!-- screenshots/pc-category-item.png -->
-
-ホバー時:
-[f:id:guitarrapc_tech:20250517235325p:plain:alt=カテゴリーホバーのスクリーンショット] <!-- screenshots/pc-category-item-hover.png -->
-
-### タグクラウドのカスタマイズ
-
-サイドバーのカテゴリーモジュールはタグクラウドスタイルで表示されます。記事数に応じたフォントサイズの変化やホバー効果をカスタマイズできます。
-
-```css
-/* タグクラウドのベーススタイル */
-.hatena-module-category .hatena-module-body .hatena-urllist li a {
-  display: inline-block;
-  padding: 0.3em 0.6em;
-  border-radius: 20px;
-  text-decoration: none;
-  border: 1px solid #d6e3ed; /* border-light変数の値 */
-  transition: all 0.2s ease;
-}
-
-/* 記事数による大きさの調整 */
-/* 1-5記事 (小) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(1)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(2)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(3)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(4)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(5)"] {
-  font-size: 0.8em;
-}
-
-/* 6-10記事 (やや小) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(6)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(7)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(8)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(9)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(10)"] {
-  font-size: 0.9em;
-}
-
-/* 11-20記事 (標準) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(11)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(12)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(13)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(14)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(15)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(16)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(17)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(18)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(19)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(20)"] {
-  font-size: 1em;
-}
-
-/* 21-50記事 (やや大) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(2"][href$=")"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(3"][href$=")"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(4"][href$=")"] {
-  font-size: 1.1em;
-  font-weight: bold;
-}
-
-/* 21-50記事のうち、2桁以上の記事数 (除外条件付き) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(2"][href$=")"]:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(3"][href$=")"]:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(4"][href$=")"]:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]) {
-  font-size: 1.2em;
-}
-
-/* 51記事以上 (大) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(5"][href$=")"]:not([href*="(5)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(6"][href$=")"]:not([href*="(6)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(7"][href$=")"]:not([href*="(7)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(8"][href$=")"]:not([href*="(8)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(9"][href$=")"]:not([href*="(9)"]) {
-  font-size: 1.3em;
-  font-weight: bold;
-}
-
-/* ホバー効果 */
-.hatena-module-category .hatena-module-body .hatena-urllist li a:hover {
-  background-color: #f5f5f5; /* テーマのbtn-hover変数の値 */
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-}
-```
-
-### コードコピーボタンのカスタマイズ
-
-コードコピー機能の見た目や挙動を変更したい場合は、はてなブログの「デザイン設定」→「カスタマイズ」→「デザインCSS」に以下のようなCSSを追加できます：
-
-```css
-/* コピーボタンの色を変更 */
-.code-copy-button {
-  background-color: #465670; /* ボタンの背景色 */
-  border-color: #465670; /* ボタンの枠線色 */
-}
-
-/* コピーボタンのホバー時の表示 */
-.code-copy-button:hover {
-  opacity: 1;
-  background-color: #566b8c; /* ホバー時の背景色 */
-}
-
-/* ツールチップのスタイル変更 */
-.code-copy-button[title]:hover::after {
-  content: attr(title);
-  position: absolute;
-  top: -35px;
-  right: 0;
-  padding: 4px 10px; /* 内側の余白を大きく */
-  background-color: rgba(0, 0, 0, 0.8); /* ツールチップの背景色を濃く */
-  color: white;
-  border-radius: 6px; /* 角の丸みを増やす */
-  font-size: 12px;
-  white-space: nowrap;
-  z-index: 10;
-}
-```
-
-コピーボタンの表示設定をカスタマイズする例：
-
-```css
-/* ホバーなしで常にコピーボタンを表示 */
-.code-block-wrapper .code-copy-button {
-  opacity: 0.5; /* 通常時の不透明度 */
-}
-
-/* コピーボタンのサイズを変更 */
-.code-copy-button {
-  width: 32px; /* 少し大きく */
-  height: 32px;
-}
-
-/* コピー成功時のフィードバックカラーを変える */
-.code-copy-button.copied {
-  background-color: #28a745; /* 成功時は緑色に */
-  border-color: #28a745;
-}
-
-/* モバイルでの表示サイズ調整 */
-@media screen and (max-width: 768px) {
-  .code-copy-button {
-    width: 30px;
-    height: 30px;
-  }
-}
-```
-
-SVGアイコンを変更したい場合は、以下のように背景画像を置き換えることができます：
-
-```css
-/* コピーアイコンの変更 */
-.code-copy-button {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 24 24'%3E%3Cpath d='M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8C6.9 5 6 5.9 6 7v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E");
-  background-size: 20px 20px; /* アイコンサイズ調整 */
-}
-```
-
-### コメントセクションのカスタマイズ
+## コメントセクション
 
 CodeFocusテーマでは、コメントセクションもZennのDiscussionスタイルに似たデザインになっています。ユーザー名や日付が見やすく配置され、コメント内容も読みやすくレイアウトされています。
 
@@ -472,7 +264,11 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 
 <!-- | screenshots/pc-comment-section.png | screenshots/tablet-comment-section.png | screenshots/smartphone-comment-section.png | -->
 
-より高度なカスタマイズをしたい方は、[GitHub リポジトリ](https://github.com/guitarrapc/HatenaBlog-Theme)からSCSSファイルをダウンロードして、ローカルで開発することもできます。
+## 関連記事の表示
+
+CodeFocusテーマでは、関連記事もスタイリッシュにレイアウトされています。サムネイル画像とタイトル、日付が見やすく配置されており、読者が関連コンテンツを探しやすくなっています。
+
+[f:id:guitarrapc_tech:20250518223136p:plain:alt=関連記事表示のスクリーンショット] <!-- screenshots/pc-related-entries.png -->
 
 ## 開発者向け情報
 
@@ -485,6 +281,7 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 - `_table_of_contents.scss` - 記事内目次のスタイル
 - `_table_of_contents_toggle.scss` - 目次開閉機能のスタイル
 - `_table_of_contents_button.scss` - 目次ボタンのスタイル
+- `_code_copy.scss` - コードコピーボタンのスタイル
 
 この構造により、特定の部分だけを変更したい場合も簡単に対応できます。
 
@@ -494,13 +291,13 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 
 ```bash
 # リポジトリのクローン
-git clone https://github.com/guitarrapc/HatenaBlog-Theme.git
+git clone https://github.com/guitarrapc/hatenablog-theme-codefocus.git
 cd HatenaBlog-Theme
 
 # 必要なモジュールをインストール
 npm install
 
-# 開発サーバーの起動（ブログドメイン名を指定）
+# 開発サーバーの起動（ブロ���ドメイン名を指定）
 npm start -- your-blog.hatenablog.com
 ```
 
@@ -513,20 +310,22 @@ npm start -- your-blog.hatenablog.com
 
 これにより、SCSSの変更がリアルタイムでブログに反映され、即座に効果を確認できます。
 
-## 関連記事の表示
-
-CodeFocusテーマでは、関連記事もレイアウトされています。サムネイル画像とタイトル、日付が見やすく配置されており、読者が関連コンテンツを探しやすくなっています。
-
-[f:id:guitarrapc_tech:20250518223136p:plain:alt=関連記事表示のスクリーンショット] <!-- screenshots/pc-related-entries.png -->
-
 ## まとめ
 
-CodeFocusテーマは、美しく読みやすいブログを簡単に実現できる、モダンなはてなブログテーマです。特にプログラミングやコード記事を書くブロガーにおすすめのデザインで、コンテンツの表示を最適化しています。
+CodeFocusテーマは、コードと記事に集中できるシンプルで機能的なはてなブログテーマです。プログラミングブログに最適化されていますが、一般的なブログ用途にも十分対応します。
 
-シンプルなデザインながらも必要な機能をすべて備えており、ブログ執筆に集中できる環境を提供します。レスポンシブデザインにより、あらゆるデバイスからの閲覧にも対応しています。
+特に以下のような方におすすめです：
 
-ぜひあなたのブログに取り入れて、読者に快適な読書体験を提供してください！
+- プログラミングや技術系の記事を書く方
+- 読みやすさとシンプルさを重視する方
+- コードブロックを多用する方
+- 長い記事を書くことが多く、目次機能が欲しい方
+- モダンでクリーンなデザインを好む方
+
+ぜひCodeFocusテーマを試して、あなたのブログ体験を向上させてください。問題や提案がありましたら、[GitHubリポジトリ](https://github.com/guitarrapc/hatenablog-theme-codefocus)のIssueにてフィードバックをいただけると幸いです。
+
+最後までお読みいただき、ありがとうございました！
 
 ---
 
-*CodeFocusテーマに関するフィードバックやご質問は、[GitHub Issues](https://github.com/guitarrapc/HatenaBlog-Theme/issues)にてお待ちしております。*
+*CodeFocusテーマに関するフィードバックやご質問は、[GitHub Issues](https://github.com/guitarrapc/hatenablog-theme-codefocus/issues)にてお待ちしております。*
