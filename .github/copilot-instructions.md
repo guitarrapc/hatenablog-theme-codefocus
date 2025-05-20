@@ -55,7 +55,7 @@ GitHub ActionsでCIを実行して、SCSSやJavaScriptの動作を担保しま�
 
 ビルドワークフロー
 
-* `master`ブランチにpushした、PRが作成された際に自動で実行されます。
+* `main`ブランチにpushした、PRが作成された際に自動で実行されます。
 * `npm run build`でビルドを実行します。
 * `npm run test`でE2Eテストを実行します。
 
