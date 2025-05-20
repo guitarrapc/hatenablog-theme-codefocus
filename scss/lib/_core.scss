@@ -1000,7 +1000,8 @@ table {
 .entries-access-ranking-item-inner {
     // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
     display: grid;
-    grid-template-columns: auto 1fr;
+    // 全部縦なのでサブグリッドなし
+    grid-template-columns: auto 0fr;
     // 2行: 1行目がユーザー名と日付、2行目がコメント本文
     grid-template-rows: auto auto;
     // PCではすべて縦に並べる
@@ -1013,6 +1014,8 @@ table {
     gap: 2px auto; // 行間と列間の余白
 
     @media #{var.$mq-xs} {
+        // スマホではサブグリッドを用いて2列
+        grid-template-columns: auto 1fr;
         // スマホでは左に画像、右に残り。タイトル/日付/カテゴリは縦並びに配置
         grid-template-areas:
             "thumbnail title"
@@ -1037,8 +1040,8 @@ table {
             // スマホでは画像とタイトルの横に余白を与える
             margin-right: 10px;
             margin-bottom: 0px;
-            width: 128px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
         }
 
         img {
@@ -1047,6 +1050,11 @@ table {
             max-height: 100px;
             object-fit: cover;
             object-position: center;
+
+            @media #{var.$mq-xs} {
+                max-height: 80px;
+                max-width: 80px;
+            }
         }
     }
 
@@ -1436,7 +1444,6 @@ table {
         // 画面を小さくしてもサムネイルの上から溢れないように
         overflow: hidden;
         max-height: 8.4em; // 3行分の高さを確保。これを超えるとhiddenで隠してサムネイルを超えないように制御
-        ;
         max-width: 25%;
 
         @media #{var.$mq-sm} {
