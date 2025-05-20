@@ -786,10 +786,15 @@ table {
 // 前の記事と次の記事のスタイル調整
 .pager-prev,
 .pager-next {
-    padding: 0 1.5em;
+    padding: 0 10px;
     margin: 0 10px;
     text-align: center;
-    max-width: 45%;
+    max-width: 40%; // タイトルが長い場合に上下になってしまうのをこれで制御。
+
+    @media #{var.$mq-xs} {
+        padding: 0 5px;
+        margin: 0 5px;
+    }
 }
 
 .pager-prev a {
@@ -800,6 +805,10 @@ table {
         height: 24px;
         vertical-align: middle;
         margin-right: 5px;
+
+        @media #{var.$mq-xs} {
+            display: none; // スマホはアイコンを非表示に
+        }
     }
 }
 
@@ -812,12 +821,16 @@ table {
         height: 24px;
         vertical-align: middle;
         transform: rotate(180deg); // 左向き矢印にするため180度回転
+
+        @media #{var.$mq-xs} {
+            display: none; // スマホはアイコンを非表示に
+        }
     }
 }
 
 // リンクスタイル
 .pager a {
-    padding: 0 1.0em;
+    padding: 0;
     text-decoration: none;
     display: block;
     position: relative;
