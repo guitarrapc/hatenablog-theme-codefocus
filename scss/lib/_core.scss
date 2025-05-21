@@ -631,140 +631,249 @@ table {
     .social-buttons {
         margin-bottom: 1em;
     }
-}
 
-.entry-footer-section {
-    color: var.$text-light;
-    font-size: .9rem;
-
-    a {
+    .entry-footer-section {
         color: var.$text-light;
-        text-decoration: none;
-    }
-}
-
-/* コメント */
-.comment-box {
-    position: relative;
-    margin: 1em 0;
-    // 関連記事との間に薄い灰色線を引く（上部）
-    border-top: 1px solid var.$border;
-    padding-left: 30px; // 関連記事と合わせる
-
-    .comment {
-        list-style: none;
-        margin: 0 0 15px 0;
-        padding: 0;
-        font-size: .85rem;
-
-        @media #{var.$mq-sm} {
-            font-size: .9rem;
-        }
-
-        &::before {
-            content: "Discussion";
-            display: flex; // フレックスボックスを使用して中央配置
-            width: 100%;
-            font-weight: bold;
-            font-size: 1.2em;
-            padding-top: 15px;
-            padding-bottom: 10px;
-        }
-    }
-
-    // コメントがない場合は描画されない
-    .entry-comment {
-        // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
-        display: grid;
-        // 左上エリア: アイコン+名前用、右上エリア: 時間、下エリア: コンテンツ用(合算値)
-        grid-template-columns: auto 1fr;
-        // 2行: 1行目がユーザー名と日付、2行目がコメント本文
-        grid-template-rows: auto auto;
-        // エリアの名前付け
-        grid-template-areas:
-            "user metadata"
-            "content content";
-        gap: 5px 10px; // 行間と列間の余白
-        padding: 12px 0;
-        // 次のコメントとの間に薄い灰色線を引く（下部）
-        border-bottom: 1px dotted var.$border;
-        width: 90%;
-        margin: 0;
-        transition: all 0.2s ease;
-    }
-
-    .read-more-comments {
-        padding: 10px 0;
-    }
-
-    // ユーザーアイコン+ユーザー名のスタイル
-    .comment-user-name {
-        grid-area: user;
-        display: flex;
-        align-items: center; // 中央揃え
-        margin: 0;
-        padding: 0;
         font-size: .9rem;
-        font-weight: bold;
-        line-height: 1.3;
-
-        .hatena-id-icon {
-            align-self: center; // 中央揃え
-            width: 28px;
-            height: 28px;
-            border-radius: 3px;
-        }
-
-        // ユーザー名のスタイル
-        .comment-user-id {
-            margin-left: 10px; // アイコンと少し間を与える
-            color: var.$text-body;
-            text-decoration: none;
-        }
-    }
-
-    // 日付のスタイル
-    .comment-metadata {
-        grid-area: metadata;
-        color: var.$text-light;
-        align-self: center; // 中央揃え
-        padding: 0;
-        font-size: .9rem;
-        line-height: 1.3; // ユーザー名と同じ行高
 
         a {
             color: var.$text-light;
-        }
-    }
-
-    // コメント本文のスタイル
-    .comment-content {
-        grid-area: content;
-        margin: 0;
-        padding: 0;
-        word-wrap: break-word;
-        color: var.$text-body;
-        font-size: .85rem;
-
-        p {
-            margin: 0 0 .6em 0;
-        }
-    }
-
-    // コメントを書くボタン
-    .leave-comment-title {
-        position: relative;
-        display: inline-block;
-        border: 1px solid var.$border;
-        padding: 0 10px 0 10px; // 文字列が自動的にボタンに収まるようパディングで調整
-        border-radius: 18px;
-        color: var.$text-low-priority;
-        font-size: 0.8rem;
-
-        &:hover {
-            background-color: var.$bg-btn-hover;
             text-decoration: none;
+        }
+    }
+
+    // カスタマイズフッター内の関連記事
+    .customized-footer .hatena-module-related-entries {
+        margin-top: 30px;
+        margin-bottom: 30px;
+
+        // 記事冒頭部分を非表示
+        .urllist-entry-body,
+        .related-entries-entry-body {
+            display: none;
+        }
+
+        // サムネイル画像共通スタイル
+        .urllist-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        // タイトル・日付の共通スタイル
+        .urllist-title-link {
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.4;
+            color: var.$text-body;
+            text-decoration: none;
+        }
+
+        .urllist-date-link a {
+            font-size: 0.85em;
             color: var.$text-low-priority;
+        }
+
+        .hatena-module-title {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        // コンテナスタイル
+        .hatena-module-body {
+            .related-entries {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 15px;
+                margin: 0;
+
+                @media #{var.$mq-sm} {
+                    grid-template-columns: 1fr 1fr; // タブレット以上で2列表示
+                }
+            }
+        }
+
+        // 関連記事アイテム
+        .related-entries-item {
+            margin-bottom: 10px;
+            list-style-type: none;
+        }
+
+        // アイテム内部レイアウト - グリッドレイアウトを使用
+        .related-entries-item-inner {
+            display: grid;
+            // 左エリア: サムネイル用(80px)、右エリア: コンテンツ用(残り)
+            grid-template-columns: 80px 1fr;
+            // 2行: 1行目がタイトル、2行目が日付
+            grid-template-rows: auto auto;
+            // エリアの名前付け
+            grid-template-areas:
+                "thumbnail title"
+                "thumbnail date";
+            gap: 5px 12px;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: var.$background;
+            transition: all 0.2s ease;
+
+            // サムネイル画像 - 縦2行分の領域を占める
+            .urllist-image-link {
+                grid-area: thumbnail;
+                align-self: start; // 上揃え
+                width: 80px;
+                height: 80px;
+            }
+
+            // タイトル - 常に1行目に配置
+            .urllist-title-link {
+                grid-area: title;
+                margin: 0;
+                padding: 0;
+                font-weight: bold;
+                align-self: end; // 下揃え
+            }
+
+            // 日付 - 常に2行目に配置
+            .urllist-date-link {
+                grid-area: date;
+                margin: 0;
+                padding: 0;
+                align-self: start; // 上揃え
+                line-height: 1.2;
+            }
+        }
+
+        // HTML構造が日付→タイトルの順になっている場合の調整
+        .urllist-date-link + .urllist-title-link {
+            order: -1; // タイトルを先に表示（グリッドエリアの指定で位置は決まっている）
+        }
+    }
+
+    /* コメント */
+    .comment-box {
+        position: relative;
+        margin: 1em 0;
+        // 関連記事との間に薄い灰色線を引く（上部）
+        border-top: 1px solid var.$border;
+        padding-left: 30px; // 関連記事と合わせる
+
+        .comment {
+            list-style: none;
+            margin: 0 0 15px 0;
+            padding: 0;
+            font-size: .85rem;
+
+            @media #{var.$mq-sm} {
+                font-size: .9rem;
+            }
+
+            &::before {
+                content: "Discussion";
+                display: flex; // フレックスボックスを使用して中央配置
+                width: 100%;
+                font-weight: bold;
+                font-size: 1.2em;
+                padding-top: 15px;
+                padding-bottom: 10px;
+            }
+        }
+
+        // コメントがない場合は描画されない
+        .entry-comment {
+            // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
+            display: grid;
+            // 左上エリア: アイコン+名前用、右上エリア: 時間、下エリア: コンテンツ用(合算値)
+            grid-template-columns: auto 1fr;
+            // 2行: 1行目がユーザー名と日付、2行目がコメント本文
+            grid-template-rows: auto auto;
+            // エリアの名前付け
+            grid-template-areas:
+                "user metadata"
+                "content content";
+            gap: 5px 10px; // 行間と列間の余白
+            padding: 12px 0;
+            // 次のコメントとの間に薄い灰色線を引く（下部）
+            border-bottom: 1px dotted var.$border;
+            width: 90%;
+            margin: 0;
+            transition: all 0.2s ease;
+        }
+
+        .read-more-comments {
+            padding: 10px 0;
+        }
+
+        // ユーザーアイコン+ユーザー名のスタイル
+        .comment-user-name {
+            grid-area: user;
+            display: flex;
+            align-items: center; // 中央揃え
+            margin: 0;
+            padding: 0;
+            font-size: .9rem;
+            font-weight: bold;
+            line-height: 1.3;
+
+            .hatena-id-icon {
+                align-self: center; // 中央揃え
+                width: 28px;
+                height: 28px;
+                border-radius: 3px;
+            }
+
+            // ユーザー名のスタイル
+            .comment-user-id {
+                margin-left: 10px; // アイコンと少し間を与える
+                color: var.$text-body;
+                text-decoration: none;
+            }
+        }
+
+        // 日付のスタイル
+        .comment-metadata {
+            grid-area: metadata;
+            color: var.$text-light;
+            align-self: center; // 中央揃え
+            padding: 0;
+            font-size: .9rem;
+            line-height: 1.3; // ユーザー名と同じ行高
+
+            a {
+                color: var.$text-light;
+            }
+        }
+
+        // コメント本文のスタイル
+        .comment-content {
+            grid-area: content;
+            margin: 0;
+            padding: 0;
+            word-wrap: break-word;
+            color: var.$text-body;
+            font-size: .85rem;
+
+            p {
+                margin: 0 0 .6em 0;
+            }
+        }
+
+        // コメントを書くボタン
+        .leave-comment-title {
+            position: relative;
+            display: inline-block;
+            border: 1px solid var.$border;
+            padding: 0 10px 0 10px; // 文字列が自動的にボタンに収まるようパディングで調整
+            border-radius: 18px;
+            color: var.$text-low-priority;
+            font-size: 0.8rem;
+
+            &:hover {
+                background-color: var.$bg-btn-hover;
+                text-decoration: none;
+                color: var.$text-low-priority;
+            }
         }
     }
 }
@@ -781,83 +890,542 @@ table {
     // コメントとの間に薄い灰色線を引く（上部）
     border-top: 1px solid var.$border;
     border-bottom: 1px solid var.$border;
-}
 
-// 前の記事と次の記事のスタイル調整
-.pager-prev,
-.pager-next {
-    padding: 0 10px;
-    margin: 0 10px;
-    text-align: center;
-    max-width: 40%; // タイトルが長い場合に上下になってしまうのをこれで制御。
-
-    @media #{var.$mq-xs} {
-        padding: 0 5px;
-        margin: 0 5px;
-    }
-}
-
-.pager-prev a {
-    &::before {
-        content: fn.url-svg(var.$svg-page-prev, var.$text-light);
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        vertical-align: middle;
-        margin-right: 5px;
+    // 前の記事と次の記事のスタイル調整
+    .pager-prev,
+    .pager-next {
+        padding: 0 10px;
+        margin: 0 10px;
+        text-align: center;
+        max-width: 40%; // タイトルが長い場合に上下になってしまうのをこれで制御。
 
         @media #{var.$mq-xs} {
-            display: none; // スマホはアイコンを非表示に
+            padding: 0 5px;
+            margin: 0 5px;
         }
     }
-}
 
+    .pager-prev a {
+        &::before {
+            content: fn.url-svg(var.$svg-page-prev, var.$text-light);
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 5px;
 
-.pager-next a {
-    &::after {
-        content: fn.url-svg(var.$svg-page-next, var.$text-light);
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        vertical-align: middle;
-        transform: rotate(180deg); // 左向き矢印にするため180度回転
-
-        @media #{var.$mq-xs} {
-            display: none; // スマホはアイコンを非表示に
+            @media #{var.$mq-xs} {
+                display: none; // スマホはアイコンを非表示に
+            }
         }
     }
-}
 
-// リンクスタイル
-.pager a {
-    padding: 0;
-    text-decoration: none;
-    display: block;
-    position: relative;
-    color: var.$text-body;
-    font-weight: bold;
+    .pager-next a {
+        &::after {
+            content: fn.url-svg(var.$svg-page-next, var.$text-light);
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            transform: rotate(180deg); // 左向き矢印にするため180度回転
 
-    // <<や>>を非表示にする
-    span {
-        display: none;
+            @media #{var.$mq-xs} {
+                display: none; // スマホはアイコンを非表示に
+            }
+        }
     }
 
-    &:hover {
+    // リンクスタイル
+    a {
+        padding: 0;
         text-decoration: none;
+        display: block;
+        position: relative;
+        color: var.$text-body;
+        font-weight: bold;
+
+        // <<や>>を非表示にする
+        span {
+            display: none;
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
     }
-}
 
-// 「前の記事」のラベル
-.prev-entry a::before {
-    content: "前の記事";
-}
+    // 「前の記事」のラベル
+    .prev-entry a::before {
+        content: "前の記事";
+    }
 
-// 「次の記事」のラベル
-.next-entry a::before {
-    content: "次の記事";
+    // 「次の記事」のラベル
+    .next-entry a::before {
+        content: "次の記事";
+    }
 }
 
 /* サイドバーモジュール */
+#box2-inner {
+
+    /* プロフィール */
+    .hatena-module-profile {
+        text-align: left;
+
+        .profile-icon {
+            float: left;
+            margin: 5px 10px 10px 0;
+            display: block;
+            width: 40px;
+            height: 40px;
+        }
+
+        .id {
+            display: block;
+            font-weight: bold;
+            margin-bottom: .3em;
+
+            a {
+                color: var.$text-body; // リンクは色をつけない
+                text-decoration: none; // 名前はアンダーラインもつけない
+            }
+        }
+
+        .profile-description {
+            text-align: left;
+
+            p {
+                margin-top: 0;
+            }
+        }
+
+        .profile-about {
+
+            a {
+                color: var.$text-body;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    /* 関連記事 */
+    .hatena-module-related-entries {
+
+        // 記事冒頭部分を非表示
+        .urllist-entry-body,
+        .related-entries-entry-body {
+            display: none;
+        }
+
+        // サムネイル画像共通スタイル
+        .urllist-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        // タイトル・日付の共通スタイル
+        .urllist-title-link {
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.4;
+            color: var.$text-body;
+            text-decoration: none;
+        }
+
+        .urllist-date-link a {
+            font-size: 0.85em;
+            color: var.$text-low-priority;
+        }
+
+        // 関連記事の各アイテム
+        .hatena-module-body .related-entries-item {
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        // 関連記事のアイテム内部のレイアウト
+        .urllist-item-inner {
+            // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
+            display: grid;
+            grid-template-columns: auto 1fr;
+            // 2行: 1行目がユーザー名と日付、2行目がコメント本文
+            grid-template-rows: auto auto;
+            // エリアの名前付け
+            grid-template-areas:
+                "title"
+                "date"
+                "categories";
+            gap: 2px auto; // 行間と列間の余白
+
+            // タイトル
+            .urllist-title-link {
+                grid-area: title;
+                padding: 0;
+            }
+
+            // 日付
+            .urllist-date-link {
+                grid-area: date;
+                padding: 0;
+                color: var.$text-low-priority;
+            }
+
+            // カテゴリ
+            .urllist-categories {
+                grid-area: categories;
+                padding: 0;
+
+                a {
+                    color: var.$text-low-priority;
+                }
+
+                .urllist-category-link {
+                    padding: 0;
+                }
+            }
+        }
+
+        // タイトルリンクが日付の下にある場合のスタイル調整（HTML構造の順序に対応）
+        .urllist-date-link + .urllist-title-link {
+            margin-top: 10px;
+        }
+
+        // 日付が個別記事リンクの中にある場合のスタイル
+        .urllist-title-link time {
+            display: block;
+            font-size: 0.85em;
+            color: var.$text-low-priority;
+            font-weight: normal;
+            margin-top: 5px;
+            line-height: 1.2;
+        }
+    }
+
+    /* 最新記事 */
+    /* 注目記事 */
+    .hatena-module-recent-entries,
+    .hatena-module-entries-access-ranking {
+
+        // タイトル・日付の共通スタイル
+        .urllist-title-link {
+            font-size: 1rem;
+            font-weight: bold;
+            line-height: 1.5rem;
+            color: var.$text-body;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .urllist-date-link a {
+            font-size: 0.85em;
+            color: var.$text-low-priority;
+        }
+
+        // 最新記事のアイテム内部のレイアウト
+        // 注目記事のアイテム内部のレイアウト
+        .recent-entries-item-inner,
+        .entries-access-ranking-item-inner {
+            // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
+            display: grid;
+            // 全部縦なのでサブグリッドなし
+            grid-template-columns: auto 0fr;
+            // 2行: 1行目がユーザー名と日付、2行目がコメント本文
+            grid-template-rows: auto auto;
+            // PCではすべて縦に並べる
+            grid-template-areas:
+                "thumbnail"
+                "title"
+                "date"
+                "categories"
+                "bookmark-widget-counter";
+            gap: 2px auto; // 行間と列間の余白
+
+            @media #{var.$mq-xs} {
+                // スマホではサブグリッドを用いて2列
+                grid-template-columns: auto 1fr;
+                // スマホでは左に画像、右に残り。タイトル/日付/カテゴリは縦並びに配置
+                grid-template-areas:
+                    "thumbnail title"
+                    "thumbnail date"
+                    "thumbnail categories"
+                    "thumbnail bookmark-widget-counter";
+                gap: 2px auto; // 行間と列間の余白
+            }
+
+            // 画像
+            .urllist-image-link {
+                grid-area: thumbnail;
+                // PCでは画像とタイトルの縦に余白を与える
+                margin-bottom: 10px;
+                width: 100%;
+                height: 100px; // 最大で100pxに収める
+                display: block;
+                overflow: hidden; // はみ出した部分は消す
+                border-radius: 5px;
+
+                @media #{var.$mq-xs} {
+                    // スマホでは画像とタイトルの横に余白を与える
+                    margin-right: 10px;
+                    margin-bottom: 0px;
+                    width: 80px;
+                    height: 80px;
+                }
+
+                img {
+                    width: 100%;
+                    // 画像を100pxに収めつつ真ん中を抜き取る
+                    max-height: 100px;
+                    object-fit: cover;
+                    object-position: center;
+
+                    @media #{var.$mq-xs} {
+                        max-height: 80px;
+                        max-width: 80px;
+                    }
+                }
+            }
+
+            // タイトル
+            .urllist-title-link {
+                grid-area: title;
+                padding: 0;
+            }
+
+            // 日付
+            .urllist-date-link {
+                grid-area: date;
+                padding: 0;
+                color: var.$text-low-priority;
+            }
+
+            // カテゴリ
+            .urllist-categories {
+                grid-area: categories;
+                padding: 0;
+
+                a {
+                    color: var.$text-low-priority;
+                }
+
+                .urllist-category-link {
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    /* カテゴリー */
+    .hatena-module-category {
+        .hatena-module-body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+
+            // タグクラウド実装 - 記事数に基づいてフォントサイズを変更
+            .hatena-urllist {
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+                display: contents;
+
+                li {
+                    margin: 0;
+                    padding: 0;
+
+                    a {
+                        display: inline-block;
+                        padding: 0.3em 0.6em;
+                        border-radius: 20px;
+                        text-decoration: none;
+                        border: 1px solid var.$border-light;
+                        transition: all 0.2s ease;
+
+                        // タグクラウド実装 - 記事数に基づいてフォントサイズを変更
+                        // 記事数が1〜5の場合（少ない記事数）
+                        &[href*="(1)"],
+                        &[href*="(2)"],
+                        &[href*="(3)"],
+                        &[href*="(4)"],
+                        &[href*="(5)"] {
+                            font-size: 0.8em;
+                        }
+
+                        // 記事数が6〜10の場合（やや少ない記事数）
+                        &[href*="(6)"],
+                        &[href*="(7)"],
+                        &[href*="(8)"],
+                        &[href*="(9)"],
+                        &[href*="(10)"] {
+                            font-size: 0.9em;
+                        }
+
+                        // 記事数が11〜20の場合（中程度の記事数）
+                        &[href*="(11)"],
+                        &[href*="(12)"],
+                        &[href*="(13)"],
+                        &[href*="(14)"],
+                        &[href*="(15)"],
+                        &[href*="(16)"],
+                        &[href*="(17)"],
+                        &[href*="(18)"],
+                        &[href*="(19)"],
+                        &[href*="(20)"] {
+                            font-size: 1em;
+                        }
+
+                        // 記事数が21〜50の場合（やや多い記事数）
+                        &[href*="(2"][href$=")"],
+                        &[href*="(3"][href$=")"],
+                        &[href*="(4"][href$=")"] {
+                            font-size: 1.1em;
+                            font-weight: bold;
+
+                            // 単桁の数字と区別するための除外条件
+                            &:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]) {
+                                font-size: 1.2em;
+                            }
+                        }
+
+                        // 記事数が51以上の場合（多い記事数）
+                        &[href*="(5"][href$=")"]:not([href*="(5)"]),
+                        &[href*="(6"][href$=")"]:not([href*="(6)"]),
+                        &[href*="(7"][href$=")"]:not([href*="(7)"]),
+                        &[href*="(8"][href$=")"]:not([href*="(8)"]),
+                        &[href*="(9"][href$=")"]:not([href*="(9)"]) {
+                            font-size: 1.3em;
+                            font-weight: bold;
+                        }
+
+                        &:hover {
+                            background-color: var.$bg-btn-hover;
+                            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* Search module */
+    .hatena-module-search-box {
+        .search-form {
+            border: 1px solid var.$border;
+            border-radius: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+
+            &:focus-within {
+                box-shadow: 0 2px 5px var.$shadow-hover;
+            }
+        }
+
+        .search-module-input {
+            flex: 1 0;
+            padding: 5px;
+            color: var.$text-body;
+            width: 80%; // 検索アイコンが入るように
+            background: none;
+            border: none;
+            outline: none;
+            height: 20px;
+        }
+
+        .search-module-button {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+            background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cdefs%3E%3Cstyle%3E.a%7Bfill:none;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Esearch%3C/title%3E%3Cpath d='M16.7,15l-3.4-3.3h-.1a5.4,5.4,0,0,0,.9-3.1,5.6,5.6,0,1,0-5.6,5.6,5.4,5.4,0,0,0,3.1-.9.1.1,0,0,0,.1.1L15,16.7a1.1,1.1,0,0,0,.8.3,1.6,1.6,0,0,0,.9-.3,1.4,1.4,0,0,0,0-1.7M8.5,12.3A3.8,3.8,0,0,1,4.8,8.5,3.8,3.8,0,0,1,8.5,4.7a3.9,3.9,0,0,1,3.8,3.8,3.8,3.8,0,0,1-3.8,3.8'/%3E%3Crect class='a' width='20' height='20'/%3E%3C/svg%3E") no-repeat center;
+            background-size: 20px 20px;
+            border: none;
+            outline: none;
+            color: transparent;
+            overflow: hidden;
+            opacity: .5;
+            cursor: pointer;
+
+            &:hover {
+                opacity: .85;
+            }
+        }
+    }
+
+    /* 最近のコメント */
+    .hatena-module-recent-comments {
+        .recent-comments {
+            li {
+                // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
+                display: grid;
+                // 左上エリア: アイコン+名前用、右上エリア: 時間、下エリア: コンテンツ用(合算値)
+                grid-template-columns: auto 1fr;
+                // 2行: 1行目がユーザー名と日付、2行目がコメント本文
+                grid-template-rows: auto auto;
+                // エリアの名前付け
+                grid-template-areas:
+                    "title title"
+                    "user date";
+                gap: 5px 10px; // 行間と列間の余白
+                padding: 12px 0;
+
+                .user-id {
+                    grid-area: user;
+                    display: flex;
+                    align-items: center;
+                    margin-left: 2px;
+
+                    span {
+                        font-size: .7rem;
+                        margin-left: 2px;
+                    }
+                }
+
+                a {
+                    grid-area: title;
+                }
+
+                .recent-comment-time {
+                    grid-area: date;
+                    color: var.$text-low-priority;
+                    font-size: .7rem;
+                }
+            }
+        }
+    }
+
+    /* 執筆者リスト */
+    .hatena-module-authors-list {
+        .hatena-urllist {
+            a {
+                color: var.$text-body;
+                font-weight: bold;
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+
+            .authors-user-icon {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    }
+
+}
+
+/* サイドバーモジュール全般設定 */
 .hatena-module {
     box-sizing: border-box;
     margin-bottom: 3em;
@@ -884,50 +1452,6 @@ table {
 
         &:hover {
             text-decoration: none;
-        }
-    }
-}
-
-/* Profile module */
-.hatena-module-profile {
-    text-align: left;
-
-    .profile-icon {
-        float: left;
-        margin: 5px 10px 10px 0;
-        display: block;
-        width: 40px;
-        height: 40px;
-    }
-
-    .id {
-        display: block;
-        font-weight: bold;
-        margin-bottom: .3em;
-
-        a {
-            color: var.$text-body; // リンクは色をつけない
-            text-decoration: none; // 名前はアンダーラインもつけない
-        }
-    }
-
-    .profile-description {
-        text-align: left;
-
-        p {
-            margin-top: 0;
-        }
-    }
-
-    .profile-about {
-
-        a {
-            color: var.$text-body;
-            text-decoration: none;
-
-            &:hover {
-                text-decoration: underline;
-            }
         }
     }
 }
@@ -967,319 +1491,6 @@ table {
 
     .urllist-entry-body {
         margin-top: .3em;
-    }
-}
-
-/* recent-entry module - 最新記事 */
-/* entries-access-ranking - 注目記事 */
-.hatena-module-recent-entries,
-.hatena-module-entries-access-ranking {
-
-    // タイトル・日付の共通スタイル
-    .urllist-title-link {
-        font-size: 1rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-        color: var.$text-body;
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: none;
-        }
-    }
-
-    .urllist-date-link a {
-        font-size: 0.85em;
-        color: var.$text-low-priority;
-    }
-}
-
-// 最新記事のアイテム内部のレイアウト
-// 注目記事のアイテム内部のレイアウト
-.recent-entries-item-inner,
-.entries-access-ranking-item-inner {
-    // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
-    display: grid;
-    // 全部縦なのでサブグリッドなし
-    grid-template-columns: auto 0fr;
-    // 2行: 1行目がユーザー名と日付、2行目がコメント本文
-    grid-template-rows: auto auto;
-    // PCではすべて縦に並べる
-    grid-template-areas:
-        "thumbnail"
-        "title"
-        "date"
-        "categories"
-        "bookmark-widget-counter";
-    gap: 2px auto; // 行間と列間の余白
-
-    @media #{var.$mq-xs} {
-        // スマホではサブグリッドを用いて2列
-        grid-template-columns: auto 1fr;
-        // スマホでは左に画像、右に残り。タイトル/日付/カテゴリは縦並びに配置
-        grid-template-areas:
-            "thumbnail title"
-            "thumbnail date"
-            "thumbnail categories"
-            "thumbnail bookmark-widget-counter";
-        gap: 2px auto; // 行間と列間の余白
-    }
-
-    // 画像
-    .urllist-image-link {
-        grid-area: thumbnail;
-        // PCでは画像とタイトルの縦に余白を与える
-        margin-bottom: 10px;
-        width: 100%;
-        height: 100px; // 最大で100pxに収める
-        display: block;
-        overflow: hidden; // はみ出した部分は消す
-        border-radius: 5px;
-
-        @media #{var.$mq-xs} {
-            // スマホでは画像とタイトルの横に余白を与える
-            margin-right: 10px;
-            margin-bottom: 0px;
-            width: 80px;
-            height: 80px;
-        }
-
-        img {
-            width: 100%;
-            // 画像を100pxに収めつつ真ん中を抜き取る
-            max-height: 100px;
-            object-fit: cover;
-            object-position: center;
-
-            @media #{var.$mq-xs} {
-                max-height: 80px;
-                max-width: 80px;
-            }
-        }
-    }
-
-    // タイトル
-    .urllist-title-link {
-        grid-area: title;
-        padding: 0;
-    }
-
-    // 日付
-    .urllist-date-link {
-        grid-area: date;
-        padding: 0;
-        color: var.$text-low-priority;
-    }
-
-    // カテゴリ
-    .urllist-categories {
-        grid-area: categories;
-        padding: 0;
-
-        a {
-            color: var.$text-low-priority;
-        }
-
-        .urllist-category-link {
-            padding: 0;
-        }
-    }
-}
-
-/* Category module - タグクラウド風味 */
-.hatena-module-category {
-    .hatena-module-body {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-
-        .hatena-urllist {
-            padding: 0;
-            margin: 0;
-            list-style-type: none;
-            display: contents;
-
-            li {
-                margin: 0;
-                padding: 0;
-
-                a {
-                    display: inline-block;
-                    padding: 0.3em 0.6em;
-                    border-radius: 20px;
-                    text-decoration: none;
-                    border: 1px solid var.$border-light;
-                    transition: all 0.2s ease;
-
-                    // タグクラウド実装 - 記事数に基づいてフォントサイズを変更
-                    // 記事数が1〜5の場合（少ない記事数）
-                    &[href*="(1)"],
-                    &[href*="(2)"],
-                    &[href*="(3)"],
-                    &[href*="(4)"],
-                    &[href*="(5)"] {
-                        font-size: 0.8em;
-                    }
-
-                    // 記事数が6〜10の場合（やや少ない記事数）
-                    &[href*="(6)"],
-                    &[href*="(7)"],
-                    &[href*="(8)"],
-                    &[href*="(9)"],
-                    &[href*="(10)"] {
-                        font-size: 0.9em;
-                    }
-
-                    // 記事数が11〜20の場合（中程度の記事数）
-                    &[href*="(11)"],
-                    &[href*="(12)"],
-                    &[href*="(13)"],
-                    &[href*="(14)"],
-                    &[href*="(15)"],
-                    &[href*="(16)"],
-                    &[href*="(17)"],
-                    &[href*="(18)"],
-                    &[href*="(19)"],
-                    &[href*="(20)"] {
-                        font-size: 1em;
-                    }
-
-                    // 記事数が21〜50の場合（やや多い記事数）
-                    &[href*="(2"][href$=")"],
-                    &[href*="(3"][href$=")"],
-                    &[href*="(4"][href$=")"] {
-                        font-size: 1.1em;
-                        font-weight: bold;
-
-                        // 単桁の数字と区別するための除外条件
-                        &:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]) {
-                            font-size: 1.2em;
-                        }
-                    }
-
-                    // 記事数が51以上の場合（多い記事数）
-                    &[href*="(5"][href$=")"]:not([href*="(5)"]),
-                    &[href*="(6"][href$=")"]:not([href*="(6)"]),
-                    &[href*="(7"][href$=")"]:not([href*="(7)"]),
-                    &[href*="(8"][href$=")"]:not([href*="(8)"]),
-                    &[href*="(9"][href$=")"]:not([href*="(9)"]) {
-                        font-size: 1.3em;
-                        font-weight: bold;
-                    }
-
-                    &:hover {
-                        background-color: var.$bg-btn-hover;
-                        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-                    }
-                }
-            }
-        }
-    }
-}
-
-/* Search module */
-.hatena-module-search-box {
-    .search-form {
-        border: 1px solid var.$border;
-        border-radius: 8px;
-        width: 100%;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-
-        &:focus-within {
-            box-shadow: 0 2px 5px var.$shadow-hover;
-        }
-    }
-
-    .search-module-input {
-        flex: 1 0;
-        padding: 5px;
-        color: var.$text-body;
-        width: 80%; // 検索アイコンが入るように
-        background: none;
-        border: none;
-        outline: none;
-        height: 20px;
-    }
-
-    .search-module-button {
-        width: 24px;
-        height: 24px;
-        margin-right: 5px;
-        background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cdefs%3E%3Cstyle%3E.a%7Bfill:none;%7D%3C/style%3E%3C/defs%3E%3Ctitle%3Esearch%3C/title%3E%3Cpath d='M16.7,15l-3.4-3.3h-.1a5.4,5.4,0,0,0,.9-3.1,5.6,5.6,0,1,0-5.6,5.6,5.4,5.4,0,0,0,3.1-.9.1.1,0,0,0,.1.1L15,16.7a1.1,1.1,0,0,0,.8.3,1.6,1.6,0,0,0,.9-.3,1.4,1.4,0,0,0,0-1.7M8.5,12.3A3.8,3.8,0,0,1,4.8,8.5,3.8,3.8,0,0,1,8.5,4.7a3.9,3.9,0,0,1,3.8,3.8,3.8,3.8,0,0,1-3.8,3.8'/%3E%3Crect class='a' width='20' height='20'/%3E%3C/svg%3E") no-repeat center;
-        background-size: 20px 20px;
-        border: none;
-        outline: none;
-        color: transparent;
-        overflow: hidden;
-        opacity: .5;
-        cursor: pointer;
-
-        &:hover {
-            opacity: .85;
-        }
-    }
-}
-
-/* 最近のコメント */
-.hatena-module-recent-comments {
-    .recent-comments {
-        li {
-            // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
-            display: grid;
-            // 左上エリア: アイコン+名前用、右上エリア: 時間、下エリア: コンテンツ用(合算値)
-            grid-template-columns: auto 1fr;
-            // 2行: 1行目がユーザー名と日付、2行目がコメント本文
-            grid-template-rows: auto auto;
-            // エリアの名前付け
-            grid-template-areas:
-                "title title"
-                "user date";
-            gap: 5px 10px; // 行間と列間の余白
-            padding: 12px 0;
-
-            .user-id {
-                grid-area: user;
-                display: flex;
-                align-items: center;
-                margin-left: 2px;
-
-                span {
-                    font-size: .7rem;
-                    margin-left: 2px;
-                }
-            }
-
-            a {
-                grid-area: title;
-            }
-
-            .recent-comment-time {
-                grid-area: date;
-                color: var.$text-low-priority;
-                font-size: .7rem;
-            }
-        }
-    }
-}
-
-/* 執筆者リスト */
-.hatena-module-authors-list {
-    .hatena-urllist {
-        a {
-            color: var.$text-body;
-            font-weight: bold;
-
-            &:hover {
-                text-decoration: none;
-            }
-        }
-
-        .authors-user-icon {
-            width: 28px;
-            height: 28px;
-        }
     }
 }
 
