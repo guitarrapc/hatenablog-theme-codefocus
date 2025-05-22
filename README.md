@@ -1,14 +1,17 @@
-# HatenaBlog-Theme
+# CodeFocus
 
-HatenaBlog-Themeは、はてなブログのデザインCSSカスタマイズの土台をベースに作ったデザインテーマです。
+技術記事の執筆しやすさを追求したシングルカラムのテーマです。
+レスポンシブデザインで、モバイル・タブレット・PCすべての画面サイズで最適表示されます。
 
-Boilerplateは、はてなブログの必要最小限の見た目が調整されています。「オリジナルテーマの制作にチャレンジしたいけど、0から作るのが大変」という方は、このBoilerPlateテーマをもとにしてCSSを書くと比較的楽にテーマが作れます。
+記事の読みやすさを最優先に、余計な装飾を省いたデザインで文章に集中できます。
+コードブロックは見やすい配色で、コピー機能も提供しておりプログラミングコードを扱う技術ブログに最適です。
+JavaScriptカスタマイズを行うことで、特徴的な目次機能（ページ内目次・固定目次ボタン）、コードブロックコピー機能を追加して長文記事も快適に読めます。
 
-*Boilerplateは自己責任でご利用ください。お問い合わせははてなブログのサポートフォームではなく、本リポジトリのIssueにお願いします。*
+デモページ
+https://codefocus.hatenablog.jp/entry/2025/05/17/015533
 
-デザインテーマの制作にあたっては下記ヘルプページも参考にしてください。
-
-- [デザインテーマ制作の手引き - はてなブログ ヘルプ](https://help.hatenablog.com/entry/theme/custom-theme)
+カスタマイズの方法はこちらの記事を参考にしてください
+https://codefocus.hatenablog.jp/entry/2025/05/20/221750
 
 # CSSのダウンロード
 
@@ -26,9 +29,9 @@ SCSSで開発する場合は、下記の手順でリポジトリのcloneとモ�
 
 ## モジュールのインストール
 
-``` console
-$ git clone https://github.com/guitarrapc/HatenaBlog-Theme.git
-$ cd HatenaBlog-Theme
+```shell
+$ git clone https://github.com/guitarrapc/hatenablog-theme-codefocus.git
+$ cd hatenablog-theme-codefocus
 $ npm install
 ```
 
@@ -53,13 +56,13 @@ $ npm install
 
 つづいて下記のコマンドで、開発サーバーを起動します。`BLOG_DOMAIN_NAME` の部分には、上で用意した動作確認に使うブログのドメイン名 (例: `example.hatenablog.com`) を入力してください。
 
-``` console
+```shell
 $ npm start -- BLOG_DOMAIN_NAME
 ```
 
 コマンド実行例:
 
-``` console
+```shell
 $ npm start -- guitarrapc-theme.hatenablog.com
 ```
 
@@ -110,7 +113,7 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 
 テーマの開発が完了したら、下記のコマンドでSCSSをコンパイルします。コンパイルの結果は `build/style.css` に出力されます。
 
-``` console
+```shell
 $ npm run build
 ```
 
@@ -124,12 +127,3 @@ $ npm run build
 ┗┳ build/
  ┗ style.css
 ```
-
-# ライセンス
-
-このCSSおよびSCSSファイルはMITライセンスのもと自由に複製・再配布できます。 記事本文の書式やコメント欄のスタイルなど、必要な部分だけをコピーして使ってもかまいません。 このデザインテーマをもとにしたテーマの配布も自由です。
-
-# 過去のバージョン
-
-- <https://github.com/hatena/Hatena-Blog-Theme-Boilerplate-Less>
-  - BoilerplateのLessバージョンです。（開発終了）
