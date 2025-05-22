@@ -1063,11 +1063,10 @@ table {
                 grid-template-rows: auto auto;
                 // PCではすべて縦に並べる
                 grid-template-areas:
-                    "thumbnail"
-                    "title"
-                    "date"
-                    "categories"
-                    "bookmark-widget-counter";
+                    "thumbnail thumbnail"
+                    "title title"
+                    "date bookmark-widget-counter"
+                    "categories categories";
                 gap: 2px auto; // 行間と列間の余白
             }
 
@@ -1134,6 +1133,8 @@ table {
             // ブックマークカウンター
             .bookmark-widget-counter {
                 grid-area: bookmark-widget-counter;
+                width: 80px;
+                text-align: right;
                 padding: 0;
                 color: var.$text-low-priority;
 
