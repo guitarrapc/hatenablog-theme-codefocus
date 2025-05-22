@@ -322,10 +322,6 @@ CodeFocusテーマは、コードと記事に集中できるシンプルで機�
 - 長い記事を書くことが多く、目次機能が欲しい方
 - モダンでクリーンなデザインを好む方
 
-ぜひCodeFocusテーマを試して、あなたのブログ体験を向上させてください。問題や提案がありましたら、[GitHubリポジトリ](https://github.com/guitarrapc/hatenablog-theme-codefocus)のIssueにてフィードバックをいただけると幸いです。
-
-最後までお読みいただき、ありがとうございました！
-
 ---
 
 *CodeFocusテーマに関するフィードバックやご質問は、[GitHub Issues](https://github.com/guitarrapc/hatenablog-theme-codefocus/issues)にてお待ちしております。*
