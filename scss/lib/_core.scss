@@ -1050,10 +1050,9 @@ table {
             grid-template-columns: auto 1fr;
             // スマホでは左に画像、右に残り。タイトル/日付/カテゴリは縦並びに配置
             grid-template-areas:
-                "thumbnail title"
-                "thumbnail date"
-                "thumbnail categories"
-                "thumbnail bookmark-widget-counter";
+                "thumbnail title title"
+                "thumbnail date bookmark-widget-counter"
+                "thumbnail categories categories";
             gap: 2px auto; // 行間と列間の余白
 
             @media #{var.$mq-sm} {
@@ -1133,16 +1132,12 @@ table {
             // ブックマークカウンター
             .bookmark-widget-counter {
                 grid-area: bookmark-widget-counter;
-                width: 80px;
+                width: 100px;
                 padding: 0;
                 color: var.$text-low-priority;
-                // スマホは左寄席
-                text-align: left;
-
-                @media #{var.$mq-sm} {
-                    // PCでは右側に寄せる
-                    text-align: right;
-                }
+                // 日付の右側なので右寄せ
+                text-align: right;
+                padding-right: 10px;
 
                 a {
                     color: var.$text-low-priority;
