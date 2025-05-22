@@ -36,6 +36,8 @@ jobs:
           retention-days: 1
       - name: Run development server in Background
         run: npm start -- guitarrapc-theme.hatenablog.com &
+      - name: Install Playwright
+        run: npx playwright install
       - name: Run tests
         run: npm run test
       - name: Upload test results
