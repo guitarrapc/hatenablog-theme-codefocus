@@ -1,3 +1,6 @@
+[![Build](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/build.yaml/badge.svg)](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/build.yaml)
+[![Release](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/release.yaml/badge.svg)](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/release.yaml)
+
 # CodeFocus
 
 技術記事の執筆しやすさを追求したシングルカラムのテーマです。
@@ -33,6 +36,7 @@ SCSSで開発する場合は、下記の手順でリポジトリのcloneとモ�
 $ git clone https://github.com/guitarrapc/hatenablog-theme-codefocus.git
 $ cd hatenablog-theme-codefocus
 $ npm install
+$ npx playwright install
 ```
 
 # テーマ開発の手順
