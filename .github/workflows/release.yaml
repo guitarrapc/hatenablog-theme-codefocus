@@ -36,4 +36,4 @@ jobs:
           GH_REPOSITORY: ${{ github.repository }}
           TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$TAG" --draft --title "$TAG" --generate-notes ./theme-package.zip
+          gh release create "$TAG" --draft --title "$TAG" --generate-notes ./theme-${TAG}.zip
