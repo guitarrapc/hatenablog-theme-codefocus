@@ -84,4 +84,4 @@ jobs:
       - name: Merge Artifacts
         uses: actions/upload-artifact/merge@v4
         with:
-          separate-directories: true
+          delete-merged: true
