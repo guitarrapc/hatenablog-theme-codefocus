@@ -297,7 +297,7 @@ table {
 }
 
 /* カテゴリ */
-.categories {
+.entry-categories {
     order: 3;
     font-size: 0.9rem;
     text-align: left;
@@ -1134,9 +1134,15 @@ table {
             .bookmark-widget-counter {
                 grid-area: bookmark-widget-counter;
                 width: 80px;
-                text-align: right;
                 padding: 0;
                 color: var.$text-low-priority;
+                // スマホは左寄席
+                text-align: left;
+
+                @media #{var.$mq-sm} {
+                    // PCでは右側に寄せる
+                    text-align: right;
+                }
 
                 a {
                     color: var.$text-low-priority;
@@ -1494,9 +1500,12 @@ table {
 
         // スマホではサブグリッドを用いて2列
         grid-template-columns: auto 1fr;
+        // 2行: 1行目がサムネイル、2行目がタイトル/日付/カテゴリ
+        grid-template-rows: auto auto;
         // スマホでは左に画像、右に残り。タイトル/日付/カテゴリは縦並びに配置
         grid-template-areas:
             "thumbnail header"
+            "thumbnail categories"
             "thumbnail body";
         gap: 2px auto; // 行間と列間の余白
         align-items: left;
@@ -1504,12 +1513,11 @@ table {
         @media #{var.$mq-sm} {
             // PCは縦なのでサブグリッドなし
             grid-template-columns: auto 0fr;
-            // 2行: 1行目がユーザー名と日付、2行目がコメント本文
-            grid-template-rows: auto auto;
             // PCではすべて縦に並べる
             grid-template-areas:
                 "thumbnail"
                 "header"
+                "categories"
                 "body";
             gap: 2px auto; // 行間と列間の余白
         }
@@ -1520,7 +1528,7 @@ table {
         position: relative;
         display: flex;
         flex-direction: column;
-        padding: 0 0 0 0.5em;
+        padding: 0;
         margin: 0;
         word-wrap: break-word;
 
@@ -1567,7 +1575,7 @@ table {
 
     .entry-thumb-link {
         grid-area: thumbnail;
-        padding: 0 0.2em 0 0;
+        padding: 0;
         margin: 0 0.2em 0 0;
         max-width: 100%;
 
@@ -1597,45 +1605,18 @@ table {
     }
 
     .categories {
-        position: absolute;
-        z-index: 2;
-        display: inline-block;
-        padding: 0.8em 0.2em;
-        font-size: 0.7em;
-        height: auto;
-        width: 25%; // サムネイルに合わせる。少しだけ小さくするとちょうど溢れない
-        // 画面を小さくしてもサムネイルの上から溢れないように
-        overflow: hidden;
-        max-height: 8.4em; // 3行分の高さを確保。これを超えるとhiddenで隠してサムネイルを超えないように制御
-        max-width: 25%;
+        grid-area: categories;
+        margin: 0;
+        padding: 0;
+        font-size: .7rem;
+        color: var.$text-low-priority;
 
-        @media #{var.$mq-sm} {
-            position: absolute;
-            font-size: 0.8em;
-            width: 100%; // PC版はサムネイルが100%の幅を占める
-            max-width: 100%;
-            max-height: 100%;
-            padding: 0.8em 0.2em;
-        }
-
-        @media #{var.$mq-xs} {
-            font-size: 0.6em; // 画面が小さいスマホではフォントサイズを小さしてカテゴリ自体小さくする
-        }
-
-        .archive-category-link {
-            color: var.$text-archive-category;
-            background-color: var.$bg-archive-category;
-            padding-right: 0.8em; // 丸囲みの右側に余白がないと囲みが不自然になる
-            display: inline-block;
-            margin-bottom: 4px; // カテゴリーが複数行になった時に余白を与える
+        a {
+            color: var.$text-low-priority;
+            text-decoration: none;
 
             &:hover {
-                background-color: var.$bg-archive-category-hover;
-            }
-
-            @media #{var.$mq-xs} {
-                border-radius: 8px; // 画面が小さいと丸囲みが文字にあたって不自然になるので角度を小さくする
-                max-width: 80px;
+                text-decoration: underline;
             }
         }
     }
