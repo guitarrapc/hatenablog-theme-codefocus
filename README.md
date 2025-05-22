@@ -18,9 +18,16 @@ https://codefocus.hatenablog.jp/entry/2025/05/20/221750
 
 # CSSのダウンロード
 
-最新のバージョンから `style.css` をダウンロードしてください。
+最新のバージョンの`theme-バージョン.zip`をダウンロードしてください。
 
-- https://github.com/guitarrapc/HatenaBlog-Theme/releases
+- https://github.com/guitarrapc/HatenaBlog-Theme/releases/latest
+
+中には、スタイルシート`style.css`と、テーマの設定を行うためのHTMLファイルが含まれています。
+
+- `style.css`は、はてなブログの「デザイン」->「カスタマイズ」->「デザインCSS」に貼り付けてください。
+- `customize-toc-toggle.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+- `customize-toc-button.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+- `customize-code-copy.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
 
 # セットアップ
 
