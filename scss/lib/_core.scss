@@ -1130,6 +1130,22 @@ table {
                     padding: 0;
                 }
             }
+
+            // ブックマークカウンター
+            .bookmark-widget-counter {
+                grid-area: bookmark-widget-counter;
+                padding: 0;
+                color: var.$text-low-priority;
+
+                a {
+                    color: var.$text-low-priority;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
         }
     }
 
@@ -1399,6 +1415,18 @@ table {
 
     .urllist-entry-body {
         margin-top: .3em;
+    }
+}
+
+/* もっと見る全般のスタイル */
+.urllist-see-more {
+    a {
+        color: var.$text-body;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
