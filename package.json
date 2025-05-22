@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "vite build",
-    "test": "playwright test --reporter=html,list",
+    "test": "playwright test --reporter=list",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report"
   },
