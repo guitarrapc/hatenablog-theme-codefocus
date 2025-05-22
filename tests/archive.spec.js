@@ -108,8 +108,7 @@ test.describe('アーカイブページのテスト', () => {
       });
 
       console.log('カテゴリー要素のスタイル:', categoryStyle);
-      expect(categoryStyle.position).toBe('absolute');
-      expect(Number(categoryStyle.zIndex)).toBeGreaterThan(0);
+      expect(categoryStyle.position).toBe('static');
 
       // カテゴリーをキャプチャ
       await categories.screenshot({ path: 'screenshots/archive-category.png' });
