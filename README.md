@@ -33,6 +33,7 @@ SCSSで開発する場合は、下記の手順でリポジトリのcloneとモ�
 $ git clone https://github.com/guitarrapc/hatenablog-theme-codefocus.git
 $ cd hatenablog-theme-codefocus
 $ npm install
+$ npx playwright install
 ```
 
 # テーマ開発の手順
