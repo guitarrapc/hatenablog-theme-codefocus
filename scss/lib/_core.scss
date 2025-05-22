@@ -1486,29 +1486,43 @@ table {
     /* Archive Entry */
     .archive-entry {
         position: relative;
-        display: flex;
-        flex-direction: row;
-        align-items: left;
-
+        display: grid;
         margin-bottom: .5em;
         padding-bottom: .5em;
         box-sizing: content-box;
         background-color: var.$background;
 
+        // スマホではサブグリッドを用いて2列
+        grid-template-columns: auto 1fr;
+        // スマホでは左に画像、右に残り。タイトル/日付/カテゴリは縦並びに配置
+        grid-template-areas:
+            "thumbnail header"
+            "thumbnail body";
+        gap: 2px auto; // 行間と列間の余白
+        align-items: left;
+
         @media #{var.$mq-sm} {
-            flex-direction: column; // 小さい画面では縦に並べる
+            // PCは縦なのでサブグリッドなし
+            grid-template-columns: auto 0fr;
+            // 2行: 1行目がユーザー名と日付、2行目がコメント本文
+            grid-template-rows: auto auto;
+            // PCではすべて縦に並べる
+            grid-template-areas:
+                "thumbnail"
+                "header"
+                "body";
+            gap: 2px auto; // 行間と列間の余白
         }
     }
 
     .archive-entry-header {
-        order: 3;
+        grid-area: header;
         position: relative;
         display: flex;
         flex-direction: column;
         padding: 0 0 0 0.5em;
         margin: 0;
         word-wrap: break-word;
-        flex-basis: 70%;
 
         @media #{var.$mq-sm} {
             flex-basis: 100%;
@@ -1546,27 +1560,24 @@ table {
 
         .archive-date {
             order: 2;
-            margin: .5em 0;
+            margin: 0.5em 0 0 0;
             padding: 0;
         }
     }
 
     .entry-thumb-link {
-        order: 1;
+        grid-area: thumbnail;
         padding: 0 0.2em 0 0;
         margin: 0 0.2em 0 0;
-        width: 100%;
-        flex-basis: 30%;
+        max-width: 100%;
 
         @media #{var.$mq-sm} {
-            flex-basis: 100%;
             width: 100%;
             padding: 0;
         }
 
         .entry-thumb {
             height: 100px;
-            width: 100%;
             background-position: center center;
             background-size: cover;
             margin-right: 10px;
@@ -1574,14 +1585,18 @@ table {
             object-fit: cover;
 
             @media #{var.$mq-sm} {
-                width: 100%;
                 height: 180px;
+                width: 180px;
+            }
+
+            @media #{var.$mq-xs} {
+                height: 80px;
+                width: 80px;
             }
         }
     }
 
     .categories {
-        order: 2;
         position: absolute;
         z-index: 2;
         display: inline-block;
@@ -1620,12 +1635,13 @@ table {
 
             @media #{var.$mq-xs} {
                 border-radius: 8px; // 画面が小さいと丸囲みが文字にあたって不自然になるので角度を小さくする
+                max-width: 80px;
             }
         }
     }
 
     .archive-entry-body {
-        order: 4;
+        grid-area: body;
 
         .entry-description {
             display: none; // 記事概要は表示しない
