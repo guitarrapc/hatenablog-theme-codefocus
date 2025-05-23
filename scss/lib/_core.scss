@@ -66,15 +66,13 @@ table {
     margin: 0 auto;
 
     @media #{var.$mq-sm} {
-        width: 92%;
         max-width: 750px;
         padding-left: 0;
         padding-right: 0;
     }
 
     @media #{var.$mq-md} {
-        width: 85%;
-        max-width: 750px;
+        max-width: 790px;
     }
 }
 
@@ -92,17 +90,8 @@ table {
     /* メインコンテンツをcontainer-innerと同じ幅にする */
     .main-inner {
         width: 100%;
-        max-width: 750px;
         margin-left: auto;
         margin-right: auto;
-    }
-
-    @media #{var.$mq-sm} {
-        width: 100%;
-    }
-
-    @media #{var.$mq-md} {
-        width: 100%;
     }
 }
 
@@ -122,11 +111,11 @@ table {
     @media #{var.$mq-sm} {
         flex-direction: row;
         justify-content: left;
-        margin: 0 -10px;
+        margin: 0;
     }
 
     @media #{var.$mq-md} {
-        margin: 0 -15px;
+        margin: 0;
     }
 }
 
@@ -358,7 +347,7 @@ table {
     /* タイトルと合わせて本文の配置を調整（タイトルより右に5pxインデント、右側にも5px余白） */
     display: block;
     padding: 0 0 5px 0;
-    margin: 0 5px 0 5px;
+    margin: 0;
     line-height: 1.9;
 
     /* テキスト選択時のスタイル */
@@ -642,6 +631,11 @@ table {
         }
     }
 
+    .customized-footer {
+        margin: 1em 0;
+        padding: 0 10px 0 10px; // 関連記事と合わせる
+    }
+
     // カスタマイズフッター内の関連記事
     .customized-footer .hatena-module-related-entries {
         margin-top: 30px;
@@ -653,28 +647,7 @@ table {
             display: none;
         }
 
-        // サムネイル画像共通スタイル
-        .urllist-image {
-            width: 80px;
-            height: 80px;
-            border-radius: 4px;
-            object-fit: cover;
-        }
-
-        // タイトル・日付の共通スタイル
-        .urllist-title-link {
-            font-size: 1rem;
-            font-weight: bold;
-            line-height: 1.4;
-            color: var.$text-body;
-            text-decoration: none;
-        }
-
-        .urllist-date-link a {
-            font-size: 0.85em;
-            color: var.$text-low-priority;
-        }
-
+        // タイトル部分
         .hatena-module-title {
             margin-bottom: 10px;
             font-size: 1.2em;
@@ -713,10 +686,18 @@ table {
                 "thumbnail title"
                 "thumbnail date";
             gap: 5px 12px;
-            padding: 8px;
             border-radius: 4px;
             background-color: var.$background;
             transition: all 0.2s ease;
+
+            // サムネイル画像共通スタイル
+            .urllist-image img {
+                max-height: 80px;
+                width: 100%;
+                border-radius: 4px;
+                object-fit: cover;
+                object-position: center;
+            }
 
             // サムネイル画像 - 縦2行分の領域を占める
             .urllist-image-link {
@@ -732,7 +713,10 @@ table {
                 margin: 0;
                 padding: 0;
                 font-weight: bold;
+                font-size: 1rem;
+                line-height: 1.4;
                 align-self: end; // 下揃え
+                text-decoration: none;
             }
 
             // 日付 - 常に2行目に配置
@@ -742,6 +726,11 @@ table {
                 padding: 0;
                 align-self: start; // 上揃え
                 line-height: 1.2;
+
+                a {
+                    font-size: 0.85em;
+                    color: var.$text-low-priority;
+                }
             }
         }
 
@@ -757,7 +746,7 @@ table {
         margin: 1em 0;
         // 関連記事との間に薄い灰色線を引く（上部）
         border-top: 1px solid var.$border;
-        padding-left: 30px; // 関連記事と合わせる
+        padding: 0 10px 0 10px; // 関連記事と合わせる
 
         .comment {
             list-style: none;
@@ -1359,7 +1348,6 @@ table {
 
     @media #{var.$mq-sm} {
         font-size: .9rem;
-        padding-left: 30px;
     }
 }
 
