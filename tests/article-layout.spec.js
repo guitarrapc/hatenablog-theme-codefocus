@@ -31,9 +31,9 @@ test.describe('記事レイアウトのテスト', () => {
     const indentDifference = contentBox.x - titleBox.x;
     console.log(`タイトルと本文の左インデント差: ${indentDifference}px`);
 
-    // インデント差がおおよそ5px前後であることを確認（許容範囲を持たせる）
+    // インデント差がおおよそ0px前後であることを確認（許容範囲を持たせる）
     // 実際の値は実装によって少し異なる可能性があるため、近似値をチェック
-    expect(indentDifference).toBeCloseTo(5, 2); // 5pxに対して±2px程度の誤差を許容
+    expect(indentDifference).toBeCloseTo(0, 2); // 0pxに対して±2px程度の誤差を許容
 
     // スクリーンショットを撮影（レイアウト確認用）
     await page.screenshot({
