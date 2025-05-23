@@ -119,21 +119,6 @@ table {
     }
 }
 
-.hatena-module {
-    width: 100%;
-    text-align: center;
-
-    @media #{var.$mq-sm} {
-        width: 31%;
-        margin: 0 1%;
-    }
-
-    @media #{var.$mq-md} {
-        width: 30%;
-        margin: 0 1.5%;
-    }
-}
-
 /* ヘッダ - センター揃え */
 #blog-title {
     margin: 2em 0;
@@ -958,6 +943,26 @@ table {
 // はてなブログのレイアウトはベースがスマホ。PC表示はメディアクエリで条件ついているので、レスポンシブにするとき注意。
 #box2-inner {
 
+    .hatena-module {
+        width: 100%;
+        text-align: center;
+
+        @media #{var.$mq-sm} {
+            width: 31%;
+            margin: 0 1%;
+        }
+
+        @media #{var.$mq-md} {
+            width: 30%;
+            margin: 0 1.5%;
+        }
+    }
+
+    .hatena-module {
+        box-sizing: border-box;
+        margin-bottom: 3em; // モジュール間の余白
+    }
+
     /* プロフィール */
     .hatena-module-profile {
         text-align: left;
@@ -1342,8 +1347,6 @@ table {
 
 /* サイドバーモジュール全般設定 */
 .hatena-module {
-    box-sizing: border-box;
-    margin-bottom: 3em;
     font-size: .85rem;
 
     @media #{var.$mq-sm} {
