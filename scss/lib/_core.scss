@@ -111,6 +111,10 @@ table {
     @media #{var.$mq-md} {
         max-width: 790px;
     }
+
+    @media #{var.$mq-lg} {
+        max-width: 850px;
+    }
 }
 
 /* シングルカラムレイアウト - センター配置 */
