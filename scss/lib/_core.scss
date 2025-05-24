@@ -30,6 +30,7 @@ a {
     }
 }
 
+/* フォント (ここでページすべての見出しサイズを揃える) */
 h1,
 h2,
 h3,
@@ -51,6 +52,42 @@ h6 {
             color: var.$text-header;
         }
     }
+}
+
+h1 {
+    font-size: 1.5rem;
+
+    @media #{var.$mq-md} {
+        font-size: 1.7rem;
+    }
+}
+
+h2 {
+    font-size: 1.4rem;
+
+    @media #{var.$mq-md} {
+        font-size: 1.5rem;
+    }
+}
+
+h3 {
+    font-size: 1.2rem;
+
+    @media #{var.$mq-md} {
+        font-size: 1.3rem
+    }
+}
+
+h4 {
+    font-size: 1.1rem;
+}
+
+h5 {
+    font-size: 1rem;
+}
+
+h6 {
+    font-size: .9rem;
 }
 
 table {
@@ -401,56 +438,28 @@ table {
     }
 
     h1 {
-        font-size: 1.5rem;
         position: relative;
         margin-top: 2em;
         margin-bottom: 1.1em;
         padding-bottom: 0.2em;
         // 細いボーダーのみでシンプルに
         border-bottom: 1px solid var.$border-light;
-
-        @media #{var.$mq-md} {
-            font-size: 1.7rem;
-        }
     }
 
     h2 {
-        font-size: 1.4rem;
         position: relative;
         margin-top: 2em;
         margin-bottom: 0.8em;
         padding-bottom: 0.3em;
         // 細いボーダーのみでシンプルに
         border-bottom: 1px solid var.$border-light;
-
-        @media #{var.$mq-md} {
-            font-size: 1.5rem;
-        }
     }
 
     h3 {
-        font-size: 1.2rem;
         position: relative;
         margin-top: 1.8em;
         margin-bottom: 0.5em;
         color: #444;
-
-        /* h2より少し薄い色にして階層を表現 */
-        @media #{var.$mq-md} {
-            font-size: 1.3rem
-        }
-    }
-
-    h4 {
-        font-size: 1.1rem;
-    }
-
-    h5 {
-        font-size: 1rem;
-    }
-
-    h6 {
-        font-size: .9rem;
     }
 
     ul,
