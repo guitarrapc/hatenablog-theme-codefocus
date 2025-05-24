@@ -1521,8 +1521,6 @@ table {
 
         @media #{var.$mq-sm} {
             flex-basis: 100%;
-            padding: 0.5em 0 0 0;
-            margin: 0.5em 0 0 0;
         }
 
         h1 {
@@ -1564,10 +1562,16 @@ table {
     .entry-thumb-link {
         grid-area: thumbnail;
         padding: 0;
-        margin: 0 5px 0 0;
         max-width: 100%;
 
         @media #{var.$mq-sm} {
+            margin: 0 0 5px 0; // 下に余白を与える
+            width: 100%;
+            padding: 0;
+        }
+
+        @media #{var.$mq-xs} {
+            margin: 0 5px 0 0; // 右に余白を与える
             width: 100%;
             padding: 0;
         }
@@ -1577,13 +1581,16 @@ table {
         // 元のはてなブログのスタイルがこの階層であたってるのでキャンセルする
         height: 180px;
         width: inherit;
-        background-position: center center;
-        background-size: cover;
-        margin-right: 10px;
+        background-size: contain;
         background-repeat: no-repeat;
         object-fit: cover;
 
+        @media #{var.$mq-sm} {
+            background-position: bottom center; // 下寄せにしてサムネイルとタイトルの隙間を一定にする
+        }
+
         @media #{var.$mq-xs} {
+            background-position: top center; // 右寄せにしてサムネイルとタイトルの隙間を一定にする
             height: 80px;
             width: 80px;
         }
