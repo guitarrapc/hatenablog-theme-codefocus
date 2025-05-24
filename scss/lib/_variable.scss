@@ -62,7 +62,7 @@ $code-copy-success-bg: #4aaa50;
 $code-copy-failed-bg: #c44336;
 
 // Media Queries
-$mq-xs: "(max-width: 767px)"; // スマホ以下
-$mq-sm: "(min-width: 768px)"; // タブレット以上
-$mq-md: "(min-width: 992px)"; // PC (大き目タブレット)以上
+$mq-xs: "(max-width: 767px)"; // スマホ(小型タブレット)
+$mq-sm: "(min-width: 768px)"; // タブレット
+$mq-md: "(min-width: 992px)"; // PC (大き目タブレット)
 $mq-lg: "(min-width: 1200px)"; // Full HD以上
