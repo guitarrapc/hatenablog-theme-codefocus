@@ -1564,7 +1564,7 @@ table {
     .entry-thumb-link {
         grid-area: thumbnail;
         padding: 0;
-        margin: 0 0.2em 0 0;
+        margin: 0 5px 0 0;
         max-width: 100%;
 
         @media #{var.$mq-sm} {
@@ -1575,18 +1575,13 @@ table {
 
     .entry-thumb {
         // 元のはてなブログのスタイルがこの階層であたってるのでキャンセルする
-        height: 100px;
-        width: 100%;
+        height: 180px;
+        width: inherit;
         background-position: center center;
         background-size: cover;
         margin-right: 10px;
         background-repeat: no-repeat;
         object-fit: cover;
-
-        @media #{var.$mq-sm} {
-            height: 180px;
-            width: 100%;
-        }
 
         @media #{var.$mq-xs} {
             height: 80px;
