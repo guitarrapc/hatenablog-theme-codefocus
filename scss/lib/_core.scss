@@ -1475,7 +1475,7 @@ table {
         }
     }
 
-    /* Archive Entry */
+    /* アーカイブエントリーのスタイル */
     .archive-entry {
         position: relative;
         display: grid;
@@ -1509,6 +1509,7 @@ table {
         }
     }
 
+    /* アーカイブエントリーのヘッダー */
     .archive-entry-header {
         grid-area: header;
         position: relative;
@@ -1531,34 +1532,35 @@ table {
             text-overflow: ellipsis;
             line-height: 1.5rem;
         }
+    }
 
-        .entry-title {
-            order: 1;
-            margin: 0;
-            padding: 0;
-            text-align: left;
+    .entry-title {
+        order: 1;
+        margin: 0;
+        padding: 0;
+        text-align: left;
 
-            a {
-                text-decoration: none;
+        a {
+            text-decoration: none;
 
-                &:hover {
-                    color: var.$text-header;
-                }
-
-                /* アーカイブページだけ訪問済みリンクの色を変える */
-                &:visited {
-                    color: var.$text-header-visited;
-                }
+            &:hover {
+                color: var.$text-header;
             }
-        }
 
-        .archive-date {
-            order: 2;
-            margin: 0.5em 0 0 0;
-            padding: 0;
+            /* アーカイブページだけ訪問済みリンクの色を変える */
+            &:visited {
+                color: var.$text-header-visited;
+            }
         }
     }
 
+    .archive-date {
+        order: 2;
+        margin: 0.5em 0 0 0;
+        padding: 0;
+    }
+
+    /* アーカイブエントリーのサムネイル */
     .entry-thumb-link {
         grid-area: thumbnail;
         padding: 0;
@@ -1569,27 +1571,30 @@ table {
             width: 100%;
             padding: 0;
         }
+    }
 
-        .entry-thumb {
-            height: 100px;
-            background-position: center center;
-            background-size: cover;
-            margin-right: 10px;
-            background-repeat: no-repeat;
-            object-fit: cover;
+    .entry-thumb {
+        // 元のはてなブログのスタイルがこの階層であたってるのでキャンセルする
+        height: 100px;
+        width: 100%;
+        background-position: center center;
+        background-size: cover;
+        margin-right: 10px;
+        background-repeat: no-repeat;
+        object-fit: cover;
 
-            @media #{var.$mq-sm} {
-                height: 180px;
-                width: 180px;
-            }
+        @media #{var.$mq-sm} {
+            height: 180px;
+            width: 100%;
+        }
 
-            @media #{var.$mq-xs} {
-                height: 80px;
-                width: 80px;
-            }
+        @media #{var.$mq-xs} {
+            height: 80px;
+            width: 80px;
         }
     }
 
+    /* アーカイブエントリーのカテゴリ */
     .categories {
         grid-area: categories;
         margin: 0;
