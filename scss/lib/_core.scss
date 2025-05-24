@@ -1565,13 +1565,13 @@ table {
         max-width: 100%;
 
         @media #{var.$mq-sm} {
-            margin: 0 0 5px 0; // 下に余白を与える
+            margin: 0 0 10px 0; // 下に余白を与える
             width: 100%;
             padding: 0;
         }
 
         @media #{var.$mq-xs} {
-            margin: 0 5px 0 0; // 右に余白を与える
+            margin: 0 10px 0 0; // 右に余白を与える
             width: 100%;
             padding: 0;
         }
@@ -1584,6 +1584,7 @@ table {
         background-size: contain;
         background-repeat: no-repeat;
         object-fit: cover;
+        margin-right: 0;
 
         @media #{var.$mq-sm} {
             background-position: bottom center; // 下寄せにしてサムネイルとタイトルの隙間を一定にする
