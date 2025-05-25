@@ -6,7 +6,7 @@ import { chromium } from '@playwright/test';
  * すべてのスクリーンショット取得処理がこの1ファイルにまとまっています
  *
  * 対応デバイス:
- * - PC (Surface Pro 7): 912x1368
+ * - PC (大き目ラップトップ): 1440x1440
  * - タブレット (iPad Pro 12.9): 1024x1366
  * - スマートフォン (iPhone 14 Pro Max): 430x932
  *
@@ -38,10 +38,10 @@ import { chromium } from '@playwright/test';
     };
 
     // ==========================================
-    // PC (Surface Pro 7, 912x1368) 解像度のスクリーンショット
+    // PC (FullHD, 1440x1440) 解像度のスクリーンショット
     // ==========================================
     console.log('PC解像度のスクリーンショット取得を開始...');
-    await page.setViewportSize({ width: 912, height: 1368 });
+    await page.setViewportSize({ width: 1440, height: 1440 });
 
     // 記事ページの上部キャプチャ
     console.log('記事ページの上部のスクリーンショット取得中...');
