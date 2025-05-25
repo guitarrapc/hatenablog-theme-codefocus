@@ -25,13 +25,15 @@ CodeFocusテーマは複数のデバイスサイズに最適化されており�
 
 ### デバイス別の記事表示
 
-各デバイスでの表示の違いを以下に示します。PCでは十分な余白を持ったレイアウト、タブレットではタッチ操作に適したサイズ調整、スマートフォンでは限られた画面サイズを最大限に活用するレイアウトになっています。
+各デバイスでの表示の違いを以下に示します。PC[^1]では十分な余白を持ったレイアウト、タブレット[^2]ではタッチ操作に適したサイズ調整、スマートフォン[^3]では限られた画面サイズを最大限に活用するレイアウトになっています。
 
 PCでは、コンテンツを中心に配置し、サイドバーが下部に移動することで、記事本文に集中できる環境を提供します。タブレットとスマートフォンでは、デバイスの特性に合わせて余白やフォントサイズが自動調整され、それぞれのデバイスに最適化された読みやすさを実現しています。
 
+記事部分の横幅は3段階で変わります。1200px以上の大きな画面では記事は850pxの横幅で表示され、PCや大きなタブレットで快適に読めるようになっています。768pxから1200pxの中程度の画面では記事は790pxの横幅で表示され、タブレットや小型ノートPCでも読みやすいサイズです。768px未満のスマートフォンでは記事は100%の横幅で表示され、狭い画面でも快適に閲覧できます。いずれも読パディングを適切に設定し、コンテンツが画面端に密着しないように配慮されています。
+
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| [f:id:guitarrapc_tech:20250518222608p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20250518222640p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20250518222656p:plain:alt=スマートフォン表示] |
+| [f:id:guitarrapc_tech:20250525112721p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20250525111414p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20250525111437p:plain:alt=スマートフォン表示] |
 
 <!-- | screenshots/pc-article-top.png | screenshots/tablet-article-top.png | screenshots/smartphone-article-top.png | -->
 
@@ -123,7 +125,7 @@ func main() {
 
 コードブロックにマウスオーバーすると、右上にコピーボタンが表示されます。このボタンをクリックすることでコードをコピーできます。
 
-[f:id:guitarrapc_tech:20250518051404p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/pc-code-block-with-copy-button.png -->
+[f:id:guitarrapc_tech:20250525113058p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/pc-code-block-with-copy-button.png -->
 
 ### タグクラウドスタイル
 
@@ -149,7 +151,7 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 記事の`[:contents]`で生成される目次をスタイリングしました。タイトル部分をクリックすることで開閉可能な目次は、長い記事でも読者が迷わずに読み進められるようサポートします。
 
-[f:id:guitarrapc_tech:20250517234600p:plain:alt=記事内目次のスクリーンショット] <!-- screenshots/pc-toc.png -->
+[f:id:guitarrapc_tech:20250525113157p:plain:alt=記事内目次のスクリーンショット] <!-- screenshots/pc-toc.png -->
 
 ### 2. フローティング目次ボタン
 
@@ -167,7 +169,7 @@ CodeFocusテーマでは、2種類の目次表示方法を提供しています�
 
 記事をスクロールすると、現在読んでいるセクションに対応する目次項目が自動でハイライトされます。これにより、長い記事でも現在どのセクションを読んでいるかが一目でわかります。
 
-[f:id:guitarrapc_tech:20250518222920p:plain:alt=現在のセクションがハイライトされた目次] <!-- screenshots/toc-first-section-scrolled.png -->
+[f:id:guitarrapc_tech:20250525113348p:plain:alt=現在のセクションがハイライトされた目次] <!-- screenshots/toc-first-section-scrolled.png -->
 
 #### 2. ワンクリックでページトップへ移動
 
@@ -325,3 +327,7 @@ CodeFocusテーマは、コードと記事に集中できるシンプルで機�
 ---
 
 *CodeFocusテーマに関するフィードバックやご質問は、[GitHub Issues](https://github.com/guitarrapc/hatenablog-theme-codefocus/issues)にてお待ちしております。*
+
+[^1]: 大き目ラップトップ想定 1440x1440
+[^2]: iPad Pro 12.9想定 1024x1366
+[^3]: iPhone 14 Pro Max想定 430x932

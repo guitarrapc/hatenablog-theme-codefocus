@@ -10,6 +10,24 @@ CodeFocusテーマをインストールして基本設定を行ったら、次�
 
 はてなブログの管理画面から「デザイン設定」→「カスタマイズ」→「デザインCSS」に追加のCSSを記述することで、様々な部分をカスタマイズできます。
 
+## 記事コンテンツ部分の横幅カスタマイズ
+
+```css
+@media (min-width: 992px) {
+    #container, #footer {
+        max-width: 750px; /* 横幅を750pxに設定 */
+    }
+}
+
+@media (min-width: 768px) {
+    #container, #footer {
+        max-width: 700px; /* 横幅を700pxに設定 */
+        padding-left: 10px; /* 左側の余白を追加 */
+        padding-right: 10px; /* 右側の余白を追加 */
+    }
+}
+```
+
 ## 色のカスタマイズ
 
 ### メイン文字色と背景色の変更
