@@ -23,6 +23,11 @@ a {
         text-underline-offset: .15em;
     }
 
+    &:visited {
+        // 訪問済みリンクも同じ色を継承
+        color: inherit;
+    }
+
     &.keyword {
         text-decoration: none;
         border-bottom: 1px dotted var.$border;
@@ -407,11 +412,6 @@ table {
     a {
         text-decoration: none;
         transition: color 0.2s ease;
-
-        &:visited {
-            color: inherit;
-            /* 訪問済みリンクも同じ色を継承 */
-        }
 
         &:hover {
             text-decoration: underline;
