@@ -16,7 +16,7 @@
       // コピーボタンを作成
       const copyButton = document.createElement('button');
       copyButton.className = 'code-copy-button';
-      copyButton.removeAttribute('tltle');
+      copyButton.removeAttribute('title'); // 初期状態ではタイトル属性を削除
 
       // コードブロックを親要素から取り出して、ラッパーに移動
       const parent = codeBlock.parentNode;
@@ -46,7 +46,7 @@
 
           // 一定時間後に元に戻す
           setTimeout(function () {
-            copyButton.removeAttribute('title');
+            copyButton.removeAttribute('title'); // タイトル属性を削除
             copyButton.classList.remove('copied');
           }, 2000);
         }).catch(function (err) {
@@ -57,7 +57,7 @@
 
           // 一定時間後に元に戻す
           setTimeout(function () {
-            copyButton.removeAttribute('title');
+            copyButton.removeAttribute('title'); // タイトル属性を削除
             copyButton.classList.remove('copy-error');
           }, 2000);
         });

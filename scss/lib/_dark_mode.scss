@@ -80,6 +80,7 @@ html[data-theme="dark"] {
     --text-header: #{var.$dark-text-header};
     --text-archive-category: #{var.$dark-text-archive-category};
     --text-header-visited: #{var.$dark-text-header-visited};
+    --text-code-tooltip: #{var.$dark-text-code-tooltip};
 
     --link: #{var.$dark-link};
     --link-hover: #{var.$dark-link-hover};
@@ -124,6 +125,7 @@ html[data-theme="dark"] {
         --text-header: #{var.$dark-text-header};
         --text-archive-category: #{var.$dark-text-archive-category};
         --text-header-visited: #{var.$dark-text-header-visited};
+        --text-code-tooltip: #{var.$dark-text-code-tooltip};
 
         --link: #{var.$dark-link};
         --link-hover: #{var.$dark-link-hover};

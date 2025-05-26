@@ -37,6 +37,7 @@ $light-text-light: #999;
 $light-text-header: #333;
 $light-text-archive-category: #FFFFFF;
 $light-text-header-visited: color.adjust($light-text-header, $lightness: +30%);
+$light-text-code-tooltip: #c9d1d9;
 
 $light-link: #0f83fd;
 $light-link-hover: color.adjust($light-link, $lightness: -5%);
@@ -78,6 +79,7 @@ $dark-text-light: #6e7681;
 $dark-text-header: #e6edf3;
 $dark-text-archive-category: #e6edf3;
 $dark-text-header-visited: color.adjust($dark-text-header, $lightness: -30%);
+$dark-text-code-tooltip: #c9d1d9;
 
 $dark-link: #58a6ff;
 $dark-link-hover: color.adjust($dark-link, $lightness: +5%);
@@ -121,6 +123,7 @@ $text-light: $light-text-light;
 $text-header: $light-text-header;
 $text-archive-category: $light-text-archive-category;
 $text-header-visited: $light-text-header-visited;
+$text-code-tooltip: $light-text-code-tooltip;
 
 // link
 $link: $light-link;
