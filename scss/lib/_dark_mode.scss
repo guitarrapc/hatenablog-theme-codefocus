@@ -66,6 +66,7 @@ html[data-theme="dark"] {
     --background: #{var.$dark-background};
     --bg-light: #{var.$dark-bg-light};
     --bg-code: #{var.$dark-bg-code};
+    --bg-code-selection: #{var.$dark-bg-code-selection};
     --bg-code-light: #{var.$dark-bg-code-light};
     --bg-span: #{var.$dark-bg-span};
     --bg-toc-hover: #{var.$dark-bg-toc-hover};
@@ -109,6 +110,7 @@ html[data-theme="dark"] {
         --background: #{var.$dark-background};
         --bg-light: #{var.$dark-bg-light};
         --bg-code: #{var.$dark-bg-code};
+        --bg-code-selection: #{var.$dark-bg-code-selection};
         --bg-code-light: #{var.$dark-bg-code-light};
         --bg-span: #{var.$dark-bg-span};
         --bg-toc-hover: #{var.$dark-bg-toc-hover};

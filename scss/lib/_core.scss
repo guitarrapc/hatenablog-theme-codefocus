@@ -7,6 +7,7 @@
     --background: #{var.$background};
     --bg-light: #{var.$bg-light};
     --bg-code: #{var.$bg-code};
+    --bg-code-selection: #{var.$bg-code-selection};
     --bg-code-light: #{var.$bg-code-light};
     --bg-span: #{var.$bg-span};
     --bg-toc-hover: #{var.$bg-toc-hover};
@@ -568,6 +569,11 @@ table {
     code {
         font-family: var.$font-family-monospace;
         -webkit-font-smoothing: antialiased;
+
+        // 選択時のスタイル
+        ::selection {
+            background-color: var(--bg-code-selection);
+        }
     }
 
     pre {
