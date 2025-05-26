@@ -44,6 +44,13 @@
     --code-copy-bg: #{var.$code-copy-bg};
     --code-copy-success-bg: #{var.$code-copy-success-bg};
     --code-copy-failed-bg: #{var.$code-copy-failed-bg};
+
+    --codeblock-language-colors-text: #{map-get(var.$codeblock-language-colors, "text")};
+    --codeblock-language-colors-keyword: #{map-get(var.$codeblock-language-colors, "keyword")};
+    --codeblock-language-colors-function: #{map-get(var.$codeblock-language-colors, "function")};
+    --codeblock-language-colors-punctuation: #{map-get(var.$codeblock-language-colors, "punctuation")};
+    --codeblock-language-colors-number: #{map-get(var.$codeblock-language-colors, "number")};
+    --codeblock-language-colors-comment: #{map-get(var.$codeblock-language-colors, "comment")};
 }
 
 html,
@@ -569,8 +576,9 @@ table {
     pre {
         background: var(--bg-code);
         border: none;
-        white-space: pre-wrap;
-        text-overflow: ellipsis;
+        white-space: pre; // デフォルトで折り返しなし
+        overflow-x: auto; // 横スクロール可能に
+        text-overflow: initial;
         line-height: 1.7;
         font-size: 0.85rem;
         padding: 15px;
@@ -578,12 +586,12 @@ table {
         margin: 1.5em auto;
         max-width: 100%;
         box-shadow: inset 0 0 5px var(--shadow-light);
-        color: #fff;
+        color: var(--codeblock-language-colors-text);
 
         & > code {
             margin: 0;
             padding: 1.1em;
-            white-space: pre;
+            white-space: inherit; // 親要素のwhite-spaceを継承
             border: none;
             background-color: transparent;
         }
@@ -605,19 +613,19 @@ table {
     .token.important,
     .token.keyword,
     .token.selector {
-        color: #ff8fa3;
+        color: var(--codeblock-language-colors-keyword);
     }
 
     .synIdentifier,
     .token.function,
     .token.property,
     .token.tag {
-        color: #38c7ff;
+        color: var(--codeblock-language-colors-function);
     }
 
     .synSpecial,
     .token.punctuation {
-        color: #939bc1;
+        color: var(--codeblock-language-colors-punctuation);
     }
 
     .synConstant,
@@ -630,7 +638,7 @@ table {
     .token.operator,
     .token.string,
     .token.url {
-        color: #ffc56d;
+        color: var(--codeblock-language-colors-number);
     }
 
     .synComment,
@@ -638,16 +646,13 @@ table {
     .token.comment,
     .token.doctype,
     .token.prolog {
-        color: #94a1b3;
+        color: var(--codeblock-language-colors-comment);
     }
 
     hr {
         border-top: 2px solid var(--border-light);
         margin: 2.5em auto;
     }
-
-    /* 目次のスタイルは _table_of_contents.scss に移行しました */
-
 }
 
 /* 記事下 */

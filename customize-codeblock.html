@@ -1,0 +1,197 @@
+<script type="text/javascript">
+  /**
+   * コードブロック機能（コピー & 折り返し切り替え）を提供するスクリプト
+   */
+  (function () {
+    'use strict';
+    document.addEventListener('DOMContentLoaded', function () {
+      // コードブロックを全て取得
+      const codeBlocks = document.querySelectorAll('pre.code');
+
+      // 各コードブロックにボタンを追加
+      codeBlocks.forEach(function (codeBlock) {
+        // コードブロック用のラッパーを作成
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block-wrapper';
+
+        // コピーボタンを作成
+        const copyButton = document.createElement('button');
+        copyButton.className = 'code-copy-button';
+        copyButton.removeAttribute('title'); // 初期状態ではタイトル属性を削除
+        copyButton.setAttribute('aria-label', 'Copy code');
+
+        // 折り返し切り替えボタンを作成
+        const wrapToggleButton = document.createElement('button');
+        wrapToggleButton.className = 'code-wrap-toggle';
+        wrapToggleButton.title = 'Toggle Wrap';
+        wrapToggleButton.setAttribute('aria-label', 'Toggle code wrapping');
+
+        // コードブロックを親要素から取り出して、ラッパーに移動
+        const parent = codeBlock.parentNode;
+        parent.insertBefore(wrapper, codeBlock);
+        wrapper.appendChild(codeBlock);
+
+        // 初期状態は折り返しなし (デフォルト)
+        codeBlock.classList.add('nowrap');
+
+        // ラッパーにボタンを追加（順番重要: 右からコピー、折り返し）
+        wrapper.appendChild(copyButton);
+        wrapper.appendChild(wrapToggleButton);
+
+        // コピーボタンのクリックイベントを設定
+        copyButton.addEventListener('click', function () {
+          // コピーする前にボタンテキストを一時的に隠す
+          const originalDisplay = copyButton.style.display;
+          copyButton.style.display = 'none';
+
+          // コードブロックのテキストを取得
+          const code = codeBlock.textContent;
+
+          // ボタンの表示を元に戻す
+          copyButton.style.display = originalDisplay;
+
+          // クリップボードにコピー
+          navigator.clipboard.writeText(code).then(function () {
+            // コピー成功
+            copyButton.title = 'Copied';
+            copyButton.classList.add('copied');
+
+            // 一定時間後に元に戻す
+            setTimeout(function () {
+              copyButton.removeAttribute('title'); // タイトル属性を削除
+              copyButton.classList.remove('copied');
+            }, 2000);
+          }).catch(function (err) {
+            // コピー失敗
+            console.error('Copy failed:', err);
+            copyButton.title = 'Copy failed';
+            copyButton.classList.add('copy-error');
+
+            // 一定時間後に元に戻す
+            setTimeout(function () {
+              copyButton.removeAttribute('title'); // タイトル属性を削除
+              copyButton.classList.remove('copy-error');
+            }, 2000);
+          });
+        });
+
+        // 折り返し切り替えボタンのクリックイベントを設定
+        wrapToggleButton.addEventListener('click', function () {
+          codeBlock.classList.toggle('nowrap');
+          codeBlock.classList.toggle('wrap');
+
+          // ボタンのツールチップを更新
+          if (codeBlock.classList.contains('nowrap')) {
+            wrapToggleButton.title = 'Enable Wrap';
+          } else {
+            wrapToggleButton.title = 'Disable Wrap';
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+<style>
+  /* コードブロックのラッパー要素 */
+  .code-block-wrapper {
+    position: relative;
+    margin: 1em 0;
+  }
+
+  /* コードブロック自体のスタイル調整 */
+  .code-block-wrapper pre.code {
+    margin: 0;
+  }
+
+  /* 折り返しなしのコードブロック (デフォルト) */
+  .code-block-wrapper pre.code.nowrap {
+    white-space: pre;
+    overflow-x: auto;
+    text-overflow: initial;
+  }
+
+  /* 折り返しありのコードブロック */
+  .code-block-wrapper pre.code.wrap {
+    white-space: pre-wrap;
+    overflow-x: visible;
+  }
+
+  /* コードブロックボタン共通のスタイル */
+  .code-copy-button,
+  .code-wrap-toggle {
+    position: absolute;
+    top: 0rem;
+    margin: 15px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    background-color: var(--bg-code-light, #1a2737);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+    border: 1px solid var(--bg-code-light, #1a2737);
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background-color 0.2s;
+  }
+
+  /* コピーボタンのスタイル */
+  .code-copy-button {
+    right: 0rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='rgba(255, 255, 255, 0.75)' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath fill-rule='evenodd' d='M2 11 V3.5 A1.5 1.5 0 0 1 3.5 2 H10' /%3E%3Crect fill-rule='evenodd' x='5' y='5' width='9' height='9' rx='1.5' /%3E%3C/svg%3E");
+  }
+
+  /* 折り返し切り替えボタンのスタイル */
+  .code-wrap-toggle {
+    right: 2.5rem;
+    /* コピーボタンの左に配置 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.75)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='7 8 3 12 7 16'/%3E%3Cpolyline points='17 8 21 12 17 16'/%3E%3Cline x1='3' y1='12' x2='21' y2='12'/%3E%3C/svg%3E");
+  }
+
+  @media (max-width: 768px) {
+
+    .code-copy-button,
+    .code-wrap-toggle {
+      width: 24px;
+      height: 24px;
+      background-size: 16px 16px;
+    }
+  }
+
+  /* ホバー時のスタイル */
+  .code-copy-button:hover,
+  .code-wrap-toggle:hover {
+    opacity: 1 !important;
+    background-color: var(--bg-code-light, #1a2737);
+  }
+
+  /* フォーカス時のスタイル */
+  .code-copy-button:focus,
+  .code-wrap-toggle:focus {
+    outline: none;
+  }
+
+  /* コードブロックラッパーホバー時にボタンを表示 */
+  .code-block-wrapper:hover .code-copy-button,
+  .code-block-wrapper:hover .code-wrap-toggle {
+    opacity: 0.75;
+  }
+
+  /* ツールチップのスタイル */
+  .code-copy-button[title]:hover::after,
+  .code-wrap-toggle[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: -40px;
+    right: 0;
+    padding: 4px 8px;
+    background-color: var(--bg-code-light, #1a2737);
+    color: var(--text-code-tooltip, #c9d1d9);
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+  }
+</style>

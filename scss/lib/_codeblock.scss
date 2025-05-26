@@ -6,8 +6,8 @@
     position: relative;
     margin: 1em 0;
 
-    // ホバー時にのみコピーボタンを表示
-    &:hover .code-copy-button {
+    // ホバー時にのみボタンを表示
+    &:hover .code-button {
         opacity: 0.75;
     }
 }
@@ -17,21 +17,32 @@
     margin: 0; // ラッパーがマージンを担当するので、内部のpreのマージンをリセット
 }
 
-// コピーボタンのスタイル
-.code-copy-button {
+// 折り返しなしのコードブロック (デフォルト)
+.code-block-wrapper pre.code.nowrap {
+    white-space: pre;
+    overflow-x: auto;
+    text-overflow: initial;
+}
+
+// 折り返しありのコードブロック
+.code-block-wrapper pre.code.wrap {
+    white-space: pre-wrap;
+    overflow-x: visible;
+}
+
+// コードブロックボタン共通のスタイル
+.code-button {
     position: absolute;
     top: 0rem;
-    right: 0rem;
     margin: 15px;
     width: 28px;
     height: 28px;
     padding: 0;
-    background-color: var(--bg-code-light);
-    background-image: fn.url-svg(var.$svg-copy-code, var.$code-copy-bg);
+    background-color: var(--bg-code);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 24px 24px;
-    border: 1px solid var(--bg-code-light);
+    border: 1px solid var(--bg-code);
     border-radius: 4px;
     cursor: pointer;
     opacity: 0;
@@ -46,7 +57,7 @@
     // ホバー時のスタイル
     &:hover {
         opacity: 1;
-        background-color: var(--bg-code-light);
+        background-color: var(--bg-code);
     }
 
     // フォーカス時のスタイル
@@ -56,20 +67,34 @@
 
     /* コピー成功時とエラー時のスタイル */
     &.copied {
-        // opacity: 1;
+        opacity: 1;
         // background-color: var.$code-copy-success-bg;
         // background-image: fn.url-svg(var.$svg-copy-code-success, #fff);
     }
 
     &.copy-error {
-        // opacity: 1;
+        opacity: 1;
         // background-color: var.$code-copy-failed-bg;
         // background-image: fn.url-svg(var.$svg-copy-code-failed, #fff);
     }
 }
 
-// ツールチップのスタイル
-.code-copy-button[title]:hover::after {
+// コピーボタンのスタイル
+.code-copy-button {
+    @extend .code-button;
+    right: 0rem;
+    background-image: fn.url-svg(var.$svg-copy-code, var.$code-copy-bg);
+}
+
+// 折り返し切り替えボタンのスタイル
+.code-wrap-toggle {
+    @extend .code-button;
+    right: 2.5rem; // コピーボタンの左に配置
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.75)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='7 8 3 12 7 16'/%3E%3Cpolyline points='17 8 21 12 17 16'/%3E%3Cline x1='3' y1='12' x2='21' y2='12'/%3E%3C/svg%3E");
+}
+
+// ツールチップのスタイル（共通）
+.code-button[title]:hover::after {
     content: attr(title);
     position: absolute;
     top: -40px;
