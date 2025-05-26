@@ -569,8 +569,9 @@ table {
     pre {
         background: var(--bg-code);
         border: none;
-        white-space: pre-wrap;
-        text-overflow: ellipsis;
+        white-space: pre; // デフォルトで折り返しなし
+        overflow-x: auto; // 横スクロール可能に
+        text-overflow: initial;
         line-height: 1.7;
         font-size: 0.85rem;
         padding: 15px;
@@ -583,7 +584,7 @@ table {
         & > code {
             margin: 0;
             padding: 1.1em;
-            white-space: pre;
+            white-space: inherit; // 親要素のwhite-spaceを継承
             border: none;
             background-color: transparent;
         }
