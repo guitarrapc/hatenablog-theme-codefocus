@@ -57,7 +57,7 @@ a:hover {
 }
 
 .categories a:hover {
-  background-color: ##aaf1ab30; /* ホバー時の背景色 */
+  background-color: #aaf1ab30; /* ホバー時の背景色 */
 }
 ```
 
