@@ -295,6 +295,63 @@ ul.table-of-contents {
 ホバー時:
 [f:id:guitarrapc_tech:20250517235325p:plain:alt=カテゴリーホバーのスクリーンショット] <!-- screenshots/pc-category-item-hover.png -->
 
+### サイドバーのタグクラウドカスタマイズ
+
+サイドバーのカテゴリーモジュールは、タグクラウドスタイルで表示され、記事数に応じてフォントサイズが自動的に調整されます。このタグクラウドのサイズや見た目をカスタマイズできます。
+
+```css
+/* タグクラウド全体のレイアウト調整 */
+.category-cloud {
+  gap: 0.7rem; /* カテゴリー間の間隔を広げる */
+}
+
+/* 各カテゴリーアイテムのスタイル調整 */
+.category-cloud-item a {
+  padding: 0.2rem 0.5rem; /* 内側の余白を変更 */
+  border-radius: 15px; /* 角の丸みを調整 */
+  border: 1px solid #aaddff; /* 枠線の色を変更 */
+}
+
+/* フォントサイズの段階をカスタマイズ */
+.category-cloud-item .category-size-1 { font-size: 80% !important; } /* 最小サイズ */
+.category-cloud-item .category-size-5 { font-size: 125% !important; } /* 中間サイズ */
+.category-cloud-item .category-size-10 { font-size: 200% !important; } /* 最大サイズ */
+
+/* ホバー時の背景色変更 */
+.category-cloud-item a:hover {
+  background-color: #f0f8ff; /* ホバー時の背景色 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* ホバー時の影を追加 */
+}
+```
+
+タグクラウドは10段階のサイズクラス（category-size-1 から category-size-10）で構成されています。それぞれのサイズクラスに対して個別にフォントサイズを指定することで、よりカスタマイズされた視覚的階層を作れます。
+
+```css
+/* すべてのサイズクラスをカスタマイズする例 */
+.category-cloud-item .category-size-1 { font-size: 80% !important; }
+.category-cloud-item .category-size-2 { font-size: 90% !important; }
+.category-cloud-item .category-size-3 { font-size: 100% !important; }
+.category-cloud-item .category-size-4 { font-size: 110% !important; }
+.category-cloud-item .category-size-5 { font-size: 120% !important; }
+.category-cloud-item .category-size-6 { font-size: 135% !important; }
+.category-cloud-item .category-size-7 { font-size: 150% !important; }
+.category-cloud-item .category-size-8 { font-size: 165% !important; }
+.category-cloud-item .category-size-9 { font-size: 180% !important; }
+.category-cloud-item .category-size-10 { font-size: 200% !important; }
+```
+
+より高度なカスタマイズでは、記事数の多いカテゴリを強調するために色や太さも変更できます：
+
+```css
+/* 記事数の多いカテゴリを強調 */
+.category-cloud-item .category-size-8,
+.category-cloud-item .category-size-9,
+.category-cloud-item .category-size-10 {
+  font-weight: bold; /* 太字にする */
+  color: #0066cc; /* 色を変更 */
+}
+```
+
 ## コメントセクションのカスタマイズ
 
 CodeFocusテーマでは、コメントセクションもZennのDiscussionスタイルに似たデザインになっています。これをさらにカスタマイズできます。
