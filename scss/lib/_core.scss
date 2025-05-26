@@ -423,11 +423,6 @@ table {
     margin: 0;
     line-height: 1.9;
 
-    /* テキスト選択時のスタイル */
-    ::selection {
-        background-color: rgba(var(--link), 0.2);
-    }
-
     h1 + p,
     h2 + p,
     h3 + p,
@@ -569,11 +564,6 @@ table {
     code {
         font-family: var.$font-family-monospace;
         -webkit-font-smoothing: antialiased;
-
-        // 選択時のスタイル
-        ::selection {
-            background-color: var(--bg-code-selection);
-        }
     }
 
     pre {
