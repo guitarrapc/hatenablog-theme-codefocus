@@ -163,11 +163,17 @@ CodeFocusテーマはダークモード機能をサポートしています。
 - **手動切り替え**: 画面右上に表示される3つのボタンを使って、ライトモード・ダークモード・システム設定に手動で切り替えることができます。
 - **設定の記憶**: 選択したテーマ設定はブラウザのlocalStorageに保存され、次回訪問時も維持されます。
 
-ダークモード機能を有効にすると、画面右上に次の3つのボタンが表示されます：
+ダークモード機能を有効にすると、画面右上に切り替えボタンが表示されます：
 
 - **太陽アイコン**: ライトモードに切り替えます。明るい背景と暗いテキストの標準的な表示になります。
 - **月アイコン**: ダークモードに切り替えます。暗い背景と明るいテキストで、夜間の閲覧に最適です。
 - **モニターアイコン**: システム設定に合わせます。OSのダークモード設定に追従して自動的に切り替わります。
+
+| PC表示 | タブレット表示 | スマートフォン表示 |
+| --- | --- | --- |
+| [f:id:guitarrapc_tech:20250527004958p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20250527005017p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20250527005033p:plain:alt=スマートフォン表示] |
+
+<!-- | screenshots/pc-article-top-dark.png | screenshots/tablet-article-top-dark.png | screenshots/smartphone-article-top-dark.png | -->
 
 ## 便利な目次機能
 
@@ -271,6 +277,14 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 ページ下部のカテゴリーをタグクラウド表示する、以下の設定を行ってください：
 
 1. [customize-tag-cloud.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-tag-cloud.html) ファイルの内容をコピー
+2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
+3. 変更を保存
+
+### ダークモード機能を利用する
+
+ページ下部のカテゴリーをタグクラウド表示する、以下の設定を行ってください：
+
+1. [customize-dark-mode.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-dark-mode.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
 
