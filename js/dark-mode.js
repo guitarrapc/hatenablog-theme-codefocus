@@ -58,6 +58,7 @@
     const lightButton = document.createElement('button');
     lightButton.className = 'theme-switch-button';
     lightButton.title = 'ライトモード';
+    lightButton.setAttribute('aria-label', 'ライトモード');
     lightButton.innerHTML = ICONS.SUN;
     lightButton.addEventListener('click', () => {
       applyTheme(THEMES.LIGHT);
@@ -68,6 +69,7 @@
     const darkButton = document.createElement('button');
     darkButton.className = 'theme-switch-button';
     darkButton.title = 'ダークモード';
+    darkButton.setAttribute('aria-label', 'ダークモード');
     darkButton.innerHTML = ICONS.MOON;
     darkButton.addEventListener('click', () => {
       applyTheme(THEMES.DARK);
@@ -78,6 +80,7 @@
     const autoButton = document.createElement('button');
     autoButton.className = 'theme-switch-button';
     autoButton.title = 'システム設定に合わせる';
+    autoButton.setAttribute('aria-label', 'システム設定に合わせる');
     autoButton.innerHTML = ICONS.MONITOR;
     autoButton.addEventListener('click', () => {
       applyTheme(THEMES.AUTO);
