@@ -23,6 +23,11 @@ a {
         text-underline-offset: .15em;
     }
 
+    &:visited {
+        // 訪問済みリンクも同じ色を継承
+        color: inherit;
+    }
+
     &.keyword {
         text-decoration: none;
         border-bottom: 1px dotted var.$border;
@@ -408,11 +413,6 @@ table {
         text-decoration: none;
         transition: color 0.2s ease;
 
-        &:visited {
-            color: inherit;
-            /* 訪問済みリンクも同じ色を継承 */
-        }
-
         &:hover {
             text-decoration: underline;
             text-decoration-thickness: 1px;
@@ -579,6 +579,7 @@ table {
         color: #38c7ff;
     }
 
+    .synSpecial,
     .token.punctuation {
         color: #939bc1;
     }
@@ -1044,115 +1045,115 @@ table {
             font-size: 0.85em;
             color: var.$text-low-priority;
         }
+    }
 
-        // 関連記事のアイテム内部のレイアウト
-        // 最新記事のアイテム内部のレイアウト
-        // 注目記事のアイテム内部のレイアウト
-        .related-entries-item-inner,
-        .recent-entries-item-inner,
-        .entries-access-ranking-item-inner {
-            // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
-            display: grid;
-            // スマホではサブグリッドを用いて2列
-            grid-template-columns: auto 1fr;
-            // スマホでは左に画像、右に残り。タイトル/日付/カテゴリは縦並びに配置
+    // 関連記事のアイテム内部のレイアウト
+    // 最新記事のアイテム内部のレイアウト
+    // 注目記事のアイテム内部のレイアウト
+    .related-entries-item-inner,
+    .recent-entries-item-inner,
+    .entries-access-ranking-item-inner {
+        // レイアウト位置をHTMLではなくcssで制御するためグリッドレイアウトを適用
+        display: grid;
+        // スマホではサブグリッドを用いて2列
+        grid-template-columns: auto 1fr;
+        // スマホでは左に画像、右に残り。タイトル/日付/カテゴリは縦並びに配置
+        grid-template-areas:
+            "thumbnail title title"
+            "thumbnail date bookmark-widget-counter"
+            "thumbnail categories categories";
+        gap: 2px auto; // 行間と列間の余白
+
+        @media #{var.$mq-sm} {
+            // PCは縦なのでサブグリッドなし
+            grid-template-columns: auto 0fr;
+            // 2行: 1行目がユーザー名と日付、2行目がコメント本文
+            grid-template-rows: auto auto;
+            // PCではすべて縦に並べる
             grid-template-areas:
-                "thumbnail title title"
-                "thumbnail date bookmark-widget-counter"
-                "thumbnail categories categories";
+                "thumbnail thumbnail"
+                "title title"
+                "date bookmark-widget-counter"
+                "categories categories";
             gap: 2px auto; // 行間と列間の余白
+        }
+
+        // 画像
+        .urllist-image-link {
+            grid-area: thumbnail;
+            display: block;
+            overflow: hidden; // はみ出した部分は消す
+            border-radius: 5px;
+            // スマホでは画像とタイトルの横に余白を与える
+            margin-right: 10px;
+            margin-bottom: 0px;
+            width: 80px;
+            height: 80px;
 
             @media #{var.$mq-sm} {
-                // PCは縦なのでサブグリッドなし
-                grid-template-columns: auto 0fr;
-                // 2行: 1行目がユーザー名と日付、2行目がコメント本文
-                grid-template-rows: auto auto;
-                // PCではすべて縦に並べる
-                grid-template-areas:
-                    "thumbnail thumbnail"
-                    "title title"
-                    "date bookmark-widget-counter"
-                    "categories categories";
-                gap: 2px auto; // 行間と列間の余白
+                // PCでは画像とタイトルの縦に余白を与える
+                margin-bottom: 10px;
+                width: 100%;
+                height: 100px; // 最大で100pxに収める
             }
 
-            // 画像
-            .urllist-image-link {
-                grid-area: thumbnail;
-                display: block;
-                overflow: hidden; // はみ出した部分は消す
-                border-radius: 5px;
-                // スマホでは画像とタイトルの横に余白を与える
-                margin-right: 10px;
-                margin-bottom: 0px;
-                width: 80px;
-                height: 80px;
+            img {
+                width: 100%;
+                object-fit: cover;
+                object-position: center;
+                // 画像を80pxに収めつつ真ん中を抜き取る
+                max-height: 80px;
 
                 @media #{var.$mq-sm} {
-                    // PCでは画像とタイトルの縦に余白を与える
-                    margin-bottom: 10px;
-                    width: 100%;
-                    height: 100px; // 最大で100pxに収める
-                }
-
-                img {
-                    width: 100%;
-                    object-fit: cover;
-                    object-position: center;
-                    // 画像を80pxに収めつつ真ん中を抜き取る
-                    max-height: 80px;
-
-                    @media #{var.$mq-sm} {
-                        // 画像を100pxに収めつつ真ん中を抜き取る
-                        max-height: 100px;
-                    }
+                    // 画像を100pxに収めつつ真ん中を抜き取る
+                    max-height: 100px;
                 }
             }
+        }
 
-            // タイトル
-            .urllist-title-link {
-                grid-area: title;
-                padding: 0;
-            }
+        // タイトル
+        .urllist-title-link {
+            grid-area: title;
+            padding: 0;
+        }
 
-            // 日付
-            .urllist-date-link {
-                grid-area: date;
-                padding: 0;
+        // 日付
+        .urllist-date-link {
+            grid-area: date;
+            padding: 0;
+            color: var.$text-low-priority;
+        }
+
+        // カテゴリ
+        .urllist-categories {
+            grid-area: categories;
+            padding: 0;
+
+            a {
                 color: var.$text-low-priority;
             }
 
-            // カテゴリ
-            .urllist-categories {
-                grid-area: categories;
+            .urllist-category-link {
                 padding: 0;
-
-                a {
-                    color: var.$text-low-priority;
-                }
-
-                .urllist-category-link {
-                    padding: 0;
-                }
             }
+        }
 
-            // ブックマークカウンター
-            .bookmark-widget-counter {
-                grid-area: bookmark-widget-counter;
-                width: 100px;
-                padding: 0;
+        // ブックマークカウンター
+        .bookmark-widget-counter {
+            grid-area: bookmark-widget-counter;
+            width: 100px;
+            padding: 0;
+            color: var.$text-low-priority;
+            // 日付の右側なので右寄せ
+            text-align: right;
+            padding-right: 10px;
+
+            a {
                 color: var.$text-low-priority;
-                // 日付の右側なので右寄せ
-                text-align: right;
-                padding-right: 10px;
+                text-decoration: none;
 
-                a {
-                    color: var.$text-low-priority;
-                    text-decoration: none;
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
+                &:hover {
+                    text-decoration: underline;
                 }
             }
         }

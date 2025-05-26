@@ -6,27 +6,15 @@ CodeFocusテーマをインストールして基本設定を行ったら、次�
 
 [:contents]
 
+## カスタマイズとは
+
+CodeFocusテーマは、基本的なスタイリングからアニメーション効果の追加、ダークモードの実装まで、様々な調整が可能です。このガイドで紹介したテクニックを組み合わせて、あなただけのオリジナルブログデザインを作り上げることができます。
+
+一度に多くの変更を行うと予期せぬ問題が発生することがあるため、少しずつ変更を加えて効果を確認することをおすすめします。また、CSSの変更は適用前に別環境でテストするか、バックアップを取っておくと安心です。
+
 ## カスタマイズの基本
 
 はてなブログの管理画面から「デザイン設定」→「カスタマイズ」→「デザインCSS」に追加のCSSを記述することで、様々な部分をカスタマイズできます。
-
-## 記事コンテンツ部分の横幅カスタマイズ
-
-```css
-@media (min-width: 992px) {
-    #container, #footer {
-        max-width: 750px; /* 横幅を750pxに設定 */
-    }
-}
-
-@media (min-width: 768px) {
-    #container, #footer {
-        max-width: 700px; /* 横幅を700pxに設定 */
-        padding-left: 10px; /* 左側の余白を追加 */
-        padding-right: 10px; /* 右側の余白を追加 */
-    }
-}
-```
 
 ## 色のカスタマイズ
 
@@ -40,7 +28,7 @@ body {
 
 /* 背景色の変更 */
 body {
-  background-color: #ffffff; /* 背景色 */
+  background-color: #88ccaa; /* 背景色 */
 }
 ```
 
@@ -49,7 +37,7 @@ body {
 ```css
 /* リンク色の変更 */
 a {
-  color: #3366ff; /* リンク色 */
+  color: #33aaff; /* リンク色 */
 }
 
 a:hover {
@@ -64,12 +52,12 @@ a:hover {
 ```css
 /* カテゴリーの色変更 */
 .categories a {
-  color: #555555; /* カテゴリーテキスト色 */
-  border-color: #cccccc; /* カテゴリー枠線色 */
+  color: #550055; /* カテゴリーテキスト色 */
+  border-color: #30cc33; /* カテゴリー枠線色 */
 }
 
 .categories a:hover {
-  background-color: #f0f0f0; /* ホバー時の背景色 */
+  background-color: #aaf1ab30; /* ホバー時の背景色 */
 }
 ```
 
@@ -86,9 +74,16 @@ a:hover {
 
 /* 目次ボタンの色変更 */
 .toc-button {
-  background-color: #ffffff; /* 目次ボタン背景色 */
-  color: #444444; /* 目次ボタン文字色 */
-  border-color: #e9ecef; /* 目次ボタン枠線色 */
+  background-color: #aa00aa50; /* 目次ボタン背景色 */
+  color: #a44444; /* 目次ボタン文字色 */
+  border-color: #892222; /* 目次ボタン枠線色 */
+}
+
+.toc-button .toc-button-icon {
+  &:before {
+    border-top: 2px solid #d4ffcc; /* ^アイコンの色 */
+    border-right: 2px solid #d4ffcc; /* ^アイコンの色 */
+  }
 }
 ```
 
@@ -98,39 +93,56 @@ a:hover {
 
 ```css
 body {
-  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  font-family: Meiryo, sans-serif;
 }
 ```
 
 ### 見出しフォントの変更
 
 ```css
-.entry-content h1,
-.entry-content h2,
-.entry-content h3,
-.entry-content h4,
-.entry-content h5,
-.entry-content h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
 }
 ```
 
 ### Webフォントの利用
 
-Google Fontsなどのウェブフォントを利用する場合は、以下のようにCSSを記述します：
+Google Fontsなどのウェブフォントを利用する場合は、まず`詳細設定 > <head>要素にメタデータを追加`にフォントを読み込ませます。
+
+```html
+<!-- 詳細設定 > <head>要素にメタデータを追加 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+```
+
+以下のようにCSSを記述します：
 
 ```css
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
-
+/* 全体のフォントファミリーをNoto Sans JPに設定 */
 body {
-  font-family: 'Noto Sans JP', sans-serif;
+  font-family: "Noto Sans JP", sans-serif;
 }
 
-.entry-content h1,
-.entry-content h2,
-.entry-content h3 {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-weight: 700;
+/* 見出しのフォントファミリーをNoto Sans JPに設定 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Noto Sans JP", sans-serif;
+}
+
+/* タイトルのフォントファミリーをKaushan Scriptに設定 */
+#title a {
+  font-family: 'Kaushan Script', cursive;
 }
 ```
 
@@ -155,12 +167,21 @@ pre.code {
 ### シンタックスハイライトの調整
 
 ```css
+pre.code {
+  color: #abb2bf; /* コード全体の文字色 */
+}
+
 /* クラス名などの特定の構文要素色を変更 */
 pre.code span.synIdentifier {
   color: #e06c75; /* クラス名など */
 }
 
-pre.code span.synStatement {
+pre.code span.synSpecial {
+  color: #61afef; /* 特殊な構文 */
+}
+
+pre.code span.synStatement,
+pre.code span.synType {
   color: #c678dd; /* キーワード */
 }
 
@@ -180,27 +201,14 @@ pre.code span.synComment {
 .code-copy-button {
   background-color: #465670; /* ボタンの背景色 */
   border-color: #465670; /* ボタンの枠線色 */
-}
 
-/* コピーボタンのホバー時の表示 */
-.code-copy-button:hover {
-  opacity: 1;
-  background-color: #566b8c; /* ホバー時の背景色 */
-}
+  &.copied {
+    background-color: #28a745; /* コピー成功時の色 */
+  }
 
-/* ツールチップのスタイル変更 */
-.code-copy-button[title]:hover::after {
-  content: attr(title);
-  position: absolute;
-  top: -35px;
-  right: 0;
-  padding: 4px 10px; /* 内側の余白を大きく */
-  background-color: rgba(0, 0, 0, 0.8); /* ツールチップの背景色を濃く */
-  color: white;
-  border-radius: 6px; /* 角の丸みを増やす */
-  font-size: 12px;
-  white-space: nowrap;
-  z-index: 10;
+  &.copy-error {
+    background-color: #dc3545; /* コピー失敗時の色 */
+  }
 }
 ```
 
@@ -287,86 +295,6 @@ ul.table-of-contents {
 ホバー時:
 [f:id:guitarrapc_tech:20250517235325p:plain:alt=カテゴリーホバーのスクリーンショット] <!-- screenshots/pc-category-item-hover.png -->
 
-### タグクラウドのカスタマイズ
-
-サイドバーのカテゴリーモジュールはタグクラウドスタイルで表示されます。記事数に応じたフォントサイズの変化やホバー効果をカスタマイズできます。
-
-```css
-/* タグクラウドのベーススタイル */
-.hatena-module-category .hatena-module-body .hatena-urllist li a {
-  display: inline-block;
-  padding: 0.3em 0.6em;
-  border-radius: 20px;
-  text-decoration: none;
-  border: 1px solid #d6e3ed; /* border-light変数の値 */
-  transition: all 0.2s ease;
-}
-
-/* 記事数による大きさの調整 */
-/* 1-5記事 (小) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(1)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(2)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(3)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(4)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(5)"] {
-  font-size: 0.8em;
-}
-
-/* 6-10記事 (やや小) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(6)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(7)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(8)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(9)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(10)"] {
-  font-size: 0.9em;
-}
-
-/* 11-20記事 (標準) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(11)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(12)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(13)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(14)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(15)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(16)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(17)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(18)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(19)"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(20)"] {
-  font-size: 1em;
-}
-
-/* 21-50記事 (やや大) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(2"][href$=")"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(3"][href$=")"],
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(4"][href$=")"] {
-  font-size: 1.1em;
-  font-weight: bold;
-}
-
-/* 21-50記事のうち、2桁以上の記事数 (除外条件付き) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(2"][href$=")"]:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(3"][href$=")"]:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(4"][href$=")"]:not([href*="(2)"]):not([href*="(3)"]):not([href*="(4)"]) {
-  font-size: 1.2em;
-}
-
-/* 51記事以上 (大) */
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(5"][href$=")"]:not([href*="(5)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(6"][href$=")"]:not([href*="(6)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(7"][href$=")"]:not([href*="(7)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(8"][href$=")"]:not([href*="(8)"]),
-.hatena-module-category .hatena-module-body .hatena-urllist li a[href*="(9"][href$=")"]:not([href*="(9)"]) {
-  font-size: 1.3em;
-  font-weight: bold;
-}
-
-/* ホバー効果 */
-.hatena-module-category .hatena-module-body .hatena-urllist li a:hover {
-  background-color: #f5f5f5; /* テーマのbtn-hover変数の値 */
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-}
-```
-
 ## コメントセクションのカスタマイズ
 
 CodeFocusテーマでは、コメントセクションもZennのDiscussionスタイルに似たデザインになっています。これをさらにカスタマイズできます。
@@ -407,18 +335,21 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 
 ## レイアウトのカスタマイズ
 
-### コンテンツ幅の調整
+## 記事コンテンツ部分の横幅カスタマイズ
 
 ```css
-/* メインコンテンツの最大幅 */
-#wrapper {
-  max-width: 900px; /* 幅を広げる */
+@media (min-width: 992px) {
+    #container, #footer {
+        max-width: 750px; /* 横幅を750pxに設定 */
+    }
 }
 
-/* 記事本文の最大幅 */
-.entry-content {
-  max-width: 800px; /* 記事の幅を調整 */
-  margin: 0 auto; /* 中央寄せ */
+@media (min-width: 768px) {
+    #container, #footer {
+        max-width: 700px; /* 横幅を700pxに設定 */
+        padding-left: 10px; /* 左側の余白を追加 */
+        padding-right: 10px; /* 右側の余白を追加 */
+    }
 }
 ```
 
@@ -439,6 +370,14 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 .entry-content h2 {
   margin-top: 2.5em; /* 見出し上の余白を増やす */
   margin-bottom: 1em; /* 見出し下の余白を調整 */
+}
+```
+
+### 1行あたりの高さ
+
+```css
+body {
+  line-height: 1.6; /* 行間を狭める */
 }
 ```
 
@@ -484,7 +423,7 @@ a:hover {
 .code-copy-button,
 button.hatena-bookmark-button,
 .comment-box .leave-comment-title {
-  background-color: #2c9a7a;
+  background-color: #2c9a7a0a;
   border-color: #2c9a7a;
 }
 
@@ -499,7 +438,7 @@ blockquote,
 /* 目次マーカーの色変更 */
 .floating-toc li:before,
 .table-of-contents li:before {
-  background-color: #2c9a7a;
+  background-color: #2c9a7a0a;
 }
 .floating-toc ul:after,
 .table-of-contents ul:after {
@@ -567,7 +506,7 @@ blockquote,
 @media (prefers-color-scheme: dark) {
   /* ダークモードの基本カラー */
   body {
-    background-color: #1a1a1a;
+    background-color: #2d2d2d;
     color: #e0e0e0;
   }
 
@@ -586,18 +525,73 @@ blockquote,
   }
 
   /* 見出し */
-  .entry-content h1,
-  .entry-content h2,
-  .entry-content h3 {
+  h1,
+  h2,
+  h3,
+  h1 a {
     color: #ffffff;
     border-color: #555555;
   }
 
+  h4,
+  h5,
+  h6 {
+    color: #ffffff;
+  }
+
+  /* タイトル */
+  #title a {
+    color: #ffffff;
+  }
+
   /* 目次 */
+  ul.table-of-contents,
   .table-of-contents,
   .floating-toc {
-    background-color: #333333;
+    background-color: #2d2d2d;
     border-color: #444444;
+
+    .page-top-button {
+      background-color: #2d2d2d;
+      color: #ffffff;
+      border-color: #555555;
+    }
+
+    li a {
+      color: #ffffff;
+
+      &:hover {
+        color: #cccccc; /* アクティブなリンクの色 */
+      }
+    }
+  }
+
+  .floating-toc ul.floating-toc-list{
+    li a {
+      color: #ffffff;
+
+      &:hover {
+        color: #cccccc; /* アクティブなリンクの色 */
+      }
+}
+
+    li a.active {
+      color: #cccccc; /* アクティブなリンクの色 */
+    }
+  }
+
+  .toc-title {
+    color: #ffffff;
+    background-color: #2d2d2d;
+  }
+
+  .toc-button {
+    background-color: #3a3a3a;
+    border-color: #ffffff;
+
+    .toc-button-text {
+      color: #ffffff;
+    }
   }
 
   /* コードブロック */
@@ -605,6 +599,29 @@ blockquote,
     background-color: #1e1e1e;
     border-color: #383838;
     color: #d4d4d4;
+  }
+
+  /* 記事タイトルのカテゴリ */
+  .entry-categories {
+    a {
+      color: #ffffff; /* カテゴリリンクの色 */
+      background-color: #3a3a3a; /* カテゴリ背景色 */
+      border-color: #555555; /* カテゴリ枠線色 */
+
+      &:hover {
+        background-color: #444444; /* ホバー時の背景色 */
+      }
+    }
+  }
+
+  /* コメントセクション */
+  .entry-footer .comment-box .leave-comment-title {
+    color: #ffffff; /* コメントタイトルの色 */
+  }
+
+  /* ページャー */
+  .pager a {
+    color: #ffffff; /* ページャーリンクの色 */
   }
 
   /* その他要素の調整 */
@@ -617,6 +634,30 @@ blockquote,
   /* 区切り線 */
   hr, .pager {
     border-color: #444444;
+  }
+
+  /* はてなモジュール */
+  .hatena-module-title,
+  .hatena-module-title a {
+    color: #ffffff; /* モジュールタイトルの色 */
+  }
+
+  #box2-inner {
+    .related-entries-item-inner,
+    .recent-entries-item-inner,
+    .entries-access-ranking-item-inner {
+      .urllist-title-link {
+        color: #ffffff; /* リンクの色 */
+      }
+    }
+  }
+
+  .hatena-urllist li a {
+    color: #ffffff; /* はてなURLリストのリンク色 */
+  }
+
+  #box2-inner .hatena-module-profile .id a {
+    color: #ffffff; /* プロフィールリンクの色 */
   }
 }
 ```
@@ -658,50 +699,6 @@ button.hatena-bookmark-button:hover {
   transform: scale(1.05);
 }
 ```
-
-### カスタムフォントアイコンの追加
-
-Font Awesomeなどのフォントアイコンを利用して、より視覚的に豊かなデザインにできます：
-
-```css
-/* Font Awesomeの読み込み */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-
-/* 見出しにアイコンを追加 */
-.entry-content h2:before {
-  font-family: 'Font Awesome 6 Free';
-  content: '\f138'; /* アイコンのコード */
-  font-weight: 900;
-  margin-right: 0.5em;
-  color: #3366ff; /* アイコンの色 */
-}
-
-/* リンクにアイコンを追加 */
-.entry-content a[href^="http"]:after {
-  font-family: 'Font Awesome 6 Free';
-  content: '\f08e'; /* 外部リンクアイコン */
-  font-weight: 900;
-  margin-left: 0.3em;
-  font-size: 0.8em;
-  vertical-align: super;
-}
-
-/* 特定のセクションにアイコンを追加 */
-.hatena-module-title:before {
-  font-family: 'Font Awesome 6 Free';
-  content: '\f0c9'; /* リストアイコン */
-  font-weight: 900;
-  margin-right: 0.5em;
-}
-```
-
-## まとめ
-
-CodeFocusテーマは、基本的なスタイリングからアニメーション効果の追加、ダークモードの実装まで、様々なカスタマイズが可能です。このガイドで紹介したテクニックを組み合わせて、あなただけのオリジナルブログデザインを作り上げてください。
-
-一度に多くの変更を行うと予期せぬ問題が発生することがあるため、少しずつ変更を加えて効果を確認することをおすすめします。また、CSSの変更は適用前に別環境でテストするか、バックアップを取っておくと安心です。
-
-より高度なカスタマイズには、[GitHub リポジトリ](https://github.com/guitarrapc/HatenaBlog-Theme)からSCSSファイルをダウンロードして、ローカル開発環境での編集をおすすめします。
 
 ---
 
