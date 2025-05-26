@@ -555,166 +555,55 @@ blockquote,
 
 ## 高度なカスタマイズ
 
-### ダークモードの追加
+### ダークモード機能の活用
 
-メディアクエリを使用して、システムのダークモード設定に応じて自動的に切り替わるダークモードを実装できます：
+CodeFocusテーマには、すでにダークモード機能が組み込まれています。この機能を有効にすると、ページの右上に3つのアイコンボタン（太陽、月、モニター）が表示され、ユーザーがライトモード、ダークモード、またはシステム設定に合わせた自動モードを選択できるようになります。
+
+ダークモード機能を有効にする方法については、[READMEのダークモード機能の説明](https://github.com/guitarrapc/hatenablog-theme-codefocus#%E3%83%80%E3%83%BC%E3%82%AF%E3%83%A2%E3%83%BC%E3%83%89%E6%A9%9F%E8%83%BD%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88)を参照してください。
+
+#### ダークモードのカスタマイズ
+
+ダークモードの色をカスタマイズしたい場合は、CSSの変数を上書きすることで実現できます。
 
 ```css
-@media (prefers-color-scheme: dark) {
-  /* ダークモードの基本カラー */
-  body {
-    background-color: #2d2d2d;
-    color: #e0e0e0;
-  }
-
-  /* コンテンツ背景 */
-  .entry,
-  #box2-inner .hatena-module {
-    background-color: #2d2d2d;
-  }
-
-  /* リンク色 */
-  a {
-    color: #88c0ff;
-  }
-  a:hover {
-    color: #aad4ff;
-  }
-
-  /* 見出し */
-  h1,
-  h2,
-  h3,
-  h1 a {
-    color: #ffffff;
-    border-color: #555555;
-  }
-
-  h4,
-  h5,
-  h6 {
-    color: #ffffff;
-  }
-
-  /* タイトル */
-  #title a {
-    color: #ffffff;
-  }
-
-  /* 目次 */
-  ul.table-of-contents,
-  .table-of-contents,
-  .floating-toc {
-    background-color: #2d2d2d;
-    border-color: #444444;
-
-    .page-top-button {
-      background-color: #2d2d2d;
-      color: #ffffff;
-      border-color: #555555;
-    }
-
-    li a {
-      color: #ffffff;
-
-      &:hover {
-        color: #cccccc; /* アクティブなリンクの色 */
-      }
-    }
-  }
-
-  .floating-toc ul.floating-toc-list{
-    li a {
-      color: #ffffff;
-
-      &:hover {
-        color: #cccccc; /* アクティブなリンクの色 */
-      }
+/* ダークモードの色をカスタマイズ */
+html[data-theme="dark"] {
+  --background: #1a1a2e;         /* 背景色をより深い青に */
+  --text-body: #e2e2e2;          /* 本文テキストをより明るく */
+  --link: #64b5f6;               /* リンク色を水色系に */
+  --link-hover: #90caf9;         /* ホバー時はより明るく */
+  --border: #414165;             /* ボーダー色を青系に合わせる */
 }
 
-    li a.active {
-      color: #cccccc; /* アクティブなリンクの色 */
-    }
+/* システム設定に合わせる場合 */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]):not([data-theme="dark"]) {
+    /* 上記と同じ変数を設定 */
+    --background: #1a1a2e;
+    --text-body: #e2e2e2;
+    --link: #64b5f6;
+    --link-hover: #90caf9;
+    --border: #414165;
   }
+}
+```
 
-  .toc-title {
-    color: #ffffff;
-    background-color: #2d2d2d;
-  }
+#### ダークモードボタンの位置調整
 
-  .toc-button {
-    background-color: #3a3a3a;
-    border-color: #ffffff;
+ダークモードの切り替えボタンの位置を調整したい場合は、以下のようなCSSを追加できます：
 
-    .toc-button-text {
-      color: #ffffff;
-    }
-  }
+```css
+/* ダークモード切り替えボタンの位置調整 */
+.theme-switch-container {
+  top: 5rem;         /* 上からの位置を調整 */
+  right: 2rem;       /* 右からの位置を調整 */
+}
 
-  /* コードブロック */
-  pre.code {
-    background-color: #1e1e1e;
-    border-color: #383838;
-    color: #d4d4d4;
-  }
-
-  /* 記事タイトルのカテゴリ */
-  .entry-categories {
-    a {
-      color: #ffffff; /* カテゴリリンクの色 */
-      background-color: #3a3a3a; /* カテゴリ背景色 */
-      border-color: #555555; /* カテゴリ枠線色 */
-
-      &:hover {
-        background-color: #444444; /* ホバー時の背景色 */
-      }
-    }
-  }
-
-  /* コメントセクション */
-  .entry-footer .comment-box .leave-comment-title {
-    color: #ffffff; /* コメントタイトルの色 */
-  }
-
-  /* ページャー */
-  .pager a {
-    color: #ffffff; /* ページャーリンクの色 */
-  }
-
-  /* その他要素の調整 */
-  input, textarea, select {
-    background-color: #3a3a3a;
-    color: #e0e0e0;
-    border-color: #555555;
-  }
-
-  /* 区切り線 */
-  hr, .pager {
-    border-color: #444444;
-  }
-
-  /* はてなモジュール */
-  .hatena-module-title,
-  .hatena-module-title a {
-    color: #ffffff; /* モジュールタイトルの色 */
-  }
-
-  #box2-inner {
-    .related-entries-item-inner,
-    .recent-entries-item-inner,
-    .entries-access-ranking-item-inner {
-      .urllist-title-link {
-        color: #ffffff; /* リンクの色 */
-      }
-    }
-  }
-
-  .hatena-urllist li a {
-    color: #ffffff; /* はてなURLリストのリンク色 */
-  }
-
-  #box2-inner .hatena-module-profile .id a {
-    color: #ffffff; /* プロフィールリンクの色 */
+/* モバイル向けの調整 */
+@media (max-width: 767px) {
+  .theme-switch-container {
+    top: 4rem;
+    right: 1rem;
   }
 }
 ```

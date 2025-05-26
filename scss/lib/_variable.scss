@@ -1,6 +1,12 @@
 // Variables
 @use "sass:color";
 
+// Media Queries
+$mq-xs: "(max-width: 767px)"; // スマホ(小型タブレット)
+$mq-sm: "(min-width: 768px)"; // タブレット
+$mq-md: "(min-width: 992px)"; // PC (大き目タブレット)
+$mq-lg: "(min-width: 1200px)"; // Full HD以上
+
 // Font
 $font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', 'Meiryo', sans-serif, "Segoe UI Emoji";
 $font-family-monospace: 'Monaco', 'Consolas', 'Courier New', Courier, monospace, sans-serif;
@@ -13,56 +19,144 @@ $svg-copy-code-failed: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 
 $svg-page-prev: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5 L8 12 L15 19'/></svg>"; // ページ内目次の前のページアイコン
 $svg-page-next: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5 L8 12 L15 19'/></svg>"; // ページ内目次の次のページアイコン
 
+// ライトモード
+$light-background: #fff;
+$light-bg-light: #f5f5f5;
+$light-bg-code: #1a2638;
+$light-bg-code-light: #1a2737;
+$light-bg-span: #215aa012;
+$light-bg-toc-hover: rgba(20, 135, 189, 0.05);
+$light-bg-archive-category: #222a20;
+$light-bg-archive-category-hover: color.adjust($light-bg-archive-category, $lightness: +15%);
+$light-bg-btn-hover: #f5f5f5;
+
+$light-text-body: #08131a;
+$light-text-low-priority: #747474;
+$light-text-light: #999;
+$light-text-header: #333;
+$light-text-archive-category: #FFFFFF;
+$light-text-header-visited: color.adjust($light-text-header, $lightness: +30%);
+
+$light-link: #0f83fd;
+$light-link-hover: color.adjust($light-link, $lightness: -5%);
+$light-link-bg: rgba(20, 135, 189, 0.1);
+
+$light-border: #ddd;
+$light-border-light: #d6e3ed;
+$light-border-bq: #8f9faa;
+
+$light-shadow: rgba(0, 0, 0, 0.08);
+$light-shadow-light: rgba(0, 0, 0, 0.05);
+$light-shadow-hover: rgba(0, 0, 0, 0.12);
+
+$light-toc-border-bg: #e6f2ff;
+$light-toc-marker: #bfdcff;
+
+$light-table-th-bg: #edf2f7;
+$light-table-border: #d6e3ed;
+
+$light-code-copy-bg: rgba(225, 225, 225, 0.75);
+$light-code-copy-success-bg: #4aaa50;
+$light-code-copy-failed-bg: #c44336;
+
+// ダークモード
+$dark-background: #0d1117;
+$dark-bg-light: #1a1d21;
+$dark-bg-code: #161b22;
+$dark-bg-code-light: #1e232a;
+$dark-bg-span: #3b5773aa;
+$dark-bg-toc-hover: rgba(56, 139, 253, 0.1);
+$dark-bg-archive-category: #1a1d21;
+$dark-bg-archive-category-hover: color.adjust($dark-bg-archive-category, $lightness: +15%);
+$dark-bg-btn-hover: #1a1d21;
+
+$dark-text-body: #c9d1d9;
+$dark-text-low-priority: #8b949e;
+$dark-text-light: #6e7681;
+$dark-text-header: #e6edf3;
+$dark-text-archive-category: #e6edf3;
+$dark-text-header-visited: color.adjust($dark-text-header, $lightness: -30%);
+
+$dark-link: #58a6ff;
+$dark-link-hover: color.adjust($dark-link, $lightness: +5%);
+$dark-link-bg: rgba(56, 139, 253, 0.1);
+
+$dark-border: #30363d;
+$dark-border-light: #21262d;
+$dark-border-bq: #3b434b;
+
+$dark-shadow: rgba(0, 0, 0, 0.3);
+$dark-shadow-light: rgba(0, 0, 0, 0.2);
+$dark-shadow-hover: rgba(0, 0, 0, 0.4);
+
+$dark-toc-border-bg: #203a5d;
+$dark-toc-marker: #388bfd;
+
+$dark-table-th-bg: #161b22;
+$dark-table-border: #30363d;
+
+$dark-code-copy-bg: rgba(33, 38, 45, 0.75);
+$dark-code-copy-success-bg: #238636;
+$dark-code-copy-failed-bg: #da3633;
+
+// 現在のテーマ変数を設定
 // Background color
-$background: #fff;
-$bg-light: #f5f5f5;
-$bg-code: #1a2638;
-$bg-code-light: #1a2737;
-$bg-span: #215aa012;
-$bg-toc-hover: rgba(20, 135, 189, 0.05);
-$bg-archive-category: #222a20B3; // アーカイブページではサムネイルの上にかぶせる黒い背景色
-$bg-archive-category-hover: color.adjust($bg-archive-category, $lightness: +15%); // 少し明るくした色
-$bg-btn-hover: #f5f5f5; // ボタンのホバー時の背景色
+$background: $light-background;
+$bg-light: $light-bg-light;
+$bg-code: $light-bg-code;
+$bg-code-light: $light-bg-code-light;
+$bg-span: $light-bg-span;
+$bg-toc-hover: $light-bg-toc-hover;
+$bg-archive-category: $light-bg-archive-category;
+$bg-archive-category-hover: $light-bg-archive-category-hover;
+$bg-btn-hover: $light-bg-btn-hover;
 
 // text color
-$text-body: #08131a;
-$text-low-priority: #747474;
-$text-light: #999;
-$text-header: #333;
-$text-archive-category: #FFFFFF; // アーカイブページのカテゴリのテキスト色
-$text-header-visited: color.adjust($text-header, $lightness: +30%); // 少し明るくした色
+$text-body: $light-text-body;
+$text-low-priority: $light-text-low-priority;
+$text-light: $light-text-light;
+$text-header: $light-text-header;
+$text-archive-category: $light-text-archive-category;
+$text-header-visited: $light-text-header-visited;
 
 // link
-//$link: #0682C4;
-$link: #0f83fd;
-$link-hover: color.adjust($link, $lightness: -5%);
-$link-bg: rgba(20, 135, 189, 0.1); // カテゴリホバー用の薄い青背景色
+$link: $light-link;
+$link-hover: $light-link-hover;
+$link-bg: $light-link-bg;
 
 // border
-$border: #ddd; // 灰色の枠線
-$border-light: #d6e3ed; // 薄い灰色の枠線
-$border-bq: #8f9faa; // 引用
+$border: $light-border;
+$border-light: $light-border-light;
+$border-bq: $light-border-bq;
 
 // shadow
-$shadow: rgba(0, 0, 0, 0.08);
-$shadow-light: rgba(0, 0, 0, 0.05);
-$shadow-hover: rgba(0, 0, 0, 0.12); // ホバー時の影
+$shadow: $light-shadow;
+$shadow-light: $light-shadow-light;
+$shadow-hover: $light-shadow-hover;
 
 // toc
-$toc-border-bg: #e6f2ff;
-$toc-marker: #bfdcff;
+$toc-border-bg: $light-toc-border-bg;
+$toc-marker: $light-toc-marker;
 
 // table
-$table-th-bg: #edf2f7;
-$table-border: #d6e3ed; // 薄い灰色の枠線
+$table-th-bg: $light-table-th-bg;
+$table-border: $light-table-border;
 
 // code copy
-$code-copy-bg: rgba(225, 225, 225, 0.75); // コードコピーのツールチップの背景色
-$code-copy-success-bg: #4aaa50;
-$code-copy-failed-bg: #c44336;
+$code-copy-bg: $light-code-copy-bg;
+$code-copy-success-bg: $light-code-copy-success-bg;
+$code-copy-failed-bg: $light-code-copy-failed-bg;
 
-// Media Queries
-$mq-xs: "(max-width: 767px)"; // スマホ(小型タブレット)
-$mq-sm: "(min-width: 768px)"; // タブレット
-$mq-md: "(min-width: 992px)"; // PC (大き目タブレット)
-$mq-lg: "(min-width: 1200px)"; // Full HD以上
+// コードブロックの言語カラー
+$language-colors: (
+    "text": #9cdcfe,
+    "keyword": #569cd6,
+    "builtin": #4ec9b0,
+    "string": #ce9178,
+    "number": #b5cea8,
+    "comment": #6a9955,
+    "attribute": #9cdcfe,
+    "literal": #569cd6,
+    "operator": #d4d4d4,
+    "punctuation": #d4d4d4,
+);

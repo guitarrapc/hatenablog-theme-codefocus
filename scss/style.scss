@@ -7,6 +7,7 @@
 @use "./lib/_table_of_contents_button";
 @use "./lib/_code_copy";
 @use "./lib/_tag_cloud";
+@use "./lib/_dark_mode";
 
 /*
   Theme: CodeFocus
@@ -34,6 +35,7 @@
     2025/05/24: v1.1.0 コンテンツの幅を広げる調整。
     2025/05/25: v1.2.0 アーカイブページのサムネイルサイズと配置の調整。
     2025/05/25: v1.3.0 横1200px以上の解像度モニターでは850px表示まで拡大します。
+    2025/05/26: v1.4.0 タグクラウドをJSベースに変更、ダークモード対応を追加。
   Released under the MIT License.
 */
 

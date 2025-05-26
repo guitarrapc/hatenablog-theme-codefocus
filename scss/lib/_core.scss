@@ -3,11 +3,52 @@
 @use "./_functions" as fn;
 @use "./_table_of_contents";
 
+:root {
+    --background: #{var.$background};
+    --bg-light: #{var.$bg-light};
+    --bg-code: #{var.$bg-code};
+    --bg-code-light: #{var.$bg-code-light};
+    --bg-span: #{var.$bg-span};
+    --bg-toc-hover: #{var.$bg-toc-hover};
+    --bg-archive-category: #{var.$bg-archive-category};
+    --bg-archive-category-hover: #{var.$bg-archive-category-hover};
+    --bg-btn-hover: #{var.$bg-btn-hover};
+
+    --text-body: #{var.$text-body};
+    --text-low-priority: #{var.$text-low-priority};
+    --text-light: #{var.$text-light};
+    --text-header: #{var.$text-header};
+    --text-archive-category: #{var.$text-archive-category};
+    --text-header-visited: #{var.$text-header-visited};
+
+    --link: #{var.$link};
+    --link-hover: #{var.$link-hover};
+    --link-bg: #{var.$link-bg};
+
+    --border: #{var.$border};
+    --border-light: #{var.$border-light};
+    --border-bq: #{var.$border-bq};
+
+    --shadow: #{var.$shadow};
+    --shadow-light: #{var.$shadow-light};
+    --shadow-hover: #{var.$shadow-hover};
+
+    --toc-border-bg: #{var.$toc-border-bg};
+    --toc-marker: #{var.$toc-marker};
+
+    --table-th-bg: #{var.$table-th-bg};
+    --table-border: #{var.$table-border};
+
+    --code-copy-bg: #{var.$code-copy-bg};
+    --code-copy-success-bg: #{var.$code-copy-success-bg};
+    --code-copy-failed-bg: #{var.$code-copy-failed-bg};
+}
+
 html,
 body {
     font-family: var.$font-family-base;
-    color: var.$text-body;
-    background-color: var.$background;
+    color: var(--text-body);
+    background-color: var(--background);
     line-height: 1.9;
     word-break: break-word;
     word-wrap: break-word;
@@ -16,10 +57,10 @@ body {
 }
 
 a {
-    color: var.$link;
+    color: var(--link);
 
     &:hover {
-        color: var.$link-hover;
+        color: var(--link-hover);
         text-underline-offset: .15em;
     }
 
@@ -30,8 +71,8 @@ a {
 
     &.keyword {
         text-decoration: none;
-        border-bottom: 1px dotted var.$border;
-        color: var.$text-body;
+        border-bottom: 1px dotted var(--border);
+        color: var(--text-body);
     }
 }
 
@@ -46,15 +87,15 @@ h6 {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     unicode-bidi: isolate;
-    color: var.$text-header;
+    color: var(--text-header);
     line-height: 1.3;
 
     a {
-        color: var.$text-header;
+        color: var(--text-header);
         text-decoration: none;
 
         &:hover {
-            color: var.$text-header;
+            color: var(--text-header);
         }
     }
 }
@@ -97,7 +138,7 @@ h6 {
 
 table {
     border-spacing: 2px;
-    border-color: gray;
+    border-color: var(--table-border);
 }
 
 /* container */
@@ -187,7 +228,7 @@ table {
     }
 
     a {
-        color: var.$text-body;
+        color: var(--text-body);
     }
 }
 
@@ -275,10 +316,10 @@ table {
     // 少し小さく
     font-size: 0.8rem;
     text-align: left;
-    color: var.$text-low-priority;
+    color: var(--text-low-priority);
 
     a {
-        color: var.$text-light;
+        color: var(--text-light);
         text-decoration: none;
 
         &:hover {
@@ -307,7 +348,7 @@ table {
     }
 
     .date-last-updated {
-        color: var.$text-low-priority;
+        color: var(--text-low-priority);
         display: inline-block;
 
         &::before {
@@ -331,9 +372,9 @@ table {
         padding-right: 8px;
         display: inline-block;
         text-decoration: none;
-        color: var.$text-body;
+        color: var(--text-body);
         // 枠線は丸囲みで表示
-        border: 1px solid var.$border;
+        border: 1px solid var(--border);
         border-radius: 15px;
 
         /* カテゴリの前にハッシュ記号を追加 */
@@ -341,14 +382,14 @@ table {
             content: "#";
             margin-left: 0.7em; // aのmargin-rightと合わせる
             margin-right: 3px;
-            color: var.$link; // ハッシュだけリンク色
+            color: var(--link); // ハッシュだけリンク色
             font-weight: normal;
             font-size: 0.95em;
         }
 
         &:hover {
             // ホバー時にうっすらと青系の背景色
-            background-color: var.$bg-btn-hover;
+            background-color: var(--bg-btn-hover);
         }
     }
 }
@@ -361,14 +402,14 @@ table {
 
     a {
         padding: 0.3em 0.6em;
-        border: solid 1px var.$border;
+        border: solid 1px var(--border);
         border-radius: 16px;
 
         text-decoration: none;
 
         &:hover {
             text-decoration: none;
-            background-color: var.$bg-btn-hover;
+            background-color: var(--bg-btn-hover);
         }
     }
 }
@@ -383,7 +424,7 @@ table {
 
     /* テキスト選択時のスタイル */
     ::selection {
-        background-color: rgba(var.$link, 0.2);
+        background-color: rgba(var(--link), 0.2);
     }
 
     h1 + p,
@@ -447,7 +488,7 @@ table {
         margin-bottom: 1.1em;
         padding-bottom: 0.2em;
         // 細いボーダーのみでシンプルに
-        border-bottom: 1px solid var.$border-light;
+        border-bottom: 1px solid var(--border-light);
     }
 
     h2 {
@@ -456,14 +497,13 @@ table {
         margin-bottom: 0.8em;
         padding-bottom: 0.3em;
         // 細いボーダーのみでシンプルに
-        border-bottom: 1px solid var.$border-light;
+        border-bottom: 1px solid var(--border-light);
     }
 
     h3 {
         position: relative;
         margin-top: 1.8em;
         margin-bottom: 0.5em;
-        color: #444;
     }
 
     ul,
@@ -496,24 +536,24 @@ table {
     }
 
     table th {
-        background: var.$table-th-bg;
+        background: var(--table-th-bg);
         font-weight: 700;
-        color: var.$text-body;
+        color: var(--text-body);
     }
 
     table th,
     table td {
         padding: 0.5rem;
-        border: 1px solid var.$table-border;
+        border: 1px solid var(--table-border);
         text-align: left;
     }
 
     blockquote {
         font-size: 0.95em;
         margin: 1.4rem 0;
-        border-left: 3px solid var.$border-bq;
+        border-left: 3px solid var(--border-bq);
         padding: 2px 0 2px 0.7em;
-        color: var.$text-low-priority;
+        color: var(--text-low-priority);
 
         p:first-of-type {
             margin-top: 0;
@@ -531,7 +571,7 @@ table {
     }
 
     pre {
-        background: var.$bg-code;
+        background: var(--bg-code);
         border: none;
         white-space: pre-wrap;
         text-overflow: ellipsis;
@@ -541,7 +581,7 @@ table {
         border-radius: 5px;
         margin: 1.5em auto;
         max-width: 100%;
-        box-shadow: inset 0 0 5px var.$shadow-light;
+        box-shadow: inset 0 0 5px var(--shadow-light);
         color: #fff;
 
         & > code {
@@ -555,7 +595,7 @@ table {
 
     code {
         padding: 0.2em 0.4em;
-        background: var.$bg-span;
+        background: var(--bg-span);
         font-size: 0.85rem;
         border-radius: 4px;
         vertical-align: 0.08em;
@@ -606,7 +646,7 @@ table {
     }
 
     hr {
-        border-top: 2px solid var.$border-light;
+        border-top: 2px solid var(--border-light);
         margin: 2.5em auto;
     }
 
@@ -621,11 +661,11 @@ table {
     }
 
     .entry-footer-section {
-        color: var.$text-light;
+        color: var(--text-light);
         font-size: 0.9rem;
 
         a {
-            color: var.$text-light;
+            color: var(--text-light);
             text-decoration: none;
         }
     }
@@ -686,7 +726,7 @@ table {
                 "thumbnail date";
             gap: 5px 12px;
             border-radius: 4px;
-            background-color: var.$background;
+            background-color: var(--background);
             transition: all 0.2s ease;
 
             // サムネイル画像共通スタイル
@@ -728,7 +768,7 @@ table {
 
                 a {
                     font-size: 0.85em;
-                    color: var.$text-low-priority;
+                    color: var(--text-low-priority);
                 }
             }
         }
@@ -744,7 +784,7 @@ table {
         position: relative;
         margin: 1em 0;
         // 関連記事との間に薄い灰色線を引く（上部）
-        border-top: 1px solid var.$border;
+        border-top: 1px solid var(--border);
         padding: 0 10px 0 10px; // 関連記事と合わせる
 
         .comment {
@@ -783,7 +823,7 @@ table {
             gap: 5px 10px; // 行間と列間の余白
             padding: 12px 0;
             // 次のコメントとの間に薄い灰色線を引く（下部）
-            border-bottom: 1px dotted var.$border;
+            border-bottom: 1px dotted var(--border);
             width: 90%;
             margin: 0;
             transition: all 0.2s ease;
@@ -814,7 +854,7 @@ table {
             // ユーザー名のスタイル
             .comment-user-id {
                 margin-left: 10px; // アイコンと少し間を与える
-                color: var.$text-body;
+                color: var(--text-body);
                 text-decoration: none;
             }
         }
@@ -822,14 +862,14 @@ table {
         // 日付のスタイル
         .comment-metadata {
             grid-area: metadata;
-            color: var.$text-light;
+            color: var(--text-light);
             align-self: center; // 中央揃え
             padding: 0;
             font-size: 0.9rem;
             line-height: 1.3; // ユーザー名と同じ行高
 
             a {
-                color: var.$text-light;
+                color: var(--text-light);
             }
         }
 
@@ -839,7 +879,7 @@ table {
             margin: 0;
             padding: 0;
             word-wrap: break-word;
-            color: var.$text-body;
+            color: var(--text-body);
             font-size: 0.85rem;
 
             p {
@@ -851,16 +891,16 @@ table {
         .leave-comment-title {
             position: relative;
             display: inline-block;
-            border: 1px solid var.$border;
+            border: 1px solid var(--border);
             padding: 0 10px 0 10px; // 文字列が自動的にボタンに収まるようパディングで調整
             border-radius: 18px;
-            color: var.$text-low-priority;
+            color: var(--text-low-priority);
             font-size: 0.8rem;
 
             &:hover {
-                background-color: var.$bg-btn-hover;
+                background-color: var(--bg-btn-hover);
                 text-decoration: none;
-                color: var.$text-low-priority;
+                color: var(--text-low-priority);
             }
         }
     }
@@ -876,8 +916,8 @@ table {
     padding: 2em 0;
     margin-bottom: 20px;
     // コメントとの間に薄い灰色線を引く（上部）
-    border-top: 1px solid var.$border;
-    border-bottom: 1px solid var.$border;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
 
     // 前の記事と次の記事のスタイル調整
     .pager-prev,
@@ -895,7 +935,7 @@ table {
 
     .pager-prev a {
         &::before {
-            content: fn.url-svg(var.$svg-page-prev, var.$text-light);
+            content: fn.url-svg(var.$svg-page-prev, var(--text-light));
             display: inline-block;
             width: 24px;
             height: 24px;
@@ -910,7 +950,7 @@ table {
 
     .pager-next a {
         &::after {
-            content: fn.url-svg(var.$svg-page-next, var.$text-light);
+            content: fn.url-svg(var.$svg-page-next, var(--text-light));
             display: inline-block;
             width: 24px;
             height: 24px;
@@ -929,7 +969,7 @@ table {
         text-decoration: none;
         display: block;
         position: relative;
-        color: var.$text-body;
+        color: var(--text-body);
         font-weight: bold;
 
         // <<や>>を非表示にする
@@ -995,7 +1035,7 @@ table {
             margin-bottom: 0.3em;
 
             a {
-                color: var.$text-body; // リンクは色をつけない
+                color: var(--text-body); // リンクは色をつけない
                 text-decoration: none; // 名前はアンダーラインもつけない
             }
         }
@@ -1011,7 +1051,7 @@ table {
         .profile-about {
 
             a {
-                color: var.$text-body;
+                color: var(--text-body);
                 text-decoration: none;
 
                 &:hover {
@@ -1033,7 +1073,7 @@ table {
             font-size: 1rem;
             font-weight: bold;
             line-height: 1.5rem;
-            color: var.$text-body;
+            color: var(--text-body);
             text-decoration: none;
 
             &:hover {
@@ -1043,7 +1083,7 @@ table {
 
         .urllist-date-link a {
             font-size: 0.85em;
-            color: var.$text-low-priority;
+            color: var(--text-low-priority);
         }
     }
 
@@ -1097,6 +1137,12 @@ table {
                 height: 100px; // 最大で100pxに収める
             }
 
+            @media #{var.$mq-xs} {
+                margin: 0 10px 0 0; // 右に余白を与える
+                width: 100%;
+                padding: 0;
+            }
+
             img {
                 width: 100%;
                 object-fit: cover;
@@ -1121,7 +1167,7 @@ table {
         .urllist-date-link {
             grid-area: date;
             padding: 0;
-            color: var.$text-low-priority;
+            color: var(--text-low-priority);
         }
 
         // カテゴリ
@@ -1130,7 +1176,7 @@ table {
             padding: 0;
 
             a {
-                color: var.$text-low-priority;
+                color: var(--text-low-priority);
             }
 
             .urllist-category-link {
@@ -1143,13 +1189,13 @@ table {
             grid-area: bookmark-widget-counter;
             width: 100px;
             padding: 0;
-            color: var.$text-low-priority;
+            color: var(--text-low-priority);
             // 日付の右側なので右寄せ
             text-align: right;
             padding-right: 10px;
 
             a {
-                color: var.$text-low-priority;
+                color: var(--text-low-priority);
                 text-decoration: none;
 
                 &:hover {
@@ -1164,7 +1210,7 @@ table {
     /* Search module */
     .hatena-module-search-box {
         .search-form {
-            border: 1px solid var.$border;
+            border: 1px solid var(--border);
             border-radius: 8px;
             width: 100%;
             box-sizing: border-box;
@@ -1172,14 +1218,14 @@ table {
             align-items: center;
 
             &:focus-within {
-                box-shadow: 0 2px 5px var.$shadow-hover;
+                box-shadow: 0 2px 5px var(--shadow-hover);
             }
         }
 
         .search-module-input {
             flex: 1 0;
             padding: 5px;
-            color: var.$text-body;
+            color: var(--text-body);
             width: 80%; // 検索アイコンが入るように
             background: none;
             border: none;
@@ -1241,7 +1287,7 @@ table {
 
                 .recent-comment-time {
                     grid-area: date;
-                    color: var.$text-low-priority;
+                    color: var(--text-low-priority);
                     font-size: .7rem;
                 }
             }
@@ -1252,7 +1298,7 @@ table {
     .hatena-module-authors-list {
         .hatena-urllist {
             a {
-                color: var.$text-body;
+                color: var(--text-body);
                 font-weight: bold;
 
                 &:hover {
@@ -1284,11 +1330,11 @@ table {
     font-size: 1rem;
     font-weight: bold;
     text-align: left;
-    color: var.$text-header;
+    color: var(--text-header);
 
     /* モジュールタイトルは中央揃え */
     a {
-        color: var.$text-body;
+        color: var(--text-body);
         text-decoration: none;
 
         &:hover {
@@ -1312,7 +1358,7 @@ table {
         }
 
         a {
-            color: var.$text-body; // はてなモジュールのリンクは色をつけない
+            color: var(--text-body); // はてなモジュールのリンクは色をつけない
             text-decoration: none;
 
             &:hover {
@@ -1327,7 +1373,7 @@ table {
     }
 
     .urllist-date-link a {
-        color: var.$text-low-priority;
+        color: var(--text-low-priority);
     }
 
     .urllist-entry-body {
@@ -1338,7 +1384,7 @@ table {
 /* もっと見る全般のスタイル */
 .urllist-see-more {
     a {
-        color: var.$text-body;
+        color: var(--text-body);
         text-decoration: none;
 
         &:hover {
@@ -1360,13 +1406,13 @@ table {
 
         a {
             font-weight: bold;
-            color: var.$text-body; // リンクは色をつけない
+            color: var(--text-body); // リンクは色をつけない
             text-decoration: none; // 名前はアンダーラインもつけない
         }
 
         dt {
             font-weight: bold;
-            border-bottom: 1px solid var.$border;
+            border-bottom: 1px solid var(--border);
             margin-bottom: .5em;
         }
 
@@ -1406,7 +1452,7 @@ table {
         margin-bottom: .5em;
         padding-bottom: .5em;
         box-sizing: content-box;
-        background-color: var.$background;
+        background-color: var(--background);
 
         // スマホではサブグリッドを用いて2列
         grid-template-columns: auto 1fr;
@@ -1466,12 +1512,12 @@ table {
             text-decoration: none;
 
             &:hover {
-                color: var.$text-header;
+                color: var(--text-header);
             }
 
             /* アーカイブページだけ訪問済みリンクの色を変える */
             &:visited {
-                color: var.$text-header-visited;
+                color: var(--text-header-visited);
             }
         }
     }
@@ -1527,10 +1573,10 @@ table {
         margin: 0;
         padding: 0;
         font-size: .7rem;
-        color: var.$text-low-priority;
+        color: var(--text-low-priority);
 
         a {
-            color: var.$text-low-priority;
+            color: var(--text-low-priority);
             text-decoration: none;
 
             &:hover {
@@ -1570,10 +1616,10 @@ table {
     padding-bottom: 2rem;
     text-align: center;
     font-size: .8rem;
-    color: var.$text-light;
+    color: var(--text-light);
 
     a {
-        color: var.$text-light;
+        color: var(--text-light);
     }
 
     p {
