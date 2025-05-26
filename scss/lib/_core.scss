@@ -848,6 +848,7 @@ table {
 
             .hatena-id-icon {
                 align-self: center; // 中央揃え
+                padding-right: 10px; // アイコンとユーザー名の間隔
                 width: 28px;
                 height: 28px;
                 border-radius: 3px;
@@ -855,7 +856,6 @@ table {
 
             // ユーザー名のスタイル
             .comment-user-id {
-                margin-left: 10px; // アイコンと少し間を与える
                 color: var(--text-body);
                 text-decoration: none;
             }
@@ -1104,7 +1104,7 @@ table {
             "thumbnail title title"
             "thumbnail date bookmark-widget-counter"
             "thumbnail categories categories";
-        gap: 2px auto; // 行間と列間の余白
+        gap: 0 8px; // 行間と列間の余白
 
         @media #{var.$mq-sm} {
             // PCは縦なのでサブグリッドなし
@@ -1117,7 +1117,7 @@ table {
                 "title title"
                 "date bookmark-widget-counter"
                 "categories categories";
-            gap: 2px auto; // 行間と列間の余白
+            gap: 5px 0; // 行間と列間の余白
         }
 
         // 画像
