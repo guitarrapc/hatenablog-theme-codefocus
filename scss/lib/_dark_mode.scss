@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:map";
 @use "./_variable" as var;
 @use "./_functions" as fn;
 
@@ -171,12 +172,12 @@ html[data-theme="dark"] {
     --code-copy-success-bg: #{var.$dark-code-copy-success-bg};
     --code-copy-failed-bg: #{var.$dark-code-copy-failed-bg};
 
-    --codeblock-language-colors-text: #{map-get(var.$dark-codeblock-language-colors, "text")};
-    --codeblock-language-colors-keyword: #{map-get(var.$dark-codeblock-language-colors, "keyword")};
-    --codeblock-language-colors-function: #{map-get(var.$dark-codeblock-language-colors, "function")};
-    --codeblock-language-colors-punctuation: #{map-get(var.$dark-codeblock-language-colors, "punctuation")};
-    --codeblock-language-colors-number: #{map-get(var.$dark-codeblock-language-colors, "number")};
-    --codeblock-language-colors-comment: #{map-get(var.$dark-codeblock-language-colors, "comment")};
+    --codeblock-language-colors-text: #{map.get(var.$dark-codeblock-language-colors, "text")};
+    --codeblock-language-colors-keyword: #{map.get(var.$dark-codeblock-language-colors, "keyword")};
+    --codeblock-language-colors-function: #{map.get(var.$dark-codeblock-language-colors, "function")};
+    --codeblock-language-colors-punctuation: #{map.get(var.$dark-codeblock-language-colors, "punctuation")};
+    --codeblock-language-colors-number: #{map.get(var.$dark-codeblock-language-colors, "number")};
+    --codeblock-language-colors-comment: #{map.get(var.$dark-codeblock-language-colors, "comment")};
 }
 
 // システム設定に追従する場合（light/darkの明示指定がない場合）
@@ -223,11 +224,11 @@ html[data-theme="dark"] {
         --code-copy-success-bg: #{var.$dark-code-copy-success-bg};
         --code-copy-failed-bg: #{var.$dark-code-copy-failed-bg};
 
-        --codeblock-language-colors-text: #{map-get(var.$dark-codeblock-language-colors, "text")};
-        --codeblock-language-colors-keyword: #{map-get(var.$dark-codeblock-language-colors, "keyword")};
-        --codeblock-language-colors-function: #{map-get(var.$dark-codeblock-language-colors, "function")};
-        --codeblock-language-colors-punctuation: #{map-get(var.$dark-codeblock-language-colors, "punctuation")};
-        --codeblock-language-colors-number: #{map-get(var.$dark-codeblock-language-colors, "number")};
-        --codeblock-language-colors-comment: #{map-get(var.$dark-codeblock-language-colors, "comment")};
+        --codeblock-language-colors-text: #{map.get(var.$dark-codeblock-language-colors, "text")};
+        --codeblock-language-colors-keyword: #{map.get(var.$dark-codeblock-language-colors, "keyword")};
+        --codeblock-language-colors-function: #{map.get(var.$dark-codeblock-language-colors, "function")};
+        --codeblock-language-colors-punctuation: #{map.get(var.$dark-codeblock-language-colors, "punctuation")};
+        --codeblock-language-colors-number: #{map.get(var.$dark-codeblock-language-colors, "number")};
+        --codeblock-language-colors-comment: #{map.get(var.$dark-codeblock-language-colors, "comment")};
     }
 }

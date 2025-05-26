@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:map";
 @use "./_variable" as var;
 @use "./_functions" as fn;
 @use "./_table_of_contents";
@@ -45,12 +46,12 @@
     --code-copy-success-bg: #{var.$code-copy-success-bg};
     --code-copy-failed-bg: #{var.$code-copy-failed-bg};
 
-    --codeblock-language-colors-text: #{map-get(var.$codeblock-language-colors, "text")};
-    --codeblock-language-colors-keyword: #{map-get(var.$codeblock-language-colors, "keyword")};
-    --codeblock-language-colors-function: #{map-get(var.$codeblock-language-colors, "function")};
-    --codeblock-language-colors-punctuation: #{map-get(var.$codeblock-language-colors, "punctuation")};
-    --codeblock-language-colors-number: #{map-get(var.$codeblock-language-colors, "number")};
-    --codeblock-language-colors-comment: #{map-get(var.$codeblock-language-colors, "comment")};
+    --codeblock-language-colors-text: #{map.get(var.$codeblock-language-colors, "text")};
+    --codeblock-language-colors-keyword: #{map.get(var.$codeblock-language-colors, "keyword")};
+    --codeblock-language-colors-function: #{map.get(var.$codeblock-language-colors, "function")};
+    --codeblock-language-colors-punctuation: #{map.get(var.$codeblock-language-colors, "punctuation")};
+    --codeblock-language-colors-number: #{map.get(var.$codeblock-language-colors, "number")};
+    --codeblock-language-colors-comment: #{map.get(var.$codeblock-language-colors, "comment")};
 }
 
 html,
