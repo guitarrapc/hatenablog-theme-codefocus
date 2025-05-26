@@ -1,0 +1,75 @@
+/**
+ * タグクラウドの実装 - カテゴリー要素のフォントサイズを記事数に基づいて調整
+ *
+ * このスクリプトは以下の機能を提供します:
+ * 1. カテゴリーリストから記事数を抽出
+ * 2. 記事数に応じたフォントサイズを計算
+ * 3. 各カテゴリーにクラスを追加（スタイリング用）
+ * 4. 記事数表示を削除してタイトル属性として設定
+ */
+(function () {
+  // 定数
+  const RANGE = 13; // フォントサイズの変化範囲
+
+  // 初期化関数
+  function initCategoryCloud() {
+    // カテゴリーリストを取得
+    const categoryLinks = document.querySelectorAll('.hatena-module-category ul li a');
+    if (!categoryLinks.length) return;
+
+    // 記事数データを抽出
+    const counts = [];
+    categoryLinks.forEach(link => {
+      const match = link.textContent.match(/\((\d+)\)/);
+      if (match && match[1]) {
+        counts.push(parseInt(match[1], 10));
+      } else {
+        counts.push(0);
+      }
+    });
+
+    // 最小値と最大値を計算
+    const min = Math.min(...counts);
+    const max = Math.max(...counts);
+
+    // 平方根の範囲に基づくスケーリング係数を計算
+    const sqrtMin = Math.sqrt(min);
+    const sqrtMax = Math.sqrt(max);
+    const factor = RANGE / (sqrtMax - sqrtMin || 1); // ゼロ除算防止
+
+    // 各カテゴリーリンクにスタイルとクラスを適用
+    categoryLinks.forEach((link, i) => {
+      const count = counts[i];
+
+      // フォントサイズレベルを計算（サイズクラス用）
+      const levelRaw = (Math.sqrt(count) - sqrtMin) * factor;
+      // 1-10のスケールに変換 (より細かい粒度のサイズ変化を可能に)
+      const sizeClass = Math.max(1, Math.min(10, Math.ceil(levelRaw * 10 / RANGE)));
+
+      // テキストから括弧付きの記事数を削除
+      const text = link.textContent.trim();
+      const cleanText = text.replace(/\s*\(\d+\)\s*$/, '');
+
+      // クラスを適用
+      link.setAttribute('title', text); // 元のテキストをツールチップに
+      link.textContent = cleanText;
+
+      // カテゴリサイズのクラスを追加（CSS スタイリング用）
+      link.classList.add(`category-size-${sizeClass}`);
+      link.parentElement.classList.add('category-cloud-item');
+    });
+
+    // 親要素にタグクラウド用クラスを追加
+    const categoryContainer = document.querySelector('.hatena-module-category ul');
+    if (categoryContainer) {
+      categoryContainer.classList.add('category-cloud');
+    }
+  }
+
+  // ページロード完了時に実行
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCategoryCloud);
+  } else {
+    initCategoryCloud();
+  }
+})();

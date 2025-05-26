@@ -1,0 +1,72 @@
+@use "./_variable" as var;
+
+// タグクラウドのスタイリング
+.category-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+
+    li a {
+        display: inline-block;
+        padding: 0.1rem 0.3rem;
+        border-radius: 18px;
+        border: 1px solid var.$border-light;
+        text-decoration: none;
+
+        &:hover {
+            background-color: var.$bg-btn-hover;
+            text-decoration: none;
+        }
+    }
+}
+
+.category-cloud-item {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+
+    // サイズクラスごとのフォントサイズ定義（10段階）
+    .category-size-1 {
+        font-size: 85%;
+    }
+
+    .category-size-2 {
+        font-size: 90%;
+    }
+
+    .category-size-3 {
+        font-size: 100%;
+    }
+
+    .category-size-4 {
+        font-size: 110%;
+    }
+
+    .category-size-5 {
+        font-size: 120%;
+    }
+
+    .category-size-6 {
+        font-size: 130%;
+    }
+
+    .category-size-7 {
+        font-size: 140%;
+    }
+
+    .category-size-8 {
+        font-size: 150%;
+    }
+
+    .category-size-9 {
+        font-size: 160%;
+    }
+
+    .category-size-10 {
+        font-size: 170%;
+    }
+}
