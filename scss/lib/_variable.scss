@@ -61,6 +61,15 @@ $light-code-copy-bg: rgba(225, 225, 225, 0.75);
 $light-code-copy-success-bg: #4aaa50;
 $light-code-copy-failed-bg: #c44336;
 
+$light-codeblock-language-colors: (
+    "text": #fff,
+    "keyword": #ff8fa3,
+    "function": #38c7ff,
+    "punctuation": #939bc1,
+    "number": #ffc56d,
+    "comment": #94a1b3
+);
+
 // ダークモード
 $dark-background: #0d1117;
 $dark-bg-light: #1a1d21;
@@ -102,6 +111,15 @@ $dark-table-border: #30363d;
 $dark-code-copy-bg: rgba(33, 38, 45, 0.75);
 $dark-code-copy-success-bg: #238636;
 $dark-code-copy-failed-bg: #da3633;
+
+$dark-codeblock-language-colors: (
+    "text": #fff,
+    "keyword": #ff8fa3,
+    "function": #38c7ff,
+    "punctuation": #939bc1,
+    "number": #ffc56d,
+    "comment": #94a1b3
+);
 
 // 現在のテーマ変数を設定
 // Background color
@@ -154,15 +172,4 @@ $code-copy-success-bg: $light-code-copy-success-bg;
 $code-copy-failed-bg: $light-code-copy-failed-bg;
 
 // コードブロックの言語カラー
-$language-colors: (
-    "text": #9cdcfe,
-    "keyword": #569cd6,
-    "builtin": #4ec9b0,
-    "string": #ce9178,
-    "number": #b5cea8,
-    "comment": #6a9955,
-    "attribute": #9cdcfe,
-    "literal": #569cd6,
-    "operator": #d4d4d4,
-    "punctuation": #d4d4d4,
-);
+$codeblock-language-colors: $light-codeblock-language-colors;
