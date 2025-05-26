@@ -57,3 +57,13 @@ jobs:
         run: npm start -- guitarrapc-theme.hatenablog.com &
       - name: Run tests
         run: npx playwright test --reporter=list --project=${{ matrix.project }} --shard=${{ matrix.shards }}/3
+
+  build-and-test:
+    needs: [build, test]
+    permissions:
+      contents: read
+    runs-on: ubuntu-24.04
+    timeout-minutes: 1
+    steps:
+      - name: success
+        run: exit 0
