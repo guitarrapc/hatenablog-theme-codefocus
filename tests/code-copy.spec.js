@@ -40,9 +40,9 @@ test.describe('Code Copy Feature', () => {
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/code-copy-button-visible.png' });
 
-    // ボタンのツールチップが「Copy」であることを確認
+    // ボタンのツールチップがないことを確認
     const tooltipBeforeClick = await copyButton.getAttribute('title');
-    expect(tooltipBeforeClick).toBe('Copy');
+    expect(tooltipBeforeClick).toBe(null);
 
     // ボタンがクリック可能であることを確認（実際にはクリックせず）
     await expect(copyButton).toBeEnabled();
