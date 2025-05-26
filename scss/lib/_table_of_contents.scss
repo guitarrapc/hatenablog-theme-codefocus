@@ -4,7 +4,7 @@
 /* 目次のスタイル */
 ul.table-of-contents {
     position: relative;
-    background-color: var.$background;
+    background-color: var(--background);
     border-radius: 10px;
     border: none;
     transition: all 0.3s ease;
@@ -38,7 +38,7 @@ ul.table-of-contents {
         bottom: 1.0rem;
         left: 1.25rem; // 青丸マーカーの中心に線を配置
         width: 3px;
-        background-color: var.$toc-border-bg;
+        background-color: var(--toc-border-bg);
         z-index: 0;
     }
 
@@ -60,15 +60,15 @@ ul.table-of-contents {
             top: 0.25em;
             width: 8px;
             height: 8px;
-            background-color: var.$toc-marker;
-            border: 2px solid var.$background; // 縦線と重なった時にいい感じにつながって見えるようにする
+            background-color: var(--toc-marker);
+            border: 2px solid var(--background); // 縦線と重なった時にいい感じにつながって見えるようにする
             border-radius: 50%;
             z-index: 1;
             transition: all 0.2s ease;
         }
 
         &:hover::before {
-            background-color: color.adjust(var.$link, $lightness: -10%);
+            background-color: var(--link-hover);
         }
 
         /* すべてのトップレベル見出しのリンクスタイル基本設定 */
@@ -78,7 +78,7 @@ ul.table-of-contents {
             margin: 0.2em 0;
             text-decoration: none;
             // Zenn風の薄い色
-            color: var.$text-low-priority;
+            color: var(--text-low-priority);
             // h1よりやや小さく
             line-height: 1.4;
         }
@@ -92,14 +92,14 @@ ul.table-of-contents {
             font-size: 1rem;
 
             &:visited {
-                color: var.$text-low-priority;
+                color: var(--text-low-priority);
             }
 
             &:hover {
-                color: var.$text-body;
+                color: var(--text-body);
                 transform: translateX(3px);
                 text-decoration: none;
-                background-color: var.$bg-toc-hover;
+                background-color: var(--bg-toc-hover);
                 border-radius: 15px;
                 padding-right: 5px;
             }
@@ -128,15 +128,15 @@ ul.table-of-contents {
                     top: 0.5em;
                     width: 4px;
                     height: 4px;
-                    background-color: var.$toc-marker;
-                    border: 2px solid var.$background; // 縦線と重なった時にいい感じにつながって見えるようにする
+                    background-color: var(--toc-marker);
+                    border: 2px solid var(--background); // 縦線と重なった時にいい感じにつながって見えるようにする
                     border-radius: 50%;
                     z-index: 1;
                     transition: all 0.2s ease;
                 }
 
                 &:hover::before {
-                    background-color: color.adjust(var.$link, $lightness: -10%);
+                    background-color: var(--link-hover);
                 }
 
                 /* h2見出しのリンクスタイル基本設定 */
@@ -149,14 +149,14 @@ ul.table-of-contents {
                     font-size: 0.95rem;
 
                     &:visited {
-                        color: var.$text-low-priority;
+                        color: var(--text-low-priority);
                     }
 
                     &:hover {
-                        color: var.$text-body;
+                        color: var(--text-body);
                         transform: translateX(3px);
                         text-decoration: none;
-                        background-color: var.$bg-toc-hover;
+                        background-color: var(--bg-toc-hover);
                         border-radius: 15px;
                         padding-right: 5px;
                     }

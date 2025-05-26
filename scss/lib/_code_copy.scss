@@ -26,12 +26,12 @@
     width: 28px;
     height: 28px;
     padding: 0;
-    background-color: var.$bg-code-light;
+    background-color: var(--bg-code-light);
     background-image: fn.url-svg(var.$svg-copy-code, var.$code-copy-bg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 24px 24px;
-    border: 1px solid var.$bg-code-light;
+    border: 1px solid var(--bg-code-light);
     border-radius: 4px;
     cursor: pointer;
     opacity: 0;
@@ -46,7 +46,7 @@
     // ホバー時のスタイル
     &:hover {
         opacity: 1;
-        background-color: var.$bg-code-light;
+        background-color: var(--bg-code-light);
     }
 
     // フォーカス時のスタイル
@@ -54,18 +54,17 @@
         outline: none;
     }
 
-    // コピー成功時のスタイル - 緑色の背景とチェックマークのSVG
+    /* コピー成功時とエラー時のスタイル */
     &.copied {
         // opacity: 1;
         // background-color: var.$code-copy-success-bg;
-        // background-image: fn.url-svg(var.$svg-copy-code-success, var.$code-copy-icon-bg);
+        // background-image: fn.url-svg(var.$svg-copy-code-success, #fff);
     }
 
-    // コピー失敗時のスタイル - エラー表示
     &.copy-error {
         // opacity: 1;
         // background-color: var.$code-copy-failed-bg;
-        // background-image: fn.url-svg(var.$svg-copy-code, var.$code-copy-icon-bg);
+        // background-image: fn.url-svg(var.$svg-copy-code-failed, #fff);
     }
 }
 
@@ -75,9 +74,9 @@
     position: absolute;
     top: -40px;
     right: 0;
-    padding: 3px 8px;
-    background-color: rgba(0, 0, 0, 0.75);
-    color: white;
+    padding: 4px 8px;
+    background-color: var(--bg-code-light);
+    color: var(--text-code-tooltip);
     border-radius: 4px;
     font-size: 12px;
     white-space: nowrap;

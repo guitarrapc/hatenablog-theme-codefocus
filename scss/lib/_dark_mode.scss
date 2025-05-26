@@ -1,0 +1,152 @@
+@use "sass:color";
+@use "./_variable" as var;
+@use "./_functions" as fn;
+
+// ダークモードの切り替えボタン
+.theme-switch-container {
+    position: fixed;
+    top: 8rem;
+    right: 1rem;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    @media #{var.$mq-xs} {
+        top: 6rem;
+        right: 0.5rem;
+    }
+}
+
+.theme-switch-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background-color: var(--background);
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px var(--shadow);
+
+    &:hover {
+        box-shadow: 0 2px 8px var(--shadow-hover);
+        background-color: var(--bg-btn-hover);
+    }
+
+    svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        stroke: var(--text-body);
+    }
+
+    @media #{var.$mq-xs} {
+        width: 2rem;
+        height: 2rem;
+
+        svg {
+            width: 1rem;
+            height: 1rem;
+        }
+    }
+}
+
+// アクティブなボタンのスタイル
+.theme-switch-button-active {
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px var(--shadow-hover);
+}
+
+// ダークモードのスタイルを一括で適用
+html[data-theme="dark"] {
+    --background: #{var.$dark-background};
+    --bg-light: #{var.$dark-bg-light};
+    --bg-code: #{var.$dark-bg-code};
+    --bg-code-selection: #{var.$dark-bg-code-selection};
+    --bg-code-light: #{var.$dark-bg-code-light};
+    --bg-span: #{var.$dark-bg-span};
+    --bg-toc-hover: #{var.$dark-bg-toc-hover};
+    --bg-archive-category: #{var.$dark-bg-archive-category};
+    --bg-archive-category-hover: #{var.$dark-bg-archive-category-hover};
+    --bg-btn-hover: #{var.$dark-bg-btn-hover};
+
+    --text-body: #{var.$dark-text-body};
+    --text-low-priority: #{var.$dark-text-low-priority};
+    --text-light: #{var.$dark-text-light};
+    --text-header: #{var.$dark-text-header};
+    --text-archive-category: #{var.$dark-text-archive-category};
+    --text-header-visited: #{var.$dark-text-header-visited};
+    --text-code-tooltip: #{var.$dark-text-code-tooltip};
+
+    --link: #{var.$dark-link};
+    --link-hover: #{var.$dark-link-hover};
+    --link-bg: #{var.$dark-link-bg};
+
+    --border: #{var.$dark-border};
+    --border-light: #{var.$dark-border-light};
+    --border-bq: #{var.$dark-border-bq};
+
+    --shadow: #{var.$dark-shadow};
+    --shadow-light: #{var.$dark-shadow-light};
+    --shadow-hover: #{var.$dark-shadow-hover};
+
+    --toc-border-bg: #{var.$dark-toc-border-bg};
+    --toc-marker: #{var.$dark-toc-marker};
+
+    --table-th-bg: #{var.$dark-table-th-bg};
+    --table-border: #{var.$dark-table-border};
+
+    --code-copy-bg: #{var.$dark-code-copy-bg};
+    --code-copy-success-bg: #{var.$dark-code-copy-success-bg};
+    --code-copy-failed-bg: #{var.$dark-code-copy-failed-bg};
+}
+
+// システム設定に追従する場合（light/darkの明示指定がない場合）
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]):not([data-theme="dark"]) {
+        --background: #{var.$dark-background};
+        --bg-light: #{var.$dark-bg-light};
+        --bg-code: #{var.$dark-bg-code};
+        --bg-code-selection: #{var.$dark-bg-code-selection};
+        --bg-code-light: #{var.$dark-bg-code-light};
+        --bg-span: #{var.$dark-bg-span};
+        --bg-toc-hover: #{var.$dark-bg-toc-hover};
+        --bg-archive-category: #{var.$dark-bg-archive-category};
+        --bg-archive-category-hover: #{var.$dark-bg-archive-category-hover};
+        --bg-btn-hover: #{var.$dark-bg-btn-hover};
+
+        --text-body: #{var.$dark-text-body};
+        --text-low-priority: #{var.$dark-text-low-priority};
+        --text-light: #{var.$dark-text-light};
+        --text-header: #{var.$dark-text-header};
+        --text-archive-category: #{var.$dark-text-archive-category};
+        --text-header-visited: #{var.$dark-text-header-visited};
+        --text-code-tooltip: #{var.$dark-text-code-tooltip};
+
+        --link: #{var.$dark-link};
+        --link-hover: #{var.$dark-link-hover};
+        --link-bg: #{var.$dark-link-bg};
+
+        --border: #{var.$dark-border};
+        --border-light: #{var.$dark-border-light};
+        --border-bq: #{var.$dark-border-bq};
+
+        --shadow: #{var.$dark-shadow};
+        --shadow-light: #{var.$dark-shadow-light};
+        --shadow-hover: #{var.$dark-shadow-hover};
+
+        --toc-border-bg: #{var.$dark-toc-border-bg};
+        --toc-marker: #{var.$dark-toc-marker};
+
+        --table-th-bg: #{var.$dark-table-th-bg};
+        --table-border: #{var.$dark-table-border};
+
+        --code-copy-bg: #{var.$dark-code-copy-bg};
+        --code-copy-success-bg: #{var.$dark-code-copy-success-bg};
+        --code-copy-failed-bg: #{var.$dark-code-copy-failed-bg};
+    }
+}

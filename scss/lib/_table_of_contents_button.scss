@@ -12,9 +12,9 @@
     display: inline-flex; // インラインフレックスに変更
     align-items: center; // 縦方向の中央揃え
     padding: 8px 12px;
-    border: 1px solid var.$border;
+    border: 1px solid var(--border);
     border-radius: 4px;
-    background-color: var.$background;
+    background-color: var(--background);
     font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -25,7 +25,7 @@
     }
 
     .toc-button-text {
-        color: var.$text-body;
+        color: var(--text-body);
         margin-right: 4px; // テキストとアイコンの間に余白を追加（調整）
     }
 
@@ -39,8 +39,8 @@
             display: block;
             width: 6px;
             height: 6px;
-            border-top: 2px solid var.$border;
-            border-right: 2px solid var.$border;
+            border-top: 2px solid var(--border);
+            border-right: 2px solid var(--border);
             transform: rotate(-45deg); // 上向き矢印
             transition: transform 0.3s ease;
         }
@@ -58,10 +58,10 @@
     right: 1em;
     width: 250px;
     max-width: 80vw;
-    background-color: var.$background;
-    border: 1px solid var.$border;
+    background-color: var(--background);
+    border: 1px solid var(--border);
     border-radius: 4px;
-    box-shadow: 0 2px 10px var.$shadow;
+    box-shadow: 0 2px 10px var(--shadow);
     padding: 1.1rem 1.3rem;
     z-index: 999;
     display: none;
@@ -91,7 +91,7 @@
 
     /* 目次全体のホバー効果 */
     &:hover {
-        box-shadow: 0 5px 15px var.$shadow-hover;
+        box-shadow: 0 5px 15px var(--shadow-hover);
     }
 
     &.show {
@@ -112,8 +112,8 @@
         width: 100%;
         margin: 0;
         padding: 0;
-        background-color: var.$background;
-        color: var.$text-low-priority;
+        background-color: var(--background);
+        color: var(--text-low-priority);
         border: none;
         border-radius: 4px;
         cursor: pointer;
@@ -123,7 +123,7 @@
         &::before {
             content: '↑';
             margin: 0 12px 0 1px;
-            color: var.$text-low-priority;
+            color: var(--text-low-priority);
         }
     }
 
@@ -145,7 +145,7 @@
             bottom: 1.8rem;
             left: 0.25rem; // 青丸マーカーの中心に線を配置
             width: 3px;
-            background-color: var.$toc-border-bg;
+            background-color: var(--toc-border-bg);
             z-index: 0;
         }
 
@@ -167,20 +167,20 @@
                 top: 0.3em;
                 width: 8px;
                 height: 8px;
-                background-color: var.$toc-marker;
-                border: 2px solid var.$background; // 縦線と重なった時にいい感じにつながって見えるようにする
+                background-color: var(--toc-marker);
+                border: 2px solid var(--background); // 縦線と重なった時にいい感じにつながって見えるようにする
                 border-radius: 50%;
                 z-index: 1;
                 transition: all 0.2s ease;
             }
 
             &:hover::before {
-                background-color: color.adjust(var.$link, $lightness: -10%);
+                background-color: var(--link-hover);
             }
 
             /* アクティブ状態の青丸マーカーのスタイル */
             &.active::before {
-                background-color: color.adjust(var.$link, $lightness: -10%);
+                background-color: var(--link-hover);
                 box-shadow: 0 0 4px rgba(20, 135, 189, 0.5);
                 transform: scale(1.2);
             }
@@ -192,15 +192,15 @@
                 margin: 0.2em 0;
                 text-decoration: none;
                 // Zenn風の薄い色
-                color: var.$text-low-priority;
+                color: var(--text-low-priority);
                 // h1よりやや小さく
                 line-height: 1.4;
 
                 /* アクティブ状態のリンクスタイル */
                 &.active {
-                    color: var.$text-body;
+                    color: var(--text-body);
                     font-weight: bold;
-                    background-color: var.$bg-toc-hover;
+                    background-color: var(--bg-toc-hover);
                     border-radius: 15px;
                     padding-right: 5px;
                     transform: translateX(3px);
@@ -216,14 +216,14 @@
                 font-size: 1rem;
 
                 &:visited {
-                    color: var.$text-low-priority;
+                    color: var(--text-low-priority);
                 }
 
                 &:hover {
-                    color: var.$text-body;
+                    color: var(--text-body);
                     transform: translateX(3px);
                     text-decoration: none;
-                    background-color: var.$bg-toc-hover;
+                    background-color: var(--bg-toc-hover);
                     border-radius: 15px;
                     padding-right: 5px;
                 }
@@ -252,20 +252,20 @@
                         top: 0.5em;
                         width: 4px;
                         height: 4px;
-                        background-color: var.$toc-marker;
-                        border: 2px solid var.$background; // 縦線と重なった時にいい感じにつながって見えるようにする
+                        background-color: var(--toc-marker);
+                        border: 2px solid var(--background); // 縦線と重なった時にいい感じにつながって見えるようにする
                         border-radius: 50%;
                         z-index: 1;
                         transition: all 0.2s ease;
                     }
 
                     &:hover::before {
-                        background-color: color.adjust(var.$link, $lightness: -10%);
+                        background-color: var(--link-hover);
                     }
 
                     /* アクティブ状態のh2の青丸マーカーのスタイル */
                     &.active::before {
-                        background-color: color.adjust(var.$link, $lightness: -10%);
+                        background-color: var(--link-hover);
                         box-shadow: 0 0 4px rgba(20, 135, 189, 0.5);
                         transform: scale(1.2);
                     }
@@ -280,23 +280,23 @@
                         font-size: 0.95rem;
 
                         &:visited {
-                            color: var.$text-low-priority;
+                            color: var(--text-low-priority);
                         }
 
                         &:hover {
-                            color: var.$text-body;
+                            color: var(--text-body);
                             transform: translateX(3px);
                             text-decoration: none;
-                            background-color: var.$bg-toc-hover;
+                            background-color: var(--bg-toc-hover);
                             border-radius: 15px;
                             padding-right: 5px;
                         }
 
                         /* アクティブ状態のリンクスタイル */
                         &.active {
-                            color: var.$text-body;
+                            color: var(--text-body);
                             font-weight: bold;
-                            background-color: var.$bg-toc-hover;
+                            background-color: var(--bg-toc-hover);
                             border-radius: 15px;
                             padding-right: 5px;
                             transform: translateX(3px);
