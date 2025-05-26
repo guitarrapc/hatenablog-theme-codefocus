@@ -127,13 +127,13 @@ func main() {
 }
 ```
 
-### コードコピーボタン
+### コードブロックのボタン
 
 ※ テーマ導入後、後述するJavaScriptの設定が必要です。
 
-ワンクリックでコードをコピーできるコードコピーボタン機能を搭載しています。コードブロックにマウスオーバーすると、右上にコピーボタンが表示され、クリックするだけでコードを簡単にコピーできます。
+ワンクリックでコードをコピーできるコードコピーボタン機能、一行が長いコードの折り返しON/OFF切り替えボタン機能を搭載しています。コードブロックにマウスオーバーすると、右上にボタンが表示されます。コードコピーボタンをクリックするだけでコードを簡単にコピーできます。折り返しボタンをクリックすると、長い行のコードの折り返しをON/OFFを切り替えて表示します。
 
-[f:id:guitarrapc_tech:20250525113058p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/pc-code-block-with-copy-button.png -->
+[f:id:guitarrapc_tech:20250527030605p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/pc-code-block-with-copy-button.png -->
 
 ### タグクラウドスタイル
 
@@ -264,11 +264,11 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
 
-### コードコピーボタン機能を利用する
+### コードのコピー・折り返しボタン機能を利用する
 
-コードブロック右上に表示されるコピーボタンを利用するには、以下の設定を行ってください：
+コードブロック右上に表示されるコピーボタン・折り返しボタンを利用するには、以下の設定を行ってください：
 
-1. [customize-code-copy.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-code-copy.html) ファイルの内容をコピー
+1. [customize-codeblock.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-codecodeblock.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
 3. 変更を保存
 
@@ -328,13 +328,14 @@ CodeFocusテーマは、関連記事もスタイリッシュにレイアウト�
 
 テーマをさらにカスタマイズしたい開発者の方々へ、CodeFocusテーマは以下のような構造でSCSSファイルが分割されています：
 
-- `_code_copy.scss` - コードコピーボタンのスタイル
+- `_codeblock.scss` - コードブロックボタンのスタイル
 - `_core.scss` - 全体のベーススタイル
+- `_dark_mode.scss` - ダークモードのスタイル
 - `_functions.scss` - SCSSで使用する関数定義
-- `_related_entries.scss` - 関連記事のスタイル
 - `_table_of_contents.scss` - 記事内目次のスタイル
 - `_table_of_contents_toggle.scss` - 目次開閉機能のスタイル
 - `_table_of_contents_button.scss` - 目次ボタンのスタイル
+- `_tag_cloud.scss` - タグクラウドのスタイル
 - `_variable.scss` - カラーやフォントなどの変数定義
 
 この構造により、特定の部分だけを変更したい場合も簡単に対応できます。
@@ -351,15 +352,21 @@ cd HatenaBlog-Theme
 # 必要なモジュールをインストール
 npm install
 
-# 開発サーバーの起動（ブロ���ドメイン名を指定）
+# 開発サーバーの起動（ブログドメイン名を指定）
 npm start -- your-blog.hatenablog.com
 ```
 
-ブログ記事で開発サーバーのスタイルを参照させるため、はてなブログ → 詳細設定 → `<head>要素にメタデータを追加` に以下を追加してください：
+ブログ記事で開発サーバーのスタイルとJavaScriptを参照させるため、はてなブログ → 詳細設定 → `<head>要素にメタデータを追加` に以下を追加してください：
 
 ```html
 <script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/style.scss" crossorigin="anonymous" />
+
+<script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://localhost:5173/js/codeblock.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://localhost:5173/js/tag-cloud.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://localhost:5173/js/dark-mode.js" crossorigin="anonymous"></script>
 ```
 
 これにより、SCSSの変更がリアルタイムでブログに反映され、即座に効果を確認できます。

@@ -374,7 +374,7 @@ import { chromium } from '@playwright/test';
       }
 
       // コードコピーボタンのスクリーンショット取得
-      console.log('コードコピーボタンのスクリーンショット取得中...');
+      console.log('コードブロックの機能ボタンのスクリーンショット取得中...');
 
       try {
         // 最初のコードブロックを使用（Pythonコード）
@@ -393,9 +393,9 @@ import { chromium } from '@playwright/test';
         const codeBlockWrapper = await page.locator('.code-block-wrapper').first();
 
         if (await codeBlockWrapper.isVisible()) {
-          // ホバー後のスクリーンショット（コピーボタンが表示される）
+          // ホバー後のスクリーンショット（コピーボタン、ラップボタンが表示される）
           await codeBlockWrapper.screenshot({ path: 'articles/screenshots/pc-code-block-with-copy-button.png' });
-          console.log('✓ コピーボタン表示状態のスクリーンショットを保存しました');
+          console.log('✓ コードブロックのボタン表示状態のスクリーンショットを保存しました');
 
           // コピーボタンにホバーしてツールチップを表示
           const copyButton = await page.locator('.code-copy-button').first();
