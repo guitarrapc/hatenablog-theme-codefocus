@@ -38,11 +38,11 @@
     width: 28px;
     height: 28px;
     padding: 0;
-    background-color: var(--bg-code-light);
+    background-color: var(--bg-code);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 18px 18px;
-    border: 1px solid var(--bg-code-light);
+    background-size: 24px 24px;
+    border: 1px solid var(--bg-code);
     border-radius: 4px;
     cursor: pointer;
     opacity: 0;
@@ -51,18 +51,31 @@
     @media (max-width: 768px) {
         width: 24px;
         height: 24px;
-        background-size: 16px 16px;
+        background-size: 20px 20px;
     }
 
     // ホバー時のスタイル
     &:hover {
         opacity: 1;
-        background-color: var(--bg-code-light);
+        background-color: var(--bg-code);
     }
 
     // フォーカス時のスタイル
     &:focus {
         outline: none;
+    }
+
+    /* コピー成功時とエラー時のスタイル */
+    &.copied {
+        opacity: 1;
+        // background-color: var.$code-copy-success-bg;
+        // background-image: fn.url-svg(var.$svg-copy-code-success, #fff);
+    }
+
+    &.copy-error {
+        opacity: 1;
+        // background-color: var.$code-copy-failed-bg;
+        // background-image: fn.url-svg(var.$svg-copy-code-failed, #fff);
     }
 }
 
