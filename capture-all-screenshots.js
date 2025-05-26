@@ -50,6 +50,39 @@ import { chromium } from '@playwright/test';
     await page.screenshot({ path: 'articles/screenshots/pc-article-top.png' });
     console.log('✓ 記事ページの上部のスクリーンショットを保存しました');
 
+    // ダークモードの記事ページの上部キャプチャ
+    console.log('ダークモードの記事ページの上部のスクリーンショット取得中...');
+    // ダークモードに切り替え
+    await page.evaluate(() => {
+      // @ts-ignore
+      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+        // @ts-ignore
+        window.darkModeJs.applyTheme('dark');
+        return true;
+      }
+      return false;
+    }).then(result => {
+      if (!result) console.log('警告: ダークモードのJavaScript関数が見つかりませんでした');
+    });
+    await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
+    await page.screenshot({ path: 'articles/screenshots/pc-article-top-dark.png' });
+    console.log('✓ ダークモードの記事ページの上部のスクリーンショットを保存しました');
+
+    // ライトモードに切り替え
+    console.log('ライトモードのタブレット記事ページに戻しています...');
+    await page.evaluate(() => {
+      // @ts-ignore
+      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+        // @ts-ignore
+        window.darkModeJs.applyTheme('light');
+        return true;
+      }
+      return false;
+    }).then(result => {
+      if (!result) console.log('警告: ライトモードのJavaScript関数が見つかりませんでした');
+    });
+    await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
+
     // 目次のスクリーンショット
     console.log('目次のスクリーンショット取得中...');
     const tocExists = await page.locator('ul.table-of-contents').isVisible();
@@ -502,6 +535,36 @@ import { chromium } from '@playwright/test';
     await page.screenshot({ path: 'articles/screenshots/tablet-article-top.png' });
     console.log('✓ タブレット記事ページのスクリーンショットを保存しました');
 
+    // ダークモードのタブレット記事ページ
+    console.log('ダークモードのタブレット記事ページのスクリーンショット取得中...');
+    // ダークモードに切り替え
+    await page.evaluate(() => {
+      // @ts-ignore
+      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+        // @ts-ignore
+        window.darkModeJs.applyTheme('dark');
+        return true;
+      }
+      return false;
+    });
+    await page.waitForTimeout(1000);
+    await page.screenshot({ path: 'articles/screenshots/tablet-article-top-dark.png' });
+    console.log('✓ ダークモードのタブレット記事ページのスクリーンショットを保存しました');
+
+    // ライトモードのタブレット記事ページに戻す
+    console.log('ライトモードのタブレット記事ページに戻しています...');
+    // ダークモードに切り替え
+    await page.evaluate(() => {
+      // @ts-ignore
+      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+        // @ts-ignore
+        window.darkModeJs.applyTheme('light');
+        return true;
+      }
+      return false;
+    });
+    await page.waitForTimeout(1000);
+
     // タブレットアーカイブページ
     await page.goto('https://guitarrapc-theme.hatenablog.com/archive/author/guitarrapc_tech');
     await page.waitForLoadState('networkidle');
@@ -552,6 +615,35 @@ import { chromium } from '@playwright/test';
     await page.waitForLoadState('networkidle');
     await page.screenshot({ path: 'articles/screenshots/smartphone-article-top.png' });
     console.log('✓ スマートフォン記事ページのスクリーンショットを保存しました');
+
+    // ダークモードのスマートフォン記事ページ
+    console.log('ダークモードのスマートフォン記事ページのスクリーンショット取得中...');
+    // ダークモードに切り替え
+    await page.evaluate(() => {
+      // @ts-ignore
+      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+        // @ts-ignore
+        window.darkModeJs.applyTheme('dark');
+        return true;
+      }
+      return false;
+    });
+    await page.waitForTimeout(1000);
+    await page.screenshot({ path: 'articles/screenshots/smartphone-article-top-dark.png' });
+    console.log('✓ ダークモードのスマートフォン記事ページのスクリーンショットを保存しました');
+
+    console.log('ライトモードのスマートフォン記事ページに戻しています...');
+    // ダークモードに切り替え
+    await page.evaluate(() => {
+      // @ts-ignore
+      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+        // @ts-ignore
+        window.darkModeJs.applyTheme('light');
+        return true;
+      }
+      return false;
+    });
+    await page.waitForTimeout(1000);
 
     // スマートフォンアーカイブページ
     await page.goto('https://guitarrapc-theme.hatenablog.com/archive/author/guitarrapc_tech');
@@ -609,6 +701,7 @@ import { chromium } from '@playwright/test';
  *
  * PC解像度 (Surface Pro 7):
  * - pc-article-top.png: 記事ページの上部
+ * - pc-article-top-dark.png: ダークモードの記事ページの上部
  * - pc-toc.png: 記事内目次
  * - pc-toc-button.png: 目次ボタン
  * - pc-floating-toc.png: フローティング目次
@@ -629,11 +722,13 @@ import { chromium } from '@playwright/test';
  *
  * タブレット解像度 (iPad Pro 12.9):
  * - tablet-article-top.png: 記事ページの上部
+ * - tablet-article-top-dark.png: ダークモードの記事ページの上部
  * - tablet-archive-top.png: アーカイブページの上部
  * - tablet-toc-button.png: 目次ボタン
  *
  * スマートフォン解像度 (iPhone 14 Pro Max):
  * - smartphone-article-top.png: 記事ページの上部
+ * - smartphone-article-top-dark.png: ダークモードの記事ページの上部
  * - smartphone-archive-top.png: アーカイブページの上部
  * - smartphone-toc-button.png: 目次ボタン
  * - smartphone-comment-section.png: コメントセクション
