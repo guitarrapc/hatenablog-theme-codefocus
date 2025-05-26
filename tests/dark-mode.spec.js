@@ -10,17 +10,25 @@ test.describe('ダークモード機能のテスト', () => {
     await page.addScriptTag({ url: 'http://localhost:5173/js/dark-mode.js' });
 
     // ダークモードボタンコンテナが表示されるまで待機
-    await page.waitForSelector('.theme-switch-container');
+    await page.waitForSelector('.theme-toggle-container');
 
     // 表示されたボタンの数を確認
-    const buttons = await page.locator('.theme-switch-button').count();
-    expect(buttons).toBe(3);
+    const buttons = await page.locator('.theme-toggle-main').count();
+    expect(buttons).toBe(1);
 
     // ライトモードを適用して確認
     await page.evaluate(() => {
       // @ts-ignore
-      window.darkModeJs.applyTheme('light');
+      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+        // @ts-ignore
+        window.darkModeJs.applyTheme('light');
+        return true;
+      }
+      return false;
+    }).then(result => {
+      if (!result) console.log('警告: ライトモードのJavaScript関数が見つかりませんでした');
     });
+    await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
     const lightTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
     expect(lightTheme).toBe('light');
 
@@ -30,8 +38,16 @@ test.describe('ダークモード機能のテスト', () => {
     // ダークモードを適用して確認
     await page.evaluate(() => {
       // @ts-ignore
-      window.darkModeJs.applyTheme('dark');
+      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+        // @ts-ignore
+        window.darkModeJs.applyTheme('dark');
+        return true;
+      }
+      return false;
+    }).then(result => {
+      if (!result) console.log('警告: ダークモードのJavaScript関数が見つかりませんでした');
     });
+    await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
     const darkTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
     expect(darkTheme).toBe('dark');
 
@@ -47,8 +63,16 @@ test.describe('ダークモード機能のテスト', () => {
     // システム設定モードを適用して確認
     await page.evaluate(() => {
       // @ts-ignore
-      window.darkModeJs.applyTheme('auto');
+      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+        // @ts-ignore
+        window.darkModeJs.applyTheme('auto');
+        return true;
+      }
+      return false;
+    }).then(result => {
+      if (!result) console.log('警告: システムモードのJavaScript関数が見つかりませんでした');
     });
+    await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
     const autoTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
     expect(autoTheme).toBe(null);
 
