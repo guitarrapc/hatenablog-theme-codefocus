@@ -10,7 +10,6 @@
 (function () {
   // 定数
   const RANGE = 13; // フォントサイズの変化範囲
-  const BASE = 90;  // 基本フォントサイズ（%）
 
   // 初期化関数
   function initCategoryCloud() {
