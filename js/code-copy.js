@@ -12,12 +12,11 @@
       // コードブロック用のラッパーを作成
       const wrapper = document.createElement('div');
       wrapper.className = 'code-block-wrapper';
-      const copyButtonTitleDefault = 'Copy';
 
       // コピーボタンを作成
       const copyButton = document.createElement('button');
       copyButton.className = 'code-copy-button';
-      copyButton.title = copyButtonTitleDefault;
+      copyButton.removeAttribute('tltle');
 
       // コードブロックを親要素から取り出して、ラッパーに移動
       const parent = codeBlock.parentNode;
@@ -47,7 +46,7 @@
 
           // 一定時間後に元に戻す
           setTimeout(function () {
-            copyButton.title = copyButtonTitleDefault;
+            copyButton.removeAttribute('title');
             copyButton.classList.remove('copied');
           }, 2000);
         }).catch(function (err) {
@@ -58,7 +57,7 @@
 
           // 一定時間後に元に戻す
           setTimeout(function () {
-            copyButton.title = copyButtonTitleDefault;
+            copyButton.removeAttribute('title');
             copyButton.classList.remove('copy-error');
           }, 2000);
         });
