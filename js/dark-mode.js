@@ -1,6 +1,6 @@
 /**
  * ダークモード切り替え機能
- * ユーザーがテーマを切り替えられるボタンを提供
+ * メインボタンをクリックして展開するドロップダウンメニューを提供
  */
 (function () {
   // 既存のdarkModeJsが存在する場合は処理をスキップ
@@ -20,7 +20,7 @@
   const ICONS = {
     SUN: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
     MOON: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
-    MONITOR: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`
+    MONITOR: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`,
   };
 
   // ローカルストレージキー
@@ -49,78 +49,124 @@
     localStorage.setItem(STORAGE_KEY, theme);
   }
 
+  // 現在のテーマに対応するアイコンを取得
+  function getIconForTheme(theme) {
+    switch (theme) {
+      case THEMES.LIGHT:
+        return ICONS.SUN;
+      case THEMES.DARK:
+        return ICONS.MOON;
+      case THEMES.AUTO:
+      default:
+        return ICONS.MONITOR;
+    }
+  }
+
   // テーマ切り替えボタンのコンテナを作成
   function createThemeSwitcher() {
+    // コンテナ要素
     const container = document.createElement('div');
-    container.className = 'theme-switch-container';
+    container.className = 'theme-toggle-container';
 
-    // ライトモードボタン
-    const lightButton = document.createElement('button');
-    lightButton.className = 'theme-switch-button';
-    lightButton.title = 'ライトモード';
-    lightButton.setAttribute('aria-label', 'ライトモード');
-    lightButton.innerHTML = ICONS.SUN;
-    lightButton.addEventListener('click', () => {
-      applyTheme(THEMES.LIGHT);
-      updateActiveButtonStyle();
-    });
+    // メインボタン
+    const mainButton = document.createElement('button');
+    mainButton.className = 'theme-toggle-main';
+    mainButton.setAttribute('aria-label', 'テーマ切り替え');
+    mainButton.setAttribute('aria-expanded', 'false');
 
-    // ダークモードボタン
-    const darkButton = document.createElement('button');
-    darkButton.className = 'theme-switch-button';
-    darkButton.title = 'ダークモード';
-    darkButton.setAttribute('aria-label', 'ダークモード');
-    darkButton.innerHTML = ICONS.MOON;
-    darkButton.addEventListener('click', () => {
-      applyTheme(THEMES.DARK);
-      updateActiveButtonStyle();
-    });
+    // 現在のテーマに基づいたアイコンを設定
+    const currentIcon = document.createElement('span');
+    currentIcon.className = 'current-mode-icon';
+    currentIcon.innerHTML = getIconForTheme(getCurrentTheme());
+    mainButton.appendChild(currentIcon);
 
-    // システム設定ボタン
-    const autoButton = document.createElement('button');
-    autoButton.className = 'theme-switch-button';
-    autoButton.title = 'システム設定に合わせる';
-    autoButton.setAttribute('aria-label', 'システム設定に合わせる');
-    autoButton.innerHTML = ICONS.MONITOR;
-    autoButton.addEventListener('click', () => {
-      applyTheme(THEMES.AUTO);
-      updateActiveButtonStyle();
-    });
+    // ドロップダウン
+    const dropdown = document.createElement('div');
+    dropdown.className = 'theme-toggle-dropdown';
 
-    // アクティブなボタンのスタイルを更新する関数
-    function updateActiveButtonStyle() {
-      const currentTheme = getCurrentTheme();
+    // ドロップダウンのオプション
+    const options = [
+      { theme: THEMES.LIGHT, icon: ICONS.SUN, label: 'ライトモード', tooltip: 'ライトモードに固定' },
+      { theme: THEMES.DARK, icon: ICONS.MOON, label: 'ダークモード', tooltip: 'ダークモードに固定' },
+      { theme: THEMES.AUTO, icon: ICONS.MONITOR, label: '自動切り替え', tooltip: 'システム設定に合わせる' }
+    ];
 
-      // すべてのボタンからアクティブスタイルをクリア
-      [lightButton, darkButton, autoButton].forEach(btn => {
-        btn.style.opacity = '0.6';
-        btn.style.transform = 'scale(1)';
+    // オプションボタンを作成
+    options.forEach(option => {
+      const button = document.createElement('button');
+      button.className = 'theme-toggle-option';
+      button.setAttribute('aria-label', option.tooltip);
+      button.setAttribute('data-theme', option.theme);
+      button.title = option.tooltip;
+
+      const iconSpan = document.createElement('span');
+      iconSpan.className = 'theme-icon';
+      iconSpan.innerHTML = option.icon;
+      button.appendChild(iconSpan);
+
+      const labelSpan = document.createElement('span');
+      labelSpan.className = 'theme-label';
+      labelSpan.textContent = option.label;
+      button.appendChild(labelSpan);
+
+      // 現在のテーマと一致する場合、activeクラスを追加
+      if (getCurrentTheme() === option.theme) {
+        button.classList.add('active');
+      }
+
+      // クリックイベント
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        // テーマを適用
+        applyTheme(option.theme);
+
+        // ドロップダウンを閉じる
+        toggleDropdown(false);
+
+        // メインボタンのアイコンを更新
+        currentIcon.innerHTML = option.icon;
+
+        // アクティブ状態を更新
+        dropdown.querySelectorAll('.theme-toggle-option').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        button.classList.add('active');
       });
 
-      // 現在のテーマに合わせてアクティブスタイルを適用
-      switch (currentTheme) {
-        case THEMES.LIGHT:
-          lightButton.style.opacity = '1';
-          lightButton.style.transform = 'scale(1.1)';
-          break;
-        case THEMES.DARK:
-          darkButton.style.opacity = '1';
-          darkButton.style.transform = 'scale(1.1)';
-          break;
-        case THEMES.AUTO:
-          autoButton.style.opacity = '1';
-          autoButton.style.transform = 'scale(1.1)';
-          break;
-      }
+      dropdown.appendChild(button);
+    });
+
+    // メインボタンのクリックイベント
+    mainButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    // ドロップダウンの表示/非表示を切り替え
+    function toggleDropdown(force) {
+      const isVisible = typeof force !== 'undefined' ? force : !dropdown.classList.contains('show');
+      dropdown.classList.toggle('show', isVisible);
+      mainButton.setAttribute('aria-expanded', isVisible ? 'true' : 'false');
     }
 
-    // ボタンをコンテナに追加
-    container.appendChild(lightButton);
-    container.appendChild(darkButton);
-    container.appendChild(autoButton);
+    // ドキュメント内のクリックでドロップダウンを閉じる
+    document.addEventListener('click', (e) => {
+      if (!container.contains(e.target)) {
+        toggleDropdown(false);
+      }
+    });
 
-    // 初期状態のアクティブボタンスタイルを適用
-    updateActiveButtonStyle();
+    // Escキーでドロップダウンを閉じる
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && dropdown.classList.contains('show')) {
+        toggleDropdown(false);
+      }
+    });
+
+    // コンポーネントを組み立て
+    container.appendChild(mainButton);
+    container.appendChild(dropdown);
 
     return container;
   }
@@ -133,6 +179,13 @@
     // テーマ切り替えUIを追加
     const switcher = createThemeSwitcher();
     document.body.appendChild(switcher);
+
+    // システムの色設定変更を監視（自動モードの場合に反応するため）
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (getCurrentTheme() === THEMES.AUTO) {
+        applyTheme(THEMES.AUTO); // 再適用して変更を反映
+      }
+    });
   }
 
   // DOMContentLoaded後に初期化

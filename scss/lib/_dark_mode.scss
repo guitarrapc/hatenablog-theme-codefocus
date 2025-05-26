@@ -2,63 +2,130 @@
 @use "./_variable" as var;
 @use "./_functions" as fn;
 
-// ダークモードの切り替えボタン
-.theme-switch-container {
+// ダークモード切り替えコンテナ
+.theme-toggle-container {
     position: fixed;
-    top: 8rem;
+    top: 1rem;
     right: 1rem;
-    z-index: 100;
+    z-index: 1000;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-
-    @media #{var.$mq-xs} {
-        top: 6rem;
-        right: 0.5rem;
-    }
+    align-items: flex-end;
 }
 
-.theme-switch-button {
+// メインボタン
+.theme-toggle-main {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 2.5rem;
     height: 2.5rem;
-    border-radius: 50%;
     border: 1px solid var(--border);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px var(--shadow);
     background-color: var(--background);
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 2px 4px var(--shadow);
+    transition: all 0.3s ease;
 
     &:hover {
-        box-shadow: 0 2px 8px var(--shadow-hover);
+        border-color: var(--border-hover);
         background-color: var(--bg-btn-hover);
     }
 
-    svg {
-        width: 1.2rem;
-        height: 1.2rem;
-        stroke: var(--text-body);
+    .current-mode-icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        svg {
+            width: 1.2rem;
+            height: 1.2rem;
+            stroke: var(--text-body);
+        }
     }
 
     @media #{var.$mq-xs} {
-        width: 2rem;
-        height: 2rem;
+        width: 2.2rem;
+        height: 2.2rem;
 
-        svg {
+        .current-mode-icon svg {
             width: 1rem;
             height: 1rem;
         }
     }
 }
 
-// アクティブなボタンのスタイル
-.theme-switch-button-active {
-    opacity: 1;
-    transform: scale(1.1);
-    box-shadow: 0 2px 8px var(--shadow-hover);
+// ドロップダウンメニュー
+.theme-toggle-dropdown {
+    display: none;
+    flex-direction: column;
+    background-color: var(--background);
+    // border: 1px solid var(--border);
+    // border-radius: 8px;
+    // box-shadow: 0 2px 10px var(--shadow);
+    margin-top: 0.5rem;
+    padding: 0.5rem 0;
+    min-width: 150px;
+
+    &.show {
+        display: flex;
+        animation: fadeIn 0.2s ease-in-out;
+    }
+
+    // オプションボタン
+    .theme-toggle-option {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        width: 100%;
+        text-align: left;
+
+        &:hover {
+            background-color: var(--bg-btn-hover);
+        }
+
+        &.active {
+            background-color: var(--bg-toc-hover);
+            font-weight: bold;
+        }
+
+        .theme-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 24px;
+            height: 24px;
+            margin-right: 0.5rem;
+
+            svg {
+                width: 18px;
+                height: 18px;
+                stroke: var(--text-body);
+            }
+        }
+
+        .theme-label {
+            color: var(--text-body);
+            font-size: 0.9rem;
+        }
+    }
+}
+
+// アニメーション
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 // ダークモードのスタイルを一括で適用
