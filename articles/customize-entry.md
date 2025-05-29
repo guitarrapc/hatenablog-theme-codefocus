@@ -557,17 +557,11 @@ blockquote,
 
 ## ダークモードのカスタマイズ
 
-### ダークモード機能の無効化
-
-ダークモード機能をブログ上で完全に無効化したい場合は、ダークモード用のJavaScriptを`<head>要素にメタデータを追加`から排除してください。
-
-### ダークモードのカスタマイズ
-
-ダークモードの色をカスタマイズしたい場合は、CSSの変数を上書きすることで実現できます。
+ダークモードの色をカスタマイズしたい場合は、CSSの変数を上書きすることで実現できます。なお、ダークモードは JavaScript が有効な場合にのみ適用されます。
 
 ```css
 /* ダークモードの色をカスタマイズ */
-html[data-theme="dark"] {
+html[data-enable-dark-mode="true"][data-theme="dark"] {
   --background: #1a1a2e;         /* 背景色をより深い青に */
   --text-body: #e2e2e2;          /* 本文テキストをより明るく */
   --link: #64b5f6;               /* リンク色を水色系に */
@@ -577,7 +571,7 @@ html[data-theme="dark"] {
 
 /* システム設定に合わせる場合 */
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]):not([data-theme="dark"]) {
+  html[data-enable-dark-mode="true"]:not([data-theme="light"]):not([data-theme="dark"]) {
     /* 上記と同じ変数を設定 */
     --background: #1a1a2e;
     --text-body: #e2e2e2;
