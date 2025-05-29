@@ -557,39 +557,6 @@ blockquote,
 
 ## ダークモードのカスタマイズ
 
-### ダークモード機能の無効化
-
-ダークモード機能をブログ上で無効化する方法はいくつかあります：
-
-1. **完全に無効化する方法**：
-   ダークモード用のJavaScriptを`<head>要素にメタデータを追加`から排除します。これにより、ダークモード機能とUIボタンが完全に削除されます。
-
-2. **JavaScriptで無効化する方法**：
-   ブラウザのコンソールに以下のコードを実行すると、次回からダークモード機能が無効になり、ダークモード切り替えボタンも表示されなくなります。
-
-   ```javascript
-   localStorage.setItem('codefocus-disable-dark-mode', 'true');
-   ```
-
-   再度有効化するには：
-
-   ```javascript
-   localStorage.removeItem('codefocus-disable-dark-mode');
-   ```
-
-3. **CSSで明示的にライトモードに固定する方法**：
-   CSSを追加して、常にライトモードの色を使用するように設定できます。
-
-   ```css
-   html {
-     --background: #ffffff !important;
-     --text-body: #333333 !important;
-     /* 他の変数も必要に応じて上書き */
-   }
-   ```
-
-### ダークモードのカスタマイズ
-
 ダークモードの色をカスタマイズしたい場合は、CSSの変数を上書きすることで実現できます。なお、ダークモードは JavaScript が有効な場合にのみ適用されます。
 
 ```css
