@@ -559,15 +559,42 @@ blockquote,
 
 ### ダークモード機能の無効化
 
-ダークモード機能をブログ上で完全に無効化したい場合は、ダークモード用のJavaScriptを`<head>要素にメタデータを追加`から排除してください。
+ダークモード機能をブログ上で無効化する方法はいくつかあります：
+
+1. **完全に無効化する方法**：
+   ダークモード用のJavaScriptを`<head>要素にメタデータを追加`から排除します。これにより、ダークモード機能とUIボタンが完全に削除されます。
+
+2. **JavaScriptで無効化する方法**：
+   ブラウザのコンソールに以下のコードを実行すると、次回からダークモード機能が無効になり、ダークモード切り替えボタンも表示されなくなります。
+
+   ```javascript
+   localStorage.setItem('codefocus-disable-dark-mode', 'true');
+   ```
+
+   再度有効化するには：
+
+   ```javascript
+   localStorage.removeItem('codefocus-disable-dark-mode');
+   ```
+
+3. **CSSで明示的にライトモードに固定する方法**：
+   CSSを追加して、常にライトモードの色を使用するように設定できます。
+
+   ```css
+   html {
+     --background: #ffffff !important;
+     --text-body: #333333 !important;
+     /* 他の変数も必要に応じて上書き */
+   }
+   ```
 
 ### ダークモードのカスタマイズ
 
-ダークモードの色をカスタマイズしたい場合は、CSSの変数を上書きすることで実現できます。
+ダークモードの色をカスタマイズしたい場合は、CSSの変数を上書きすることで実現できます。なお、ダークモードは JavaScript が有効な場合にのみ適用されます。
 
 ```css
 /* ダークモードの色をカスタマイズ */
-html[data-theme="dark"] {
+html[data-enable-dark-mode="true"][data-theme="dark"] {
   --background: #1a1a2e;         /* 背景色をより深い青に */
   --text-body: #e2e2e2;          /* 本文テキストをより明るく */
   --link: #64b5f6;               /* リンク色を水色系に */
@@ -577,7 +604,7 @@ html[data-theme="dark"] {
 
 /* システム設定に合わせる場合 */
 @media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]):not([data-theme="dark"]) {
+  html[data-enable-dark-mode="true"]:not([data-theme="light"]):not([data-theme="dark"]) {
     /* 上記と同じ変数を設定 */
     --background: #1a1a2e;
     --text-body: #e2e2e2;

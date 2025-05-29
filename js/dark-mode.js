@@ -9,6 +9,9 @@
     return;
   }
 
+  // ダークモードを有効化する属性を追加
+  document.documentElement.setAttribute('data-enable-dark-mode', 'true');
+
   // テーマの定数
   const THEMES = {
     LIGHT: 'light',
