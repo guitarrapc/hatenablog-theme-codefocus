@@ -515,7 +515,7 @@ table {
     ol,
     dd {
         margin: 0 auto 1em;
-        padding-left: 1em;
+        padding-left: 1.2em; // 左が本文より詰まって見えるのでちょっとだけ広げる
         max-width: 100%;
 
         li {
