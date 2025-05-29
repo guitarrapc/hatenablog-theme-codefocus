@@ -127,7 +127,7 @@ Google Fontsなどのウェブフォントを利用する場合は、まず`詳�
 ```css
 /* 全体のフォントファミリーをNoto Sans JPに設定 */
 body {
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', 'Meiryo', sans-serif, "Segoe UI Emoji";
 }
 
 /* 見出しのフォントファミリーをNoto Sans JPに設定 */
@@ -137,14 +137,16 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', 'Meiryo', sans-serif, "Segoe UI Emoji";
 }
 
 /* タイトルのフォントファミリーをKaushan Scriptに設定 */
 #title a {
-  font-family: 'Kaushan Script', cursive;
+  font-family: 'Kaushan Script', cursive, -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', 'Meiryo', sans-serif, "Segoe UI Emoji";
 }
 ```
+
+フォントは任意ですが、フォントファミリーの順序を適切に設定することで、ユーザーの環境に応じて最適なフォントが選択されます。
 
 ## コードブロックのカスタマイズ
 
@@ -553,15 +555,13 @@ blockquote,
 }
 ```
 
-## 高度なカスタマイズ
+## ダークモードのカスタマイズ
 
-### ダークモード機能の活用
+### ダークモード機能の無効化
 
-CodeFocusテーマには、すでにダークモード機能が組み込まれています。この機能を有効にすると、ページの右上に3つのアイコンボタン（太陽、月、モニター）が表示され、ユーザーがライトモード、ダークモード、またはシステム設定に合わせた自動モードを選択できるようになります。
+ダークモード機能をブログ上で完全に無効化したい場合は、ダークモード用のJavaScriptを`<head>要素にメタデータを追加`から排除してください。
 
-ダークモード機能を有効にする方法については、[READMEのダークモード機能の説明](https://github.com/guitarrapc/hatenablog-theme-codefocus#%E3%83%80%E3%83%BC%E3%82%AF%E3%83%A2%E3%83%BC%E3%83%89%E6%A9%9F%E8%83%BD%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E5%A0%B4%E5%90%88)を参照してください。
-
-#### ダークモードのカスタマイズ
+### ダークモードのカスタマイズ
 
 ダークモードの色をカスタマイズしたい場合は、CSSの変数を上書きすることで実現できます。
 
@@ -588,7 +588,7 @@ html[data-theme="dark"] {
 }
 ```
 
-#### ダークモードボタンの位置調整
+### ダークモードボタンの位置調整
 
 ダークモードの切り替えボタンの位置を調整したい場合は、以下のようなCSSを追加できます：
 
