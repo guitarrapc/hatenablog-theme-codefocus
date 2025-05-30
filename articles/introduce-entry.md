@@ -247,7 +247,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 記事中の目次を開閉する機能を使用するには、以下の設定を行ってください：
 
 1. [customize-toc-toggle.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-toc-toggle.html) ファイルの内容をコピー
-2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
+2. はてなブログの管理画面から「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付け
 3. 変更を保存
 
 ### 目次ボタン機能を利用する
@@ -255,7 +255,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 ページ右上に固定される目次ボタンを使用するには、以下の設定を行ってください：
 
 1. [customize-toc-button.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-toc-button.html) ファイルの内容をコピー
-2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
+2. はてなブログの管理画面から「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付け
 3. 変更を保存
 
 ### コードのコピー・折り返しボタン機能を利用する
@@ -263,23 +263,23 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 コードブロック右上に表示されるコピーボタン・折り返しボタンを利用するには、以下の設定を行ってください：
 
 1. [customize-codeblock.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-codecodeblock.html) ファイルの内容をコピー
-2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
+2. はてなブログの管理画面から「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付け
 3. 変更を保存
 
 ### タグクラウド機能を利用する
 
-ページ下部のカテゴリーをタグクラウド表示する、以下の設定を行ってください：
+ページ下部のカテゴリーをタグクラウド表示するには、以下の設定を行ってください：
 
 1. [customize-tag-cloud.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-tag-cloud.html) ファイルの内容をコピー
-2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
+2. はてなブログの管理画面から「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付け
 3. 変更を保存
 
 ### ダークモード機能を利用する
 
-ページ下部のカテゴリーをタグクラウド表示する、以下の設定を行ってください：
+ダークテーマを利用するには、以下の設定を行ってください：
 
 1. [customize-dark-mode.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-dark-mode.html) ファイルの内容をコピー
-2. はてなブログの管理画面から「詳細設定」→「`<head>要素にメタデータを追加`」に貼り付け
+2. はてなブログの管理画面から「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付け
 3. 変更を保存
 
 ### はてなブログPro契約者向け設定

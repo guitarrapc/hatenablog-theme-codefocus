@@ -112,10 +112,10 @@ h6 {
 
 ### Webフォントの利用
 
-Google Fontsなどのウェブフォントを利用する場合は、まず`詳細設定 > <head>要素にメタデータを追加`にフォントを読み込ませます。
+Google Fontsなどのウェブフォントを利用する場合は、「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」にフォントを読み込ませます。
 
 ```html
-<!-- 詳細設定 > <head>要素にメタデータを追加 -->
+<!-- Googleフォントを読み込む -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">

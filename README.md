@@ -61,7 +61,7 @@ $ npx playwright install
     ``` css
     /* Responsive: yes */
     ```
-3. 1.のブログの「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
+3. 1.のブログの「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
     ``` html
     <script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/style.scss" crossorigin="anonymous" />
@@ -85,7 +85,7 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 
 本テーマには、記事中の目次を開閉する機能が含まれています。この機能を使用するには以下の手順を行ってください。
 
-1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
+1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
 
    ``` html
    <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
@@ -100,12 +100,12 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 
 本テーマには、ページ右上に固定表示される「目次」ボタンの機能が含まれています。この機能を使用するには以下の手順を行ってください。
 
-1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
+1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
    ``` html
    <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
    ```
 
-2. 本番環境で使用する場合は、[customize-toc-button.html](customize-toc-button.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+2. 本番環境で使用する場合は、[customize-toc-button.html](customize-toc-button.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けてください。
 
    この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
 
@@ -113,12 +113,12 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 
 本テーマには、コードブロックに関する機能が含まれています。コピーボタンと折り返し切り替えボタンを提供し、コードの使いやすさを向上させます。この機能を使用するには以下の手順を行ってください。
 
-1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
+1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
    ``` html
    <script type="text/javascript" src="http://localhost:5173/js/codeblock.js" crossorigin="anonymous"></script>
    ```
 
-2. 本番環境で使用する場合は、[customize-codeblock.html](customize-codeblock.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+2. 本番環境で使用する場合は、[customize-codeblock.html](customize-codeblock.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けてください。
 
    この設定により、以下の機能が有効になります：
    - コードブロック右上に「コピーアイコン」ボタンが表示され、クリックするとコードブロックをコピーします。
@@ -128,12 +128,12 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 
 本テーマには、ダークモード機能が含まれています。この機能を有効にするには以下の手順を行ってください。
 
-1. 「設定」->「詳細設定」にアクセスし、「&lt;head&gt;要素にメタデータを追加」に次のスクリプトタグを追加します。
+1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
    ``` html
    <script type="text/javascript" src="http://localhost:5173/js/dark-mode.js" crossorigin="anonymous"></script>
    ```
 
-2. 本番環境で使用する場合は、[customize-dark-mode.html](customize-dark-mode.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+2. 本番環境で使用する場合は、[customize-dark-mode.html](customize-dark-mode.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けてください。
 
    この設定により、記事ページの右上に3つの切り替えボタンが表示されます：
    - 太陽アイコン: ライトモードに固定します
