@@ -142,7 +142,7 @@
             content: '';
             position: absolute;
             top: 1.0rem;
-            bottom: 1.8rem;
+            bottom: 0.5rem;
             left: 0.25rem; // 青丸マーカーの中心に線を配置
             width: 3px;
             background-color: var(--toc-border-bg);
@@ -163,8 +163,8 @@
             &::before {
                 content: '';
                 position: absolute;
-                left: 0em; // 左端に配置
-                top: 0.3em;
+                left: 0; // 左端に配置
+                top: 0.3rem;
                 width: 8px;
                 height: 8px;
                 background-color: var(--toc-marker);
@@ -248,7 +248,7 @@
                     &::before {
                         content: "";
                         position: absolute;
-                        left: -1.05em; // 青丸マーカーの中心に線を配置
+                        left: -0.98rem; // 青丸マーカーの中心に線を配置
                         top: 0.5em;
                         width: 4px;
                         height: 4px;
