@@ -27,12 +27,22 @@ async function captureThemeStore() {
     console.log('Page loaded, waiting for rendering...');
 
     // Wait a moment for any animations or rendering to complete
-    await page.waitForTimeout(1000);    // Take screenshot of the page
+    await page.waitForTimeout(1000);    // コンテナ要素を見つけてその位置に基づいてスクリーンショットを撮る
+    const containerBox = await page.locator('.container').boundingBox();
+
+    if (!containerBox) {
+      console.error('コンテナ要素が見つかりませんでした');
+      return;
+    }
+
+    console.log('Container element found at:', containerBox);
+
+    // Take screenshot of the container element
     await page.screenshot({
       path: path.join(__dirname, 'theme-store-catch.png'),
       clip: {
-        x: 0,
-        y: 0,
+        x: containerBox.x,
+        y: containerBox.y,
         width: 620,
         height: 460
       }

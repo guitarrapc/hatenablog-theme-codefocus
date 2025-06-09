@@ -227,17 +227,35 @@
       letter-spacing: 0.3px;
     }
 
+    /* 新しいアプローチでコーナーリボンを実装 */
     .responsive-badge {
+      /* リボンの三角形部分を消す */
+      display: none;
+    }
+
+    /* 新しいリボン - 回転した長方形で表現 */
+    .container::before {
+      content: "レスポンシブ対応";
       position: absolute;
-      top: 35px;
-      /* 帯を下げて文字を中央に配置 */
-      right: -45px;
+      /* 上端から始まるように上に移動 */
+      top: 40px;
+      /* 右端から始まるように調整 */
+      right: -40px;
+      width: 190px;
+      /* 長いリボン幅 */
+      height: 30px;
+      /* リボンの高さ */
       background-color: #3a7bd5;
       color: white;
-      transform: rotate(45deg);
-      padding: 6px 60px;
       font-size: 12px;
       font-weight: 500;
+      line-height: 30px;
+      /* 垂直センタリング */
+      text-align: center;
+      /* 水平センタリング */
+      transform: rotate(45deg);
+      /* 角度のみ調整 */
+      transform-origin: center;
       z-index: 10;
       box-shadow: 0 2px 10px rgba(58, 123, 213, 0.3);
       letter-spacing: 1px;
@@ -247,18 +265,17 @@
 
 <body>
   <div class="container">
-    <div class="responsive-badge">レスポンシブ対応</div>
     <div class="devices-container">
       <div class="devices-inner">
         <div class="device tablet" style="z-index: 1;">
           <div class="device-screen" style="background-image: url('screenshots/visual-tablet.png');">
           </div>
         </div>
-        <div class="device smartphone" style="z-index: 2;">
-          <div class="device-screen" style="background-image: url('screenshots/visual-mobile.png');">
+        <div class="device smartphone-dark" style="z-index: 2;">
+          <div class="device-screen" style="background-image: url('screenshots/dark-mode-light-theme.png');">
           </div>
         </div>
-        <div class="device smartphone-dark" style="z-index: 2;">
+        <div class="device smartphone" style="z-index: 2;">
           <div class="device-screen" style="background-image: url('screenshots/dark-mode-dark-theme.png');">
           </div>
         </div>
