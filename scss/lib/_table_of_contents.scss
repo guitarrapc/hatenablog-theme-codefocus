@@ -34,9 +34,9 @@ ul.table-of-contents {
     &::before {
         content: '';
         position: absolute;
-        top: 1.0rem;
-        bottom: 1.0rem;
-        left: 1.25rem; // 青丸マーカーの中心に線を配置
+        top: 1.2rem; // 青丸の上端から突き出さないように
+        bottom: 1.0rem; // 青丸の下端から突き出さないように
+        left: 1.47rem; // 青丸マーカーの中心に線を配置
         width: 3px;
         background-color: var(--toc-border-bg);
         z-index: 0;
@@ -124,7 +124,7 @@ ul.table-of-contents {
                 &::before {
                     content: "";
                     position: absolute;
-                    left: -1.1em; // 左端に配置
+                    left: -1.08em; // 左端に配置
                     top: 0.5em;
                     width: 4px;
                     height: 4px;
