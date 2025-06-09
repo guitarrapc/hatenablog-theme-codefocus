@@ -11,25 +11,6 @@ ul.table-of-contents {
     padding: 0; // 全方向のパディングをリセット
     margin: 0; // 全方向のマージンをリセット
 
-    // スクロールバーの出現条件
-    max-height: 70vh; // 画面の高さの70%までに制限 - toggleと同じ大きさに調整する
-    overflow-y: auto; // 縦方向にスクロール可能に
-    overflow-x: hidden; // 横方向のスクロールを非表示に
-
-    // スクロールバーのスタイリング
-    &::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 3px;
-    }
-
     /* 目次内の縦線（Zenn風） */
     &::before {
         content: '';
