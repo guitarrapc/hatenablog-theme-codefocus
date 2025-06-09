@@ -922,6 +922,11 @@ table {
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
 
+    // 最初のページ(pager-nextだけの場合)に右寄せにする
+    &:has(.pager-next:only-child) {
+        justify-content: flex-end;
+    }
+
     // 前の記事と次の記事のスタイル調整
     .pager-prev,
     .pager-next {
