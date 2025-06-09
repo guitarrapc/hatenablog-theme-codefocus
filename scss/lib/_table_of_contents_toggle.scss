@@ -69,8 +69,6 @@
 
 /* 目次コンテンツ部分のトランジション */
 .toc-content {
-    // 画面の70%の高さに制限
-    max-height: 70vh;
     transition: max-height 0.3s ease;
 
     // スクロールバーの出現条件 (table-of-contentsの上位で設定しないと、縦線がスクロールバーの範囲までしか描画されない)
