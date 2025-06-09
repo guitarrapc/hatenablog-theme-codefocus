@@ -969,11 +969,9 @@ table {
         display: flex;
         align-items: center;
         flex-wrap: nowrap;
-        // 矢印を右側に配置
-        flex-direction: row-reverse;
         justify-content: flex-start;
 
-        &::before {
+        &::after {
             content: fn.url-svg(var.$svg-pager, var.$text-light);
             flex-shrink: 0; // 矢印は縮小しない
             width: 24px;
