@@ -922,6 +922,11 @@ table {
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
 
+    // 最初のページ(pager-nextだけの場合)に右寄せにする
+    &:has(.pager-next:only-child) {
+        justify-content: flex-end;
+    }
+
     // 前の記事と次の記事のスタイル調整
     .pager-prev,
     .pager-next {
@@ -936,13 +941,19 @@ table {
         }
     }
 
+    // 前の記事へのリンク
     .pager-prev a {
+        padding-left: 5px;
+        padding-right: 5px;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+
         &::before {
             content: fn.url-svg(var.$svg-pager, var.$text-light);
-            display: inline-block;
+            flex-shrink: 0; // 矢印は縮小しない
             width: 24px;
             height: 24px;
-            vertical-align: middle;
             margin-right: 5px;
 
             @media #{var.$mq-xs} {
@@ -951,13 +962,21 @@ table {
         }
     }
 
+    // 次の記事へのリンク
     .pager-next a {
+        padding-left: 5px;
+        padding-right: 5px;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+
         &::after {
             content: fn.url-svg(var.$svg-pager, var.$text-light);
-            display: inline-block;
+            flex-shrink: 0; // 矢印は縮小しない
             width: 24px;
             height: 24px;
-            vertical-align: middle;
+            margin-left: 5px;
             transform: rotate(180deg); // 左向き矢印にするため180度回転
 
             @media #{var.$mq-xs} {
@@ -974,6 +993,7 @@ table {
         position: relative;
         color: var(--text-body);
         font-weight: bold;
+        overflow-wrap: break-word; // 長い単語でも折り返し
 
         // <<や>>を非表示にする
         span {
