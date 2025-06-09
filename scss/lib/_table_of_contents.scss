@@ -11,32 +11,13 @@ ul.table-of-contents {
     padding: 0; // 全方向のパディングをリセット
     margin: 0; // 全方向のマージンをリセット
 
-    // スクロールバーの出現条件
-    max-height: 70vh; // 画面の高さの70%までに制限 - toggleと同じ大きさに調整する
-    overflow-y: auto; // 縦方向にスクロール可能に
-    overflow-x: hidden; // 横方向のスクロールを非表示に
-
-    // スクロールバーのスタイリング
-    &::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    &::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 3px;
-    }
-
     /* 目次内の縦線（Zenn風） */
     &::before {
         content: '';
         position: absolute;
-        top: 1.0rem;
-        bottom: 1.0rem;
-        left: 1.25rem; // 青丸マーカーの中心に線を配置
+        top: 1.1em; // 最初のマーカーの上にも伸ばす（emでフォントサイズに比例）
+        bottom: 0.8em; // 最後のマーカーの下にも伸ばす（emでフォントサイズに比例）
+        left: 1.46em; // 青丸マーカーの中心に線を配置（emでフォントサイズに比例）
         width: 3px;
         background-color: var(--toc-border-bg);
         z-index: 0;
