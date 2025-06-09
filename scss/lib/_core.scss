@@ -941,16 +941,19 @@ table {
         }
     }
 
+    // 前の記事へのリンク
     .pager-prev a {
         padding-left: 5px;
         padding-right: 5px;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
 
         &::before {
             content: fn.url-svg(var.$svg-pager, var.$text-light);
-            display: inline-block;
+            flex-shrink: 0; // 矢印は縮小しない
             width: 24px;
             height: 24px;
-            vertical-align: middle;
             margin-right: 5px;
 
             @media #{var.$mq-xs} {
@@ -959,16 +962,23 @@ table {
         }
     }
 
+    // 次の記事へのリンク
     .pager-next a {
         padding-left: 5px;
         padding-right: 5px;
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        // 矢印を右側に配置
+        flex-direction: row-reverse;
+        justify-content: flex-start;
 
-        &::after {
+        &::before {
             content: fn.url-svg(var.$svg-pager, var.$text-light);
-            display: inline-block;
+            flex-shrink: 0; // 矢印は縮小しない
             width: 24px;
             height: 24px;
-            vertical-align: middle;
+            margin-left: 5px;
             transform: rotate(180deg); // 左向き矢印にするため180度回転
 
             @media #{var.$mq-xs} {
@@ -985,6 +995,7 @@ table {
         position: relative;
         color: var(--text-body);
         font-weight: bold;
+        overflow-wrap: break-word; // 長い単語でも折り返し
 
         // <<や>>を非表示にする
         span {
