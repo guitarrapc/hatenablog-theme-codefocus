@@ -34,9 +34,9 @@ ul.table-of-contents {
     &::before {
         content: '';
         position: absolute;
-        top: 1.2rem; // 青丸の上端から突き出さないように
-        bottom: 1.0rem; // 青丸の下端から突き出さないように
-        left: 1.47rem; // 青丸マーカーの中心に線を配置
+        top: 1.1em; // 最初のマーカーの上にも伸ばす（emでフォントサイズに比例）
+        bottom: 0.8em; // 最後のマーカーの下にも伸ばす（emでフォントサイズに比例）
+        left: 1.46em; // 青丸マーカーの中心に線を配置（emでフォントサイズに比例）
         width: 3px;
         background-color: var(--toc-border-bg);
         z-index: 0;
@@ -57,7 +57,7 @@ ul.table-of-contents {
             content: '';
             position: absolute;
             left: 0em; // 左端に配置
-            top: 0.25rem;
+            top: 0.25em;
             width: 8px;
             height: 8px;
             background-color: var(--toc-marker);
@@ -124,8 +124,8 @@ ul.table-of-contents {
                 &::before {
                     content: "";
                     position: absolute;
-                    left: -1.08rem; // 左端に配置
-                    top: 0.5rem;
+                    left: -1.1em; // 左端に配置
+                    top: 0.5em;
                     width: 4px;
                     height: 4px;
                     background-color: var(--toc-marker);
