@@ -64,7 +64,7 @@
     box-shadow: 0 2px 10px var(--shadow);
     padding: 1.1em 1.3em;
     z-index: 999;
-    display: none;
+    visibility: hidden; // 初期状態では非表示 (display: none; ではなく、visibility: hidden; を使用することでtransition効果を適用)
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s, transform 0.3s;
@@ -95,7 +95,7 @@
     }
 
     &.show {
-        display: block;
+        visibility: visible; // 表示状態に変更
         opacity: 1;
         transform: translateY(0);
     }
