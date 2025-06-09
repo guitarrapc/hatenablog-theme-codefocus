@@ -938,7 +938,7 @@ table {
 
     .pager-prev a {
         &::before {
-            content: fn.url-svg(var.$svg-page-prev, var(--text-light));
+            content: fn.url-svg(var.$svg-pager, var.$text-light);
             display: inline-block;
             width: 24px;
             height: 24px;
@@ -953,7 +953,7 @@ table {
 
     .pager-next a {
         &::after {
-            content: fn.url-svg(var.$svg-page-next, var(--text-light));
+            content: fn.url-svg(var.$svg-pager, var.$text-light);
             display: inline-block;
             width: 24px;
             height: 24px;
