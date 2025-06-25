@@ -2,9 +2,7 @@
 title: CodeFocus - コードと記事に集中できるはてなブログデザインテーマ
 ---
 
-はてなブログをもっとシンプルに、もっと読みやすく。CodeFocusテーマは、[Zenn](https://zenn.dev/)スタイルからインスピレーションを得た、プログラミングブログに最適なシングルカラムデザインのはてなブログテーマです。
-
-> [CodeFocus | はてなブログ テーマストア](https://blog.hatena.ne.jp/-/store/theme/6802418398435013379)
+はてなブログをもっとシンプルに、もっと読みやすく。[CodeFocusテーマ](https://blog.hatena.ne.jp/-/store/theme/6802418398435013379)は、[Zenn](https://zenn.dev/)スタイルからインスピレーションを得た、プログラミングブログに最適なシングルカラムデザインのはてなブログテーマです。
 
 [:contents]
 
