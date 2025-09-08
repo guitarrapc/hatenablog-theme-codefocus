@@ -16,7 +16,7 @@
     "@playwright/test": "^1.55.0",
     "autoprefixer": "^10.4.17",
     "normalize.css": "^8.0.1",
-    "sass": "^1.91.0",
+    "sass": "^1.92.1",
     "vite": "^7.1.1"
   }
 }
