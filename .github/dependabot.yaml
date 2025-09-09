@@ -1,19 +1,27 @@
 # ref: https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot
 version: 2
 updates:
-  - package-ecosystem: "npm"
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly" # Check for updates to GitHub Actions every week
+    cooldown:
+      default-days: 14
+      semver-major-days: 30
+      semver-minor-days: 14
     ignore:
       # I just want update action when major/minor version is updated. patch updates are too noisy.
       - dependency-name: "*"
         update-types:
           - version-update:semver-patch
-  - package-ecosystem: "github-actions"
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly" # Check for updates to GitHub Actions every week
+    cooldown:
+      default-days: 14
+      semver-major-days: 30
+      semver-minor-days: 14
     ignore:
       # I just want update action when major/minor version is updated. patch updates are too noisy.
       - dependency-name: "*"
