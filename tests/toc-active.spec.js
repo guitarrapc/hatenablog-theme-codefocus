@@ -8,6 +8,7 @@ test.describe('目次アクティブハイライトのテスト', () => {
     console.log('テスト開始: 目次アクティブハイライトのテスト');
     // サンプル記事を開く
     await page.goto(url('/entry/2025/05/10/204601'));
+    await page.waitForLoadState('networkidle');
 
     // 目次ボタンが表示されるようにスクロール
     await page.evaluate(() => {

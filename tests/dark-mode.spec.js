@@ -5,9 +5,13 @@ test.describe('ダークモード機能のテスト', () => {
   test('ダークモードボタンが表示されスタイルが適用される', async ({ page }) => {
     // 記事ページに移動
     await page.goto('https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601');
+    await page.waitForLoadState('networkidle');
 
-    // スクリプトを挿入してダークモード機能を有効化
+    // ダークモードスクリプトを読み込む
     await page.addScriptTag({ url: 'http://localhost:5173/js/dark-mode.js' });
+
+    // スクリプト実行完了を待機
+    await page.waitForTimeout(1000);
 
     // ダークモードボタンコンテナが表示されるまで待機
     await page.waitForSelector('.theme-toggle-container');
