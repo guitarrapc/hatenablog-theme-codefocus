@@ -26,6 +26,7 @@
 
     --link: #{var.$link};
     --link-hover: #{var.$link-hover};
+    --link-visited: #{var.$link-visited};
     --link-bg: #{var.$link-bg};
 
     --border: #{var.$border};
@@ -75,8 +76,7 @@ a {
     }
 
     &:visited {
-        // 訪問済みリンクも同じ色を継承
-        color: inherit;
+        color: var(--link-visited);
     }
 
     &.keyword {

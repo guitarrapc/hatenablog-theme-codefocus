@@ -153,6 +153,7 @@ html[data-enable-dark-mode="true"] {
 
         --link: #{var.$dark-link};
         --link-hover: #{var.$dark-link-hover};
+        --link-visited: #{var.$dark-link-visited};
         --link-bg: #{var.$dark-link-bg};
 
         --border: #{var.$dark-border};
@@ -206,6 +207,7 @@ html[data-enable-dark-mode="true"] {
 
         --link: #{var.$dark-link};
         --link-hover: #{var.$dark-link-hover};
+        --link-visited: #{var.$dark-link-visited};
         --link-bg: #{var.$dark-link-bg};
 
         --border: #{var.$dark-border};
