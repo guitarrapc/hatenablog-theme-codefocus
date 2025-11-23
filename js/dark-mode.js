@@ -1,58 +1,58 @@
 /**
- * ダークモード切り替え機能
- * メインボタンをクリックして展開するドロップダウンメニューを提供
+ * Dark mode toggle functionality
+ * Provides a dropdown menu that expands when clicking the main button
  */
 (function () {
-  // 既存のdarkModeJsが存在する場合は処理をスキップ
+  // Skip processing if darkModeJs already exists
   if (window.darkModeJs) {
     console.log('Dark mode JS already initialized');
     return;
   }
 
-  // ダークモードを有効化する属性を追加
+  // Add attribute to enable dark mode
   document.documentElement.setAttribute('data-enable-dark-mode', 'true');
 
-  // テーマの定数
+  // Theme constants
   const THEMES = {
     LIGHT: 'light',
     DARK: 'dark',
     AUTO: 'auto'
   };
 
-  // SVGアイコンの定義
+  // SVG icon definitions
   const ICONS = {
     SUN: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
     MOON: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
     MONITOR: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>`,
   };
 
-  // ローカルストレージキー
+  // Local storage key
   const STORAGE_KEY = 'codefocus-theme-preference';
 
-  // 現在のテーマを取得
+  // Get current theme
   function getCurrentTheme() {
     const savedTheme = localStorage.getItem(STORAGE_KEY);
     if (savedTheme && [THEMES.LIGHT, THEMES.DARK, THEMES.AUTO].includes(savedTheme)) {
       return savedTheme;
     }
-    return THEMES.AUTO; // デフォルトはシステム設定に合わせる
+    return THEMES.AUTO; // Default: match system settings
   }
 
-  // テーマを適用
+  // Apply theme
   function applyTheme(theme) {
     if (theme === THEMES.AUTO) {
-      // システム設定に合わせる場合は、data-theme属性を削除
+      // Remove data-theme attribute to match system settings
       document.documentElement.removeAttribute('data-theme');
     } else {
-      // 明示的なテーマの場合は、data-theme属性を設定
+      // Set data-theme attribute for explicit theme
       document.documentElement.setAttribute('data-theme', theme);
     }
 
-    // ローカルストレージに保存
+    // Save to local storage
     localStorage.setItem(STORAGE_KEY, theme);
   }
 
-  // 現在のテーマに対応するアイコンを取得
+  // Get icon corresponding to current theme
   function getIconForTheme(theme) {
     switch (theme) {
       case THEMES.LIGHT:
@@ -65,36 +65,36 @@
     }
   }
 
-  // テーマ切り替えボタンのコンテナを作成
+  // Create theme switcher button container
   function createThemeSwitcher() {
-    // コンテナ要素
+    // Container element
     const container = document.createElement('div');
     container.className = 'theme-toggle-container';
 
-    // メインボタン
+    // Main button
     const mainButton = document.createElement('button');
     mainButton.className = 'theme-toggle-main';
-    mainButton.setAttribute('aria-label', 'テーマ切り替え');
+    mainButton.setAttribute('aria-label', 'Toggle theme');
     mainButton.setAttribute('aria-expanded', 'false');
 
-    // 現在のテーマに基づいたアイコンを設定
+    // Set icon based on current theme
     const currentIcon = document.createElement('span');
     currentIcon.className = 'current-mode-icon';
     currentIcon.innerHTML = getIconForTheme(getCurrentTheme());
     mainButton.appendChild(currentIcon);
 
-    // ドロップダウン
+    // Dropdown
     const dropdown = document.createElement('div');
     dropdown.className = 'theme-toggle-dropdown';
 
-    // ドロップダウンのオプション
+    // Dropdown options
     const options = [
       { theme: THEMES.LIGHT, icon: ICONS.SUN, label: 'ライトモード', tooltip: 'ライトモードに固定' },
       { theme: THEMES.DARK, icon: ICONS.MOON, label: 'ダークモード', tooltip: 'ダークモードに固定' },
       { theme: THEMES.AUTO, icon: ICONS.MONITOR, label: '自動切り替え', tooltip: 'システム設定に合わせる' }
     ];
 
-    // オプションボタンを作成
+    // Create option buttons
     options.forEach(option => {
       const button = document.createElement('button');
       button.className = 'theme-toggle-option';
@@ -112,25 +112,25 @@
       labelSpan.textContent = option.label;
       button.appendChild(labelSpan);
 
-      // 現在のテーマと一致する場合、activeクラスを追加
+      // Add active class if matches current theme
       if (getCurrentTheme() === option.theme) {
         button.classList.add('active');
       }
 
-      // クリックイベント
+      // Click event
       button.addEventListener('click', (e) => {
         e.stopPropagation();
 
-        // テーマを適用
+        // Apply theme
         applyTheme(option.theme);
 
-        // ドロップダウンを閉じる
+        // Close dropdown
         toggleDropdown(false);
 
-        // メインボタンのアイコンを更新
+        // Update main button icon
         currentIcon.innerHTML = option.icon;
 
-        // アクティブ状態を更新
+        // Update active state
         dropdown.querySelectorAll('.theme-toggle-option').forEach(btn => {
           btn.classList.remove('active');
         });
@@ -140,65 +140,65 @@
       dropdown.appendChild(button);
     });
 
-    // メインボタンのクリックイベント
+    // Main button click event
     mainButton.addEventListener('click', (e) => {
       e.stopPropagation();
       toggleDropdown();
     });
 
-    // ドロップダウンの表示/非表示を切り替え
+    // Toggle dropdown visibility
     function toggleDropdown(force) {
       const isVisible = typeof force !== 'undefined' ? force : !dropdown.classList.contains('show');
       dropdown.classList.toggle('show', isVisible);
       mainButton.setAttribute('aria-expanded', isVisible ? 'true' : 'false');
     }
 
-    // ドキュメント内のクリックでドロップダウンを閉じる
+    // Close dropdown on document click
     document.addEventListener('click', (e) => {
       if (!container.contains(e.target)) {
         toggleDropdown(false);
       }
     });
 
-    // Escキーでドロップダウンを閉じる
+    // Close dropdown on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && dropdown.classList.contains('show')) {
         toggleDropdown(false);
       }
     });
 
-    // コンポーネントを組み立て
+    // Assemble components
     container.appendChild(mainButton);
     container.appendChild(dropdown);
 
     return container;
   }
 
-  // 初期化処理
+  // Initialization
   function initialize() {
-    // 現在のテーマを適用
+    // Apply current theme
     applyTheme(getCurrentTheme());
 
-    // テーマ切り替えUIを追加
+    // Add theme switcher UI
     const switcher = createThemeSwitcher();
     document.body.appendChild(switcher);
 
-    // システムの色設定変更を監視（自動モードの場合に反応するため）
+    // Monitor system color setting changes (to react in auto mode)
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
       if (getCurrentTheme() === THEMES.AUTO) {
-        applyTheme(THEMES.AUTO); // 再適用して変更を反映
+        applyTheme(THEMES.AUTO); // Reapply to reflect changes
       }
     });
   }
 
-  // DOMContentLoaded後に初期化
+  // Initialize after DOMContentLoaded
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initialize);
   } else {
     initialize();
   }
 
-  // グローバルオブジェクトに登録
+  // Register to global object
   window.darkModeJs = {
     applyTheme,
     getCurrentTheme,
