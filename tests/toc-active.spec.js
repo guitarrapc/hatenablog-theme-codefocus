@@ -1,22 +1,38 @@
 import { test, expect } from '@playwright/test';
 import { url } from './helpers';
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // テスト実行のコンテキスト情報をキャプチャするオプションを追加
 test.describe('目次アクティブハイライトのテスト', () => {
   test('スクロール時に現在のセクションが強調表示される', async ({ page }) => {
     // テストの開始時にデバッグ情報を出力
     console.log('テスト開始: 目次アクティブハイライトのテスト');
-    // サンプル記事を開く
+
+    // JSファイルを読み込んでaddInitScriptで追加（ドキュメント作成後、スクリプト実行前に実行される）
+    const jsPath = path.resolve(__dirname, '../js/toc-button.js');
+    const jsContent = fs.readFileSync(jsPath, 'utf-8');
+    await page.addInitScript(jsContent);
+
+    // サンプル記事を開く（addInitScript後にナビゲート）
     await page.goto(url('/entry/2025/05/10/204601'));
     await page.waitForLoadState('networkidle');
 
-    // 目次ボタンが表示されるようにスクロール
+    // DOMContentLoadedイベントが発火してスクリプトが実行されるまで待機
+    await page.waitForTimeout(500);    // 目次ボタンが表示されるようにスクロール
     await page.evaluate(() => {
       window.scrollBy(0, 300);
     });
 
-    // 目次ボタンをクリックして目次を表示
-    await page.locator('.toc-button').click();    // ページをスクロールして目次がアクティブになるのを確認
+    // 目次ボタンが可視状態になるまで待つ
+    await page.locator('.toc-button').waitFor({ state: 'visible', timeout: 5000 });
+
+    // 目次ボタンをクリックして目次を表示（force: trueでbodyのインターセプトを回避）
+    await page.locator('.toc-button').click({ force: true });    // ページをスクロールして目次がアクティブになるのを確認
     // 目次内の最初の項目を取得
     const firstTocItem = await page.locator('.floating-toc-list > li').first();
     if (!firstTocItem) {
