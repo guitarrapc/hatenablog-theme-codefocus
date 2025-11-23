@@ -40,6 +40,7 @@ $light-text-code-tooltip: #c9d1d9;
 
 $light-link: #0f83fd;
 $light-link-hover: color.adjust($light-link, $lightness: -5%);
+$light-link-visited: color.adjust($light-link, $lightness: -15%, $saturation: -20%);
 $light-link-bg: rgba(20, 135, 189, 0.1);
 
 $light-border: #ddd;
@@ -91,6 +92,7 @@ $dark-text-code-tooltip: #c9d1d9;
 
 $dark-link: #58a6ff;
 $dark-link-hover: color.adjust($dark-link, $lightness: +5%);
+$dark-link-visited: color.adjust($dark-link, $lightness: -10%, $saturation: -15%);
 $dark-link-bg: rgba(56, 139, 253, 0.1);
 
 $dark-border: #30363d;
@@ -145,6 +147,7 @@ $text-code-tooltip: $light-text-code-tooltip;
 // link
 $link: $light-link;
 $link-hover: $light-link-hover;
+$link-visited: $light-link-visited;
 $link-bg: $light-link-bg;
 
 // border
