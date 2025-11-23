@@ -1,23 +1,23 @@
 /**
- * タグクラウドの実装 - カテゴリー要素のフォントサイズを記事数に基づいて調整
+ * Tag cloud implementation - Adjusts category element font sizes based on article counts
  *
- * このスクリプトは以下の機能を提供します:
- * 1. カテゴリーリストから記事数を抽出
- * 2. 記事数に応じたフォントサイズを計算
- * 3. 各カテゴリーにクラスを追加（スタイリング用）
- * 4. 記事数表示を削除してタイトル属性として設定
+ * This script provides the following features:
+ * 1. Extract article counts from category list
+ * 2. Calculate font sizes based on article counts
+ * 3. Add classes to each category (for styling)
+ * 4. Remove article count display and set as title attribute
  */
 (function () {
-  // 定数
-  const RANGE = 13; // フォントサイズの変化範囲
+  // Font size variation range
+  const RANGE = 13;
 
-  // 初期化関数
+  // Initialization function
   function initCategoryCloud() {
-    // カテゴリーリストを取得
+    // Get category list
     const categoryLinks = document.querySelectorAll('.hatena-module-category ul li a');
     if (!categoryLinks.length) return;
 
-    // 記事数データを抽出
+    // Extract article count data
     const counts = [];
     categoryLinks.forEach(link => {
       const match = link.textContent.match(/\((\d+)\)/);
@@ -28,45 +28,45 @@
       }
     });
 
-    // 最小値と最大値を計算
+    // Calculate minimum and maximum values
     const min = Math.min(...counts);
     const max = Math.max(...counts);
 
-    // 平方根の範囲に基づくスケーリング係数を計算
+    // Calculate scaling factor based on square root range
     const sqrtMin = Math.sqrt(min);
     const sqrtMax = Math.sqrt(max);
-    const factor = RANGE / (sqrtMax - sqrtMin || 1); // ゼロ除算防止
+    const factor = RANGE / (sqrtMax - sqrtMin || 1); // Prevent division by zero
 
-    // 各カテゴリーリンクにスタイルとクラスを適用
+    // Apply styles and classes to each category link
     categoryLinks.forEach((link, i) => {
       const count = counts[i];
 
-      // フォントサイズレベルを計算（サイズクラス用）
+      // Calculate font size level (for size class)
       const levelRaw = (Math.sqrt(count) - sqrtMin) * factor;
-      // 1-10のスケールに変換 (より細かい粒度のサイズ変化を可能に)
+      // Convert to 1-10 scale (enables finer granularity of size changes)
       const sizeClass = Math.max(1, Math.min(10, Math.ceil(levelRaw * 10 / RANGE)));
 
-      // テキストから括弧付きの記事数を削除
+      // Remove article count in parentheses from text
       const text = link.textContent.trim();
       const cleanText = text.replace(/\s*\(\d+\)\s*$/, '');
 
-      // クラスを適用
-      link.setAttribute('title', text); // 元のテキストをツールチップに
+      // Apply classes
+      link.setAttribute('title', text); // Set original text as tooltip
       link.textContent = cleanText;
 
-      // カテゴリサイズのクラスを追加（CSS スタイリング用）
+      // Add category size class (for CSS styling)
       link.classList.add(`category-size-${sizeClass}`);
       link.parentElement.classList.add('category-cloud-item');
     });
 
-    // 親要素にタグクラウド用クラスを追加
+    // Add tag cloud class to parent element
     const categoryContainer = document.querySelector('.hatena-module-category ul');
     if (categoryContainer) {
       categoryContainer.classList.add('category-cloud');
     }
   }
 
-  // ページロード完了時に実行
+  // Execute after page load completes
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCategoryCloud);
   } else {
