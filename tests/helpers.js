@@ -5,7 +5,18 @@ import { test as base } from '@playwright/test';
  * ネットワークタイムアウトやリトライの設定を含む
  */
 export const test = base.extend({
-  page: async ({ page }, use) => {
+  context: async ({ browser }, use) => {
+    // Chromium 141+のPrivate Network Access対応
+    // HTTPS公開サイトからHTTP localhostへのリソース読み込みに必要
+    const context = await browser.newContext({
+      permissions: ['local-network-access']
+    });
+    await use(context);
+    await context.close();
+  },
+  page: async ({ context }, use) => {
+    const page = await context.newPage();
+
     // ネットワークタイムアウトを延長
     page.setDefaultNavigationTimeout(60000);
     page.setDefaultTimeout(30000);

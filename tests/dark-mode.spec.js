@@ -1,13 +1,25 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 test.describe('ダークモード機能のテスト', () => {
   test('ダークモードボタンが表示されスタイルが適用される', async ({ page }) => {
     // 記事ページに移動
     await page.goto('https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601');
+    await page.waitForLoadState('networkidle');
 
-    // スクリプトを挿入してダークモード機能を有効化
-    await page.addScriptTag({ url: 'http://localhost:5173/js/dark-mode.js' });
+    // JSファイルを読み込んで直接実行（page.addScriptTagの代替）
+    const jsPath = path.resolve(__dirname, '../js/dark-mode.js');
+    const jsContent = fs.readFileSync(jsPath, 'utf-8');
+    await page.evaluate(jsContent);
+
+    // スクリプト実行完了を待機
+    await page.waitForTimeout(1000);
 
     // ダークモードボタンコンテナが表示されるまで待機
     await page.waitForSelector('.theme-toggle-container');

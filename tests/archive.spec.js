@@ -126,7 +126,6 @@ test.describe('アーカイブページのテスト', () => {
 
     // ページが完全に読み込まれるのを待機
     await page.waitForPageToLoad();
-    await page.waitForTimeout(2000);
 
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/archive-responsive-mobile.png', fullPage: true });

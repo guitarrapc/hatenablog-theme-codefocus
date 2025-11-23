@@ -6,6 +6,8 @@ test.describe('コメント表示のテスト', () => {
   test('コメントのユーザー名と日付の表示順序が正しいこと', async ({ page }) => {
     // 記事ページに移動
     await page.goto('/entry/2025/05/10/204601');
+    await page.waitForLoadState('networkidle');
+
     await page.waitForSelector('.entry-comment');
 
     // コメントHTML構造を取得
