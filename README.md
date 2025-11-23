@@ -1,114 +1,116 @@
 [![Build](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/build.yaml/badge.svg)](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/build.yaml)
 [![Release](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/release.yaml/badge.svg)](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/release.yaml)
 
+[English](README.md) | [日本語](README.ja.md)
+
 ## CodeFocus
 
-技術記事の執筆しやすさを追求したシングルカラムのテーマです。
-レスポンシブデザインで、モバイル・タブレット・PCすべての画面サイズで最適表示されます。
+A single-column theme designed for technical writing ease.
+Responsive design ensures optimal display on all screen sizes: mobile, tablet, and PC.
 
-記事の読みやすさを最優先に、余計な装飾を省いたデザインで文章に集中できます。
-コードブロックは見やすい配色で、コピー機能も提供しておりプログラミングコードを扱う技術ブログに最適です。
-JavaScriptカスタマイズを行うことで、特徴的な目次機能（ページ内目次・固定目次ボタン）、コードブロックコピー機能を追加して長文記事も快適に読めます。
-また、ダークモード対応で、システム設定に合わせた自動切り替えや手動での切り替えも可能です。
+Prioritizing readability with a clean design that removes unnecessary decoration, allowing focus on the content.
+Code blocks feature clear color schemes with copy functionality, making it ideal for technical blogs handling programming code.
+With JavaScript customization, you can add distinctive table of contents features (in-page TOC, fixed TOC button) and code block copy functionality for comfortable reading of long articles.
+Dark mode support is included, with automatic switching based on system settings or manual control.
 
-デモページ
+Demo page:
 https://codefocus.hatenablog.jp/entry/2025/05/17/015533
 
-カスタマイズの方法はこちらの記事を参考にしてください
+For customization instructions, refer to this article:
 https://codefocus.hatenablog.jp/entry/2025/05/20/221750
 
-## 利用方法
+## Usage
 
-可能ならば、はてなブログテーマストアからの導入を推奨します。
+Installation from Hatena Blog Theme Store is recommended when possible.
 
-### 直接CSSを指定して利用する
+### Direct CSS Installation
 
-最新のバージョンの`theme-バージョン.zip`をダウンロードしてください。
+Download the latest version `theme-VERSION.zip`:
 
 - https://github.com/guitarrapc/HatenaBlog-Theme/releases/latest
 
-中には、スタイルシート`style.css`と、テーマの設定を行うためのHTMLファイルが含まれています。
+The archive contains the stylesheet `style.css` and HTML files for theme configuration.
 
-- `style.css`は、はてなブログの「デザイン」->「カスタマイズ」->「デザインCSS」に貼り付けてください。
-- `customize-toc-toggle.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
-- `customize-toc-button.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
-- `customize-codeblock.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
-- `customize-dark-mode.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+- Paste `style.css` into Hatena Blog's "Design" -> "Customize" -> "Design CSS"
+- Paste `customize-toc-toggle.html` into Hatena Blog's "Design" -> "Customize" -> "Article" -> "Article Top HTML"
+- Paste `customize-toc-button.html` into Hatena Blog's "Design" -> "Customize" -> "Article" -> "Article Top HTML"
+- Paste `customize-codeblock.html` into Hatena Blog's "Design" -> "Customize" -> "Article" -> "Article Top HTML"
+- Paste `customize-dark-mode.html` into Hatena Blog's "Design" -> "Customize" -> "Article" -> "Article Top HTML"
 
-### はてなブログテーマストアから導入する (推奨)
+### Install from Hatena Blog Theme Store (Recommended)
 
-はてなブログテーマストアから「CodeFocus」を検索してインストールしてください。
-JavaScriptカスタマイズを利用する場合は、以下の手順で設定を行ってください。
+Search for "CodeFocus" in the Hatena Blog Theme Store and install it.
+Follow these steps to configure JavaScript customizations:
 
-**記事中の目次開閉機能を使用する場合**
+**To Use In-Article TOC Toggle Feature**
 
-本テーマには、記事中の目次を開閉する機能が含まれています。この機能を使用するには以下の手順を行ってください。
+This theme includes functionality to toggle the table of contents within articles. Follow these steps to use this feature:
 
-1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
+1. Access "Settings" -> "Advanced Settings" and add the following script tag to "Add metadata to head element":
 
    ``` html
    <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
    ```
 
-2. 本番環境で使用する場合は、[customize-toc-toggle.html](customize-toc-toggle.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+2. For production use, copy the contents of [customize-toc-toggle.html](customize-toc-toggle.html) and paste into "Design" -> "Customize" -> "Article" -> "Article Top HTML".
 
-   この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
+   With this configuration, a "TOC" button will appear in the upper right of article pages, displaying the table of contents when clicked. If no table of contents exists in the article, the button won't appear.
 
 
-**目次ボタン機能を使用する場合**
+**To Use TOC Button Feature**
 
-本テーマには、ページ右上に固定表示される「目次」ボタンの機能が含まれています。この機能を使用するには以下の手順を行ってください。
+This theme includes a fixed "TOC" button displayed in the upper right of pages. Follow these steps to use this feature:
 
-1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
+1. Access "Settings" -> "Advanced Settings" and add the following script tag to "Add metadata to head element":
    ``` html
    <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
    ```
 
-2. 本番環境で使用する場合は、[customize-toc-button.html](customize-toc-button.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けてください。
+2. For production use, copy the contents of [customize-toc-button.html](customize-toc-button.html) and paste into "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 
-   この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
+   With this configuration, a "TOC" button will appear in the upper right of article pages, displaying the table of contents when clicked. If no table of contents exists in the article, the button won't appear.
 
-**コードブロック機能を使用する場合**
+**To Use Code Block Features**
 
-本テーマには、コードブロックに関する機能が含まれています。コピーボタンと折り返し切り替えボタンを提供し、コードの使いやすさを向上させます。この機能を使用するには以下の手順を行ってください。
+This theme includes code block-related features. It provides copy and wrap toggle buttons to improve code usability. Follow these steps to use these features:
 
-1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
+1. Access "Settings" -> "Advanced Settings" and add the following script tag to "Add metadata to head element":
    ``` html
    <script type="text/javascript" src="http://localhost:5173/js/codeblock.js" crossorigin="anonymous"></script>
    ```
 
-2. 本番環境で使用する場合は、[customize-codeblock.html](customize-codeblock.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けてください。
+2. For production use, copy the contents of [customize-codeblock.html](customize-codeblock.html) and paste into "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 
-   この設定により、以下の機能が有効になります：
-   - コードブロック右上に「コピーアイコン」ボタンが表示され、クリックするとコードブロックをコピーします。
-   - コードブロック右上に「折り返し切り替え」ボタンが表示され、クリックすると折り返し表示と横スクロール表示を切り替えられます。デフォルトでは折り返しなしで横スクロール可能な表示になっています。
+   With this configuration, the following features are enabled:
+   - A "Copy icon" button appears in the upper right of code blocks, copying the code block when clicked
+   - A "Wrap toggle" button appears in the upper right of code blocks, switching between wrapped display and horizontal scroll display when clicked. By default, display is without wrapping with horizontal scroll available.
 
-**ダークモード機能を使用する場合**
+**To Use Dark Mode Feature**
 
-本テーマには、ダークモード機能が含まれています。この機能を有効にするには以下の手順を行ってください。
+This theme includes dark mode functionality. Follow these steps to enable this feature:
 
-1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
+1. Access "Settings" -> "Advanced Settings" and add the following script tag to "Add metadata to head element":
    ``` html
    <script type="text/javascript" src="http://localhost:5173/js/dark-mode.js" crossorigin="anonymous"></script>
    ```
 
-2. 本番環境で使用する場合は、[customize-dark-mode.html](customize-dark-mode.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けてください。
+2. For production use, copy the contents of [customize-dark-mode.html](customize-dark-mode.html) and paste into "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 
-   この設定により、記事ページの右上に3つの切り替えボタンが表示されます：
-   - 太陽アイコン: ライトモードに固定します
-   - 月アイコン: ダークモードに固定します
-   - モニターアイコン: システム設定に合わせて自動切り替えします（デフォルト）
+   With this configuration, three toggle buttons appear in the upper right of article pages:
+   - Sun icon: Fixes to light mode
+   - Moon icon: Fixes to dark mode
+   - Monitor icon: Automatically switches based on system settings (default)
 
-   ユーザーの選択は次回訪問時も記憶され、システム設定を自動で追従するので夜間の閲覧も快適です。
+   User selection is remembered on next visit and automatically follows system settings, making nighttime browsing comfortable.
 
-## 開発環境を構築する
+## Setting Up Development Environment
 
-SCSSで開発する場合は、下記の手順でリポジトリのcloneとモジュールのインストールを行います。
-必須コンポーネントは、以下の通りです。
+To develop with SCSS, clone the repository and install modules following these steps.
+Required components:
 
 - [Node.js](https://nodejs.org/)
 
-### モジュールのインストール
+### Installing Modules
 
 ```shell
 $ git clone https://github.com/guitarrapc/hatenablog-theme-codefocus.git
@@ -117,60 +119,60 @@ $ npm install
 $ npx playwright install
 ```
 
-### 開発用ブログに開発サーバーを設定する
+### Configuring Development Server for Development Blog
 
-開発サーバーを利用することで、SCSSの変更をリアルタイムにブログに反映させながらテーマの開発を行えます。
+Using the development server allows you to develop the theme while SCSS changes are reflected in real-time to your blog.
 
-まずは[はてなブログ](https://blog.hatena.ne.jp/)の設定を行います。
+First, configure [Hatena Blog](https://blog.hatena.ne.jp/):
 
-1. テーマの動作確認に使うブログを1つ用意します。（普段お使いのブログとは別にブログを作成してください。）
-2. 1.のブログの「デザイン設定」にアクセスし、「カスタマイズ」タブの「デザインCSS」の内容を下記に置き換えて保存します。
+1. Prepare one blog for theme testing (create a separate blog from your regular blog).
+2. Access the blog's "Design Settings", and replace the "Design CSS" content in the "Customize" tab with the following and save:
     ``` css
     /* Responsive: yes */
     ```
-3. 1.のブログの「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
+3. Access the blog's "Settings" -> "Advanced Settings" and add the following script tags to "Add metadata to head element":
     ``` html
     <script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/style.scss" crossorigin="anonymous" />
     ```
 
-### 開発サーバーを起動する
+### Starting Development Server
 
-下記のコマンドで、開発サーバーを起動します。`BLOG_DOMAIN_NAME` の部分には、上で用意した動作確認に使うブログのドメイン名 (例: `example.hatenablog.com`) を入力してください。
+Start the development server with the following command. Replace `BLOG_DOMAIN_NAME` with your test blog's domain name (e.g., `example.hatenablog.com`):
 
 ```shell
 $ npm start -- BLOG_DOMAIN_NAME
 ```
 
-コマンド実行例:
+Command execution example:
 
 ```shell
 $ npm start -- guitarrapc-theme.hatenablog.com
 ```
 
-以上が完了すると、動作確認用のブログに開発中のテーマが反映されます。ブログにアクセスし、表示を確認しながらテーマの開発を行なってください。
+After completing these steps, the theme under development will be reflected on your test blog. Access the blog and develop the theme while checking the display.
 
-### 開発コードをテストする
+### Testing Development Code
 
-別ターミナルでサーバーを起動しておきます。
+Start the server in a separate terminal:
 
 ```shell
 $ npm start -- guitarrapc-theme.hatenablog.com
 ```
 
-テストを実行します。
+Run tests:
 
 ```shell
 $ npm run test
 ```
 
-### 本番用にコンパイルする
+### Compiling for Production
 
-テーマの開発が完了したら、下記のコマンドでSCSSをコンパイルします。コンパイルの結果は `build/style.css` に出力されます。
+When theme development is complete, compile SCSS with the following command. The compilation result is output to `build/style.css`:
 
 ```shell
 $ npm run build
 ```
 
-コンパイルされたCSSは、はてなブログの「デザイン」->「カスタマイズ」->「デザインCSS」に貼り付けて利用することができます。
-ストアにアップロードするCSSも同様に `build/style.css` の内容を利用してください。
+The compiled CSS can be pasted into Hatena Blog's "Design" -> "Customize" -> "Design CSS" for use.
+For CSS to upload to the store, use the contents of `build/style.css` similarly.
