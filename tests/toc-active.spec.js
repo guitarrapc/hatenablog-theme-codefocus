@@ -23,7 +23,9 @@ test.describe('目次アクティブハイライトのテスト', () => {
     await page.waitForLoadState('networkidle');
 
     // DOMContentLoadedイベントが発火してスクリプトが実行されるまで待機
-    await page.waitForTimeout(500);    // 目次ボタンが表示されるようにスクロール
+    await page.waitForTimeout(500);
+
+    // 目次ボタンが表示されるようにスクロール
     await page.evaluate(() => {
       window.scrollBy(0, 300);
     });

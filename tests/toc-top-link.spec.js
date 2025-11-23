@@ -21,7 +21,9 @@ test.describe('目次ページトップボタンのテスト', () => {
     await page.waitForLoadState('networkidle');
 
     // DOMContentLoadedイベントが発火してスクリプトが実行されるまで待機
-    await page.waitForTimeout(500);    // 少しスクロールして目次ボタンを表示させる
+    await page.waitForTimeout(500);
+
+    // 少しスクロールして目次ボタンを表示させる
     await page.evaluate(() => {
       window.scrollBy(0, 500);
     });
