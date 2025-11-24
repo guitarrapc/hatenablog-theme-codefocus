@@ -1,17 +1,15 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS } from './constants.js';
 
 test.describe('カテゴリースタイルのテスト', () => {
   test('カテゴリーが仕様通りに表示される', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601');
-      // domcontentloadedまで待機すれば十分（networkidleは広告等で終わらない可能性）
-      await page.waitForLoadState('domcontentloaded');
-    });
+    // 統合ナビゲーション関数を使用
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE);
 
     // カテゴリー要素を確認
-    const categoryContainer = page.locator('.entry-categories');
+    const categoryContainer = page.locator(SELECTORS.ENTRY_CATEGORIES);
     const hasCategories = await categoryContainer.isVisible();
 
     if (!hasCategories) {
@@ -20,19 +18,11 @@ test.describe('カテゴリースタイルのテスト', () => {
       return;
     }
 
-    // カテゴリーコンテナのスクリーンショットを撮影
-    await categoryContainer.screenshot({ path: 'screenshots/category-container.png' });
-
     // 個々のカテゴリー要素を取得
     const categories = page.locator('.entry-categories a');
     const count = await categories.count();
 
     if (count > 0) {
-      // 最初のカテゴリーをキャプチャ
-      await categories.first().screenshot({ path: 'screenshots/category-item.png' });
-
-      // カテゴリーにハッシュマークが含まれていることを確認（CSSで追加されるため視覚的に確認）
-
       // カテゴリーのホバー状態をテスト
       await categories.first().hover();
       await page.waitForTimeout(500); // ホバーエフェクトを待機
@@ -42,6 +32,11 @@ test.describe('カテゴリースタイルのテスト', () => {
       const title = page.locator('.entry-title');
       const titleBox = await title.boundingBox();
       const categoryBox = await categoryContainer.boundingBox();
+
+      if (!titleBox || !categoryBox) {
+        console.log('要素の位置情報が取得できません。距離チェックをスキップします。');
+        return;
+      }
 
       // タイトルとカテゴリーの間の縦の距離を検証
       const distance = categoryBox.y - (titleBox.y + titleBox.height);

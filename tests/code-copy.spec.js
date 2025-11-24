@@ -1,19 +1,20 @@
 // @ts-check
-import { test } from './helpers';
+import { test } from './helpers.js';
 import { expect } from '@playwright/test';
-import { url } from './helpers';
+import { TEST_URLS } from './constants.js';
 
 test.describe('Code Copy Feature', () => {
-  test.beforeEach(async ({ page }) => {
-    // コードハイライトのあるページに移動
-    await page.goto(url('/entry/2025/05/12/131258'));
-    await page.setViewportSize({ width: 912, height: 1368 }); // Surface Pro 7サイズ
-    await page.waitForLoadState('networkidle');
-  });
-
   test('Copy button appears on hover and is clickable', async ({ page }) => {
+    await page.navigateTo(TEST_URLS.CODE_HIGHLIGHT, { waitFor: 'networkidle' });
+
     // 最初のコードブロックを取得
-    const codeBlock = await page.locator('pre.code').first();
+    const codeBlock = page.locator('pre.code').first();
+    const hasCodeBlock = await codeBlock.count();
+
+    if (hasCodeBlock === 0) {
+      throw new Error('コードハイライト記事にコードブロックが存在しません。テストデータを確認してください。');
+    }
+
     await expect(codeBlock).toBeVisible();
 
     // コピーボタンが初期状態では非表示か透明であることを確認
@@ -37,9 +38,6 @@ test.describe('Code Copy Feature', () => {
 
     expect(parseFloat(opacityAfterHover)).toBeGreaterThan(0.5);
 
-    // スクリーンショットを撮影
-    await page.screenshot({ path: 'screenshots/code-copy-button-visible.png' });
-
     // ボタンのツールチップがないことを確認
     const tooltipBeforeClick = await copyButton.getAttribute('title');
     expect(tooltipBeforeClick).toBe(null);
@@ -52,20 +50,22 @@ test.describe('Code Copy Feature', () => {
   });
 
   test('Copy buttons exist for all code blocks', async ({ page }) => {
+    await page.navigateTo(TEST_URLS.CODE_HIGHLIGHT, { waitFor: 'networkidle' });
+
     // すべてのコードブロックにコピーボタンがあることを確認
     const codeBlocks = await page.locator('pre.code').all();
     const copyButtons = await page.locator('.code-copy-button').all();
 
-    expect(copyButtons.length).toEqual(codeBlocks.length);
+    // コードハイライト記事には必ずコードブロックが存在するべき
+    if (codeBlocks.length === 0) {
+      throw new Error('コードハイライト記事にコードブロックが存在しません。テストデータを確認してください。');
+    }
 
-    // 少なくともいくつかのコードブロックがあることを確認
+    expect(copyButtons.length).toEqual(codeBlocks.length);
     expect(codeBlocks.length).toBeGreaterThan(0);
 
-    // 最初のコードブロックにホバーしてスクリーンショットを撮影
+    // 最初のコードブロックにホバーして確認
     await codeBlocks[0].hover();
     await page.waitForTimeout(500);
-
-    // スクリーンショットを撮影
-    await page.screenshot({ path: 'screenshots/code-copy-all-blocks.png' });
   });
 });

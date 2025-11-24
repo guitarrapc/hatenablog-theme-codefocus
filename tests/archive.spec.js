@@ -1,15 +1,12 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS } from './constants.js';
 
 test.describe('アーカイブページのテスト', () => {
   test('アーカイブページが正しくレンダリングされる', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/archive/author/guitarrapc_tech');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo(TEST_URLS.ARCHIVE, { waitFor: 'networkidle' });
 
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/archive-page.png', fullPage: true });
@@ -20,23 +17,18 @@ test.describe('アーカイブページのテスト', () => {
   });
 
   test('アーカイブページのグリッドレイアウトが正しく表示される', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/archive/author/guitarrapc_tech');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo(TEST_URLS.ARCHIVE, { waitFor: 'networkidle' });
 
     // アーカイブエントリーのグリッドコンテナを確認
-    const archiveEntries = page.locator('.archive-entries');
+    const archiveEntries = page.locator(SELECTORS.ARCHIVE_ENTRIES);
     await expect(archiveEntries).toBeVisible();
 
     // スクリーンショットを撮影
     await archiveEntries.screenshot({ path: 'screenshots/archive-grid.png' });
 
     // 個別のアーカイブエントリーを確認
-    const entries = page.locator('.archive-entry');
+    const entries = page.locator(SELECTORS.ARCHIVE_ENTRY);
     const count = await entries.count();
 
     if (count > 0) {
@@ -66,13 +58,8 @@ test.describe('アーカイブページのテスト', () => {
   });
 
   test('アーカイブエントリーの要素が仕様通りに配置されている', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/archive/author/guitarrapc_tech');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo(TEST_URLS.ARCHIVE, { waitFor: 'networkidle' });
 
     // 個別のエントリーを取得
     const entries = page.locator('.archive-entry');
@@ -119,13 +106,8 @@ test.describe('アーカイブページのテスト', () => {
     // スマートフォンサイズに設定
     await page.setViewportSize({ width: 414, height: 896 });
 
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/archive/author/guitarrapc_tech');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo(TEST_URLS.ARCHIVE, { waitFor: 'networkidle' });
 
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/archive-responsive-mobile.png', fullPage: true });

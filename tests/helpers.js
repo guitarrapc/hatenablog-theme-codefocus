@@ -1,8 +1,18 @@
 import { test as base } from '@playwright/test';
 
 /**
+ * @typedef {import('@playwright/test').Page & {
+ *   navigateTo: (path: string, options?: { waitFor?: 'load' | 'domcontentloaded' | 'networkidle' | 'commit' }) => Promise<void>,
+ *   retryAction: (action: () => Promise<any>, maxRetries?: number, delay?: number) => Promise<any>,
+ *   waitForElementToBeVisible: (selector: string, timeoutMs?: number) => Promise<void>,
+ *   waitForPageToLoad: () => Promise<void>
+ * }} CustomPage
+ */
+
+/**
  * テスト環境を強化するためのカスタムフィクスチャ
  * ネットワークタイムアウトやリトライの設定を含む
+ * @type {import('@playwright/test').TestType<{page: CustomPage}, import('@playwright/test').PlaywrightTestArgs & import('@playwright/test').PlaywrightTestOptions>}
  */
 export const test = base.extend({
   context: async ({ browser }, use) => {
@@ -50,15 +60,32 @@ export const test = base.extend({
       }
     };
 
+    // 統合ナビゲーション関数 - retryAction + goto + waitForLoadStateを1つに
+    const navigateTo = async (path, options = {}) => {
+      const {
+        waitFor = 'domcontentloaded', // 'domcontentloaded' | 'networkidle' | 'load'
+        fullUrl = null // 完全なURLを指定する場合
+      } = options;
+
+      const targetUrl = fullUrl || url(path);
+
+      await retry(async () => {
+        await page.goto(targetUrl);
+        await page.waitForLoadState(waitFor);
+      });
+    };
+
     // 拡張されたページオブジェクトを提供
     page.retryAction = retry;
     page.waitForElementToBeVisible = waitForElementToBeVisible;
+    page.navigateTo = navigateTo;
 
-    // ページ読み込みを待機する便利な関数
+    // ページ読み込みを待機する便利な関数（後方互換性のため残す）
     page.waitForPageToLoad = async () => {
       await page.waitForLoadState('domcontentloaded');
       await page.waitForLoadState('networkidle');
-    }; await use(page);
+    };
+    await use(page);
   },
 });
 

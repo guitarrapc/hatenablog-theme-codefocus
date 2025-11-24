@@ -1,15 +1,12 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, TIMEOUTS } from './constants.js';
 
 test.describe('ブログフッターのテスト', () => {
   test('ブログパーツのタイトルが縦軸で揃っている', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo(TEST_URLS.HOME, { waitFor: 'networkidle' });
 
     // フッター部分までスクロール
     await page.evaluate(() => {
@@ -18,12 +15,12 @@ test.describe('ブログフッターのテスト', () => {
         footer.scrollIntoView();
       }
     });
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(TIMEOUTS.SHORT);
 
     // フッターのスクリーンショットを撮影
-    const footer = page.locator('#box2');
+    const footer = page.locator(SELECTORS.FOOTER);
     if (await footer.isVisible()) {
-      await footer.screenshot({ path: 'screenshots/blog-footer.png' });
+      await footer.screenshot({ path: 'screenshots/footer-home.png' });
     } else {
       console.log('フッターが見つかりません。このテストをスキップします。');
       test.skip();
@@ -56,6 +53,7 @@ test.describe('ブログフッターのテスト', () => {
     }
 
     // 同じ行にあるモジュールのタイトル高さの差異を計算
+    /** @type {Record<string, typeof titlePositions>} */
     const rowGroups = {};
 
     // タイトルを行ごとにグループ化（Y座標が似ているものを同じグループに）
@@ -81,7 +79,7 @@ test.describe('ブログフッターのテスト', () => {
       const row = rowGroups[rowY];
       if (row.length >= 2) {
         // 同じ行にあるタイトル同士で高さを比較
-        const heights = row.map(pos => pos.height);
+        const heights = row.map((/** @type {{ y: number; height: number; }} */ pos) => pos.height);
         const maxHeight = Math.max(...heights);
         const minHeight = Math.min(...heights);
 

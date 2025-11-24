@@ -1,14 +1,13 @@
 // @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS } from './constants.js';
 
 test.describe('コメント表示のテスト', () => {
   test('コメントのユーザー名と日付の表示順序が正しいこと', async ({ page }) => {
     // 記事ページに移動
-    await page.goto('/entry/2025/05/10/204601');
-    await page.waitForLoadState('networkidle');
-
-    await page.waitForSelector('.entry-comment');
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+    await page.waitForSelector(SELECTORS.ENTRY_COMMENT);
 
     // コメントHTML構造を取得
     const commentHTML = await page.evaluate(() => {
@@ -17,13 +16,6 @@ test.describe('コメント表示のテスト', () => {
       return comments[0].outerHTML;
     });
     console.log('コメントHTML構造:', commentHTML);
-
-    // コメント部分のスクリーンショットを取得
-    await page.screenshot({ path: 'screenshots/comment-section.png', fullPage: false });
-
-    // 最初のコメントを選択して撮影する
-    const firstComment = await page.locator('.entry-comment').first();
-    await firstComment.screenshot({ path: 'screenshots/comment-username-date.png' });
 
     // コメントのスタイル確認とHTML構造の取得
     const result = await page.evaluate(() => {
