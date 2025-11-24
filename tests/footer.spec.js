@@ -20,7 +20,7 @@ test.describe('ブログフッターのテスト', () => {
     // フッターのスクリーンショットを撮影
     const footer = page.locator(SELECTORS.FOOTER);
     if (await footer.isVisible()) {
-      await footer.screenshot({ path: 'screenshots/blog-footer.png' });
+      await footer.screenshot({ path: 'screenshots/footer-home.png' });
     } else {
       console.log('フッターが見つかりません。このテストをスキップします。');
       test.skip();

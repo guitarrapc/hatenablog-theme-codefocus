@@ -14,16 +14,16 @@ test.describe('Code Highlight Screenshots', () => {
     const codeBlocks = await page.locator('pre').all();
     if (codeBlocks.length > 0) {
       // Python, C#, Goのコードブロックをそれぞれ撮影
-      await codeBlocks[0].screenshot({ path: 'screenshots/pc-code-python.png' });
+      await codeBlocks[0].screenshot({ path: 'screenshots/code-highlight-pc-code-python.png' });
       console.log('Pythonコードのスクリーンショットを撮影しました');
 
       if (codeBlocks.length > 1) {
-        await codeBlocks[1].screenshot({ path: 'screenshots/pc-code-csharp.png' });
+        await codeBlocks[1].screenshot({ path: 'screenshots/code-highlight-pc-code-csharp.png' });
         console.log('C#コードのスクリーンショットを撮影しました');
       }
 
       if (codeBlocks.length > 2) {
-        await codeBlocks[2].screenshot({ path: 'screenshots/pc-code-go.png' });
+        await codeBlocks[2].screenshot({ path: 'screenshots/code-highlight-pc-code-go.png' });
         console.log('Goコードのスクリーンショットを撮影しました');
       }
     } else {

@@ -19,7 +19,7 @@ test.describe('目次スタイルのテスト', () => {
     }
 
     // 記事内目次のスクリーンショットを撮影
-    await inPageToc.screenshot({ path: 'screenshots/in-page-toc.png' });
+    await inPageToc.screenshot({ path: 'screenshots/toc-in-page.png' });
 
     // 記事内目次の項目を確認
     const inPageTocItems = page.locator('.entry-content .table-of-contents li');
@@ -28,7 +28,7 @@ test.describe('目次スタイルのテスト', () => {
 
     if (inPageItemCount > 0) {
       // 記事内目次の最初の項目をキャプチャ
-      await inPageTocItems.first().screenshot({ path: 'screenshots/in-page-toc-first-item.png' });
+      await inPageTocItems.first().screenshot({ path: 'screenshots/toc-in-page-first-item.png' });
     }
     // スクロールして目次ボタンを表示させる
     await page.retryAction(async () => {

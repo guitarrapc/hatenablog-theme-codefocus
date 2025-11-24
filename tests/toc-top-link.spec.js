@@ -32,7 +32,7 @@ test.describe('目次ページトップボタンのテスト', () => {
       await expect(tocButton).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
 
       // スクリーンショットを撮影（ボタンが表示された状態）
-      await page.screenshot({ path: 'screenshots/toc-button-visible.png' });
+      await page.screenshot({ path: 'screenshots/toc-top-link-button-visible.png' });
 
       // 目次ボタンをクリック - iframe干渉を回避するためJavaScriptで直接クリック
       await page.retryAction(async () => {
@@ -53,7 +53,7 @@ test.describe('目次ページトップボタンのテスト', () => {
     const floatingToc = page.locator('.floating-toc.show').first();
     await expect(floatingToc).toBeVisible({ timeout: 5000 });
     // スクリーンショットを撮影（目次が開いた状態）
-    await page.screenshot({ path: 'screenshots/floating-toc-with-top-button.png' });
+    await page.screenshot({ path: 'screenshots/toc-top-link-floating-toc-with-top-button.png' });
 
     // 「ページトップへ」ボタンがあることを確認
     const pageTopButton = page.locator('.floating-toc .page-top-button').first();
@@ -86,6 +86,6 @@ test.describe('目次ページトップボタンのテスト', () => {
     expect(scrollYAfter).toBeLessThan(100);
 
     // スクリーンショットを撮影（トップにスクロールした状態）
-    await page.screenshot({ path: 'screenshots/page-scrolled-to-top.png' });
+    await page.screenshot({ path: 'screenshots/toc-top-link-page-scrolled-to-top.png' });
   });
 });

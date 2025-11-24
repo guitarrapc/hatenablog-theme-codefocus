@@ -110,10 +110,10 @@ test.describe('目次スタイルの詳細テスト', () => {
 
     // ホバーテスト（失敗してもテスト全体は継続）
     await page.retryAction(async () => {
-      await firstItem.screenshot({ path: 'screenshots/toc-item-before-hover.png' });
+      await firstItem.screenshot({ path: 'screenshots/toc-style-item-before-hover.png' });
       await firstItem.hover({ force: true, timeout: 5000 });
       await page.waitForTimeout(1000);
-      await firstItem.screenshot({ path: 'screenshots/toc-item-after-hover.png' });
+      await firstItem.screenshot({ path: 'screenshots/toc-style-item-after-hover.png' });
     }, 1, 0).catch(error => {
       console.log('ホバーテストに失敗しましたが、テストは継続します:', error.message);
     });
@@ -148,7 +148,7 @@ test.describe('目次スタイルの詳細テスト', () => {
     }
 
     // 目次ボタンのスクリーンショット（閉じた状態）
-    await tocButton.screenshot({ path: 'screenshots/toc-button-style-closed.png' });
+    await tocButton.screenshot({ path: 'screenshots/toc-style-button-style-closed.png' });
 
     // ボタンをクリックして目次を開く
     await page.evaluate(() => {
@@ -158,14 +158,14 @@ test.describe('目次スタイルの詳細テスト', () => {
     await page.waitForTimeout(1000);
 
     // 目次ボタンのスクリーンショット（開いた状態）
-    await tocButton.screenshot({ path: 'screenshots/toc-button-style-open.png' });
+    await tocButton.screenshot({ path: 'screenshots/toc-style-button-style-open.png' });
 
     // フローティング目次が表示されているか確認
     const floatingToc = page.locator('.floating-toc.show');
     await expect(floatingToc).toBeVisible({ timeout: 5000 });
 
     // フローティング目次のスクリーンショット
-    await floatingToc.screenshot({ path: 'screenshots/floating-toc-style.png' });
+    await floatingToc.screenshot({ path: 'screenshots/toc-style-floating.png' });
 
     // フローティング目次の項目が正しく表示されているか確認
     const floatingTocItems = page.locator('.floating-toc-list li');

@@ -54,7 +54,7 @@ test.describe('記事ページのテスト', () => {
       await expect(tocButton).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
 
       // スクリーンショットを撮影（目次ボタン閉じた状態）
-      await page.screenshot({ path: 'screenshots/toc-button-closed.png', fullPage: false });
+      await page.screenshot({ path: 'screenshots/article-toc-button-closed.png', fullPage: false });
 
       // 目次ボタンをクリックして目次を表示 - iframe干渉を回避するためJavaScriptで直接クリック
       await page.retryAction(async () => {
@@ -74,6 +74,6 @@ test.describe('記事ページのテスト', () => {
     await expect(page.locator(SELECTORS.FLOATING_TOC_SHOW)).toBeVisible({ timeout: TIMEOUTS.LONG });
 
     // スクリーンショットを撮影（目次ボタン開いた状態）
-    await page.screenshot({ path: 'screenshots/toc-button-open.png', fullPage: false });
+    await page.screenshot({ path: 'screenshots/article-toc-button-open.png', fullPage: false });
   });
 });

@@ -111,7 +111,7 @@ test.describe('目次アクティブハイライトのテスト', () => {
         await page.waitForTimeout(1000);
 
         // スクリーンショットを撮影
-        await page.screenshot({ path: 'screenshots/toc-second-section-scrolled.png' });
+        await page.screenshot({ path: 'screenshots/toc-active-second-section-scrolled.png' });
       }
     }
 
