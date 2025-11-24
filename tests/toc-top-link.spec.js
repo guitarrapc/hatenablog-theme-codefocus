@@ -43,7 +43,8 @@ test.describe('目次ページトップボタンのテスト', () => {
           const tocBtn = document.querySelector('.toc-button');
           if (tocBtn) tocBtn.click();
         });
-        await page.waitForTimeout(2000); // アニメーションの完了を待つ
+        // アニメーションの完了を待つ
+        await page.waitForTimeout(2000);
       });
     } catch (error) {
       console.log('目次ボタンが表示されませんでした。テストをスキップします。');
@@ -53,7 +54,8 @@ test.describe('目次ページトップボタンのテスト', () => {
 
     // フローティング目次が表示されているか確認
     const floatingToc = page.locator('.floating-toc.show').first();
-    await expect(floatingToc).toBeVisible({ timeout: 5000 });    // スクリーンショットを撮影（目次が開いた状態）
+    await expect(floatingToc).toBeVisible({ timeout: 5000 });
+    // スクリーンショットを撮影（目次が開いた状態）
     await page.screenshot({ path: 'screenshots/floating-toc-with-top-button.png' });
 
     // 「ページトップへ」ボタンがあることを確認
@@ -61,9 +63,9 @@ test.describe('目次ページトップボタンのテスト', () => {
     await expect(pageTopButton).toBeVisible();
     await expect(pageTopButton).toHaveText('ページトップへ');
 
-    // 現在のスクロール位置を保存
+    // 現在のスクロール位置を保存 + スクロールされていることを確認
     const scrollYBefore = await page.evaluate(() => window.scrollY);
-    expect(scrollYBefore).toBeGreaterThan(0); // スクロールされていることを確認
+    expect(scrollYBefore).toBeGreaterThan(0);
 
     // 「ページトップへ」ボタンをクリック - JavaScriptで直接クリック
     await page.retryAction(async () => {

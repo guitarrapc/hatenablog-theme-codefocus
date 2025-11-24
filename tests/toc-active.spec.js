@@ -2,129 +2,126 @@ import { test } from './helpers.js';
 import { expect } from '@playwright/test';
 
 test.describe('目次アクティブハイライトのテスト', () => {
-    test('スクロール時に現在のセクションが強調表示される', async ({ page }) => {
-        console.log('テスト開始: 目次アクティブハイライトのテスト');
+  test('スクロール時に現在のセクションが強調表示される', async ({ page }) => {
+    console.log('テスト開始: 目次アクティブハイライトのテスト');
 
-        // リトライを含めたページナビゲーション
-        await page.retryAction(async () => {
-            await page.goto('/entry/2025/05/10/204601');
-        });
-
-        // ページが完全に読み込まれるのを待機
-        await page.waitForPageToLoad();
-
-        // 目次が記事内に存在するか確認
-        const tableOfContents = page.locator('.entry-content .table-of-contents');
-        const hasToc = await tableOfContents.isVisible();
-
-        if (!hasToc) {
-            console.log('テスト対象の記事に目次が存在しません。このテストをスキップします。');
-            test.skip();
-            return;
-        }
-
-        // スクロールして目次ボタンを表示させる（200px以上スクロールが必要）
-        await page.retryAction(async () => {
-            await page.evaluate(() => {
-                window.scrollBy(0, 300);
-            });
-            await page.waitForTimeout(1000);
-        });
-
-        // 目次ボタンが表示されているか確認（最大15秒間待機、複数ある場合は最初の要素）
-        const tocButton = page.locator('.toc-button').first();
-        try {
-            await expect(tocButton).toBeVisible({ timeout: 15000 });
-
-            // 目次ボタンをクリック - iframe干渉を回避するためJavaScriptで直接クリック
-            await page.retryAction(async () => {
-                await page.evaluate(() => {
-                    const tocBtn = document.querySelector('.toc-button');
-                    if (tocBtn) tocBtn.click();
-                });
-                await page.waitForTimeout(2000); // アニメーションの完了を待つ
-            });
-        } catch (error) {
-            console.log('目次ボタンが表示されませんでした。テストをスキップします。');
-            test.skip();
-            return;
-        }
-
-        // フローティング目次が表示されているか確認
-        await expect(page.locator('.floating-toc.show').first()).toBeVisible({ timeout: 5000 });    // ページをスクロールして目次がアクティブになるのを確認
-        // 目次内の最初の項目を取得
-        const firstTocItem = await page.locator('.floating-toc-list > li').first();
-        if (!firstTocItem) {
-            console.log('目次項目が見つかりません');
-            return;
-        }
-
-        // 目次項目内のリンクを取得
-        const firstTocLink = await firstTocItem.locator('a').first();
-        const href = await firstTocLink.getAttribute('href');
-
-        if (href) {
-            // href属性からIDを抽出
-            const targetId = href.substring(1); // '#'を除去
-
-            // 対応する見出し要素へスクロール
-            await page.evaluate((id) => {
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'instant', block: 'start' });
-                }
-            }, targetId);
-
-            // スクロール位置が安定するまで少し待つ
-            await page.waitForTimeout(1000);
-
-            // フロートで表示されるTOC内のアクティブな要素をチェック
-            // ここでのチェックはより寛容にし、アクティブな要素が存在するかどうかを確認
-            await page.screenshot({ path: 'screenshots/toc-first-section-scrolled.png' });
-
-            // アクティブ要素があるかどうかを確認するためのスクリーンショット
-            await page.screenshot({ path: 'screenshots/toc-active-first-section.png', fullPage: false });
-
-            // スクリーンショットを撮影
-            await page.screenshot({ path: 'screenshots/toc-active-first-section.png', fullPage: false });
-        }    // TOC内の2番目の項目を取得 (入れ子構造の場合は子要素を探す)
-        let secondTocLink;
-
-        // まず2番目のトップレベルの要素を探す
-        const secondLiElement = await page.locator('.floating-toc-list > li').nth(1);
-        if (await secondLiElement.count() > 0) {
-            secondTocLink = await secondLiElement.locator('a').first();
-        } else {
-            // トップレベルの要素が1つしかない場合は、子リストの最初の要素を探す
-            secondTocLink = await page.locator('.floating-toc-list > li > ul > li').first().locator('a');
-        }
-
-        if (await secondTocLink.count() > 0) {
-            const href = await secondTocLink.getAttribute('href');
-
-            if (href) {
-                const targetId = href.substring(1); // '#'を除去
-
-                // 対応する見出し要素へスクロール
-                await page.evaluate((id) => {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.scrollIntoView({ behavior: 'instant', block: 'start' });
-                    }
-                }, targetId);
-
-                // スクロール位置が安定するまで少し待つ
-                await page.waitForTimeout(1000);
-
-                // スクリーンショットを撮影
-                await page.screenshot({ path: 'screenshots/toc-second-section-scrolled.png' });
-            }
-        }
-
-        // テスト完了を記録
-        console.log('テスト完了: 目次アクティブハイライトのテスト');
-
-        // 最終確認としてページ全体のスクリーンショットを撮影
-        await page.screenshot({ path: 'screenshots/toc-active-test-complete.png', fullPage: true });
+    // リトライを含めたページナビゲーション
+    await page.retryAction(async () => {
+      await page.goto('/entry/2025/05/10/204601');
     });
+
+    // ページが完全に読み込まれるのを待機
+    await page.waitForPageToLoad();
+
+    // 目次が記事内に存在するか確認
+    const tableOfContents = page.locator('.entry-content .table-of-contents');
+    const hasToc = await tableOfContents.isVisible();
+
+    if (!hasToc) {
+      console.log('テスト対象の記事に目次が存在しません。このテストをスキップします。');
+      test.skip();
+      return;
+    }
+
+    // スクロールして目次ボタンを表示させる（200px以上スクロールが必要）
+    await page.retryAction(async () => {
+      await page.evaluate(() => {
+        window.scrollBy(0, 300);
+      });
+      await page.waitForTimeout(1000);
+    });
+
+    // 目次ボタンが表示されているか確認（最大15秒間待機、複数ある場合は最初の要素）
+    const tocButton = page.locator('.toc-button').first();
+    try {
+      await expect(tocButton).toBeVisible({ timeout: 15000 });
+
+      // 目次ボタンをクリック - iframe干渉を回避するためJavaScriptで直接クリック
+      await page.retryAction(async () => {
+        await page.evaluate(() => {
+          const tocBtn = document.querySelector('.toc-button');
+          if (tocBtn) tocBtn.click();
+        });
+        await page.waitForTimeout(2000); // アニメーションの完了を待つ
+      });
+    } catch (error) {
+      console.log('目次ボタンが表示されませんでした。テストをスキップします。');
+      test.skip();
+      return;
+    }
+
+    // フローティング目次が表示されているか確認
+    await expect(page.locator('.floating-toc.show').first()).toBeVisible({ timeout: 5000 });
+
+    // 目次内の最初の項目を取得
+    const firstTocItem = await page.locator('.floating-toc-list > li').first();
+    if (!firstTocItem) {
+      console.log('目次項目が見つかりません');
+      return;
+    }
+
+    // 目次項目内のリンクを取得
+    const firstTocLink = await firstTocItem.locator('a').first();
+    const href = await firstTocLink.getAttribute('href');
+
+    if (href) {
+      // href属性からIDを抽出 ('#'を除去)
+      const targetId = href.substring(1);
+
+      // 対応する見出し要素へスクロール
+      await page.evaluate((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+      }, targetId);
+
+      // スクロール位置が安定するまで少し待つ
+      await page.waitForTimeout(1000);
+
+      // アクティブ要素があるかどうかを確認するためのスクリーンショット
+      await page.screenshot({ path: 'screenshots/toc-active-first-section.png', fullPage: false });
+
+    }
+
+    // TOC内の2番目の項目を取得 (入れ子構造の場合は子要素を探す)
+    let secondTocLink;
+
+    // まず2番目のトップレベルの要素を探す
+    const secondLiElement = await page.locator('.floating-toc-list > li').nth(1);
+    if (await secondLiElement.count() > 0) {
+      secondTocLink = await secondLiElement.locator('a').first();
+    } else {
+      // トップレベルの要素が1つしかない場合は、子リストの最初の要素を探す
+      secondTocLink = await page.locator('.floating-toc-list > li > ul > li').first().locator('a');
+    }
+
+    if (await secondTocLink.count() > 0) {
+      const href = await secondTocLink.getAttribute('href');
+
+      if (href) {
+        const targetId = href.substring(1); // '#'を除去
+
+        // 対応する見出し要素へスクロール
+        await page.evaluate((id) => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.scrollIntoView({ behavior: 'instant', block: 'start' });
+          }
+        }, targetId);
+
+        // スクロール位置が安定するまで少し待つ
+        await page.waitForTimeout(1000);
+
+        // スクリーンショットを撮影
+        await page.screenshot({ path: 'screenshots/toc-second-section-scrolled.png' });
+      }
+    }
+
+    // テスト完了を記録
+    console.log('テスト完了: 目次アクティブハイライトのテスト');
+
+    // 最終確認としてページ全体のスクリーンショットを撮影
+    await page.screenshot({ path: 'screenshots/toc-active-test-complete.png', fullPage: true });
+  });
 });
