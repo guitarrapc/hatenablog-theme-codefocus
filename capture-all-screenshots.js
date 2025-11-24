@@ -21,6 +21,12 @@ import { chromium } from '@playwright/test';
     const page = await context.newPage();
 
     // リトライ機能を自前で実装
+    /**
+     * @param {() => Promise<any>} action - 実行する非同期アクション
+     * @param {number} maxRetries - 最大リトライ回数
+     * @param {number} delay - リトライ間隔（ミリ秒）
+     * @returns {Promise<any>}
+     */
     const retryAction = async (action, maxRetries = 3, delay = 1000) => {
       let lastError;
       for (let attempt = 1; attempt <= maxRetries; attempt++) {
