@@ -1,5 +1,6 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
+import { test } from './helpers.js';
+import { expect } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
@@ -10,7 +11,7 @@ const __dirname = path.dirname(__filename);
 test.describe('ダークモード機能のテスト', () => {
   test('ダークモードボタンが表示されスタイルが適用される', async ({ page }) => {
     // 記事ページに移動
-    await page.goto('https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601');
+    await page.goto('/entry/2025/05/10/204601');
     await page.waitForLoadState('networkidle');
 
     // JSファイルを読み込んで直接実行（page.addScriptTagの代替）

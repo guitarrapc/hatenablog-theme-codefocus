@@ -1,6 +1,6 @@
 // @ts-check
-import { test, expect } from '@playwright/test';
-import { url } from './helpers';
+import { test, url } from './helpers.js';
+import { expect } from '@playwright/test';
 
 test.describe('Code Highlight Screenshots', () => {
   // Surface Pro 7 (912x1368)
