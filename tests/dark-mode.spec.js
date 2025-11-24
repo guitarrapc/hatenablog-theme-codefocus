@@ -11,86 +11,69 @@ const __dirname = path.dirname(__filename);
 
 test.describe('ダークモード機能のテスト', () => {
   test('ダークモードボタンが表示されスタイルが適用される', async ({ page }) => {
-    // 記事ページに移動
     await page.goto(TEST_URLS.SAMPLE_ARTICLE);
     await page.waitForLoadState('networkidle');
 
-    // JSファイルを読み込んで直接実行（page.addScriptTagの代替）
+    // JSファイルを読み込んで直接実行（ローカルテスト用）
     const jsPath = path.resolve(__dirname, '../js/dark-mode.js');
     const jsContent = fs.readFileSync(jsPath, 'utf-8');
     await page.evaluate(jsContent);
-
-    // スクリプト実行完了を待機
     await page.waitForTimeout(TIMEOUTS.SHORT);
 
-    // ダークモードボタンコンテナが表示されるまで待機
+    // ダークモードボタンが表示されることを確認
     await page.waitForSelector(SELECTORS.THEME_TOGGLE_CONTAINER);
-
-    // 表示されたボタンの数を確認
     const buttons = await page.locator(SELECTORS.THEME_TOGGLE_MAIN).count();
     expect(buttons).toBe(1);
 
-    // ライトモードを適用して確認
-    await page.evaluate(() => {
-      // @ts-ignore
-      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
-        // @ts-ignore
-        window.darkModeJs.applyTheme('light');
-        return true;
+    /**
+     * テーマ適用のヘルパー関数
+     * @param {string} theme - 'light', 'dark', 'auto'
+     * @returns {Promise<boolean>}
+     */
+    const applyTheme = async (theme) => {
+      const success = await page.evaluate((t) => {
+        const win = /** @type {Window & {darkModeJs?: {applyTheme: (theme: string) => void}}} */ (window);
+        if (win.darkModeJs && typeof win.darkModeJs.applyTheme === 'function') {
+          win.darkModeJs.applyTheme(t);
+          return true;
+        }
+        return false;
+      }, theme);
+      if (!success) {
+        console.log(`警告: ${theme}モードの適用に失敗しました`);
       }
-      return false;
-    }).then(result => {
-      if (!result) console.log('警告: ライトモードのJavaScript関数が見つかりませんでした');
-    });
-    await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
+      await page.waitForTimeout(TIMEOUTS.MEDIUM);
+      return success;
+    };
+
+    // ライトモード
+    await applyTheme('light');
     const lightTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
     expect(lightTheme).toBe('light');
 
-    // スクリーンショット取得
+    // スクリーンショット取得 (ライトモード)
     await page.screenshot({ path: 'screenshots/dark-mode-light-theme.png', fullPage: true });
 
-    // ダークモードを適用して確認
-    await page.evaluate(() => {
-      // @ts-ignore
-      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
-        // @ts-ignore
-        window.darkModeJs.applyTheme('dark');
-        return true;
-      }
-      return false;
-    }).then(result => {
-      if (!result) console.log('警告: ダークモードのJavaScript関数が見つかりませんでした');
-    });
-    await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
+    // ダークモード
+    await applyTheme('dark');
     const darkTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
     expect(darkTheme).toBe('dark');
 
-    // スクリーンショット取得
-    await page.screenshot({ path: 'screenshots/dark-mode-dark-theme.png', fullPage: true });
-
-    // 背景色が変わっていることを確認（ダークモード）
+    // 背景色がライトモードと異なることを確認
     const darkBgColor = await page.evaluate(() =>
       getComputedStyle(document.documentElement).getPropertyValue('--background')
     );
     expect(darkBgColor.trim()).not.toBe('#fff');
 
-    // システム設定モードを適用して確認
-    await page.evaluate(() => {
-      // @ts-ignore
-      if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
-        // @ts-ignore
-        window.darkModeJs.applyTheme('auto');
-        return true;
-      }
-      return false;
-    }).then(result => {
-      if (!result) console.log('警告: システムモードのJavaScript関数が見つかりませんでした');
-    });
-    await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
+    // スクリーンショット（ダークモード）
+    await page.screenshot({ path: 'screenshots/dark-mode-dark-theme.png', fullPage: true });
+
+    // 自動切り替えモード（data-theme属性がnull）
+    await applyTheme('auto');
     const autoTheme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
     expect(autoTheme).toBe(null);
 
-    // スクリーンショット取得
+    // スクリーンショット（自動切り替えモード）
     await page.screenshot({ path: 'screenshots/dark-mode-auto-theme.png', fullPage: true });
   });
 });
