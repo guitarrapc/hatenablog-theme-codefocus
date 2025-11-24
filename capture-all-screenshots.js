@@ -1,5 +1,11 @@
 // @ts-check
 import { chromium } from '@playwright/test';
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * 紹介記事用スクリーンショット取得スクリプト
@@ -17,8 +23,23 @@ import { chromium } from '@playwright/test';
 
     // ブラウザを起動
     const browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext();
+
+    // Chromium 141+のPrivate Network Access対応
+    // HTTPS公開サイトからHTTP localhostへのリソース読み込みに必要
+    const context = await browser.newContext({
+      permissions: ['local-network-access']
+    });
     const page = await context.newPage();
+
+    // 目次ボタン用のJavaScriptを読み込んで注入
+    const tocButtonJsPath = path.resolve(__dirname, 'js/toc-button.js');
+    const tocButtonJsContent = fs.readFileSync(tocButtonJsPath, 'utf-8');
+    await page.addInitScript(tocButtonJsContent);
+
+    // 目次トグル用のJavaScriptを読み込んで注入
+    const tocToggleJsPath = path.resolve(__dirname, 'js/toc-toggle.js');
+    const tocToggleJsContent = fs.readFileSync(tocToggleJsPath, 'utf-8');
+    await page.addInitScript(tocToggleJsContent);
 
     // リトライ機能を自前で実装
     /**
@@ -164,8 +185,11 @@ import { chromium } from '@playwright/test';
       const tocContentVisible = await page.evaluate(() => {
         const tocContent = document.querySelector('.toc-content');
         if (tocContent) {
-          return window.getComputedStyle(tocContent).display !== 'none';
+          const display = window.getComputedStyle(tocContent).display;
+          console.log('目次コンテンツのdisplayプロパティ:', display);
+          return display !== 'none';
         }
+        console.log('目次コンテンツ要素が見つかりません');
         return false;
       });
 
@@ -187,11 +211,41 @@ import { chromium } from '@playwright/test';
         });
         console.log('✓ 記事内目次（全体）のスクリーンショットを保存しました');
       } else {
-        console.log('目次コンテンツが表示されていません');
+        console.log('目次コンテンツが表示されていません。強制的に表示を試みます...');
+        // CSSで強制的に表示
+        await page.evaluate(() => {
+          const tocContent = document.querySelector('.toc-content');
+          if (tocContent instanceof HTMLElement) {
+            tocContent.style.display = 'block';
+            tocContent.style.maxHeight = 'none';
+          }
+          const tocContainer = document.querySelector('.toc-container');
+          if (tocContainer instanceof HTMLElement) {
+            tocContainer.classList.remove('toc-closed');
+            tocContainer.classList.add('toc-open');
+          }
+        });
+        await page.waitForTimeout(500);
+
+        // 再度確認
+        const nowVisible = await page.locator('.toc-container').isVisible();
+        if (nowVisible) {
+          await page.locator('.toc-container').screenshot({
+            path: 'articles/screenshots/pc-toc.png',
+            timeout: 5000
+          });
+          console.log('✓ 記事内目次（強制表示）のスクリーンショットを保存しました');
+        } else {
+          console.log('警告: 目次を強制表示できませんでした');
+        }
       }
 
       // フローティング目次ボタンのスクリーンショット
       console.log('フローティング目次ボタンのスクリーンショット取得中...');
+
+      // JavaScriptが実行されるのを待つ
+      await page.waitForTimeout(1000);
+
       // スクロールして目次ボタンを表示させる
       await retryAction(async () => {
         // より確実にスクロールして目次ボタンを表示させる
@@ -199,17 +253,17 @@ import { chromium } from '@playwright/test';
           // 画面の少し下までスクロール（目次ボタンが表示される位置まで）
           window.scrollBy(0, 300);
         });
-        await page.waitForTimeout(2000);
+        await page.waitForTimeout(1500);
 
-        // 目次ボタンが表示されているか確認
-        const isVisible = await page.locator('.toc-button').isVisible();
+        // 目次ボタンが表示されているか確認（複数ある場合は最初のものを使用）
+        const isVisible = await page.locator('.toc-button').first().isVisible();
         if (!isVisible) {
           throw new Error('目次ボタンがまだ表示されていません');
         }
       });
 
-      // 目次ボタンを見つけてクリック
-      const tocButton = await page.locator('.toc-button');
+      // 目次ボタンを見つけてクリック（複数ある場合は最初のものを使用）
+      const tocButton = page.locator('.toc-button').first();
       if (await tocButton.isVisible()) {
         // クリック前のボタンのスクリーンショット
         await tocButton.screenshot({ path: 'articles/screenshots/pc-toc-button.png' });
@@ -243,8 +297,8 @@ import { chromium } from '@playwright/test';
           // フローティング目次が表示されるまで十分待機（長めに設定）
           await page.waitForTimeout(2000);
 
-          // フローティング目次を探す
-          const floatingToc = await page.locator('.floating-toc');
+          // フローティング目次を探す（複数ある場合は最初のものを使用）
+          const floatingToc = page.locator('.floating-toc').first();
 
           // 表示されるまで少し待つ
           await retryAction(async () => {
@@ -585,7 +639,7 @@ import { chromium } from '@playwright/test';
     await page.evaluate(() => window.scrollBy(0, 300));
     await page.waitForTimeout(1000);
 
-    const tabletTocButton = await page.locator('.toc-button');
+    const tabletTocButton = page.locator('.toc-button').first();
     if (await tabletTocButton.isVisible()) {
       await tabletTocButton.screenshot({ path: 'articles/screenshots/tablet-toc-button.png' });
       console.log('✓ タブレット目次ボタンのスクリーンショットを保存しました');
@@ -665,7 +719,7 @@ import { chromium } from '@playwright/test';
     await page.evaluate(() => window.scrollBy(0, 200));
     await page.waitForTimeout(1000);
 
-    const smartphoneTocButton = await page.locator('.toc-button');
+    const smartphoneTocButton = page.locator('.toc-button').first();
     if (await smartphoneTocButton.isVisible()) {
       await smartphoneTocButton.screenshot({ path: 'articles/screenshots/smartphone-toc-button.png' });
       console.log('✓ スマートフォン目次ボタンのスクリーンショットを保存しました');
