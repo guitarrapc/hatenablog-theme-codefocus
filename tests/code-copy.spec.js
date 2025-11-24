@@ -38,9 +38,6 @@ test.describe('Code Copy Feature', () => {
 
     expect(parseFloat(opacityAfterHover)).toBeGreaterThan(0.5);
 
-    // スクリーンショットを撮影
-    await page.screenshot({ path: 'screenshots/code-copy-button-visible.png' });
-
     // ボタンのツールチップがないことを確認
     const tooltipBeforeClick = await copyButton.getAttribute('title');
     expect(tooltipBeforeClick).toBe(null);
@@ -67,11 +64,8 @@ test.describe('Code Copy Feature', () => {
     expect(copyButtons.length).toEqual(codeBlocks.length);
     expect(codeBlocks.length).toBeGreaterThan(0);
 
-    // 最初のコードブロックにホバーしてスクリーンショットを撮影
+    // 最初のコードブロックにホバーして確認
     await codeBlocks[0].hover();
     await page.waitForTimeout(500);
-
-    // スクリーンショットを撮影
-    await page.screenshot({ path: 'screenshots/code-copy-all-blocks.png' });
   });
 });

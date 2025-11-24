@@ -19,13 +19,6 @@ test.describe('コメント表示のテスト', () => {
     });
     console.log('コメントHTML構造:', commentHTML);
 
-    // コメント部分のスクリーンショットを取得
-    await page.screenshot({ path: 'screenshots/comment-section.png', fullPage: false });
-
-    // 最初のコメントを選択して撮影する
-    const firstComment = await page.locator('.entry-comment').first();
-    await firstComment.screenshot({ path: 'screenshots/comment-username-date.png' });
-
     // コメントのスタイル確認とHTML構造の取得
     const result = await page.evaluate(() => {
       const comments = document.querySelectorAll('.entry-comment');

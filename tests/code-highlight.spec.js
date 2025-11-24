@@ -17,18 +17,8 @@ test.describe('Code Highlight Screenshots', () => {
       throw new Error('コードハイライト記事にコードブロックが存在しません。テストデータを確認してください。');
     }
 
-    // Python, C#, Goのコードブロックをそれぞれ撮影
+    // 代表的なコードブロックを撮影（Python）
     await codeBlocks[0].screenshot({ path: 'screenshots/code-highlight-pc-code-python.png' });
-    console.log('Pythonコードのスクリーンショットを撮影しました');
-
-    if (codeBlocks.length > 1) {
-      await codeBlocks[1].screenshot({ path: 'screenshots/code-highlight-pc-code-csharp.png' });
-      console.log('C#コードのスクリーンショットを撮影しました');
-    }
-
-    if (codeBlocks.length > 2) {
-      await codeBlocks[2].screenshot({ path: 'screenshots/code-highlight-pc-code-go.png' });
-      console.log('Goコードのスクリーンショットを撮影しました');
-    }
+    console.log('コードハイライトのスクリーンショットを撮影しました');
   });
 });

@@ -18,19 +18,11 @@ test.describe('カテゴリースタイルのテスト', () => {
       return;
     }
 
-    // カテゴリーコンテナのスクリーンショットを撮影
-    await categoryContainer.screenshot({ path: 'screenshots/category-container.png' });
-
     // 個々のカテゴリー要素を取得
     const categories = page.locator('.entry-categories a');
     const count = await categories.count();
 
     if (count > 0) {
-      // 最初のカテゴリーをキャプチャ
-      await categories.first().screenshot({ path: 'screenshots/category-item.png' });
-
-      // カテゴリーにハッシュマークが含まれていることを確認（CSSで追加されるため視覚的に確認）
-
       // カテゴリーのホバー状態をテスト
       await categories.first().hover();
       await page.waitForTimeout(500); // ホバーエフェクトを待機
