@@ -1,3 +1,4 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS, TIMEOUTS } from './constants.js';
@@ -52,6 +53,7 @@ test.describe('ブログフッターのテスト', () => {
     }
 
     // 同じ行にあるモジュールのタイトル高さの差異を計算
+    /** @type {Record<string, typeof titlePositions>} */
     const rowGroups = {};
 
     // タイトルを行ごとにグループ化（Y座標が似ているものを同じグループに）
@@ -77,7 +79,7 @@ test.describe('ブログフッターのテスト', () => {
       const row = rowGroups[rowY];
       if (row.length >= 2) {
         // 同じ行にあるタイトル同士で高さを比較
-        const heights = row.map(pos => pos.height);
+        const heights = row.map((/** @type {{ y: number; height: number; }} */ pos) => pos.height);
         const maxHeight = Math.max(...heights);
         const minHeight = Math.min(...heights);
 

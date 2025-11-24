@@ -1,3 +1,4 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS } from './constants.js';

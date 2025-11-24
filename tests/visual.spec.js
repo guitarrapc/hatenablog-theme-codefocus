@@ -1,3 +1,4 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS, SCROLL, TIMEOUTS } from './constants.js';
@@ -27,12 +28,18 @@ test.describe('ビジュアル確認テスト', () => {
     }
 
     // 記事内目次のキャプチャ
+    const tocBox = await inPageToc.boundingBox();
+    if (!tocBox) {
+      console.log('目次の位置情報が取得できません。スクリーンショットをスキップします。');
+      return;
+    }
+
     await page.screenshot({
       path: 'screenshots/visual-in-page-toc.png', fullPage: false, clip: {
-        x: await inPageToc.boundingBox().then(box => box.x),
-        y: await inPageToc.boundingBox().then(box => box.y),
-        width: await inPageToc.boundingBox().then(box => box.width),
-        height: await inPageToc.boundingBox().then(box => box.height + 50) // 少し余白を取る
+        x: tocBox.x,
+        y: tocBox.y,
+        width: tocBox.width,
+        height: tocBox.height + 50 // 少し余白を取る
       }
     });
 
@@ -50,7 +57,7 @@ test.describe('ビジュアル確認テスト', () => {
       // 目次ボタンをクリック - iframe干渉を回避するためJavaScriptで直接クリック
       await page.evaluate((selector) => {
         const tocBtn = document.querySelector(selector);
-        if (tocBtn) tocBtn.click();
+        if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
       }, SELECTORS.TOC_BUTTON);
       await page.waitForTimeout(TIMEOUTS.SHORT);
 

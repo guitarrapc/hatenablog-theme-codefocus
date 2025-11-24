@@ -1,3 +1,4 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS, SCROLL, TIMEOUTS } from './constants.js';
@@ -37,7 +38,7 @@ test.describe('目次ページトップボタンのテスト', () => {
       await page.retryAction(async () => {
         await page.evaluate(() => {
           const tocBtn = document.querySelector('.toc-button');
-          if (tocBtn) tocBtn.click();
+          if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
         });
         // アニメーションの完了を待つ
         await page.waitForTimeout(2000);
@@ -67,7 +68,7 @@ test.describe('目次ページトップボタンのテスト', () => {
     await page.retryAction(async () => {
       await page.evaluate(() => {
         const btn = document.querySelector('.floating-toc .page-top-button');
-        if (btn) btn.click();
+        if (btn) (/** @type {HTMLElement} */ (btn)).click();
       });
       await page.waitForTimeout(500);
     });

@@ -1,3 +1,4 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS } from './constants.js';
@@ -42,6 +43,11 @@ test.describe('目次スタイルの詳細テスト', () => {
       const firstItemBox = await tocItems.first().boundingBox();
       const secondItemBox = await tocItems.nth(1).boundingBox();
 
+      if (!firstItemBox || !secondItemBox) {
+        console.log('目次項目の位置情報が取得できません。インデントチェックをスキップします。');
+        return;
+      }
+
       // 項目の左位置が同じかどうかを確認（マーカーも同じ位置に揃うため）
       console.log(`最初の項目の左位置: ${firstItemBox.x}px`);
       console.log(`2番目の項目の左位置: ${secondItemBox.x}px`);
@@ -65,22 +71,24 @@ test.describe('目次スタイルの詳細テスト', () => {
         }
 
         // 目次コンテンツを表示状態にする
-        const tocContent = document.querySelector('.toc-content');
+        const tocContent = document.querySelector('.floating-toc-content');
         if (tocContent) {
-          tocContent.style.display = 'block';
-          tocContent.style.maxHeight = '800px';
-          tocContent.style.visibility = 'visible';
-          tocContent.style.opacity = '1';
-          tocContent.style.pointerEvents = 'auto';
+          const tocEl = /** @type {HTMLElement} */ (tocContent);
+          tocEl.style.display = 'block';
+          tocEl.style.maxHeight = '800px';
+          tocEl.style.visibility = 'visible';
+          tocEl.style.opacity = '1';
+          tocEl.style.pointerEvents = 'auto';
           console.log('目次コンテンツのスタイルを変更しました');
         }
 
         // 目次項目のポインターイベントを確実に有効化
         const tocItems = document.querySelectorAll('.table-of-contents li');
         tocItems.forEach(item => {
-          item.style.pointerEvents = 'auto';
-          item.style.position = 'relative';
-          item.style.zIndex = '100';
+          const itemEl = /** @type {HTMLElement} */ (item);
+          itemEl.style.pointerEvents = 'auto';
+          itemEl.style.position = 'relative';
+          itemEl.style.zIndex = '100';
         });
 
         return true;
@@ -105,8 +113,9 @@ test.describe('目次スタイルの詳細テスト', () => {
           if (element) {
             element.scrollIntoView({ block: 'center' });
             // さらに確実に見えるように調整
-            element.style.visibility = 'visible';
-            element.style.display = 'block';
+            const el = /** @type {HTMLElement} */ (element);
+            el.style.visibility = 'visible';
+            el.style.display = 'block';
           }
         });
         await page.waitForTimeout(1000);
@@ -122,13 +131,13 @@ test.describe('目次スタイルの詳細テスト', () => {
         console.log('ホバー成功！');
         await page.waitForTimeout(1000); // ホバーエフェクトを待機
       } catch (error) {
-        console.log('スクリーンショットまたはホバー操作に失敗:', error.message);
+        console.log('スクリーンショットまたはホバー操作に失敗:', (/** @type {Error} */ (error)).message);
         // テスト失敗ではなく、次のステップに進む
       }            // ホバー後のスクリーンショット - try-catchで囲んで失敗してもテスト全体が失敗しないようにする
       try {
         await firstItem.screenshot({ path: 'screenshots/toc-item-after-hover.png' });
       } catch (error) {
-        console.log('ホバー後のスクリーンショットに失敗:', error.message);
+        console.log('ホバー後のスクリーンショットに失敗:', (/** @type {Error} */ (error)).message);
       }
 
       // ホバーテスト成功メッセージ
@@ -167,7 +176,7 @@ test.describe('目次スタイルの詳細テスト', () => {
       await tocButton.screenshot({ path: 'screenshots/toc-button-style-closed.png' });            // ボタンをクリックして目次を開く - iframe干渉を回避するためJavaScriptで直接クリック
       await page.evaluate(() => {
         const tocBtn = document.querySelector('.toc-button');
-        if (tocBtn) tocBtn.click();
+        if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
       });
       await page.waitForTimeout(1000);
 

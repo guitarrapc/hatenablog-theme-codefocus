@@ -1,3 +1,4 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS, SCROLL, TIMEOUTS } from './constants.js';
@@ -36,7 +37,7 @@ test.describe('目次アクティブハイライトのテスト', () => {
       await page.retryAction(async () => {
         await page.evaluate(() => {
           const tocBtn = document.querySelector('.toc-button');
-          if (tocBtn) tocBtn.click();
+          if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
         });
         await page.waitForTimeout(2000); // アニメーションの完了を待つ
       });

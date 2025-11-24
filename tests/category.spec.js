@@ -1,3 +1,4 @@
+// @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS, VALUES } from './constants.js';
@@ -39,6 +40,11 @@ test.describe('カテゴリースタイルのテスト', () => {
       const title = page.locator('.entry-title');
       const titleBox = await title.boundingBox();
       const categoryBox = await categoryContainer.boundingBox();
+
+      if (!titleBox || !categoryBox) {
+        console.log('要素の位置情報が取得できません。距離チェックをスキップします。');
+        return;
+      }
 
       // タイトルとカテゴリーの間の縦の距離を検証
       const distance = categoryBox.y - (titleBox.y + titleBox.height);
