@@ -3,13 +3,8 @@ import { expect } from '@playwright/test';
 
 test.describe('目次スタイルのテスト', () => {
   test('目次のスタイルが仕様通りであることを確認', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
 
     // 記事内の目次要素を確認
     const inPageToc = page.locator('.entry-content .table-of-contents');
@@ -54,13 +49,16 @@ test.describe('目次スタイルのテスト', () => {
 
     if (!isButtonVisible) {
       return;
-    }        // 目次ボタンをクリックして目次を表示 - iframe干渉を回避するためJavaScriptで直接クリック
+    }
+
+    // 目次ボタンをクリックして目次を表示 - iframe干渉を回避するためJavaScriptで直接クリック
     await page.retryAction(async () => {
       await page.evaluate(() => {
         const tocBtn = document.querySelector('.toc-button');
         if (tocBtn) tocBtn.click();
       });
-      await page.waitForTimeout(2000); // アニメーションの完了を待つ
+      // アニメーションの完了を待つ
+      await page.waitForTimeout(2000);
     });
     // 目次コンテンツが表示されるか確認
     const tocContent = page.locator('.floating-toc.show');

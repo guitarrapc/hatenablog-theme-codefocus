@@ -3,13 +3,8 @@ import { expect } from '@playwright/test';
 
 test.describe('アーカイブページのテスト', () => {
   test('アーカイブページが正しくレンダリングされる', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/archive/author/guitarrapc_tech');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/archive/author/guitarrapc_tech', { waitFor: 'networkidle' });
 
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/archive-page.png', fullPage: true });
@@ -20,13 +15,8 @@ test.describe('アーカイブページのテスト', () => {
   });
 
   test('アーカイブページのグリッドレイアウトが正しく表示される', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/archive/author/guitarrapc_tech');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/archive/author/guitarrapc_tech', { waitFor: 'networkidle' });
 
     // アーカイブエントリーのグリッドコンテナを確認
     const archiveEntries = page.locator('.archive-entries');
@@ -66,13 +56,8 @@ test.describe('アーカイブページのテスト', () => {
   });
 
   test('アーカイブエントリーの要素が仕様通りに配置されている', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/archive/author/guitarrapc_tech');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/archive/author/guitarrapc_tech', { waitFor: 'networkidle' });
 
     // 個別のエントリーを取得
     const entries = page.locator('.archive-entry');
@@ -119,13 +104,8 @@ test.describe('アーカイブページのテスト', () => {
     // スマートフォンサイズに設定
     await page.setViewportSize({ width: 414, height: 896 });
 
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/archive/author/guitarrapc_tech');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/archive/author/guitarrapc_tech', { waitFor: 'networkidle' });
 
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/archive-responsive-mobile.png', fullPage: true });

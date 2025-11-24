@@ -3,13 +3,8 @@ import { expect } from '@playwright/test';
 
 test.describe('関連記事のスタイルテスト', () => {
   test('関連記事が正しく表示され、日付がタイトルの下に配置されている', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601'); // 記事ページに移動
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/entry/2025/05/10/204601');
 
     // 関連記事セクション全体を取得 - first()を使用して最初の要素のみを選択
     const relatedEntriesModule = await page.locator('.hatena-module.hatena-module-related-entries').first();

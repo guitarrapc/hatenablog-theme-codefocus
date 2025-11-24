@@ -3,13 +3,8 @@ import { expect } from '@playwright/test';
 
 test.describe('目次スタイルの詳細テスト', () => {
   test('目次のマーカーと縦線が仕様通りに表示される', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
 
     // 記事内の目次要素を確認
     const inPageToc = page.locator('.entry-content .table-of-contents');
@@ -52,7 +47,9 @@ test.describe('目次スタイルの詳細テスト', () => {
 
       // 位置が同じであることを検証（多少の誤差を許容）
       expect(Math.abs(firstItemBox.x - secondItemBox.x)).toBeLessThan(3);
-    }        // 目次項目にマウスホバー時の効果をテスト
+    }
+
+    // 目次項目にマウスホバー時の効果をテスト
     if (itemCount > 0) {
       // JavaScriptでテスト用に目次コンテンツを強制的に表示する
       await page.evaluate(() => {
@@ -139,13 +136,8 @@ test.describe('目次スタイルの詳細テスト', () => {
   });
 
   test('ページ右上の目次ボタンが仕様通りに表示される', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
 
     // 記事内の目次要素の存在確認
     const hasToc = await page.locator('.entry-content .table-of-contents').isVisible();

@@ -3,13 +3,8 @@ import { expect } from '@playwright/test';
 
 test.describe('記事ページのテスト', () => {
   test('最新記事ページが正しくレンダリングされる', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
 
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/article-page.png', fullPage: true });
@@ -27,14 +22,11 @@ test.describe('記事ページのテスト', () => {
       // カテゴリー要素を確認
       await expect(page.locator('.entry-categories')).toBeVisible();
     }
-  }); test('目次ボタンが記事ページに表示される', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601');
-    });
+  });
 
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+  test('目次ボタンが記事ページに表示される', async ({ page }) => {
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
 
     // 目次が記事内に存在するか確認
     const tableOfContents = page.locator('.entry-content .table-of-contents');

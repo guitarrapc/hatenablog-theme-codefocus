@@ -3,13 +3,8 @@ import { expect } from '@playwright/test';
 
 test.describe('目次ページトップボタンのテスト', () => {
   test('ページトップへボタンが表示され、クリックするとトップにスクロールする', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
 
     // 目次が記事内に存在するか確認
     const tableOfContents = page.locator('.entry-content .table-of-contents');

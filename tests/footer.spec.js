@@ -3,13 +3,8 @@ import { expect } from '@playwright/test';
 
 test.describe('ブログフッターのテスト', () => {
   test('ブログパーツのタイトルが縦軸で揃っている', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/', { waitFor: 'networkidle' });
 
     // フッター部分までスクロール
     await page.evaluate(() => {

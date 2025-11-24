@@ -3,13 +3,8 @@ import { expect } from '@playwright/test';
 
 test.describe('記事レイアウトのテスト', () => {
   test('記事タイトルと本文のインデントが仕様通りである', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601');
-    });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
+    // 統合ナビゲーション関数を使用（networkidleまで待機）
+    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
 
     // 記事タイトルと本文の要素を取得
     const title = page.locator('.entry-title');

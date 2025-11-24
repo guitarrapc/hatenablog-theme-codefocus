@@ -3,12 +3,8 @@ import { expect } from '@playwright/test';
 
 test.describe('カテゴリースタイルのテスト', () => {
   test('カテゴリーが仕様通りに表示される', async ({ page }) => {
-    // リトライを含めたページナビゲーション
-    await page.retryAction(async () => {
-      await page.goto('/entry/2025/05/10/204601');
-      // domcontentloadedまで待機すれば十分（networkidleは広告等で終わらない可能性）
-      await page.waitForLoadState('domcontentloaded');
-    });
+    // 統合ナビゲーション関数を使用
+    await page.navigateTo('/entry/2025/05/10/204601');
 
     // カテゴリー要素を確認
     const categoryContainer = page.locator('.entry-categories');
