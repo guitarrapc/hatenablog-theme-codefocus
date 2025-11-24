@@ -4,82 +4,82 @@
   (function () {
     'use strict';
     document.addEventListener('DOMContentLoaded', function () {
-      // コードブロックを全て取得
+      // Get all code blocks
       const codeBlocks = document.querySelectorAll('pre.code');
 
-      // 各コードブロックにボタンを追加
+      // Add buttons to each code block
       codeBlocks.forEach(function (codeBlock) {
-        // コードブロック用のラッパーを作成
+        // Create wrapper for code block
         const wrapper = document.createElement('div');
         wrapper.className = 'code-block-wrapper';
 
-        // コピーボタンを作成
+        // Create copy button
         const copyButton = document.createElement('button');
         copyButton.className = 'code-copy-button';
-        copyButton.removeAttribute('title'); // 初期状態ではタイトル属性を削除
+        copyButton.removeAttribute('title'); // Remove title attribute in initial state
         copyButton.setAttribute('aria-label', 'Copy code');
 
-        // 折り返し切り替えボタンを作成
+        // Create wrap toggle button
         const wrapToggleButton = document.createElement('button');
         wrapToggleButton.className = 'code-wrap-toggle';
         wrapToggleButton.title = 'Toggle Wrap';
         wrapToggleButton.setAttribute('aria-label', 'Toggle code wrapping');
 
-        // コードブロックを親要素から取り出して、ラッパーに移動
+        // Move code block from parent to wrapper
         const parent = codeBlock.parentNode;
         parent.insertBefore(wrapper, codeBlock);
         wrapper.appendChild(codeBlock);
 
-        // 初期状態は折り返しなし (デフォルト)
+        // Initial state is no wrap (default)
         codeBlock.classList.add('nowrap');
 
-        // ラッパーにボタンを追加（順番重要: 右からコピー、折り返し）
+        // Add buttons to wrapper (order matters: copy, wrap from right)
         wrapper.appendChild(copyButton);
         wrapper.appendChild(wrapToggleButton);
 
-        // コピーボタンのクリックイベントを設定
+        // Set click event for copy button
         copyButton.addEventListener('click', function () {
-          // コピーする前にボタンテキストを一時的に隠す
+          // Temporarily hide button text before copying
           const originalDisplay = copyButton.style.display;
           copyButton.style.display = 'none';
 
-          // コードブロックのテキストを取得
+          // Get text from code block
           const code = codeBlock.textContent;
 
-          // ボタンの表示を元に戻す
+          // Restore button display
           copyButton.style.display = originalDisplay;
 
-          // クリップボードにコピー
+          // Copy to clipboard
           navigator.clipboard.writeText(code).then(function () {
-            // コピー成功
+            // Copy succeeded
             copyButton.title = 'Copied';
             copyButton.classList.add('copied');
 
-            // 一定時間後に元に戻す
+            // Reset after a certain time
             setTimeout(function () {
-              copyButton.removeAttribute('title'); // タイトル属性を削除
+              copyButton.removeAttribute('title'); // Remove title attribute
               copyButton.classList.remove('copied');
             }, 2000);
           }).catch(function (err) {
-            // コピー失敗
+            // Copy failed
             console.error('Copy failed:', err);
             copyButton.title = 'Copy failed';
             copyButton.classList.add('copy-error');
 
-            // 一定時間後に元に戻す
+            // Reset after a certain time
             setTimeout(function () {
-              copyButton.removeAttribute('title'); // タイトル属性を削除
+              copyButton.removeAttribute('title'); // Remove title attribute
               copyButton.classList.remove('copy-error');
             }, 2000);
           });
         });
 
-        // 折り返し切り替えボタンのクリックイベントを設定
+        // Set click event for wrap toggle button
         wrapToggleButton.addEventListener('click', function () {
           codeBlock.classList.toggle('nowrap');
           codeBlock.classList.toggle('wrap');
 
-          // ボタンのツールチップを更新
+          // Update button tooltip
           if (codeBlock.classList.contains('nowrap')) {
             wrapToggleButton.title = 'Enable Wrap';
           } else {
