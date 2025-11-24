@@ -1,7 +1,7 @@
 // @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
-import { TEST_URLS, SELECTORS, VALUES } from './constants.js';
+import { TEST_URLS, SELECTORS } from './constants.js';
 
 test.describe('アーカイブページのテスト', () => {
   test('アーカイブページが正しくレンダリングされる', async ({ page }) => {
@@ -59,7 +59,7 @@ test.describe('アーカイブページのテスト', () => {
 
   test('アーカイブエントリーの要素が仕様通りに配置されている', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/archive/author/guitarrapc_tech', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.ARCHIVE, { waitFor: 'networkidle' });
 
     // 個別のエントリーを取得
     const entries = page.locator('.archive-entry');
@@ -107,7 +107,7 @@ test.describe('アーカイブページのテスト', () => {
     await page.setViewportSize({ width: 414, height: 896 });
 
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/archive/author/guitarrapc_tech', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.ARCHIVE, { waitFor: 'networkidle' });
 
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/archive-responsive-mobile.png', fullPage: true });

@@ -119,7 +119,7 @@ test.describe('目次スタイルの詳細テスト', () => {
 
   test('ページ右上の目次ボタンが仕様通りに表示される', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 
     // 記事内の目次要素の存在確認
     const hasToc = await page.locator('.entry-content .table-of-contents').isVisible();

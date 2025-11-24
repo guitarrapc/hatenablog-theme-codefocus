@@ -1,7 +1,7 @@
 // @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
-import { TEST_URLS, SELECTORS, VALUES } from './constants.js';
+import { TEST_URLS, SELECTORS } from './constants.js';
 
 test.describe('カテゴリースタイルのテスト', () => {
   test('カテゴリーが仕様通りに表示される', async ({ page }) => {

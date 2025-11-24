@@ -1,7 +1,7 @@
 // @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
-import { TEST_URLS, SELECTORS, VIEWPORTS, TIMEOUTS, VALUES } from './constants.js';
+import { TEST_URLS } from './constants.js';
 
 test.describe('Code Copy Feature', () => {
   test('Copy button appears on hover and is clickable', async ({ page }) => {

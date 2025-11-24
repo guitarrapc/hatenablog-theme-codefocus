@@ -6,9 +6,7 @@ import { TEST_URLS, SELECTORS } from './constants.js';
 test.describe('コメント表示のテスト', () => {
   test('コメントのユーザー名と日付の表示順序が正しいこと', async ({ page }) => {
     // 記事ページに移動
-    await page.goto(TEST_URLS.SAMPLE_ARTICLE);
-    await page.waitForLoadState('networkidle');
-
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
     await page.waitForSelector(SELECTORS.ENTRY_COMMENT);
 
     // コメントHTML構造を取得

@@ -11,8 +11,7 @@ const __dirname = path.dirname(__filename);
 
 test.describe('ダークモード機能のテスト', () => {
   test('ダークモードボタンが表示されスタイルが適用される', async ({ page }) => {
-    await page.goto(TEST_URLS.SAMPLE_ARTICLE);
-    await page.waitForLoadState('networkidle');
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 
     // JSファイルを読み込んで直接実行（ローカルテスト用）
     const jsPath = path.resolve(__dirname, '../js/dark-mode.js');
