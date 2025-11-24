@@ -4,13 +4,9 @@ import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS, VIEWPORTS, TIMEOUTS, VALUES } from './constants.js';
 
 test.describe('Code Copy Feature', () => {
-  test.beforeEach(async ({ page }) => {
-    // コードハイライトのあるページに移動
-    await page.navigateTo(TEST_URLS.CODE_HIGHLIGHT, { waitFor: 'networkidle' });
-    await page.setViewportSize(VIEWPORTS.SURFACE_PRO);
-  });
-
   test('Copy button appears on hover and is clickable', async ({ page }) => {
+    await page.navigateTo(TEST_URLS.CODE_HIGHLIGHT, { waitFor: 'networkidle' });
+
     // 最初のコードブロックを取得
     const codeBlock = await page.locator('pre.code').first();
     await expect(codeBlock).toBeVisible();
@@ -51,6 +47,8 @@ test.describe('Code Copy Feature', () => {
   });
 
   test('Copy buttons exist for all code blocks', async ({ page }) => {
+    await page.navigateTo(TEST_URLS.CODE_HIGHLIGHT, { waitFor: 'networkidle' });
+
     // すべてのコードブロックにコピーボタンがあることを確認
     const codeBlocks = await page.locator('pre.code').all();
     const copyButtons = await page.locator('.code-copy-button').all();
