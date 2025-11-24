@@ -35,9 +35,7 @@ test.describe('記事ページのテスト', () => {
     const hasToc = await tableOfContents.isVisible();
 
     if (!hasToc) {
-      console.log('テスト対象の記事に目次が存在しません。このテストをスキップします。');
-      test.skip();
-      return;
+      throw new Error('サンプル記事に目次が存在しません。テストデータを確認してください。');
     }
 
     // スクロールして目次ボタンを表示させる
@@ -50,25 +48,23 @@ test.describe('記事ページのテスト', () => {
 
     // 目次ボタンが表示されているか確認
     const tocButton = page.locator(SELECTORS.TOC_BUTTON);
-    try {
-      await expect(tocButton).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
+    const isButtonVisible = await tocButton.isVisible({ timeout: TIMEOUTS.VERY_LONG }).catch(() => false);
 
-      // スクリーンショットを撮影（目次ボタン閉じた状態）
-      await page.screenshot({ path: 'screenshots/article-toc-button-closed.png', fullPage: false });
-
-      // 目次ボタンをクリックして目次を表示 - iframe干渉を回避するためJavaScriptで直接クリック
-      await page.retryAction(async () => {
-        await page.evaluate((selector) => {
-          const tocBtn = document.querySelector(selector);
-          if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
-        }, SELECTORS.TOC_BUTTON);
-        await page.waitForTimeout(TIMEOUTS.MEDIUM); // アニメーションの完了を待つ
-      });
-    } catch (error) {
-      console.log('目次ボタンが表示されませんでした。テストをスキップします。');
-      test.skip();
-      return;
+    if (!isButtonVisible) {
+      throw new Error('目次ボタンが表示されませんでした。JavaScriptの読み込みを確認してください。');
     }
+
+    // スクリーンショットを撮影（目次ボタン閉じた状態）
+    await page.screenshot({ path: 'screenshots/article-toc-button-closed.png', fullPage: false });
+
+    // 目次ボタンをクリックして目次を表示 - iframe干渉を回避するためJavaScriptで直接クリック
+    await page.retryAction(async () => {
+      await page.evaluate((selector) => {
+        const tocBtn = document.querySelector(selector);
+        if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
+      }, SELECTORS.TOC_BUTTON);
+      await page.waitForTimeout(TIMEOUTS.MEDIUM); // アニメーションの完了を待つ
+    });
 
     // 目次コンテンツが表示されているか確認
     await expect(page.locator(SELECTORS.FLOATING_TOC_SHOW)).toBeVisible({ timeout: TIMEOUTS.LONG });
