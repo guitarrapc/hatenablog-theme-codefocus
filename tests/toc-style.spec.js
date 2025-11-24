@@ -1,13 +1,14 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS } from './constants.js';
 
 test.describe('目次スタイルの詳細テスト', () => {
   test('目次のマーカーと縦線が仕様通りに表示される', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 
     // 記事内の目次要素を確認
-    const inPageToc = page.locator('.entry-content .table-of-contents');
+    const inPageToc = page.locator(SELECTORS.TABLE_OF_CONTENTS);
     const hasToc = await inPageToc.isVisible();
 
     if (!hasToc) {

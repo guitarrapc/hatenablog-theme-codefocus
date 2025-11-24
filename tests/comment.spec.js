@@ -1,14 +1,15 @@
 // @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS } from './constants.js';
 
 test.describe('コメント表示のテスト', () => {
   test('コメントのユーザー名と日付の表示順序が正しいこと', async ({ page }) => {
     // 記事ページに移動
-    await page.goto('/entry/2025/05/10/204601');
+    await page.goto(TEST_URLS.SAMPLE_ARTICLE);
     await page.waitForLoadState('networkidle');
 
-    await page.waitForSelector('.entry-comment');
+    await page.waitForSelector(SELECTORS.ENTRY_COMMENT);
 
     // コメントHTML構造を取得
     const commentHTML = await page.evaluate(() => {

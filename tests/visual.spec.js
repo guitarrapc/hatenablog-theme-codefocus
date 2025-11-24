@@ -1,23 +1,24 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, VIEWPORTS, TIMEOUTS } from './constants.js';
 
 test.describe('レンダリング確認テスト', () => {
   test('トップページのビジュアル確認', async ({ page }) => {
-    await page.navigateTo('/', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.HOME, { waitFor: 'networkidle' });
     await page.screenshot({ path: 'screenshots/visual-home.png', fullPage: true });
   });
 
   test('記事ページのビジュアル確認', async ({ page }) => {
-    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
     await page.screenshot({ path: 'screenshots/visual-article.png', fullPage: true });
   });
 
   test('レスポンシブ（モバイル）のビジュアル確認', async ({ page }) => {
-    await page.setViewportSize({ width: 414, height: 896 });
-    await page.navigateTo('/', { waitFor: 'networkidle' });
+    await page.setViewportSize(VIEWPORTS.MOBILE);
+    await page.navigateTo(TEST_URLS.HOME, { waitFor: 'networkidle' });
 
     // ページが完全に読み込まれるまでさらに待機
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(TIMEOUTS.MEDIUM);
 
     await page.screenshot({ path: 'screenshots/visual-mobile.png', fullPage: true });
 
@@ -29,11 +30,11 @@ test.describe('レンダリング確認テスト', () => {
   });
 
   test('レスポンシブ（タブレット）のビジュアル確認', async ({ page }) => {
-    await page.setViewportSize({ width: 768, height: 1024 });
-    await page.navigateTo('/', { waitFor: 'networkidle' });
+    await page.setViewportSize(VIEWPORTS.TABLET);
+    await page.navigateTo(TEST_URLS.HOME, { waitFor: 'networkidle' });
 
     // ページが完全に読み込まれるまでさらに待機
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(TIMEOUTS.MEDIUM);
 
     await page.screenshot({ path: 'screenshots/visual-tablet.png', fullPage: true });
 

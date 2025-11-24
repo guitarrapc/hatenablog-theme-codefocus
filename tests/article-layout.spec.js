@@ -1,14 +1,15 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, VALUES } from './constants.js';
 
 test.describe('記事レイアウトのテスト', () => {
   test('記事タイトルと本文のインデントが仕様通りである', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 
     // 記事タイトルと本文の要素を取得
-    const title = page.locator('.entry-title');
-    const content = page.locator('.entry-content');
+    const title = page.locator(SELECTORS.ENTRY_TITLE);
+    const content = page.locator(SELECTORS.ENTRY_CONTENT);
 
     // 要素が表示されているか確認
     const isTitleVisible = await title.isVisible();
@@ -26,9 +27,9 @@ test.describe('記事レイアウトのテスト', () => {
     const indentDifference = contentBox.x - titleBox.x;
     console.log(`タイトルと本文の左インデント差: ${indentDifference}px`);
 
-    // インデント差がおおよそ0px前後であることを確認（許容範囲を持たせる）
+    // インデント差がおおよ0px前後であることを確認（許容範囲を持たせる）
     // 実際の値は実装によって少し異なる可能性があるため、近似値をチェック
-    expect(indentDifference).toBeCloseTo(0, 2); // 0pxに対して±2px程度の誤差を許容
+    expect(indentDifference).toBeCloseTo(0, VALUES.INDENT_TOLERANCE);
 
     // スクリーンショットを撮影（レイアウト確認用）
     await page.screenshot({

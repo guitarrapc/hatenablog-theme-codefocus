@@ -1,19 +1,20 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS } from './constants.js';
 
 test.describe('関連記事のスタイルテスト', () => {
   test('関連記事が正しく表示され、日付がタイトルの下に配置されている', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/entry/2025/05/10/204601');
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE);
 
     // 関連記事セクション全体を取得 - first()を使用して最初の要素のみを選択
-    const relatedEntriesModule = await page.locator('.hatena-module.hatena-module-related-entries').first();
+    const relatedEntriesModule = await page.locator(SELECTORS.RELATED_ENTRIES_MODULE).first();
 
     // 関連記事セクションをスクリーンショット
     await relatedEntriesModule.screenshot({ path: 'screenshots/related-entries.png' });
 
     // 関連記事の個別アイテムをスクリーンショット
-    const relatedEntryItem = await page.locator('.related-entries-item').first();
+    const relatedEntryItem = await page.locator(SELECTORS.RELATED_ENTRIES_ITEM).first();
     await relatedEntryItem.screenshot({ path: 'screenshots/related-entry-item.png' });
 
     // HTML構造を確認して保存

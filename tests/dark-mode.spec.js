@@ -1,6 +1,7 @@
 // @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, TIMEOUTS } from './constants.js';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
@@ -11,7 +12,7 @@ const __dirname = path.dirname(__filename);
 test.describe('ダークモード機能のテスト', () => {
   test('ダークモードボタンが表示されスタイルが適用される', async ({ page }) => {
     // 記事ページに移動
-    await page.goto('/entry/2025/05/10/204601');
+    await page.goto(TEST_URLS.SAMPLE_ARTICLE);
     await page.waitForLoadState('networkidle');
 
     // JSファイルを読み込んで直接実行（page.addScriptTagの代替）
@@ -20,13 +21,13 @@ test.describe('ダークモード機能のテスト', () => {
     await page.evaluate(jsContent);
 
     // スクリプト実行完了を待機
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(TIMEOUTS.SHORT);
 
     // ダークモードボタンコンテナが表示されるまで待機
-    await page.waitForSelector('.theme-toggle-container');
+    await page.waitForSelector(SELECTORS.THEME_TOGGLE_CONTAINER);
 
     // 表示されたボタンの数を確認
-    const buttons = await page.locator('.theme-toggle-main').count();
+    const buttons = await page.locator(SELECTORS.THEME_TOGGLE_MAIN).count();
     expect(buttons).toBe(1);
 
     // ライトモードを適用して確認

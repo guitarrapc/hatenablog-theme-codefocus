@@ -1,15 +1,16 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, SCROLL, TIMEOUTS } from './constants.js';
 
 test.describe('目次アクティブハイライトのテスト', () => {
   test('スクロール時に現在のセクションが強調表示される', async ({ page }) => {
     console.log('テスト開始: 目次アクティブハイライトのテスト');
 
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 
     // 目次が記事内に存在するか確認
-    const tableOfContents = page.locator('.entry-content .table-of-contents');
+    const tableOfContents = page.locator(SELECTORS.TABLE_OF_CONTENTS);
     const hasToc = await tableOfContents.isVisible();
 
     if (!hasToc) {
@@ -18,18 +19,18 @@ test.describe('目次アクティブハイライトのテスト', () => {
       return;
     }
 
-    // スクロールして目次ボタンを表示させる（200px以上スクロールが必要）
+    // スクロールして目次ボタンを表示させる
     await page.retryAction(async () => {
-      await page.evaluate(() => {
-        window.scrollBy(0, 300);
-      });
+      await page.evaluate((scrollAmount) => {
+        window.scrollBy(0, scrollAmount);
+      }, SCROLL.TO_SHOW_TOC_BUTTON + 50);
       await page.waitForTimeout(1000);
     });
 
-    // 目次ボタンが表示されているか確認（最大15秒間待機、複数ある場合は最初の要素）
-    const tocButton = page.locator('.toc-button').first();
+    // 目次ボタンが表示されているか確認（複数ある場合は最初の要素）
+    const tocButton = page.locator(SELECTORS.TOC_BUTTON).first();
     try {
-      await expect(tocButton).toBeVisible({ timeout: 15000 });
+      await expect(tocButton).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
 
       // 目次ボタンをクリック - iframe干渉を回避するためJavaScriptで直接クリック
       await page.retryAction(async () => {

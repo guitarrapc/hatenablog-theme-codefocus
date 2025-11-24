@@ -1,14 +1,14 @@
 // @ts-check
-import { test, url } from './helpers.js';
+import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, VIEWPORTS } from './constants.js';
 
 test.describe('Code Highlight Screenshots', () => {
   // Surface Pro 7 (912x1368)
   test('Capture code highlight on PC', async ({ page }) => {
     // コードハイライトのスクリーンショット
-    await page.goto(url('/entry/2025/05/12/131258'));
-    await page.setViewportSize({ width: 912, height: 1368 });
-    await page.waitForLoadState('networkidle');
+    await page.navigateTo(TEST_URLS.CODE_HIGHLIGHT, { waitFor: 'networkidle' });
+    await page.setViewportSize(VIEWPORTS.SURFACE_PRO);
 
     // コードブロックを探して撮影
     const codeBlocks = await page.locator('pre').all();

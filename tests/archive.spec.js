@@ -1,10 +1,11 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, VALUES } from './constants.js';
 
 test.describe('アーカイブページのテスト', () => {
   test('アーカイブページが正しくレンダリングされる', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/archive/author/guitarrapc_tech', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.ARCHIVE, { waitFor: 'networkidle' });
 
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/archive-page.png', fullPage: true });
@@ -16,17 +17,17 @@ test.describe('アーカイブページのテスト', () => {
 
   test('アーカイブページのグリッドレイアウトが正しく表示される', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/archive/author/guitarrapc_tech', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.ARCHIVE, { waitFor: 'networkidle' });
 
     // アーカイブエントリーのグリッドコンテナを確認
-    const archiveEntries = page.locator('.archive-entries');
+    const archiveEntries = page.locator(SELECTORS.ARCHIVE_ENTRIES);
     await expect(archiveEntries).toBeVisible();
 
     // スクリーンショットを撮影
     await archiveEntries.screenshot({ path: 'screenshots/archive-grid.png' });
 
     // 個別のアーカイブエントリーを確認
-    const entries = page.locator('.archive-entry');
+    const entries = page.locator(SELECTORS.ARCHIVE_ENTRY);
     const count = await entries.count();
 
     if (count > 0) {

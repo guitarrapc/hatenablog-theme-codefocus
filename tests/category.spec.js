@@ -1,13 +1,14 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, VALUES } from './constants.js';
 
 test.describe('カテゴリースタイルのテスト', () => {
   test('カテゴリーが仕様通りに表示される', async ({ page }) => {
     // 統合ナビゲーション関数を使用
-    await page.navigateTo('/entry/2025/05/10/204601');
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE);
 
     // カテゴリー要素を確認
-    const categoryContainer = page.locator('.entry-categories');
+    const categoryContainer = page.locator(SELECTORS.ENTRY_CATEGORIES);
     const hasCategories = await categoryContainer.isVisible();
 
     if (!hasCategories) {

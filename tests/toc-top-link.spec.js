@@ -1,13 +1,14 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, SCROLL, TIMEOUTS } from './constants.js';
 
 test.describe('目次ページトップボタンのテスト', () => {
   test('ページトップへボタンが表示され、クリックするとトップにスクロールする', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 
     // 目次が記事内に存在するか確認
-    const tableOfContents = page.locator('.entry-content .table-of-contents');
+    const tableOfContents = page.locator(SELECTORS.TABLE_OF_CONTENTS);
     const hasToc = await tableOfContents.isVisible();
 
     if (!hasToc) {
@@ -16,18 +17,18 @@ test.describe('目次ページトップボタンのテスト', () => {
       return;
     }
 
-    // スクロールして目次ボタンを表示させる（200px以上スクロールが必要）
+    // スクロールして目次ボタンを表示させる
     await page.retryAction(async () => {
-      await page.evaluate(() => {
-        window.scrollBy(0, 300);
-      });
-      await page.waitForTimeout(1000);
+      await page.evaluate((scrollAmount) => {
+        window.scrollBy(0, scrollAmount);
+      }, SCROLL.TO_SHOW_TOC_BUTTON + 50);
+      await page.waitForTimeout(TIMEOUTS.SHORT);
     });
 
-    // 目次ボタンが表示されているか確認（最大15秒間待機、複数ある場合は最初の要素）
-    const tocButton = page.locator('.toc-button').first();
+    // 目次ボタンが表示されているか確認（複数ある場合は最初の要素）
+    const tocButton = page.locator(SELECTORS.TOC_BUTTON).first();
     try {
-      await expect(tocButton).toBeVisible({ timeout: 15000 });
+      await expect(tocButton).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
 
       // スクリーンショットを撮影（ボタンが表示された状態）
       await page.screenshot({ path: 'screenshots/toc-button-visible.png' });

@@ -1,13 +1,14 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, SCROLL, TIMEOUTS } from './constants.js';
 
 test.describe('目次スタイルのテスト', () => {
   test('目次のスタイルが仕様通りであることを確認', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 
     // 記事内の目次要素を確認
-    const inPageToc = page.locator('.entry-content .table-of-contents');
+    const inPageToc = page.locator(SELECTORS.TABLE_OF_CONTENTS);
     const hasToc = await inPageToc.isVisible();
 
     if (!hasToc) {
@@ -30,14 +31,14 @@ test.describe('目次スタイルのテスト', () => {
     }
     // スクロールして目次ボタンを表示させる
     await page.retryAction(async () => {
-      await page.evaluate(() => {
-        window.scrollBy(0, 250);
-      });
-      await page.waitForTimeout(2000);
+      await page.evaluate((scrollAmount) => {
+        window.scrollBy(0, scrollAmount);
+      }, SCROLL.TO_SHOW_TOC_BUTTON);
+      await page.waitForTimeout(TIMEOUTS.MEDIUM);
     });
 
     // 目次ボタンが表示されるか確認
-    const tocButton = page.locator('.toc-button');
+    const tocButton = page.locator(SELECTORS.TOC_BUTTON);
     let isButtonVisible = false;
 
     try {

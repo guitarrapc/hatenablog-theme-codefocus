@@ -1,14 +1,13 @@
 // @ts-check
-import { test } from './helpers';
+import { test } from './helpers.js';
 import { expect } from '@playwright/test';
-import { url } from './helpers';
+import { TEST_URLS, SELECTORS, VIEWPORTS, TIMEOUTS, VALUES } from './constants.js';
 
 test.describe('Code Copy Feature', () => {
   test.beforeEach(async ({ page }) => {
     // コードハイライトのあるページに移動
-    await page.goto(url('/entry/2025/05/12/131258'));
-    await page.setViewportSize({ width: 912, height: 1368 }); // Surface Pro 7サイズ
-    await page.waitForLoadState('networkidle');
+    await page.navigateTo(TEST_URLS.CODE_HIGHLIGHT, { waitFor: 'networkidle' });
+    await page.setViewportSize(VIEWPORTS.SURFACE_PRO);
   });
 
   test('Copy button appears on hover and is clickable', async ({ page }) => {

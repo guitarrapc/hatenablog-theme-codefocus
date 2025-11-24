@@ -1,10 +1,11 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, TIMEOUTS } from './constants.js';
 
 test.describe('ブログフッターのテスト', () => {
   test('ブログパーツのタイトルが縦軸で揃っている', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.HOME, { waitFor: 'networkidle' });
 
     // フッター部分までスクロール
     await page.evaluate(() => {
@@ -13,10 +14,10 @@ test.describe('ブログフッターのテスト', () => {
         footer.scrollIntoView();
       }
     });
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(TIMEOUTS.SHORT);
 
     // フッターのスクリーンショットを撮影
-    const footer = page.locator('#box2');
+    const footer = page.locator(SELECTORS.FOOTER);
     if (await footer.isVisible()) {
       await footer.screenshot({ path: 'screenshots/blog-footer.png' });
     } else {

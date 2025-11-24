@@ -1,35 +1,36 @@
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
+import { TEST_URLS, SELECTORS, SCROLL, TIMEOUTS } from './constants.js';
 
 test.describe('記事ページのテスト', () => {
   test('最新記事ページが正しくレンダリングされる', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 
     // スクリーンショットを撮影
     await page.screenshot({ path: 'screenshots/article-page.png', fullPage: true });
 
     // 基本的な記事要素が存在することを確認
-    await expect(page.locator('.entry-title')).toBeVisible();
-    await expect(page.locator('.entry-content')).toBeVisible();
+    await expect(page.locator(SELECTORS.ENTRY_TITLE)).toBeVisible();
+    await expect(page.locator(SELECTORS.ENTRY_CONTENT)).toBeVisible();
 
     // 日付が表示されていることを確認
-    await expect(page.locator('.entry-date')).toBeVisible();
+    await expect(page.locator(SELECTORS.ENTRY_DATE)).toBeVisible();
 
     // カテゴリーが表示されていることを確認（カテゴリーがある場合）
-    const hasCategories = await page.locator('.entry-categories').isVisible();
+    const hasCategories = await page.locator(SELECTORS.ENTRY_CATEGORIES).isVisible();
     if (hasCategories) {
       // カテゴリー要素を確認
-      await expect(page.locator('.entry-categories')).toBeVisible();
+      await expect(page.locator(SELECTORS.ENTRY_CATEGORIES)).toBeVisible();
     }
   });
 
   test('目次ボタンが記事ページに表示される', async ({ page }) => {
     // 統合ナビゲーション関数を使用（networkidleまで待機）
-    await page.navigateTo('/entry/2025/05/10/204601', { waitFor: 'networkidle' });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 
     // 目次が記事内に存在するか確認
-    const tableOfContents = page.locator('.entry-content .table-of-contents');
+    const tableOfContents = page.locator(SELECTORS.TABLE_OF_CONTENTS);
     const hasToc = await tableOfContents.isVisible();
 
     if (!hasToc) {
@@ -38,25 +39,29 @@ test.describe('記事ページのテスト', () => {
       return;
     }
 
-    // スクロールして目次ボタンを表示させる（200px以上スクロールが必要）
+    // スクロールして目次ボタンを表示させる
     await page.retryAction(async () => {
-      await page.evaluate(() => {
-        window.scrollBy(0, 250);
-      });
+      await page.evaluate((scrollAmount) => {
+        window.scrollBy(0, scrollAmount);
+      }, SCROLL.TO_SHOW_TOC_BUTTON);
       await page.waitForTimeout(1000);
-    });        // 目次ボタンが表示されているか確認（最大15秒間待機）
-    const tocButton = page.locator('.toc-button');
+    });
+
+    // 目次ボタンが表示されているか確認
+    const tocButton = page.locator(SELECTORS.TOC_BUTTON);
     try {
-      await expect(tocButton).toBeVisible({ timeout: 15000 });
+      await expect(tocButton).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
 
       // スクリーンショットを撮影（目次ボタン閉じた状態）
-      await page.screenshot({ path: 'screenshots/toc-button-closed.png', fullPage: false });            // 目次ボタンをクリックして目次を表示 - iframe干渉を回避するためJavaScriptで直接クリック
+      await page.screenshot({ path: 'screenshots/toc-button-closed.png', fullPage: false });
+
+      // 目次ボタンをクリックして目次を表示 - iframe干渉を回避するためJavaScriptで直接クリック
       await page.retryAction(async () => {
-        await page.evaluate(() => {
-          const tocBtn = document.querySelector('.toc-button');
+        await page.evaluate((selector) => {
+          const tocBtn = document.querySelector(selector);
           if (tocBtn) tocBtn.click();
-        });
-        await page.waitForTimeout(2000); // アニメーションの完了を待つ
+        }, SELECTORS.TOC_BUTTON);
+        await page.waitForTimeout(TIMEOUTS.MEDIUM); // アニメーションの完了を待つ
       });
     } catch (error) {
       console.log('目次ボタンが表示されませんでした。テストをスキップします。');
@@ -65,7 +70,7 @@ test.describe('記事ページのテスト', () => {
     }
 
     // 目次コンテンツが表示されているか確認
-    await expect(page.locator('.floating-toc.show')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator(SELECTORS.FLOATING_TOC_SHOW)).toBeVisible({ timeout: TIMEOUTS.LONG });
 
     // スクリーンショットを撮影（目次ボタン開いた状態）
     await page.screenshot({ path: 'screenshots/toc-button-open.png', fullPage: false });
