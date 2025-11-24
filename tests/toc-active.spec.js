@@ -15,9 +15,7 @@ test.describe('目次アクティブハイライトのテスト', () => {
     const hasToc = await tableOfContents.isVisible();
 
     if (!hasToc) {
-      console.log('テスト対象の記事に目次が存在しません。このテストをスキップします。');
-      test.skip();
-      return;
+      throw new Error('サンプル記事に目次が存在しません。テストデータを確認してください。');
     }
 
     // スクロールして目次ボタンを表示させる
@@ -30,22 +28,20 @@ test.describe('目次アクティブハイライトのテスト', () => {
 
     // 目次ボタンが表示されているか確認（複数ある場合は最初の要素）
     const tocButton = page.locator(SELECTORS.TOC_BUTTON).first();
-    try {
-      await expect(tocButton).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
+    const isButtonVisible = await tocButton.isVisible({ timeout: TIMEOUTS.VERY_LONG }).catch(() => false);
 
-      // 目次ボタンをクリック - iframe干渉を回避するためJavaScriptで直接クリック
-      await page.retryAction(async () => {
-        await page.evaluate(() => {
-          const tocBtn = document.querySelector('.toc-button');
-          if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
-        });
-        await page.waitForTimeout(2000); // アニメーションの完了を待つ
-      });
-    } catch (error) {
-      console.log('目次ボタンが表示されませんでした。テストをスキップします。');
-      test.skip();
-      return;
+    if (!isButtonVisible) {
+      throw new Error('目次ボタンが表示されませんでした。JavaScriptの読み込みを確認してください。');
     }
+
+    // 目次ボタンをクリック - iframe干渉を回避するためJavaScriptで直接クリック
+    await page.retryAction(async () => {
+      await page.evaluate(() => {
+        const tocBtn = document.querySelector('.toc-button');
+        if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
+      });
+      await page.waitForTimeout(2000); // アニメーションの完了を待つ
+    });
 
     // フローティング目次が表示されているか確認
     await expect(page.locator('.floating-toc.show').first()).toBeVisible({ timeout: 5000 });

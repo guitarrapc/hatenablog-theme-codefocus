@@ -13,9 +13,7 @@ test.describe('目次スタイルの詳細テスト', () => {
     const hasToc = await inPageToc.isVisible();
 
     if (!hasToc) {
-      console.log('テスト対象の記事に目次が存在しません。このテストをスキップします。');
-      test.skip();
-      return;
+      throw new Error('サンプル記事に目次が存在しません。テストデータを確認してください。');
     }
 
     // 目次のスクリーンショットを撮影
@@ -26,9 +24,7 @@ test.describe('目次スタイルの詳細テスト', () => {
     const itemCount = await tocItems.count();
 
     if (itemCount === 0) {
-      console.log('目次に項目が存在しません。このテストをスキップします。');
-      test.skip();
-      return;
+      throw new Error('目次に項目が存在しません。テストデータを確認してください。');
     }
 
     // 複数の目次項目がある場合、最初と2番目の項目をキャプチャして比較
@@ -128,9 +124,7 @@ test.describe('目次スタイルの詳細テスト', () => {
     // 記事内の目次要素の存在確認
     const hasToc = await page.locator('.entry-content .table-of-contents').isVisible();
     if (!hasToc) {
-      console.log('テスト対象の記事に目次が存在しません。このテストをスキップします。');
-      test.skip();
-      return;
+      throw new Error('サンプル記事に目次が存在しません。テストデータを確認してください。');
     }
 
     // スクロールして目次ボタンを表示させる
@@ -142,9 +136,7 @@ test.describe('目次スタイルの詳細テスト', () => {
     const isButtonVisible = await tocButton.isVisible({ timeout: 15000 }).catch(() => false);
 
     if (!isButtonVisible) {
-      console.log('目次ボタンが表示されませんでした。このテストをスキップします。');
-      test.skip();
-      return;
+      throw new Error('目次ボタンが表示されませんでした。JavaScriptの読み込みを確認してください。');
     }
 
     // 目次ボタンのスクリーンショット（閉じた状態）

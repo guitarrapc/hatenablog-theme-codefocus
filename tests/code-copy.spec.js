@@ -8,7 +8,13 @@ test.describe('Code Copy Feature', () => {
     await page.navigateTo(TEST_URLS.CODE_HIGHLIGHT, { waitFor: 'networkidle' });
 
     // 最初のコードブロックを取得
-    const codeBlock = await page.locator('pre.code').first();
+    const codeBlock = page.locator('pre.code').first();
+    const hasCodeBlock = await codeBlock.count();
+
+    if (hasCodeBlock === 0) {
+      throw new Error('コードハイライト記事にコードブロックが存在しません。テストデータを確認してください。');
+    }
+
     await expect(codeBlock).toBeVisible();
 
     // コピーボタンが初期状態では非表示か透明であることを確認
@@ -53,9 +59,12 @@ test.describe('Code Copy Feature', () => {
     const codeBlocks = await page.locator('pre.code').all();
     const copyButtons = await page.locator('.code-copy-button').all();
 
-    expect(copyButtons.length).toEqual(codeBlocks.length);
+    // コードハイライト記事には必ずコードブロックが存在するべき
+    if (codeBlocks.length === 0) {
+      throw new Error('コードハイライト記事にコードブロックが存在しません。テストデータを確認してください。');
+    }
 
-    // 少なくともいくつかのコードブロックがあることを確認
+    expect(copyButtons.length).toEqual(codeBlocks.length);
     expect(codeBlocks.length).toBeGreaterThan(0);
 
     // 最初のコードブロックにホバーしてスクリーンショットを撮影
