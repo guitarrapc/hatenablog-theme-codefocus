@@ -57,92 +57,68 @@ test.describe('目次スタイルの詳細テスト', () => {
     }
 
     // 目次項目にマウスホバー時の効果をテスト
-    if (itemCount > 0) {
-      // JavaScriptでテスト用に目次コンテンツを強制的に表示する
-      await page.evaluate(() => {
-        console.log('目次コンテンツを強制的に表示状態にします...');
-
-        // 目次コンテナが存在する場合はopen状態にする
-        const tocContainer = document.querySelector('.toc-container');
-        if (tocContainer) {
-          tocContainer.classList.remove('toc-closed');
-          tocContainer.classList.add('toc-open');
-          console.log('目次コンテナのクラスを変更しました');
-        }
-
-        // 目次コンテンツを表示状態にする
-        const tocContent = document.querySelector('.floating-toc-content');
-        if (tocContent) {
-          const tocEl = /** @type {HTMLElement} */ (tocContent);
-          tocEl.style.display = 'block';
-          tocEl.style.maxHeight = '800px';
-          tocEl.style.visibility = 'visible';
-          tocEl.style.opacity = '1';
-          tocEl.style.pointerEvents = 'auto';
-          console.log('目次コンテンツのスタイルを変更しました');
-        }
-
-        // 目次項目のポインターイベントを確実に有効化
-        const tocItems = document.querySelectorAll('.table-of-contents li');
-        tocItems.forEach(item => {
-          const itemEl = /** @type {HTMLElement} */ (item);
-          itemEl.style.pointerEvents = 'auto';
-          itemEl.style.position = 'relative';
-          itemEl.style.zIndex = '100';
-        });
-
-        return true;
-      });
-
-      // 変更適用のため少し待機
-      await page.waitForTimeout(1000);
-
-      // 目次項目を再取得（DOM構造が変わっている可能性があるため）
-      const tocItemsUpdated = page.locator('.entry-content .table-of-contents li');
-      const firstItem = tocItemsUpdated.first();
-
-      // 確実に見えているか確認
-      const isVisible = await firstItem.isVisible();
-      console.log(`目次項目は表示されていますか？: ${isVisible}`);
-
-      if (!isVisible) {
-        console.log('目次項目が表示されていないため、表示処理を再試行します');
-        // 強制的にスクロール
-        await page.evaluate(() => {
-          const element = document.querySelector('.entry-content .table-of-contents li:first-child');
-          if (element) {
-            element.scrollIntoView({ block: 'center' });
-            // さらに確実に見えるように調整
-            const el = /** @type {HTMLElement} */ (element);
-            el.style.visibility = 'visible';
-            el.style.display = 'block';
-          }
-        });
-        await page.waitForTimeout(1000);
-      }
-
-      // ホバー前のスクリーンショット
-      try {
-        await firstItem.screenshot({ path: 'screenshots/toc-item-before-hover.png' });
-
-        // スクリーンショットが撮れた場合のみホバーを試みる
-        console.log('ホバー操作を試みます...');
-        await firstItem.hover({ force: true, timeout: 5000 });
-        console.log('ホバー成功！');
-        await page.waitForTimeout(1000); // ホバーエフェクトを待機
-      } catch (error) {
-        console.log('スクリーンショットまたはホバー操作に失敗:', (/** @type {Error} */ (error)).message);
-        // テスト失敗ではなく、次のステップに進む
-      }            // ホバー後のスクリーンショット - try-catchで囲んで失敗してもテスト全体が失敗しないようにする
-      try {
-        await firstItem.screenshot({ path: 'screenshots/toc-item-after-hover.png' });
-      } catch (error) {
-        console.log('ホバー後のスクリーンショットに失敗:', (/** @type {Error} */ (error)).message);
-      }
-
-      // ホバーテスト成功メッセージ
-      console.log('目次項目のホバーテストが完了しました');
+    if (itemCount === 0) {
+      console.log('目次項目が存在しないため、ホバーテストをスキップします。');
+      return;
     }
+
+    // 目次を強制的に表示状態にする
+    await page.evaluate(() => {
+      const tocContainer = document.querySelector('.toc-container');
+      if (tocContainer) {
+        tocContainer.classList.remove('toc-closed');
+        tocContainer.classList.add('toc-open');
+      }
+
+      const tocContent = document.querySelector('.floating-toc-content');
+      if (tocContent) {
+        const tocEl = /** @type {HTMLElement} */ (tocContent);
+        tocEl.style.display = 'block';
+        tocEl.style.maxHeight = '800px';
+        tocEl.style.visibility = 'visible';
+        tocEl.style.opacity = '1';
+        tocEl.style.pointerEvents = 'auto';
+      }
+
+      const tocItems = document.querySelectorAll('.table-of-contents li');
+      tocItems.forEach(item => {
+        const itemEl = /** @type {HTMLElement} */ (item);
+        itemEl.style.pointerEvents = 'auto';
+        itemEl.style.position = 'relative';
+        itemEl.style.zIndex = '100';
+      });
+    });
+
+    await page.waitForTimeout(1000);
+
+    // 目次項目を取得
+    const firstItem = page.locator('.entry-content .table-of-contents li').first();
+
+    // 項目が見えない場合はスクロール
+    if (!(await firstItem.isVisible())) {
+      await page.evaluate(() => {
+        const element = document.querySelector('.entry-content .table-of-contents li:first-child');
+        if (element) {
+          element.scrollIntoView({ block: 'center' });
+          const el = /** @type {HTMLElement} */ (element);
+          el.style.visibility = 'visible';
+          el.style.display = 'block';
+        }
+      });
+      await page.waitForTimeout(1000);
+    }
+
+    // ホバーテスト（失敗してもテスト全体は継続）
+    await page.retryAction(async () => {
+      await firstItem.screenshot({ path: 'screenshots/toc-item-before-hover.png' });
+      await firstItem.hover({ force: true, timeout: 5000 });
+      await page.waitForTimeout(1000);
+      await firstItem.screenshot({ path: 'screenshots/toc-item-after-hover.png' });
+    }, 1, 0).catch(error => {
+      console.log('ホバーテストに失敗しましたが、テストは継続します:', error.message);
+    });
+
+    console.log('目次項目のホバーテストが完了しました');
   });
 
   test('ページ右上の目次ボタンが仕様通りに表示される', async ({ page }) => {
@@ -151,7 +127,6 @@ test.describe('目次スタイルの詳細テスト', () => {
 
     // 記事内の目次要素の存在確認
     const hasToc = await page.locator('.entry-content .table-of-contents').isVisible();
-
     if (!hasToc) {
       console.log('テスト対象の記事に目次が存在しません。このテストをスキップします。');
       test.skip();
@@ -159,48 +134,45 @@ test.describe('目次スタイルの詳細テスト', () => {
     }
 
     // スクロールして目次ボタンを表示させる
-    await page.evaluate(() => {
-      window.scrollBy(0, 250);
-    });
+    await page.evaluate(() => window.scrollBy(0, 250));
     await page.waitForTimeout(1000);
 
     // 目次ボタンが表示されるか確認
     const tocButton = page.locator('.toc-button');
-    let isButtonVisible = false;
+    const isButtonVisible = await tocButton.isVisible({ timeout: 15000 }).catch(() => false);
 
-    try {
-      await expect(tocButton).toBeVisible({ timeout: 15000 });
-      isButtonVisible = true;
-
-      // 目次ボタンのスクリーンショット（閉じた状態）
-      await tocButton.screenshot({ path: 'screenshots/toc-button-style-closed.png' });            // ボタンをクリックして目次を開く - iframe干渉を回避するためJavaScriptで直接クリック
-      await page.evaluate(() => {
-        const tocBtn = document.querySelector('.toc-button');
-        if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
-      });
-      await page.waitForTimeout(1000);
-
-      // 目次ボタンのスクリーンショット（開いた状態）
-      await tocButton.screenshot({ path: 'screenshots/toc-button-style-open.png' });
-
-      // フローティング目次が表示されているか確認
-      const floatingToc = page.locator('.floating-toc.show');
-      await expect(floatingToc).toBeVisible({ timeout: 5000 });
-
-      // フローティング目次のスクリーンショット
-      await floatingToc.screenshot({ path: 'screenshots/floating-toc-style.png' });
-
-      // フローティング目次の項目が正しく表示されているか確認
-      const floatingTocItems = page.locator('.floating-toc-list li');
-      const itemCount = await floatingTocItems.count();
-
-      if (itemCount > 0) {
-        // 最初の項目をキャプチャ
-        await floatingTocItems.first().screenshot({ path: 'screenshots/floating-toc-first-item.png' });
-      }
-    } catch (error) {
-      console.log('目次ボタンが表示されませんでした。このテストをスキップします。', error);
+    if (!isButtonVisible) {
+      console.log('目次ボタンが表示されませんでした。このテストをスキップします。');
       test.skip();
+      return;
+    }
+
+    // 目次ボタンのスクリーンショット（閉じた状態）
+    await tocButton.screenshot({ path: 'screenshots/toc-button-style-closed.png' });
+
+    // ボタンをクリックして目次を開く
+    await page.evaluate(() => {
+      const tocBtn = document.querySelector('.toc-button');
+      if (tocBtn) (/** @type {HTMLElement} */ (tocBtn)).click();
+    });
+    await page.waitForTimeout(1000);
+
+    // 目次ボタンのスクリーンショット（開いた状態）
+    await tocButton.screenshot({ path: 'screenshots/toc-button-style-open.png' });
+
+    // フローティング目次が表示されているか確認
+    const floatingToc = page.locator('.floating-toc.show');
+    await expect(floatingToc).toBeVisible({ timeout: 5000 });
+
+    // フローティング目次のスクリーンショット
+    await floatingToc.screenshot({ path: 'screenshots/floating-toc-style.png' });
+
+    // フローティング目次の項目が正しく表示されているか確認
+    const floatingTocItems = page.locator('.floating-toc-list li');
+    const itemCount = await floatingTocItems.count();
+
+    if (itemCount > 0) {
+      await floatingTocItems.first().screenshot({ path: 'screenshots/floating-toc-first-item.png' });
     }
   });
 });
