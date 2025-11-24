@@ -6,10 +6,9 @@ test.describe('カテゴリースタイルのテスト', () => {
     // リトライを含めたページナビゲーション
     await page.retryAction(async () => {
       await page.goto('/entry/2025/05/10/204601');
+      // domcontentloadedまで待機すれば十分（networkidleは広告等で終わらない可能性）
+      await page.waitForLoadState('domcontentloaded');
     });
-
-    // ページが完全に読み込まれるのを待機
-    await page.waitForPageToLoad();
 
     // カテゴリー要素を確認
     const categoryContainer = page.locator('.entry-categories');
