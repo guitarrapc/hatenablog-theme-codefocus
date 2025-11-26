@@ -36,7 +36,7 @@ Download the latest version of `theme-VERSION.zip`. For example, if the version 
 
 The package contains the stylesheet `style.css` and HTML files for theme configuration. The stylesheet is automatically applied when you install the theme from the theme store, so you don't need to manually paste style.css.
 
-**Code block copy and wrap toggle button features**
+#### Code block copy and wrap toggle button features
 
 To improve code block usability, the following features are provided:
 - A "copy icon" button appears in the upper right corner of code blocks, clicking it copies the code block.
@@ -47,7 +47,7 @@ To improve code block usability, the following features are provided:
 Paste customize-codeblock.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 ```
 
-**Dark mode feature**
+#### Dark mode feature
 
 A dark mode toggle button appears in the upper right corner of article pages. User selection is remembered for the next visit, and it automatically follows system settings for comfortable nighttime viewing.
 - Sun icon: Fixes to light mode
@@ -59,7 +59,7 @@ A dark mode toggle button appears in the upper right corner of article pages. Us
 Paste customize-dark-mode.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 ```
 
-**Tag cloud feature**
+#### Tag cloud feature
 
 Displays categories with sizes that vary according to the number of articles.
 
@@ -68,7 +68,7 @@ Displays categories with sizes that vary according to the number of articles.
 Paste customize-tag-cloud.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 ```
 
-**In-article table of contents toggle feature**
+#### In-article table of contents toggle feature
 
 Enables toggling the table of contents within articles. If there is no table of contents (table-of-contents) in the article, the TOC itself will not be displayed.
 
@@ -77,7 +77,7 @@ Enables toggling the table of contents within articles. If there is no table of 
 Paste customize-toc-toggle.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 ```
 
-**Fixed "Table of Contents" button feature in the upper right corner of pages**
+#### Fixed "Table of Contents" button feature in the upper right corner of pages
 
 A "Table of Contents" button is fixed in the upper right corner of article pages, and clicking it displays the table of contents. If there is no table of contents (table-of-contents) in the article, the button will not be displayed.
 
