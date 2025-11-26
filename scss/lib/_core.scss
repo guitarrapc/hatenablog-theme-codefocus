@@ -107,6 +107,10 @@ h6 {
         &:hover {
             color: var(--text-header);
         }
+
+        &:visited {
+            color: var(--text-header);
+        }
     }
 }
 
