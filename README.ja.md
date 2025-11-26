@@ -23,85 +23,69 @@ https://codefocus.hatenablog.jp/entry/2025/05/20/221750
 
 可能ならば、はてなブログテーマストアからの導入を推奨します。
 
-### 直接CSSを指定して利用する
-
-最新のバージョンの`theme-バージョン.zip`をダウンロードしてください。
-
-- https://github.com/guitarrapc/HatenaBlog-Theme/releases/latest
-
-中には、スタイルシート`style.css`と、テーマの設定を行うためのHTMLファイルが含まれています。
-
-- `style.css`は、はてなブログの「デザイン」->「カスタマイズ」->「デザインCSS」に貼り付けてください。
-- `customize-toc-toggle.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
-- `customize-toc-button.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
-- `customize-codeblock.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
-- `customize-dark-mode.html`は、はてなブログの「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
-
-### はてなブログテーマストアから導入する (推奨)
+### はてなブログテーマストアから導入する
 
 はてなブログテーマストアから「CodeFocus」を検索してインストールしてください。
 JavaScriptカスタマイズを利用する場合は、以下の手順で設定を行ってください。
 
-**記事中の目次開閉機能を使用する場合**
+### JavaScriptカスタマイズの設定手順
 
-本テーマには、記事中の目次を開閉する機能が含まれています。この機能を使用するには以下の手順を行ってください。
+最新のバージョンの`theme-バージョン.zip`をダウンロードしてください。 例えば、バージョンがv1.6.1の場合は`theme-1.6.1.zip`となります。
 
-1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
+- https://github.com/guitarrapc/HatenaBlog-Theme/releases/latest
 
-   ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
-   ```
+中には、スタイルシート`style.css`と、テーマの設定を行うためのHTMLファイルが含まれています。スタイルシートはテーマストアからテーマをインストールした場合自動的に適用されるため、style.cssを手動で貼り付ける必要はありません。
 
-2. 本番環境で使用する場合は、[customize-toc-toggle.html](customize-toc-toggle.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「記事」->「記事上HTML（記事本文上）」に貼り付けてください。
+**コードブロックにコピーボタンと折り返し切り替えボタンを提供する機能**
 
-   この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
+コードブロックの使いやすさを向上させるために、以下の機能を提供します。
+- コードブロック右上に「コピーアイコン」ボタンが表示され、クリックするとコードブロックをコピーします。
+- コードブロック右上に「折り返し切り替え」ボタンが表示され、クリックすると折り返し表示と横スクロール表示を切り替えられます。デフォルトでは折り返しなしで横スクロール可能な表示になっています。
 
+```
+# 設定方法
+customize-codeblock.htmlを、はてなブログの「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けます。
+```
 
-**目次ボタン機能を使用する場合**
+**ダークモード機能**
 
-本テーマには、ページ右上に固定表示される「目次」ボタンの機能が含まれています。この機能を使用するには以下の手順を行ってください。
+記事ページの右上にダークモードを切り替えるボタンが表示されます。ユーザーの選択は次回訪問時も記憶され、システム設定を自動で追従するので夜間の閲覧も快適です。
+- 太陽アイコン: ライトモードに固定します
+- 月アイコン: ダークモードに固定します
+- モニターアイコン: システム設定に合わせて自動切り替えします（デフォルト）
 
-1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
-   ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
-   ```
+```
+# 設定方法
+customize-dark-mode.htmlを、はてなブログの「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けます。
+```
 
-2. 本番環境で使用する場合は、[customize-toc-button.html](customize-toc-button.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けてください。
+**タグクラウド機能**
 
-   この設定により、記事ページの右上に「目次」ボタンが表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
+カテゴリを記事数によってサイズを変えて表示します。
 
-**コードブロック機能を使用する場合**
+```
+# 設定方法
+customize-tag-cloud.htmlを、はてなブログの「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けます。
+```
 
-本テーマには、コードブロックに関する機能が含まれています。コピーボタンと折り返し切り替えボタンを提供し、コードの使いやすさを向上させます。この機能を使用するには以下の手順を行ってください。
+**記事中の目次開閉機能**
 
-1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
-   ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/codeblock.js" crossorigin="anonymous"></script>
-   ```
+記事中の目次を開閉できるようになります。記事内に目次（table-of-contents）がない場合は、目次自体が表示されません。
 
-2. 本番環境で使用する場合は、[customize-codeblock.html](customize-codeblock.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けてください。
+```
+# 設定方法
+customize-toc-toggle.htmlを、はてなブログの「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けます。
+```
 
-   この設定により、以下の機能が有効になります：
-   - コードブロック右上に「コピーアイコン」ボタンが表示され、クリックするとコードブロックをコピーします。
-   - コードブロック右上に「折り返し切り替え」ボタンが表示され、クリックすると折り返し表示と横スクロール表示を切り替えられます。デフォルトでは折り返しなしで横スクロール可能な表示になっています。
+**ページ右上に固定表示される「目次」ボタンの機能**
 
-**ダークモード機能を使用する場合**
+記事ページの右上に「目次」ボタンが固定表示され、クリックすると目次が表示されるようになります。記事内に目次（table-of-contents）がない場合は、ボタンは表示されません。
 
-本テーマには、ダークモード機能が含まれています。この機能を有効にするには以下の手順を行ってください。
+```
+# 設定方法
+customize-toc-button.htmlを、はてなブログの「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けます
+```
 
-1. 「設定」->「詳細設定」にアクセスし、「`head`要素にメタデータを追加」に次のスクリプトタグを追加します。
-   ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/dark-mode.js" crossorigin="anonymous"></script>
-   ```
-
-2. 本番環境で使用する場合は、[customize-dark-mode.html](customize-dark-mode.html) ファイルの内容をコピーして「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けてください。
-
-   この設定により、記事ページの右上に3つの切り替えボタンが表示されます：
-   - 太陽アイコン: ライトモードに固定します
-   - 月アイコン: ダークモードに固定します
-   - モニターアイコン: システム設定に合わせて自動切り替えします（デフォルト）
-
-   ユーザーの選択は次回訪問時も記憶され、システム設定を自動で追従するので夜間の閲覧も快適です。
 
 ## 開発環境を構築する
 
@@ -134,6 +118,11 @@ $ npx playwright install
     ``` html
     <script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/style.scss" crossorigin="anonymous" />
+    <script type="text/javascript" src="http://localhost:5173/js/codeblock.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/dark-mode.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/tag-cloud.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
     ```
 
 ### 開発サーバーを起動する

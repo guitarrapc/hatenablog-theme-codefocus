@@ -5,112 +5,96 @@
 
 ## CodeFocus
 
-A single-column theme designed for technical writing ease.
+A single-column theme designed to make technical articles easy to write.
 Responsive design ensures optimal display on all screen sizes: mobile, tablet, and PC.
 
-Prioritizing readability with a clean design that removes unnecessary decoration, allowing focus on the content.
-Code blocks feature clear color schemes with copy functionality, making it ideal for technical blogs handling programming code.
-With JavaScript customization, you can add distinctive table of contents features (in-page TOC, fixed TOC button) and code block copy functionality for comfortable reading of long articles.
-Dark mode support is included, with automatic switching based on system settings or manual control.
+Prioritizing article readability with a clean design that removes unnecessary decorations, allowing readers to focus on the content.
+Code blocks feature a clear color scheme and copy functionality, making it ideal for technical blogs that handle programming code.
+By applying JavaScript customizations, you can add distinctive table of contents features (in-page TOC and fixed TOC button) and code block copy functionality, making long articles comfortable to read.
+It also supports dark mode, with automatic switching based on system settings or manual switching.
 
-Demo page:
+Demo Page
 https://codefocus.hatenablog.jp/entry/2025/05/17/015533
 
-For customization instructions, refer to this article:
+For customization instructions, please refer to this article
 https://codefocus.hatenablog.jp/entry/2025/05/20/221750
 
-## Usage
+## How to Use
 
-Installation from Hatena Blog Theme Store is recommended when possible.
+If possible, installation from the Hatena Blog theme store is recommended.
 
-### Direct CSS Installation
+### Install from Hatena Blog Theme Store
 
-Download the latest version `theme-VERSION.zip`:
+Search for "CodeFocus" in the Hatena Blog theme store and install it.
+If you want to use JavaScript customizations, follow the setup instructions below.
+
+### JavaScript Customization Setup
+
+Download the latest version of `theme-VERSION.zip`. For example, if the version is v1.6.1, it will be `theme-1.6.1.zip`.
 
 - https://github.com/guitarrapc/HatenaBlog-Theme/releases/latest
 
-The archive contains the stylesheet `style.css` and HTML files for theme configuration.
+The package contains the stylesheet `style.css` and HTML files for theme configuration. The stylesheet is automatically applied when you install the theme from the theme store, so you don't need to manually paste style.css.
 
-- Paste `style.css` into Hatena Blog's "Design" -> "Customize" -> "Design CSS"
-- Paste `customize-toc-toggle.html` into Hatena Blog's "Design" -> "Customize" -> "Article" -> "Article Top HTML"
-- Paste `customize-toc-button.html` into Hatena Blog's "Design" -> "Customize" -> "Article" -> "Article Top HTML"
-- Paste `customize-codeblock.html` into Hatena Blog's "Design" -> "Customize" -> "Article" -> "Article Top HTML"
-- Paste `customize-dark-mode.html` into Hatena Blog's "Design" -> "Customize" -> "Article" -> "Article Top HTML"
+**Code block copy and wrap toggle button features**
 
-### Install from Hatena Blog Theme Store (Recommended)
+To improve code block usability, the following features are provided:
+- A "copy icon" button appears in the upper right corner of code blocks, clicking it copies the code block.
+- A "wrap toggle" button appears in the upper right corner of code blocks, clicking it toggles between wrapped display and horizontal scroll display. By default, it displays without wrapping and allows horizontal scrolling.
 
-Search for "CodeFocus" in the Hatena Blog Theme Store and install it.
-Follow these steps to configure JavaScript customizations:
+```
+# Setup method
+Paste customize-codeblock.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+```
 
-**To Use In-Article TOC Toggle Feature**
+**Dark mode feature**
 
-This theme includes functionality to toggle the table of contents within articles. Follow these steps to use this feature:
+A dark mode toggle button appears in the upper right corner of article pages. User selection is remembered for the next visit, and it automatically follows system settings for comfortable nighttime viewing.
+- Sun icon: Fixes to light mode
+- Moon icon: Fixes to dark mode
+- Monitor icon: Automatically switches according to system settings (default)
 
-1. Access "Settings" -> "Advanced Settings" and add the following script tag to "Add metadata to head element":
+```
+# Setup method
+Paste customize-dark-mode.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+```
 
-   ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
-   ```
+**Tag cloud feature**
 
-2. For production use, copy the contents of [customize-toc-toggle.html](customize-toc-toggle.html) and paste into "Design" -> "Customize" -> "Article" -> "Article Top HTML".
+Displays categories with sizes that vary according to the number of articles.
 
-   With this configuration, a "TOC" button will appear in the upper right of article pages, displaying the table of contents when clicked. If no table of contents exists in the article, the button won't appear.
+```
+# Setup method
+Paste customize-tag-cloud.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+```
+
+**In-article table of contents toggle feature**
+
+Enables toggling the table of contents within articles. If there is no table of contents (table-of-contents) in the article, the TOC itself will not be displayed.
+
+```
+# Setup method
+Paste customize-toc-toggle.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+```
+
+**Fixed "Table of Contents" button feature in the upper right corner of pages**
+
+A "Table of Contents" button is fixed in the upper right corner of article pages, and clicking it displays the table of contents. If there is no table of contents (table-of-contents) in the article, the button will not be displayed.
+
+```
+# Setup method
+Paste customize-toc-button.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+```
 
 
-**To Use TOC Button Feature**
+## Setting Up the Development Environment
 
-This theme includes a fixed "TOC" button displayed in the upper right of pages. Follow these steps to use this feature:
-
-1. Access "Settings" -> "Advanced Settings" and add the following script tag to "Add metadata to head element":
-   ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
-   ```
-
-2. For production use, copy the contents of [customize-toc-button.html](customize-toc-button.html) and paste into "Design" -> "Customize" -> "Header" -> "Below Blog Title".
-
-   With this configuration, a "TOC" button will appear in the upper right of article pages, displaying the table of contents when clicked. If no table of contents exists in the article, the button won't appear.
-
-**To Use Code Block Features**
-
-This theme includes code block-related features. It provides copy and wrap toggle buttons to improve code usability. Follow these steps to use these features:
-
-1. Access "Settings" -> "Advanced Settings" and add the following script tag to "Add metadata to head element":
-   ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/codeblock.js" crossorigin="anonymous"></script>
-   ```
-
-2. For production use, copy the contents of [customize-codeblock.html](customize-codeblock.html) and paste into "Design" -> "Customize" -> "Header" -> "Below Blog Title".
-
-   With this configuration, the following features are enabled:
-   - A "Copy icon" button appears in the upper right of code blocks, copying the code block when clicked
-   - A "Wrap toggle" button appears in the upper right of code blocks, switching between wrapped display and horizontal scroll display when clicked. By default, display is without wrapping with horizontal scroll available.
-
-**To Use Dark Mode Feature**
-
-This theme includes dark mode functionality. Follow these steps to enable this feature:
-
-1. Access "Settings" -> "Advanced Settings" and add the following script tag to "Add metadata to head element":
-   ``` html
-   <script type="text/javascript" src="http://localhost:5173/js/dark-mode.js" crossorigin="anonymous"></script>
-   ```
-
-2. For production use, copy the contents of [customize-dark-mode.html](customize-dark-mode.html) and paste into "Design" -> "Customize" -> "Header" -> "Below Blog Title".
-
-   With this configuration, three toggle buttons appear in the upper right of article pages:
-   - Sun icon: Fixes to light mode
-   - Moon icon: Fixes to dark mode
-   - Monitor icon: Automatically switches based on system settings (default)
-
-   User selection is remembered on next visit and automatically follows system settings, making nighttime browsing comfortable.
-
-## Setting Up Development Environment
-
-To develop with SCSS, clone the repository and install modules following these steps.
-Required components:
+When developing with SCSS, follow these steps to clone the repository and install modules.
+Required components are as follows:
 
 - [Node.js](https://nodejs.org/)
 
-### Installing Modules
+### Install Modules
 
 ```shell
 $ git clone https://github.com/guitarrapc/hatenablog-theme-codefocus.git
@@ -119,26 +103,31 @@ $ npm install
 $ npx playwright install
 ```
 
-### Configuring Development Server for Development Blog
+### Set Up Development Server for Development Blog
 
-Using the development server allows you to develop the theme while SCSS changes are reflected in real-time to your blog.
+By using the development server, you can develop themes while reflecting SCSS changes to your blog in real-time.
 
-First, configure [Hatena Blog](https://blog.hatena.ne.jp/):
+First, configure [Hatena Blog](https://blog.hatena.ne.jp/).
 
-1. Prepare one blog for theme testing (create a separate blog from your regular blog).
-2. Access the blog's "Design Settings", and replace the "Design CSS" content in the "Customize" tab with the following and save:
+1. Prepare one blog to use for testing theme operation. (Create a blog separate from your regular blog.)
+2. Access "Design Settings" for the blog from step 1, and replace the content of "Design CSS" in the "Customize" tab with the following and save:
     ``` css
     /* Responsive: yes */
     ```
-3. Access the blog's "Settings" -> "Advanced Settings" and add the following script tags to "Add metadata to head element":
+3. Access "Settings" -> "Advanced Settings" for the blog from step 1, and add the following script tags to "Add metadata to `head` element":
     ``` html
     <script type="module" src="http://localhost:5173/@vite/client" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="http://localhost:5173/scss/style.scss" crossorigin="anonymous" />
+    <script type="text/javascript" src="http://localhost:5173/js/codeblock.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/dark-mode.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/tag-cloud.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
     ```
 
-### Starting Development Server
+### Start Development Server
 
-Start the development server with the following command. Replace `BLOG_DOMAIN_NAME` with your test blog's domain name (e.g., `example.hatenablog.com`):
+Start the development server with the following command. Replace `BLOG_DOMAIN_NAME` with the domain name of the blog you prepared for testing (e.g., `example.hatenablog.com`).
 
 ```shell
 $ npm start -- BLOG_DOMAIN_NAME
@@ -150,9 +139,9 @@ Command execution example:
 $ npm start -- guitarrapc-theme.hatenablog.com
 ```
 
-After completing these steps, the theme under development will be reflected on your test blog. Access the blog and develop the theme while checking the display.
+Once completed, the theme under development will be reflected in your testing blog. Access the blog and develop the theme while checking the display.
 
-### Testing Development Code
+### Test Development Code
 
 Start the server in a separate terminal:
 
@@ -166,13 +155,13 @@ Run tests:
 $ npm run test
 ```
 
-### Compiling for Production
+### Compile for Production
 
-When theme development is complete, compile SCSS with the following command. The compilation result is output to `build/style.css`:
+When theme development is complete, compile SCSS with the following command. The compilation result is output to `build/style.css`.
 
 ```shell
 $ npm run build
 ```
 
-The compiled CSS can be pasted into Hatena Blog's "Design" -> "Customize" -> "Design CSS" for use.
-For CSS to upload to the store, use the contents of `build/style.css` similarly.
+The compiled CSS can be used by pasting it into Hatena Blog's "Design" -> "Customize" -> "Design CSS".
+Use the content of `build/style.css` for CSS uploaded to the store as well.
