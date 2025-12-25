@@ -435,6 +435,7 @@ table {
     padding: 0 0 5px 0;
     margin: 0;
     line-height: 1.9;
+    letter-spacing: 0.05em; // 文字間を少し広げる
 
     h1 + p,
     h2 + p,
@@ -455,7 +456,6 @@ table {
         margin-block-end: 1em;
         margin-inline-start: 0px;
         margin-inline-end: 0px;
-        line-height: 1.8;
     }
 
     /* リンクのスタイルを改善 */
