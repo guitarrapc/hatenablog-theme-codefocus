@@ -43,7 +43,7 @@ To improve code block usability, the following features are provided:
 - A "wrap toggle" button appears in the upper right corner of code blocks, clicking it toggles between wrapped display and horizontal scroll display. By default, it displays without wrapping and allows horizontal scrolling.
 
 > [!TIP]
-> Paste customize-codeblock.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+> Paste [customize-codeblock.html](customize-codeblock.html) into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 
 #### Dark mode feature
 
