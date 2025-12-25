@@ -53,29 +53,28 @@ A dark mode toggle button appears in the upper right corner of article pages. Us
 - Monitor icon: Automatically switches according to system settings (default)
 
 > [!TIP]
-> Paste customize-dark-mode.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+> Paste [customize-dark-mode.html](customize-dark-mode.html) into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 
 #### Tag cloud feature
 
 Displays categories with sizes that vary according to the number of articles.
 
 > [!TIP]
-> Paste customize-tag-cloud.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+> Paste [customize-tag-cloud.html](customize-tag-cloud.html) into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 
 #### In-article table of contents toggle feature
 
 Enables toggling the table of contents within articles. If there is no table of contents (table-of-contents) in the article, the TOC itself will not be displayed.
 
 > [!TIP]
-> Paste customize-toc-toggle.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+> Paste [customize-toc-toggle.html](customize-toc-toggle.html) into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 
 #### Fixed "Table of Contents" button feature in the upper right corner of pages
 
 A "Table of Contents" button is fixed in the upper right corner of article pages, and clicking it displays the table of contents. If there is no table of contents (table-of-contents) in the article, the button will not be displayed.
 
 > [!TIP]
-> Paste customize-toc-button.html into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
-
+> Paste [customize-toc-button.html](customize-toc-button.html) into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 
 ## Setting Up the Development Environment
 
