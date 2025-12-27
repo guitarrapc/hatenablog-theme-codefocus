@@ -132,26 +132,6 @@
 // ダークモードのスタイルを一括で適用（JavaScriptが有効化した場合のみ）
 html[data-enable-dark-mode="true"] {
 
-    // 背景画像対応: ダークモード固定時のフローティング目次に半透明の黒背景を適用
-    &[data-theme="dark"] {
-
-        .toc-button,
-        .floating-toc {
-            background-color: var.$dark-background-semi-transparent;
-        }
-    }
-
-    // 背景画像対応: システム設定でダークモード時のフローティング目次に半透明の黒背景を適用
-    @media (prefers-color-scheme: dark) {
-        &:not([data-theme="light"]):not([data-theme="dark"]) {
-
-            .toc-button,
-            .floating-toc {
-                background-color: var.$dark-background-semi-transparent;
-            }
-        }
-    }
-
     &[data-theme="dark"] {
         --background: #{var.$dark-background};
         --bg-light: #{var.$dark-bg-light};
@@ -163,6 +143,7 @@ html[data-enable-dark-mode="true"] {
         --bg-archive-category: #{var.$dark-bg-archive-category};
         --bg-archive-category-hover: #{var.$dark-bg-archive-category-hover};
         --bg-btn-hover: #{var.$dark-bg-btn-hover};
+        --bg-semi-transparent: #{var.$dark-background-semi-transparent};
 
         --text-body: #{var.$dark-text-body};
         --text-low-priority: #{var.$dark-text-low-priority};
@@ -217,6 +198,7 @@ html[data-enable-dark-mode="true"] {
         --bg-archive-category: #{var.$dark-bg-archive-category};
         --bg-archive-category-hover: #{var.$dark-bg-archive-category-hover};
         --bg-btn-hover: #{var.$dark-bg-btn-hover};
+        --bg-semi-transparent: #{var.$dark-background-semi-transparent};
 
         --text-body: #{var.$dark-text-body};
         --text-low-priority: #{var.$dark-text-low-priority};
