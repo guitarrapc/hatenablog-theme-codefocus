@@ -119,12 +119,6 @@ First, configure [Hatena Blog](https://blog.hatena.ne.jp/).
 Start the development server with the following command. Replace `BLOG_DOMAIN_NAME` with the domain name of the blog you prepared for testing (e.g., `example.hatenablog.com`).
 
 ```shell
-$ npm start -- BLOG_DOMAIN_NAME
-```
-
-Command execution example:
-
-```shell
 $ npm start -- guitarrapc-theme.hatenablog.com
 ```
 

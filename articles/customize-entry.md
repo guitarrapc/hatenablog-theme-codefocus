@@ -93,7 +93,7 @@ a:hover {
 
 ```css
 body {
-  font-family: Meiryo, sans-serif;
+  font-family: "Noto Sans JP", Meiryo, sans-serif;
 }
 ```
 
@@ -106,7 +106,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+  font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', "Noto Sans JP", Meiryo, sans-serif;
 }
 ```
 
@@ -142,7 +142,7 @@ h6 {
 
 /* タイトルのフォントファミリーをKaushan Scriptに設定 */
 #title a {
-  font-family: 'Kaushan Script', cursive, -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', 'Meiryo', sans-serif, "Segoe UI Emoji";
+  font-family: 'Kaushan Script', cursive, -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', "Noto Sans JP", 'Meiryo', sans-serif, "Segoe UI Emoji";
 }
 ```
 

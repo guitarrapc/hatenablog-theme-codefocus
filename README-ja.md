@@ -119,12 +119,6 @@ $ npx playwright install
 下記のコマンドで、開発サーバーを起動します。`BLOG_DOMAIN_NAME` の部分には、上で用意した動作確認に使うブログのドメイン名 (例: `example.hatenablog.com`) を入力してください。
 
 ```shell
-$ npm start -- BLOG_DOMAIN_NAME
-```
-
-コマンド実行例:
-
-```shell
 $ npm start -- guitarrapc-theme.hatenablog.com
 ```
 
