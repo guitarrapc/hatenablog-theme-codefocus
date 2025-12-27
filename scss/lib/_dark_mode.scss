@@ -131,6 +131,7 @@
 
 // ダークモードのスタイルを一括で適用（JavaScriptが有効化した場合のみ）
 html[data-enable-dark-mode="true"] {
+
     &[data-theme="dark"] {
         --background: #{var.$dark-background};
         --bg-light: #{var.$dark-bg-light};
@@ -142,6 +143,7 @@ html[data-enable-dark-mode="true"] {
         --bg-archive-category: #{var.$dark-bg-archive-category};
         --bg-archive-category-hover: #{var.$dark-bg-archive-category-hover};
         --bg-btn-hover: #{var.$dark-bg-btn-hover};
+        --bg-semi-transparent: #{var.$dark-background-semi-transparent};
 
         --text-body: #{var.$dark-text-body};
         --text-low-priority: #{var.$dark-text-low-priority};
@@ -196,6 +198,7 @@ html[data-enable-dark-mode="true"] {
         --bg-archive-category: #{var.$dark-bg-archive-category};
         --bg-archive-category-hover: #{var.$dark-bg-archive-category-hover};
         --bg-btn-hover: #{var.$dark-bg-btn-hover};
+        --bg-semi-transparent: #{var.$dark-background-semi-transparent};
 
         --text-body: #{var.$dark-text-body};
         --text-low-priority: #{var.$dark-text-low-priority};

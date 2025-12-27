@@ -15,6 +15,7 @@
     --bg-archive-category: #{var.$bg-archive-category};
     --bg-archive-category-hover: #{var.$bg-archive-category-hover};
     --bg-btn-hover: #{var.$bg-btn-hover};
+    --bg-semi-transparent: #{var.$light-background-semi-transparent};
 
     --text-body: #{var.$text-body};
     --text-low-priority: #{var.$text-low-priority};
@@ -735,7 +736,7 @@ table {
                 "thumbnail date";
             gap: 5px 12px;
             border-radius: 4px;
-            background-color: var(--background);
+            background-color: transparent; // 背景画像との互換性のため透明に設定
             transition: all 0.2s ease;
 
             // サムネイル画像共通スタイル
@@ -1481,7 +1482,7 @@ table {
         margin-bottom: .5em;
         padding-bottom: .5em;
         box-sizing: content-box;
-        background-color: var(--background);
+        background-color: transparent; // 背景画像との互換性のため透明に設定
 
         // スマホではサブグリッドを用いて2列
         grid-template-columns: auto 1fr;
