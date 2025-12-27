@@ -20,6 +20,7 @@ $svg-pager: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='n
 
 // ライトモード
 $light-background: #fff;
+$light-background-semi-transparent: rgba(255, 255, 255, 0.95); // 背景画像対応用の半透明背景
 $light-bg-light: #f5f5f5;
 $light-bg-code: #1a2638;
 $light-bg-code-selection: #aaaaaa40;
@@ -72,6 +73,7 @@ $light-codeblock-language-colors: (
 
 // ダークモード
 $dark-background: #0d1117;
+$dark-background-semi-transparent: rgba(13, 17, 23, 0.95); // 背景画像対応用の半透明背景
 $dark-bg-light: #1a1d21;
 $dark-bg-code: #161b22;
 $dark-bg-code-selection: #aaaaaa40;

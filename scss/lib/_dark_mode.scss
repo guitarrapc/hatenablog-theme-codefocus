@@ -131,6 +131,26 @@
 
 // ダークモードのスタイルを一括で適用（JavaScriptが有効化した場合のみ）
 html[data-enable-dark-mode="true"] {
+
+    // 背景画像対応: ダークモード時のフローティング目次に半透明の黒背景を適用
+    &[data-theme="dark"] {
+
+        .toc-button,
+        .floating-toc {
+            background-color: var.$dark-background-semi-transparent;
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        &:not([data-theme="light"]):not([data-theme="dark"]) {
+
+            .toc-button,
+            .floating-toc {
+                background-color: var.$dark-background-semi-transparent;
+            }
+        }
+    }
+
     &[data-theme="dark"] {
         --background: #{var.$dark-background};
         --bg-light: #{var.$dark-bg-light};
@@ -180,15 +200,6 @@ html[data-enable-dark-mode="true"] {
         --codeblock-language-colors-punctuation: #{map.get(var.$dark-codeblock-language-colors, "punctuation")};
         --codeblock-language-colors-number: #{map.get(var.$dark-codeblock-language-colors, "number")};
         --codeblock-language-colors-comment: #{map.get(var.$dark-codeblock-language-colors, "comment")};
-
-        // 背景画像対応: ダークモード時のフローティング目次に半透明の黒背景を適用
-        .toc-button {
-            background-color: rgba(13, 17, 23, 0.95);
-        }
-
-        .floating-toc {
-            background-color: rgba(13, 17, 23, 0.95);
-        }
     }
 }
 
@@ -243,14 +254,5 @@ html[data-enable-dark-mode="true"] {
         --codeblock-language-colors-punctuation: #{map.get(var.$dark-codeblock-language-colors, "punctuation")};
         --codeblock-language-colors-number: #{map.get(var.$dark-codeblock-language-colors, "number")};
         --codeblock-language-colors-comment: #{map.get(var.$dark-codeblock-language-colors, "comment")};
-
-        // 背景画像対応: ダークモード時のフローティング目次に半透明の黒背景を適用
-        .toc-button {
-            background-color: rgba(13, 17, 23, 0.95);
-        }
-
-        .floating-toc {
-            background-color: rgba(13, 17, 23, 0.95);
-        }
     }
 }

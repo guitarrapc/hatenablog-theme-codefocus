@@ -14,7 +14,7 @@
     padding: 8px 12px;
     border: 1px solid var(--border);
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.95); // 背景画像との互換性のため半透明の白背景に設定
+    background-color: var.$light-background-semi-transparent; // 背景画像との互換性のため半透明の白背景に設定
     font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -58,7 +58,7 @@
     right: 1em;
     width: 250px;
     max-width: 80vw;
-    background-color: rgba(255, 255, 255, 0.95); // 背景画像との互換性のため半透明の白背景に設定
+    background-color: var.$light-background-semi-transparent; // 背景画像との互換性のため半透明の白背景に設定
     border: 1px solid var(--border);
     border-radius: 4px;
     box-shadow: 0 2px 10px var(--shadow);
