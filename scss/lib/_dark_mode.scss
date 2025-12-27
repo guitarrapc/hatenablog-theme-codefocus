@@ -180,6 +180,15 @@ html[data-enable-dark-mode="true"] {
         --codeblock-language-colors-punctuation: #{map.get(var.$dark-codeblock-language-colors, "punctuation")};
         --codeblock-language-colors-number: #{map.get(var.$dark-codeblock-language-colors, "number")};
         --codeblock-language-colors-comment: #{map.get(var.$dark-codeblock-language-colors, "comment")};
+
+        // 背景画像対応: ダークモード時のフローティング目次に半透明の黒背景を適用
+        .toc-button {
+            background-color: rgba(13, 17, 23, 0.95);
+        }
+
+        .floating-toc {
+            background-color: rgba(13, 17, 23, 0.95);
+        }
     }
 }
 
@@ -234,5 +243,14 @@ html[data-enable-dark-mode="true"] {
         --codeblock-language-colors-punctuation: #{map.get(var.$dark-codeblock-language-colors, "punctuation")};
         --codeblock-language-colors-number: #{map.get(var.$dark-codeblock-language-colors, "number")};
         --codeblock-language-colors-comment: #{map.get(var.$dark-codeblock-language-colors, "comment")};
+
+        // 背景画像対応: ダークモード時のフローティング目次に半透明の黒背景を適用
+        .toc-button {
+            background-color: rgba(13, 17, 23, 0.95);
+        }
+
+        .floating-toc {
+            background-color: rgba(13, 17, 23, 0.95);
+        }
     }
 }

@@ -10,7 +10,7 @@
     margin: 0;
     font-weight: bold;
     color: var(--text-body);
-    background-color: var(--background);
+    background-color: transparent; // 背景画像との互換性のため透明に設定
     border-radius: 10px 10px 0 0;
     border-bottom: 1px solid var(--border);
     user-select: none;
