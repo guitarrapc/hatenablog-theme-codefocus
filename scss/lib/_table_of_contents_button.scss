@@ -22,7 +22,7 @@
 
     // Wide screen (1540px+): Hide button as TOC is always visible
     @media (min-width: 1540px) {
-        display: none !important; // Hide button on wide screens
+        display: none; // Hide button on wide screens
     }
 
     &:hover {
