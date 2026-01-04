@@ -72,6 +72,16 @@
     document.body.appendChild(tocButton);
     document.body.appendChild(floatingToc);
 
+    // Set up event delegation for TOC links to prevent memory leaks
+    // This handles clicks on all current and future TOC links
+    tocListContainer.addEventListener('click', function (e) {
+      const link = e.target.closest('a');
+      if (link && !isWideScreen()) {
+        floatingToc.classList.remove('show');
+        tocButton.classList.remove('active');
+      }
+    });
+
     // Track current active entry
     let currentActiveEntry = null;
     let currentTocLinks = [];
@@ -118,17 +128,6 @@
 
       // Update TOC links
       currentTocLinks = Array.from(floatingToc.querySelectorAll('a'));
-
-      // Set up click handlers for TOC links
-      currentTocLinks.forEach(function (link) {
-        link.addEventListener('click', function () {
-          // Close TOC on small screens
-          if (!isWideScreen()) {
-            floatingToc.classList.remove('show');
-            tocButton.classList.remove('active');
-          }
-        });
-      });
 
       // Get all heading elements in this entry
       const headings = Array.from(entry.querySelectorAll('h1, h2, h3, h4, h5, h6'));
