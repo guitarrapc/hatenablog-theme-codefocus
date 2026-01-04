@@ -222,7 +222,7 @@ CodeFocusテーマは、2種類の目次表示方法を提供しています：
 
 この機能は特に大きなモニターやワイドディスプレイを使用している読者に快適な閲覧体験を提供します。
 
-[f:id:guitarrapc_tech:20250104000000p:plain:alt=ワイドスクリーンでのサイドバイサイド表示] <!-- screenshots/pc-wide-toc-sidebar.png -->
+[f:id:guitarrapc_tech:20260104190109p:plain:alt=ワイドスクリーンでのサイドバイサイド表示] <!-- screenshots/pc-wide-toc-sidebar.png -->
 
 これらの機能により、記事の閲覧に集中しながらも、必要なときにすぐに目次にアクセスできる快適な読書体験を実現しています。
 
