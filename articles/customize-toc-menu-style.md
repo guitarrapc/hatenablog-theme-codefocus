@@ -1,10 +1,11 @@
 ---
-title: 目次をカスタマイズする方法
+title: CodeFocusテーマの目次をデザインCSSでカスタマイズする
 ---
 
-## 概要
-
 CodeFocusテーマの目次は、テーマ本体は変更せずはてなブログの「デザインCSS」に追加するだけでカスタマイズ可能です。
+以下に3つのスタイル例を紹介します。お好みのスタイルを選んで、ぜひ試してみてください！
+
+[:contents]
 
 ## カスタマイズ方法
 
@@ -14,13 +15,11 @@ CodeFocusテーマの目次は、テーマ本体は変更せずはてなブロ�
 2. 下記のCSSコードをコピーして貼り付ける
 3. 「変更を保存する」をクリック
 
----
-
 ## レストランメニュー
 
 レストランメニューのような、二重線フレームとゴールドアクセントの目次デザインです。
 
-![レストランメニュー目次の表示例](image.png)<!--customize-toc-menu-style-image.png-->
+[f:id:guitarrapc_tech:20260105002647p:plain:alt=レストランメニュー目次の表示例]<!--customize-toc-menu-style-image.png-->
 
 以下のCSSコードを「デザインCSS」に貼り付けてください。
 
@@ -254,13 +253,11 @@ ul.floating-toc-list > li > ul li a:hover {
 }
 ```
 
----
-
 ## モダンカード
 
 各セクションをカード化し、クリーンな目次デザインです。次のような見た目になります。
 
-![モダンカード目次の表示例](image-1.png)<!--customize-toc-menu-style-image-1.png-->
+[f:id:guitarrapc_tech:20260105002804p:plain:alt=モダンカード目次の表示例]<!--customize-toc-menu-style-image-1.png-->
 
 以下のCSSコードを「デザインCSS」に貼り付けてください。
 
@@ -517,13 +514,11 @@ html[data-theme="dark"] ul.floating-toc-list > li > ul li a:hover {
 }
 ```
 
----
-
 ## ミニマル
 
 シンプルで読みやすい、装飾を最小限に抑えた目次デザインです。次のような見た目になります。
 
-![ミニマルの適用例](image-2.png)<!--customize-toc-menu-style-image-2.png-->
+[f:id:guitarrapc_tech:20260105002858p:plain:alt=ミニマルの適用例]<!--customize-toc-menu-style-image-2.png-->
 
 以下のCSSコードを「デザインCSS」に貼り付けてください。
 
@@ -754,7 +749,9 @@ html[data-theme="dark"] ul.floating-toc-list > li > ul li a:hover {
 }
 ```
 
----
+## カスタマイズの勘所
+
+
 
 ## 注意事項
 
@@ -778,8 +775,6 @@ html[data-theme="dark"] ul.floating-toc-list > li > ul li a:hover {
 2. **間隔の調整**：`padding`や`margin`の値を変更して、余白を調整できます
 3. **複数スタイルの組み合わせ**：異なるスタイルの要素を組み合わせることも可能
 
----
-
 ## トラブルシューティング
 
 ### スタイルが適用されない場合
@@ -791,11 +786,3 @@ html[data-theme="dark"] ul.floating-toc-list > li > ul li a:hover {
 ### ダークモードで色がおかしい
 
 ダークモード用の色指定が不足している可能性があります。上記のサンプルコードには両方の対応が含まれています。
-
----
-
-## まとめ
-
-はてなブログの「デザインCSS」に上記のコードを貼り付けるだけで、目次を好みのスタイルにカスタマイズできます。
-
-お好みのスタイルを選んで、ぜひ試してみてください！
