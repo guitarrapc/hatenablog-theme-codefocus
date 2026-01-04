@@ -18,74 +18,109 @@ CodeFocusテーマは、基本的なスタイリングからアニメーショ�
 
 ## 色のカスタマイズ
 
-### メイン文字色と背景色の変更
+CodeFocusテーマは、CSS変数（カスタムプロパティ）を使用して色を管理しています。これにより、簡単にテーマ全体の色を統一的に変更できます。
+
+### CSS変数の上書き方法
+
+色をカスタマイズする最も効率的な方法は、`:root`セレクタでCSS変数を上書きすることです。以下に主要なCSS変数の一覧を示します：
 
 ```css
-/* 文字色の変更 */
-body {
-  color: #333333; /* 文字色 */
-}
+:root {
+  /* 背景色 */
+  --background: #ffffff;           /* メインの背景色 */
+  --bg-light: #f8f9fa;            /* 薄い背景色 */
+  --bg-code: #f6f8fa;             /* コードブロックの背景色 */
+  --bg-span: #f3f4f6;             /* インラインコードの背景色 */
+  --bg-toc-hover: #e3f2fd10;      /* 目次項目ホバー時の背景色 */
+  --bg-btn-hover: #e3f2fd30;      /* ボタンホバー時の背景色 */
 
-/* 背景色の変更 */
-body {
-  background-color: #88ccaa; /* 背景色 */
+  /* テキスト色 */
+  --text-body: #24292f;           /* 本文テキスト色 */
+  --text-low-priority: #57606a;   /* 低優先度テキスト（日付など） */
+  --text-light: #6e7781;          /* ライトテキスト色 */
+  --text-header: #1f2328;         /* 見出しテキスト色 */
+
+  /* リンク色 */
+  --link: #0969da;                /* リンク色 */
+  --link-hover: #0550ae;          /* リンクホバー時の色 */
+  --link-visited: #8250df;        /* 訪問済みリンク色 */
+
+  /* ボーダー色 */
+  --border: #d0d7de;              /* 標準ボーダー色 */
+  --border-light: #e5e5e5;        /* 薄いボーダー色 */
+
+  /* 目次関連 */
+  --toc-border-bg: #e3f2fd50;     /* 目次のボーダー背景色 */
+  --toc-marker: #1976d2;          /* 目次マーカー色 */
+
+  /* テーブル */
+  --table-th-bg: #f6f8fa;         /* テーブルヘッダー背景色 */
+  --table-border: #d0d7de;        /* テーブルボーダー色 */
 }
 ```
 
-**注意**: CodeFocusテーマは、はてなブログの「デザイン設定」→「カスタマイズ」→「背景画像」で設定した背景画像に対応しています。目次などの要素は半透明または透明の背景になっており、背景画像が透けて見えるようになっています。
+### 背景色の変更例
 
-### リンク色の変更
+背景色を変更するには、以下のようにCSS変数を上書きします：
 
 ```css
-/* リンク色の変更 */
-a {
-  color: #33aaff; /* リンク色 */
-}
-
-a:hover {
-  color: #0044cc; /* ホバー時のリンク色 */
+:root {
+  --background: #aacc99;  /* 背景色を薄緑に変更 */
 }
 ```
 
-### カテゴリー色の変更
+**注意**: CodeFocusテーマは、はてなブログの「デザイン設定」→「カスタマイズ」→「背景画像」で設定した背景画像にも対応しています。目次などの要素は半透明または透明の背景になっており、背景画像が透けて見えるようになっています。
 
-カテゴリーの色を変更するには、以下のようなCSSを追加します：
+### リンク色の変更例
+
+リンク色を変更するには、以下のようにCSS変数を上書きします：
 
 ```css
-/* カテゴリーの色変更 */
-.categories a {
+:root {
+  --link: #33aaff;        /* リンク色 */
+  --link-hover: #0044cc;  /* ホバー時のリンク色 */
+  --link-visited: #8833ff; /* 訪問済みリンク色 */
+}
+```
+
+### カテゴリー色の変更例
+
+カテゴリーの枠線色やホバー時の背景色を変更するには、以下のようにCSS変数を上書きします：
+
+```css
+:root {
+  --border: #30cc33;           /* カテゴリー枠線色 */
+  --bg-btn-hover: #aaf1ab30;   /* ホバー時の背景色 */
+}
+```
+
+カテゴリーテキストの色を個別に変更したい場合は、直接スタイルを指定することもできます：
+
+```css
+.entry-categories a {
   color: #550055; /* カテゴリーテキスト色 */
-  border-color: #30cc33; /* カテゴリー枠線色 */
-}
-
-.categories a:hover {
-  background-color: #aaf1ab30; /* ホバー時の背景色 */
 }
 ```
 
-### 目次関連の色変更
+### 目次関連の色変更例
 
-目次の色をカスタマイズするには、以下のようなCSSを追加します：
+目次の色をカスタマイズするには、以下のようにCSS変数を上書きします：
 
 ```css
-/* 目次の色変更 */
-.table-of-contents {
-  background-color: #f8f9fa; /* 目次背景色 */
-  border-color: #e9ecef; /* 目次枠線色 */
+:root {
+  --toc-border-bg: #f8f9fa;    /* 目次背景色 */
+  --toc-marker: #d4ffcc;       /* 目次マーカー色 */
+  --bg-toc-hover: #e9ecef20;   /* 目次項目ホバー時の背景色 */
 }
+```
 
-/* 目次ボタンの色変更 */
+目次ボタンの色を個別に変更したい場合は、直接スタイルを指定することもできます：
+
+```css
 .toc-button {
   background-color: #aa00aa50; /* 目次ボタン背景色 */
-  color: #a44444; /* 目次ボタン文字色 */
-  border-color: #892222; /* 目次ボタン枠線色 */
-}
-
-.toc-button .toc-button-icon {
-  &:before {
-    border-top: 2px solid #d4ffcc; /* ^アイコンの色 */
-    border-right: 2px solid #d4ffcc; /* ^アイコンの色 */
-  }
+  color: #a44444;             /* 目次ボタン文字色 */
+  border-color: #892222;      /* 目次ボタン枠線色 */
 }
 ```
 
@@ -467,43 +502,36 @@ body {
 
 ## テーマカラーの変更
 
-全体的なテーマカラーを変更するには、主要な色を一括で変更するとよいでしょう。以下の例では、ブルーベースからグリーンベースに変更するCSSを示します：
+全体的なテーマカラーを変更するには、CSS変数を一括で変更するとよいでしょう。以下の例では、ブルーベースからグリーンベースに変更するCSSを示します：
 
 ```css
-/* メインカラーの変更（青→緑） */
-a {
-  color: #2c9a7a; /* リンク色 */
-}
+:root {
+  /* リンク色をグリーン系に変更 */
+  --link: #2c9a7a;
+  --link-hover: #1d6b54;
 
-a:hover {
-  color: #1d6b54; /* ホバー時のリンク色 */
-}
+  /* ボーダー色をグリーン系に変更 */
+  --border: #2c9a7a;
+  --border-light: #d0e9e1;
 
-/* ボタン系要素の色変更 */
+  /* ボタンホバー時の背景色 */
+  --bg-btn-hover: #2c9a7a0a;
+
+  /* 目次関連の色をグリーン系に変更 */
+  --toc-border-bg: #f5faf8;
+  --toc-marker: #2c9a7a;
+}
+```
+
+個別の要素をさらに細かくカスタマイズすることもできます：
+
+```css
+/* ボタン系要素の個別カスタマイズ */
 .toc-button,
 .code-copy-button,
 button.hatena-bookmark-button,
 .comment-box .leave-comment-title {
-  background-color: #2c9a7a0a;
   border-color: #2c9a7a;
-}
-
-/* アクセントカラー（弱い緑） */
-blockquote,
-.table-of-contents,
-.floating-toc {
-  border-color: #d0e9e1;
-  background-color: #f5faf8;
-}
-
-/* 目次マーカーの色変更 */
-.floating-toc li:before,
-.table-of-contents li:before {
-  background-color: #2c9a7a0a;
-}
-.floating-toc ul:after,
-.table-of-contents ul:after {
-  background-color: #d0e9e1;
 }
 ```
 
@@ -559,27 +587,68 @@ blockquote,
 
 ## ダークモードのカスタマイズ
 
-ダークモードの色をカスタマイズしたい場合は、CSSの変数を上書きすることで実現できます。なお、ダークモードは JavaScript が有効な場合にのみ適用されます。
+ダークモードの色をカスタマイズしたい場合は、CSS変数を上書きすることで実現できます。なお、ダークモードは JavaScript が有効な場合にのみ適用されます。
+
+ダークモード時には、以下のHTML属性が設定されます：
+- 明示的にダークモードを選択した場合: `html[data-theme="dark"]`
+- システム設定に従う場合（ダークモード時）: メディアクエリ `@media (prefers-color-scheme: dark)` が適用
+
+### 明示的なダークモード選択時のカスタマイズ
 
 ```css
 /* ダークモードの色をカスタマイズ */
-html[data-enable-dark-mode="true"][data-theme="dark"] {
+html[data-theme="dark"] {
   --background: #1a1a2e;         /* 背景色をより深い青に */
   --text-body: #e2e2e2;          /* 本文テキストをより明るく */
   --link: #64b5f6;               /* リンク色を水色系に */
   --link-hover: #90caf9;         /* ホバー時はより明るく */
   --border: #414165;             /* ボーダー色を青系に合わせる */
+  --border-light: #2d2d50;       /* 薄いボーダー色 */
+  --bg-code: #252540;            /* コードブロック背景色 */
+  --toc-marker: #64b5f6;         /* 目次マーカー色 */
 }
+```
 
+### システム設定に従う場合のカスタマイズ
+
+システムのダークモード設定に従う場合（自動切り替えモード時）は、以下のように設定します：
+
+```css
 /* システム設定に合わせる場合 */
 @media (prefers-color-scheme: dark) {
-  html[data-enable-dark-mode="true"]:not([data-theme="light"]):not([data-theme="dark"]) {
-    /* 上記と同じ変数を設定 */
+  html:not([data-theme="light"]) {
     --background: #1a1a2e;
     --text-body: #e2e2e2;
     --link: #64b5f6;
     --link-hover: #90caf9;
     --border: #414165;
+    --border-light: #2d2d50;
+    --bg-code: #252540;
+    --toc-marker: #64b5f6;
+  }
+}
+```
+
+### 両方に対応したカスタマイズ
+
+明示的な選択とシステム設定の両方に対応する場合は、以下のように記述します：
+
+```css
+/* 明示的にダークモードを選択した場合 */
+html[data-theme="dark"] {
+  --background: #1a1a2e;
+  --text-body: #e2e2e2;
+  --link: #64b5f6;
+  /* その他の変数... */
+}
+
+/* システム設定に従う場合（ライトモード固定でない場合） */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    --background: #1a1a2e;
+    --text-body: #e2e2e2;
+    --link: #64b5f6;
+    /* 上記と同じ変数を設定 */
   }
 }
 ```
