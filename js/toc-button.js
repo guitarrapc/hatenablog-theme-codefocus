@@ -152,11 +152,11 @@
         // Hide button on wide screens as TOC is always visible
         tocButton.style.display = 'none';
       } else {
-        // Remove auto-expand class on smaller screens
-        floatingToc.classList.remove('auto-expanded');
+        // Close TOC and remove auto-expand class on smaller screens
+        floatingToc.classList.remove('auto-expanded', 'show');
+        tocButton.classList.remove('active');
         // Show button on smaller screens
         tocButton.style.display = '';
-        // Don't automatically close if user manually opened it
       }
     }
 
