@@ -126,26 +126,9 @@ CodeFocusテーマは、CSS変数（カスタムプロパティ）を使用し�
 
 ## フォントの変更
 
-### 本文フォントの変更
+CodeFocusテーマでは、読みやすさを重視したフォント設定がデフォルトで適用されています。本文には可読性の高いシステムフォント、コードブロックには等幅フォントが使用されています。
 
-```css
-body {
-  font-family: "Noto Sans JP", Meiryo, sans-serif;
-}
-```
-
-### 見出しフォントの変更
-
-```css
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', "Noto Sans JP", Meiryo, sans-serif;
-}
-```
+フォントをカスタマイズすることで、ブログの印象を大きく変えることができます。特に、Google Fontsなどのウェブフォントを利用すれば、より個性的なデザインを実現できます。
 
 ### Webフォントの利用
 
@@ -184,6 +167,37 @@ h6 {
 ```
 
 フォントは任意ですが、フォントファミリーの順序を適切に設定することで、ユーザーの環境に応じて最適なフォントが選択されます。
+
+### フォントファミリーの変更
+
+CodeFocusテーマでは、以下のフォントファミリーが設定されています：
+
+- **本文・見出し**: システムフォント（Apple系デバイスではSan Francisco、WindowsではSegoe UI、日本語はヒラギノ角ゴ/Noto Sans JP/メイリオ）
+- **コードブロック**: Monaco、Consolas、Courier Newなどの等幅フォント
+
+### 本文フォントの変更
+
+本文のフォントを変更するには、`body`要素に対してフォントファミリーを指定します：
+
+```css
+body {
+  font-family: "Noto Sans JP", Meiryo, sans-serif;
+}
+```
+
+### 見出しフォントの変更
+
+```css
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', "Noto Sans JP", Meiryo, sans-serif;
+}
+```
+
 
 ## コードブロックのカスタマイズ
 
