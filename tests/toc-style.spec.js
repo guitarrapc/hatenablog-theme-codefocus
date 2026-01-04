@@ -157,6 +157,60 @@ test.describe('目次スタイルの詳細テスト', () => {
         console.log('ワイドスクリーンでの目次常時表示テストが完了しました');
     });
 
+    test('解像度を1540px未満に変更すると目次が自動的に閉じる', async ({ page }) => {
+        // 最初にワイドスクリーン解像度に設定
+        await page.setViewportSize({ width: 1600, height: 900 });
+
+        // 統合ナビゲーション関数を使用（networkidleまで待機）
+        await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+        // 記事内の目次要素の存在確認
+        const hasToc = await page.locator('.entry-content .table-of-contents').isVisible();
+        if (!hasToc) {
+            throw new Error('サンプル記事に目次が存在しません。テストデータを確認してください。');
+        }
+
+        // スクロールして記事を表示
+        await page.evaluate(() => window.scrollBy(0, 250));
+        await page.waitForTimeout(1000);
+
+        // ワイドスクリーンで目次が自動表示されていることを確認
+        const floatingToc = page.locator('.floating-toc');
+        await expect(floatingToc).toHaveClass(/auto-expanded/);
+        await expect(floatingToc).toBeVisible();
+
+        // 解像度を1540px未満に変更
+        await page.setViewportSize({ width: 1366, height: 768 });
+
+        // リサイズイベントの処理を待つ（デバウンス250ms + 余裕）
+        await page.waitForTimeout(500);
+
+        // 目次が閉じていることを確認（showクラスが削除されている）
+        const hasShowClass = await floatingToc.evaluate(el => el.classList.contains('show'));
+        expect(hasShowClass).toBe(false);
+
+        // auto-expandedクラスが削除されていることを確認
+        const hasAutoExpandedClass = await floatingToc.evaluate(el => el.classList.contains('auto-expanded'));
+        expect(hasAutoExpandedClass).toBe(false);
+
+        // 目次ボタンが表示されるようになったことを確認
+        const tocButton = page.locator('.toc-button');
+        await page.waitForTimeout(500); // スクロール閾値を超えるための待機
+
+        // スクロール位置を確保してボタンを表示させる
+        await page.evaluate(() => window.scrollBy(0, 50));
+        await page.waitForTimeout(300);
+
+        const isButtonVisible = await tocButton.isVisible({ timeout: 5000 }).catch(() => false);
+        expect(isButtonVisible).toBe(true);
+
+        // activeクラスが削除されていることを確認
+        const hasActiveClass = await tocButton.evaluate(el => el.classList.contains('active'));
+        expect(hasActiveClass).toBe(false);
+
+        console.log('解像度変更時の目次自動クローズテストが完了しました');
+    });
+
     test('ページ右上の目次ボタンが仕様通りに表示される', async ({ page }) => {
         // 通常の解像度に設定（1540px未満）
         await page.setViewportSize({ width: 1366, height: 768 });
