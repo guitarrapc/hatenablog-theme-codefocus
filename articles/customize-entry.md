@@ -59,6 +59,29 @@ CodeFocusテーマは、CSS変数（カスタムプロパティ）を使用し�
 }
 ```
 
+### テーマカラーの一括変更
+
+全体的なテーマカラーを変更するには、複数のCSS変数を一括で変更します。以下の例では、ブルーベースからグリーンベースに変更するCSSを示します：
+
+```css
+:root {
+  /* リンク色をグリーン系に変更 */
+  --link: #2c9a7a;
+  --link-hover: #1d6b54;
+
+  /* ボーダー色をグリーン系に変更 */
+  --border: #2c9a7a;
+  --border-light: #d0e9e1;
+
+  /* ボタンホバー時の背景色 */
+  --bg-btn-hover: #2c9a7a0a;
+
+  /* 目次関連の色をグリーン系に変更 */
+  --toc-border-bg: #f5faf8;
+  --toc-marker: #2c9a7a;
+}
+```
+
 ### 背景色の変更例
 
 背景色を変更するには、以下のようにCSS変数を上書きします：
@@ -124,56 +147,15 @@ CodeFocusテーマは、CSS変数（カスタムプロパティ）を使用し�
 }
 ```
 
+
 ## フォントの変更
 
-CodeFocusテーマでは、読みやすさを重視したフォント設定がデフォルトで適用されています。本文には可読性の高いシステムフォント、コードブロックには等幅フォントが使用されています。
-
-フォントをカスタマイズすることで、ブログの印象を大きく変えることができます。特に、Google Fontsなどのウェブフォントを利用すれば、より個性的なデザインを実現できます。
-
-### Webフォントの利用
-
-Google Fontsなどのウェブフォントを利用する場合は、「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」にフォントを読み込ませます。
-
-```html
-<!-- Googleフォントを読み込む -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
-```
-
-以下のようにCSSを記述します：
-
-```css
-/* 全体のフォントファミリーをNoto Sans JPに設定 */
-body {
-  font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', 'Meiryo', sans-serif, "Segoe UI Emoji";
-}
-
-/* 見出しのフォントファミリーをNoto Sans JPに設定 */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', 'Meiryo', sans-serif, "Segoe UI Emoji";
-}
-
-/* タイトルのフォントファミリーをKaushan Scriptに設定 */
-#title a {
-  font-family: 'Kaushan Script', cursive, -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', "Noto Sans JP", 'Meiryo', sans-serif, "Segoe UI Emoji";
-}
-```
-
-フォントは任意ですが、フォントファミリーの順序を適切に設定することで、ユーザーの環境に応じて最適なフォントが選択されます。
-
-### フォントファミリーの変更
-
-CodeFocusテーマでは、以下のフォントファミリーが設定されています：
+CodeFocusテーマでは、読みやすさを重視したフォント設定がデフォルトで適用されています：
 
 - **本文・見出し**: システムフォント（Apple系デバイスではSan Francisco、WindowsではSegoe UI、日本語はヒラギノ角ゴ/Noto Sans JP/メイリオ）
 - **コードブロック**: Monaco、Consolas、Courier Newなどの等幅フォント
+
+フォントをカスタマイズすることで、ブログの印象を大きく変えることができます。
 
 ### 本文フォントの変更
 
@@ -181,11 +163,13 @@ CodeFocusテーマでは、以下のフォントファミリーが設定され�
 
 ```css
 body {
-  font-family: "Noto Sans JP", Meiryo, sans-serif;
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif;
 }
 ```
 
 ### 見出しフォントの変更
+
+見出しのフォントを個別に変更できます：
 
 ```css
 h1,
@@ -195,6 +179,33 @@ h4,
 h5,
 h6 {
   font-family: 'Yu Gothic', 'Hiragino Kaku Gothic ProN', "Noto Sans JP", Meiryo, sans-serif;
+}
+```
+
+### Webフォントの利用
+
+Google Fontsなどのウェブフォントを利用する場合は、まず「デザイン」→「カスタマイズ」→「ヘッダ」→「ブログタイトル下」にフォントを読み込みます：
+
+```html
+<!-- Googleフォントを読み込む -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+```
+
+次に、CSSでフォントファミリーを指定します：
+
+```css
+/* 本文と見出しにNoto Sans JPを適用 */
+body,
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", sans-serif;
+}
+
+/* ブログタイトルにKaushan Scriptを適用 */
+#title a {
+  font-family: 'Kaushan Script', cursive, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 ```
 
@@ -304,25 +315,28 @@ ul.table-of-contents {
 
 ### 目次マーカーとラインのカスタマイズ
 
+目次のマーカー色はCSS変数で管理されています。色を変更するには変数を上書きします：
+
 ```css
-/* 目次のマーカーの色と大きさを変更 */
+:root {
+  --toc-marker: #5c9ee7;       /* マーカーの色を変更 */
+  --toc-border-bg: #d1e1f9;    /* 縦線の色を変更 */
+}
+```
+
+マーカーのサイズなど、CSS変数で管理されていない要素は直接指定できます：
+
+```css
+/* マーカーのサイズを変更 */
 .floating-toc li:before,
 .table-of-contents li:before {
-  background-color: #5c9ee7; /* マーカーの色を変更 */
-  width: 10px; /* マーカーを大きく */
+  width: 10px;
   height: 10px;
 }
 
-/* 目次の縦線の色を変更 */
-.floating-toc ul:after,
-.table-of-contents ul:after {
-  background-color: #d1e1f9; /* 縦線の色を薄く */
-}
-
-/* アクティブな項目のマーカーを目立たせる */
+/* アクティブな項目のマーカーを強調 */
 .floating-toc li.active:before {
-  background-color: #2e7dd1; /* アクティブマーカーの色 */
-  transform: scale(1.2); /* やや大きく */
+  transform: scale(1.2);
 }
 ```
 
@@ -463,7 +477,7 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 
 ## レイアウトのカスタマイズ
 
-## 記事コンテンツ部分の横幅カスタマイズ
+### 記事コンテンツ部分の横幅カスタマイズ
 
 ```css
 @media (min-width: 992px) {
@@ -529,41 +543,6 @@ body {
   .hatena-module {
     width: 100%; /* モバイルでは1カラムに */
   }
-}
-```
-
-## テーマカラーの変更
-
-全体的なテーマカラーを変更するには、CSS変数を一括で変更するとよいでしょう。以下の例では、ブルーベースからグリーンベースに変更するCSSを示します：
-
-```css
-:root {
-  /* リンク色をグリーン系に変更 */
-  --link: #2c9a7a;
-  --link-hover: #1d6b54;
-
-  /* ボーダー色をグリーン系に変更 */
-  --border: #2c9a7a;
-  --border-light: #d0e9e1;
-
-  /* ボタンホバー時の背景色 */
-  --bg-btn-hover: #2c9a7a0a;
-
-  /* 目次関連の色をグリーン系に変更 */
-  --toc-border-bg: #f5faf8;
-  --toc-marker: #2c9a7a;
-}
-```
-
-個別の要素をさらに細かくカスタマイズすることもできます：
-
-```css
-/* ボタン系要素の個別カスタマイズ */
-.toc-button,
-.code-copy-button,
-button.hatena-bookmark-button,
-.comment-box .leave-comment-title {
-  border-color: #2c9a7a;
 }
 ```
 
