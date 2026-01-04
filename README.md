@@ -5,6 +5,8 @@ English | [日本語](README-ja.md)
 
 ## CodeFocus
 
+![logo](./logo.png)
+
 A single-column theme designed to make technical articles easy to write.
 Responsive design ensures optimal display on all screen sizes: mobile, tablet, and PC.
 
