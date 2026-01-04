@@ -66,13 +66,51 @@
     document.body.appendChild(tocButton);
     document.body.appendChild(floatingToc);
 
+    // Function to check if screen width is wide enough for auto-expand
+    function isWideScreen() {
+      return window.innerWidth >= 1540;
+    }
+
+    // Function to update TOC display based on screen width
+    function updateTocDisplay() {
+      if (isWideScreen()) {
+        // Auto-expand on wide screens
+        floatingToc.classList.add('show', 'auto-expanded');
+        tocButton.classList.add('active');
+        // Hide button on wide screens as TOC is always visible
+        tocButton.style.display = 'none';
+      } else {
+        // Remove auto-expand class on smaller screens
+        floatingToc.classList.remove('auto-expanded');
+        // Show button on smaller screens
+        tocButton.style.display = '';
+        // Don't automatically close if user manually opened it
+      }
+    }
+
     // Set click event
     tocButton.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      floatingToc.classList.toggle('show');
-      tocButton.classList.toggle('active');
+
+      // Don't allow toggle on wide screens (always show)
+      if (!isWideScreen()) {
+        floatingToc.classList.toggle('show');
+        tocButton.classList.toggle('active');
+      }
     });
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        updateTocDisplay();
+      }, 250);
+    });
+
+    // Initial check on page load
+    updateTocDisplay();
 
     // Handle clicks on links within TOC
     const tocLinks = floatingToc.querySelectorAll('a');
@@ -84,9 +122,9 @@
       });
     });
 
-    // Close TOC when clicking outside
+    // Close TOC when clicking outside (except on wide screens)
     document.addEventListener('click', function (event) {
-      if (!floatingToc.contains(event.target) && event.target !== tocButton && !tocButton.contains(event.target)) {
+      if (!isWideScreen() && !floatingToc.contains(event.target) && event.target !== tocButton && !tocButton.contains(event.target)) {
         floatingToc.classList.remove('show');
         tocButton.classList.remove('active');
       }
