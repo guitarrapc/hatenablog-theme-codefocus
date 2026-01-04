@@ -6,13 +6,12 @@
 
   // Execute after DOM is loaded
   document.addEventListener('DOMContentLoaded', function () {
-    // Check if this is an article page (entry page)
-    const entryContent = document.querySelector('.entry-content');
-    if (!entryContent) return; // Do nothing if not an article page
+    // Get all articles with table of contents
+    const allEntriesWithToc = Array.from(document.querySelectorAll('.entry-content')).filter(entry =>
+      entry.querySelector('.table-of-contents')
+    );
 
-    // Get table of contents element
-    const tableOfContents = document.querySelector('.entry-content .table-of-contents');
-    if (!tableOfContents) return; // Do nothing if no table of contents
+    if (allEntriesWithToc.length === 0) return; // Do nothing if no table of contents
 
     // Create TOC button
     const tocButton = document.createElement('button');
@@ -52,19 +51,92 @@
     topButtonContainer.className = 'page-top-button-container';
     topButtonContainer.appendChild(topButton);
 
-    // Create clone of TOC
-    const tocClone = tableOfContents.cloneNode(true);
-
-    // Add class for floating TOC
-    tocClone.classList = 'floating-toc-list';
+    // Container for TOC list (will be updated dynamically)
+    const tocListContainer = document.createElement('div');
+    tocListContainer.className = 'toc-list-container';
 
     // Add elements to floating TOC
     floatingToc.appendChild(topButtonContainer);
-    floatingToc.appendChild(tocClone);
+    floatingToc.appendChild(tocListContainer);
 
     // Add elements to body
     document.body.appendChild(tocButton);
     document.body.appendChild(floatingToc);
+
+    // Track current active entry
+    let currentActiveEntry = null;
+    let currentTocLinks = [];
+    let currentHeadingMap = new Map();
+
+    // Function to get the currently visible entry
+    function getCurrentVisibleEntry() {
+      const viewportCenter = window.innerHeight / 2;
+
+      for (const entry of allEntriesWithToc) {
+        const rect = entry.getBoundingClientRect();
+        // Check if entry is visible in viewport
+        if (rect.top < viewportCenter && rect.bottom > 0) {
+          return entry;
+        }
+      }
+
+      // If no entry is in center, return the first visible one
+      for (const entry of allEntriesWithToc) {
+        const rect = entry.getBoundingClientRect();
+        if (rect.bottom > 0) {
+          return entry;
+        }
+      }
+
+      return allEntriesWithToc[0];
+    }
+
+    // Function to update TOC content based on current entry
+    function updateTocContent(entry) {
+      if (!entry || entry === currentActiveEntry) return;
+
+      currentActiveEntry = entry;
+
+      // Get table of contents for this entry
+      const tableOfContents = entry.querySelector('.table-of-contents');
+      if (!tableOfContents) return;
+
+      // Clear and update TOC list
+      tocListContainer.innerHTML = '';
+      const tocClone = tableOfContents.cloneNode(true);
+      tocClone.classList = 'floating-toc-list';
+      tocListContainer.appendChild(tocClone);
+
+      // Update TOC links
+      currentTocLinks = Array.from(floatingToc.querySelectorAll('a'));
+
+      // Set up click handlers for TOC links
+      currentTocLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          // Close TOC on small screens
+          if (!isWideScreen()) {
+            floatingToc.classList.remove('show');
+            tocButton.classList.remove('active');
+          }
+        });
+      });
+
+      // Get all heading elements in this entry
+      const headings = Array.from(entry.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+
+      // Update heading map
+      currentHeadingMap.clear();
+      currentTocLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const targetId = href.substring(1);
+          const targetHeading = document.getElementById(targetId);
+          if (targetHeading) {
+            currentHeadingMap.set(targetHeading, link);
+          }
+        }
+      });
+    }
 
     // Function to check if screen width is wide enough for auto-expand
     function isWideScreen() {
@@ -112,38 +184,14 @@
     // Initial check on page load
     updateTocDisplay();
 
-    // Handle clicks on links within TOC
-    const tocLinks = floatingToc.querySelectorAll('a');
-    tocLinks.forEach(function (link) {
-      link.addEventListener('click', function () {
-        // Close TOC
-        floatingToc.classList.remove('show');
-        tocButton.classList.remove('active');
-      });
-    });
+    // Initialize TOC content with first visible entry
+    updateTocContent(getCurrentVisibleEntry());
 
     // Close TOC when clicking outside (except on wide screens)
     document.addEventListener('click', function (event) {
       if (!isWideScreen() && !floatingToc.contains(event.target) && event.target !== tocButton && !tocButton.contains(event.target)) {
         floatingToc.classList.remove('show');
         tocButton.classList.remove('active');
-      }
-    });
-
-    // Get all heading elements in the article
-    const headings = Array.from(entryContent.querySelectorAll('h1, h2, h3, h4, h5, h6'));
-    // Mapping of link destination elements and corresponding TOC link elements
-    const headingMap = new Map();
-
-    // Map headings to corresponding TOC links
-    tocLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && href.startsWith('#')) {
-        const targetId = href.substring(1);
-        const targetHeading = document.getElementById(targetId);
-        if (targetHeading) {
-          headingMap.set(targetHeading, link);
-        }
       }
     });
 
@@ -157,29 +205,42 @@
       // Determine scroll direction (up/down)
       const isScrollingDown = scrollTop > lastScrollTop;
 
-      // Check if article area is visible
-      const entryRect = entryContent.getBoundingClientRect();
-      const isEntryVisible = entryRect.top < window.innerHeight && entryRect.bottom > 0;
+      // Get currently visible entry
+      const visibleEntry = getCurrentVisibleEntry();
 
-      // Show TOC button if article area is visible and scroll position is above threshold
-      if (isEntryVisible && scrollTop > scrollThreshold) {
-        tocButton.style.display = 'block';
+      // Update TOC content if entry changed
+      updateTocContent(visibleEntry);
+
+      // Check if any entry with TOC is visible
+      const anyEntryVisible = allEntriesWithToc.some(entry => {
+        const rect = entry.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+      });
+
+      // Show TOC button if any entry is visible and scroll position is above threshold
+      if (anyEntryVisible && scrollTop > scrollThreshold) {
+        if (!isWideScreen()) {
+          tocButton.style.display = 'block';
+        }
       } else {
         tocButton.style.display = 'none';
         floatingToc.classList.remove('show'); // Close TOC in non-visible area
         tocButton.classList.remove('active'); // Reset button state
       }
 
-      // Detect and highlight currently visible heading
-      if (isEntryVisible) {
+      // Detect and highlight currently visible heading in current entry
+      if (currentActiveEntry && anyEntryVisible) {
         // Clear all active classes
-        tocLinks.forEach(link => {
+        currentTocLinks.forEach(link => {
           link.classList.remove('active');
           // Remove active class from parent li element
           if (link.parentElement) {
             link.parentElement.classList.remove('active');
           }
         });
+
+        // Get headings from current entry only
+        const headings = Array.from(currentActiveEntry.querySelectorAll('h1, h2, h3, h4, h5, h6'));
 
         // Detect currently visible heading
         // Get the heading closest to the top of the screen among visible headings
@@ -199,8 +260,8 @@
         });
 
         // Activate corresponding TOC link
-        if (activeHeading && headingMap.has(activeHeading)) {
-          const activeLink = headingMap.get(activeHeading);
+        if (activeHeading && currentHeadingMap.has(activeHeading)) {
+          const activeLink = currentHeadingMap.get(activeHeading);
           activeLink.classList.add('active');
           // Add active class to parent li element
           if (activeLink.parentElement) {
