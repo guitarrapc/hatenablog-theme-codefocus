@@ -278,6 +278,14 @@
             if (activeLink.parentElement) {
               activeLink.parentElement.classList.add('active');
             }
+
+            // Auto-scroll TOC to show active item if it's outside viewport
+            // Use 'nearest' to only scroll when necessary
+            activeLink.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'nearest'
+            });
           }
         }
 
