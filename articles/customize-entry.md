@@ -201,67 +201,67 @@ h6 {
 
 ## コードブロックのカスタマイズ
 
-### コードブロックのスタイル変更
+CodeFocusテーマでは、コードブロックの表示をCSS変数で管理しています。これにより、背景色、文字色、シンタックスハイライトの色を簡単にカスタマイズできます。
+
+### コードブロックの色をCSS変数で変更
+
+コードブロック関連の主要なCSS変数は以下の通りです：
 
 ```css
-/* コードブロックの背景色と文字色を変更 */
-pre.code {
-  background-color: #282c34; /* 背景色をより暗く */
-  color: #abb2bf; /* 文字色を明るく */
-}
+:root {
+  /* コードブロックの背景色と関連色 */
+  --bg-code: #f6f8fa;              /* コードブロックの背景色 */
+  --bg-code-light: #f8f9fa;        /* コードブロックのライト背景色 */
+  --bg-span: #f3f4f6;              /* インラインコードの背景色 */
 
+  /* シンタックスハイライトの色 */
+  --codeblock-language-colors-text: #fff;          /* コード全体のテキスト色 */
+  --codeblock-language-colors-keyword: #ff8fa3;    /* キーワード色 */
+  --codeblock-language-colors-function: #38c7ff;   /* 関数色 */
+  --codeblock-language-colors-punctuation: #939bc1; /* 句読点色 */
+  --codeblock-language-colors-number: #ffc56d;     /* 数値色 */
+  --codeblock-language-colors-comment: #94a1b3;    /* コメント色 */
+
+  /* コピーボタンの色 */
+  --code-copy-bg: rgba(225, 225, 225, 0.75);      /* コピーボタン背景色 */
+  --code-copy-success-bg: #4aaa50;                 /* コピー成功時の色 */
+  --code-copy-failed-bg: #c44336;                  /* コピー失敗時の色 */
+}
+```
+
+### コードブロックの背景色と文字色の変更例
+
+コードブロックの背景色とテキスト色を変更するには、CSS変数を上書きします：
+
+```css
+:root {
+  --bg-code: #282c34;                      /* 背景色をより暗く */
+  --codeblock-language-colors-text: #abb2bf; /* 文字色を明るく */
+}
+```
+
+### シンタックスハイライトの色の変更例
+
+各シンタックス要素の色をカスタマイズできます：
+
+```css
+:root {
+  --codeblock-language-colors-keyword: #c678dd;    /* キーワード色 */
+  --codeblock-language-colors-function: #61afef;   /* 関数色 */
+  --codeblock-language-colors-number: #98c379;     /* 数値・文字列色 */
+  --codeblock-language-colors-comment: #7f848e;    /* コメント色 */
+}
+```
+
+### コードブロックのその他のスタイル変更
+
+枠線や角の丸みなど、CSS変数で管理されていない要素は直接指定できます：
+
+```css
 /* コードブロックの枠線スタイル */
 pre.code {
   border: 1px solid #3e4451; /* 枠線色を調整 */
   border-radius: 6px; /* 角の丸みを増やす */
-}
-```
-
-### シンタックスハイライトの調整
-
-```css
-pre.code {
-  color: #abb2bf; /* コード全体の文字色 */
-}
-
-/* クラス名などの特定の構文要素色を変更 */
-pre.code span.synIdentifier {
-  color: #e06c75; /* クラス名など */
-}
-
-pre.code span.synSpecial {
-  color: #61afef; /* 特殊な構文 */
-}
-
-pre.code span.synStatement,
-pre.code span.synType {
-  color: #c678dd; /* キーワード */
-}
-
-pre.code span.synConstant {
-  color: #98c379; /* 文字列 */
-}
-
-pre.code span.synComment {
-  color: #7f848e; /* コメント */
-}
-```
-
-### コードコピーボタンのカスタマイズ
-
-```css
-/* コピーボタンの色を変更 */
-.code-copy-button {
-  background-color: #465670; /* ボタンの背景色 */
-  border-color: #465670; /* ボタンの枠線色 */
-
-  &.copied {
-    background-color: #28a745; /* コピー成功時の色 */
-  }
-
-  &.copy-error {
-    background-color: #dc3545; /* コピー失敗時の色 */
-  }
 }
 ```
 
