@@ -407,9 +407,39 @@ ul.table-of-contents {
 
 ## コメントセクションのカスタマイズ
 
-CodeFocusテーマでは、コメントセクションもZennのDiscussionスタイルに似たデザインになっています。これをさらにカスタマイズできます。
+CodeFocusテーマでは、コメントセクションもZennのDiscussionスタイルに似たデザインになっています。コメント関連の色もCSS変数で管理されているため、簡単にカスタマイズできます。
 
 [f:id:guitarrapc_tech:20250517235429p:plain:alt=コメントセクションのスクリーンショット] <!-- screenshots/pc-comment-section.png -->
+
+### コメント関連のCSS変数
+
+コメントセクションでは、以下のCSS変数が使用されています：
+
+```css
+:root {
+  --text-body: #24292f;           /* コメント本文、ユーザー名の色 */
+  --text-light: #6e7781;          /* コメント日時の色 */
+  --text-low-priority: #57606a;   /* コメントボタンの色 */
+  --border: #d0d7de;              /* ボーダー色 */
+  --bg-btn-hover: #e3f2fd30;      /* コメントボタンホバー時の背景色 */
+}
+```
+
+### コメントセクションの色をCSS変数で変更
+
+コメントセクションの色を変更するには、CSS変数を上書きします：
+
+```css
+:root {
+  --text-body: #1a1a1a;           /* コメント本文を濃いグレーに */
+  --text-light: #888888;          /* コメント日時を薄いグレーに */
+  --border: #e0e0e0;              /* ボーダーを明るいグレーに */
+}
+```
+
+### コメントセクションのレイアウトカスタマイズ
+
+背景色や角の丸み、余白など、CSS変数で管理されていない要素は直接指定できます：
 
 ```css
 /* コメントセクションの全体スタイル */
@@ -420,24 +450,12 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 }
 
 /* コメント間の区切り線 */
-.comment-box .comment li + li {
-  border-top: 1px dashed #e0e0e0; /* 点線にする */
-  padding-top: 1.5em; /* 上の余白を増やす */
+.comment-box .entry-comment {
+  border-bottom: 1px dashed var(--border); /* 点線にする */
+  padding-bottom: 1.5em; /* 下の余白を増やす */
 }
 
-/* コメントユーザー名 */
-.comment-user-name {
-  font-weight: bold;
-  color: #333333;
-}
-
-/* コメント日時 */
-.comment-metadata {
-  color: #888888;
-  font-size: 0.85em;
-}
-
-/* コメント本文 */
+/* コメント本文の行間 */
 .comment-content {
   line-height: 1.7; /* 行間を広げる */
 }
