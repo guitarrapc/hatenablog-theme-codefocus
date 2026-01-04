@@ -20,6 +20,11 @@
     transition: all 0.3s ease;
     white-space: nowrap; // テキスト折り返しを防止
 
+    // Wide screen (1540px+): Hide button as TOC is always visible
+    @media (min-width: 1540px) {
+        display: none !important; // Hide button on wide screens
+    }
+
     &:hover {
         border-color: #aaa;
     }
@@ -98,6 +103,17 @@
         visibility: visible; // 表示状態に変更
         opacity: 1;
         transform: translateY(0);
+    }
+
+    // Wide screen (1540px+): Always show and adjust position/size
+    @media (min-width: 1540px) {
+        &.auto-expanded {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+            width: 250px; // Slightly wider for better readability
+            max-height: 80vh; // More vertical space on large screens
+        }
     }
 
     /* ページトップへボタンのコンテナ */

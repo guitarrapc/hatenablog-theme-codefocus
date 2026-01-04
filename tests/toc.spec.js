@@ -5,6 +5,9 @@ import { TEST_URLS, SELECTORS, SCROLL, TIMEOUTS } from './constants.js';
 
 test.describe('目次スタイルのテスト', () => {
   test('目次のスタイルが仕様通りであることを確認', async ({ page }) => {
+    // 通常の解像度に設定（1540px未満）
+    await page.setViewportSize({ width: 1366, height: 768 });
+
     // 統合ナビゲーション関数を使用（networkidleまで待機）
     await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
 

@@ -549,6 +549,58 @@ const __dirname = path.dirname(__filename);
       console.log('関連記事が見つかりませんでした');
     }
 
+    // ==========================================
+    // ワイドスクリーン (1600x900) 解像度での目次サイドバイサイド表示のスクリーンショット
+    // ==========================================
+    console.log('ワイドスクリーンでの目次サイドバイサイド表示のスクリーンショット取得を開始...');
+    await page.setViewportSize({ width: 1600, height: 900 });
+
+    // 記事ページに移動
+    await page.goto('https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601');
+    await page.waitForLoadState('networkidle');
+
+    // ワイドスクリーンでは目次が自動的に表示されるのを待つ
+    await page.waitForTimeout(1500);
+
+    // 目次が画面内に収まるように少しスクロール
+    await page.evaluate(() => {
+      window.scrollBy(0, 200);
+    });
+    await page.waitForTimeout(500);
+
+    // フローティング目次が表示されていることを確認
+    const wideScreenToc = page.locator('.floating-toc').first();
+    if (await wideScreenToc.isVisible()) {
+      // ページ全体のスクリーンショット（記事と目次が並んで表示されている状態）
+      await page.screenshot({
+        path: 'articles/screenshots/pc-wide-toc-sidebar.png',
+        fullPage: false
+      });
+      console.log('✓ ワイドスクリーンでのサイドバイサイド表示のスクリーンショットを撮影しました');
+
+      // 目次ボタンが非表示になっていることを確認
+      const tocButtonHidden = await page.evaluate(() => {
+        const tocButton = document.querySelector('.toc-button');
+        if (tocButton) {
+          const display = window.getComputedStyle(tocButton).display;
+          return display === 'none';
+        }
+        return false;
+      });
+
+      if (tocButtonHidden) {
+        console.log('✓ ワイドスクリーンで目次ボタンが正しく非表示になっています');
+      } else {
+        console.log('警告: ワイドスクリーンで目次ボタンが非表示になっていません');
+      }
+    } else {
+      console.log('警告: ワイドスクリーンでフローティング目次が表示されませんでした');
+    }
+
+    // 通常のPC解像度に戻す
+    console.log('通常のPC解像度に戻しています...');
+    await page.setViewportSize({ width: 1440, height: 1440 });
+
     // アーカイブページのスクリーンショット
     console.log('アーカイブページのスクリーンショット取得中...');
     await page.goto('https://guitarrapc-theme.hatenablog.com/archive/author/guitarrapc_tech');
