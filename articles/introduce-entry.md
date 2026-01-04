@@ -43,7 +43,7 @@ PCでは、コンテンツを中心に配置し、サイドバーが下部に移
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| [f:id:guitarrapc_tech:20250525112721p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20250525111414p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20250525111437p:plain:alt=スマートフォン表示] |
+| [f:id:guitarrapc_tech:20260104184701p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20260104184742p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20260104184836p:plain:alt=スマートフォン表示] |
 
 <!-- | screenshots/pc-article-top.png | screenshots/tablet-article-top.png | screenshots/smartphone-article-top.png | -->
 
@@ -133,7 +133,7 @@ func main() {
 
 ワンクリックでコードをコピーできるコードコピーボタン機能、一行が長いコードの折り返しON/OFF切り替えボタン機能を搭載しています。コードブロックにマウスオーバーすると、右上にボタンが表示されます。コードコピーボタンをクリックするだけでコードを簡単にコピーできます。折り返しボタンをクリックすると、長い行のコードの折り返しをON/OFFを切り替えて表示します。
 
-[f:id:guitarrapc_tech:20250527030605p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/pc-code-block-with-copy-button.png -->
+[f:id:guitarrapc_tech:20260104184932p:plain:alt=コードブロックにマウスオーバー時のコピーボタン表示] <!-- screenshots/pc-code-block-with-copy-button.png -->
 
 ### タグクラウドスタイル
 
@@ -149,7 +149,7 @@ func main() {
 
 この視覚的な階層によって、読者はブログの主要トピックを瞬時に把握できます。また、各カテゴリーにマウスを合わせると、記事数を含むツールチップが表示されます。
 
-[f:id:guitarrapc_tech:20250526185241p:plain:alt=サイドバーのタグクラウド表示] <!-- screenshots/pc-sidebar-tag-cloud.png -->
+[f:id:guitarrapc_tech:20260104185002p:plain:alt=サイドバーのタグクラウド表示] <!-- screenshots/pc-sidebar-tag-cloud.png -->
 
 ### ダークモード
 
@@ -165,7 +165,7 @@ CodeFocusテーマはダークモード機能をサポートしています。
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| [f:id:guitarrapc_tech:20250527004958p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20250527005017p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20250527005033p:plain:alt=スマートフォン表示] |
+| [f:id:guitarrapc_tech:20260104185026p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20260104185050p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20260104185112p:plain:alt=スマートフォン表示] |
 
 <!-- | screenshots/pc-article-top-dark.png | screenshots/tablet-article-top-dark.png | screenshots/smartphone-article-top-dark.png | -->
 
@@ -179,17 +179,17 @@ CodeFocusテーマは、2種類の目次表示方法を提供しています：
 
 記事の`[:contents]`で生成される目次をスタイリングしました。タイトル部分をクリックすることで開閉可能な目次は、長い記事でも読者が迷わずに読み進められるようサポートします。
 
-[f:id:guitarrapc_tech:20250525113157p:plain:alt=記事内目次のスクリーンショット] <!-- screenshots/pc-toc.png -->
+[f:id:guitarrapc_tech:20260104185138p:plain:alt=記事内目次のスクリーンショット] <!-- screenshots/pc-toc.png -->
 
 ### 2. フローティング目次ボタン
 
 記事右上に常に表示される目次ボタンを提供します。ボタンをクリックするといつでも目次を表示できる、長い記事でも迷子になりません。
 
-[f:id:guitarrapc_tech:20250517234703p:plain:alt=フローティング目次ボタンのスクリーンショット] <!-- screenshots/pc-toc-button.png -->
+[f:id:guitarrapc_tech:20260104185202p:plain:alt=フローティング目次ボタンのスクリーンショット] <!-- screenshots/pc-toc-button.png -->
 
 目次スタイルはシンプルでありながらも機能的です。
 
-[f:id:guitarrapc_tech:20250517234722p:plain:alt=フローティング目次コンテンツのスクリーンショット] <!-- screenshots/pc-floating-toc.png -->
+[f:id:guitarrapc_tech:20260104185225p:plain:alt=フローティング目次コンテンツのスクリーンショット] <!-- screenshots/pc-floating-toc.png -->
 
 フローティング目次には、閲覧体験を向上させる機能が搭載されています：
 
@@ -197,7 +197,7 @@ CodeFocusテーマは、2種類の目次表示方法を提供しています：
 
 記事をスクロールすると、現在読んでいるセクションに対応する目次項目が自動でハイライトされます。長い記事でも現在どのセクションを読んでいるか一目でわかります。
 
-[f:id:guitarrapc_tech:20250525113348p:plain:alt=現在のセクションがハイライトされた目次] <!-- screenshots/toc-first-section-scrolled.png -->
+[f:id:guitarrapc_tech:20260104185254p:plain:alt=現在のセクションがハイライトされた目次] <!-- screenshots/toc-first-section-scrolled.png -->
 
 #### 2. ワンクリックでページトップへ移動
 
@@ -210,6 +210,19 @@ CodeFocusテーマは、2種類の目次表示方法を提供しています：
 - 記事の冒頭部分（スクロール位置が浅い場合）では表示されず、一定量スクロールした後に表示
 - 目次内のリンクをクリックすると自動的に目次が閉じ、記事の該当セクションにスムーズに移動
 - 画面外をクリックすると目次が自動的に閉じる
+
+#### 4. ワイドスクリーンでのサイドバイサイド表示
+
+横幅1540px以上の大画面では、目次が画面右側に常時表示され、記事と並んで表示されます。この機能により、以下のような利点があります：
+
+- **目次ボタンは非表示**: 目次が常時表示されているため、ボタンは不要となり画面がすっきり
+- **記事と目次を同時に確認**: 長い記事でも、記事を読みながら全体構造を常に把握できる
+- **自動的な表示位置調整**: 目次が長い場合、現在読んでいるセクションが自動的に表示範囲内にスクロールされる
+- **レスポンシブに対応**: 画面を狭くすると自動的に通常の目次ボタンモードに戻る
+
+この機能は特に大きなモニターやワイドディスプレイを使用している読者に快適な閲覧体験を提供します。
+
+[f:id:guitarrapc_tech:20250104000000p:plain:alt=ワイドスクリーンでのサイドバイサイド表示] <!-- screenshots/pc-wide-toc-sidebar.png -->
 
 これらの機能により、記事の閲覧に集中しながらも、必要なときにすぐに目次にアクセスできる快適な読書体験を実現しています。
 
@@ -240,7 +253,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 2. 「詳細設定」のセクションで「レスポンシブデザインを適用する」にチェック
 3. 変更を保存
 
-[f:id:guitarrapc_tech:20250517234922p:plain:alt=デザイン設定からスマートフォンをレスポンシブデザイン設定のスクリーンショット] <!-- screenshots/smartphone-responsive-design.png -->
+[f:id:guitarrapc_tech:20260104185429p:plain:alt=デザイン設定からスマートフォンをレスポンシブデザイン設定のスクリーンショット] <!-- screenshots/smartphone-responsive-design.png -->
 
 ### 目次開閉機能を利用する
 
@@ -292,7 +305,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-|[f:id:guitarrapc_tech:20250518223005p:plain:alt=PC表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20250518223026p:plain:alt=タブレット表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20250518223039p:plain:alt=スマートフォン表示の一覧スクリーンショット] |
+|[f:id:guitarrapc_tech:20260104185453p:plain:alt=PC表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20260104185516p:plain:alt=タブレット表示の一覧スクリーンショット] | [f:id:guitarrapc_tech:20260104185537p:plain:alt=スマートフォン表示の一覧スクリーンショット] |
 
 <!-- | ![PC表示の一覧スクリーンショット](screenshots/pc-archive-top.png) | ![タブレット表示の一覧スクリーンショット](screenshots/tablet-archive-top.png) | ![スマートフォン表示の一覧スクリーンショット](screenshots/smartphone-archive-top.png) | -->
 
@@ -308,7 +321,7 @@ CodeFocusテーマは、コメントセクションもZennのDiscussionスタイ
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| [f:id:guitarrapc_tech:20250517235429p:plain:alt=PC表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20250517235508p:plain:alt=タブレット表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20250517235524p:plain:alt=スマートフォン表示のコメントセクションのスクリーンショット] |
+| [f:id:guitarrapc_tech:20260104185559p:plain:alt=PC表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20260104185617p:plain:alt=タブレット表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20260104185638p:plain:alt=スマートフォン表示のコメントセクションのスクリーンショット] |
 
 <!-- | screenshots/pc-comment-section.png | screenshots/tablet-comment-section.png | screenshots/smartphone-comment-section.png | -->
 
@@ -316,7 +329,7 @@ CodeFocusテーマは、コメントセクションもZennのDiscussionスタイ
 
 CodeFocusテーマは、関連記事もスタイリッシュにレイアウトされています。サムネイル画像とタイトル、日付が見やすく配置されており、読者が関連コンテンツを探しやすくなっています。
 
-[f:id:guitarrapc_tech:20250518223136p:plain:alt=関連記事表示のスクリーンショット] <!-- screenshots/pc-related-entries.png -->
+[f:id:guitarrapc_tech:20260104185707p:plain:alt=関連記事表示のスクリーンショット] <!-- screenshots/pc-related-entries.png -->
 
 ## 開発者向け情報
 
