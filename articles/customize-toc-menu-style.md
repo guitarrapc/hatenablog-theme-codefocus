@@ -37,6 +37,11 @@ ul.table-of-contents {
 }
 
 /* 元のテーマの縦線を完全に削除 */
+ul.table-of-contents::before,
+ul.floating-toc-list::before {
+    display: none !important;
+}
+
 ul.table-of-contents::after,
 ul.floating-toc-list::after {
     display: none !important;
@@ -55,22 +60,6 @@ html[data-theme="dark"] ul.floating-toc-list {
         background: linear-gradient(to bottom, #1a1612 0%, #231f1a 100%);
         border-color: #6b5a3d;
     }
-}
-
-/* ::beforeのリセット（タイトル表示はしない） */
-ul.table-of-contents::before,
-ul.floating-toc-list::before {
-    content: '' !important;
-    display: none !important;
-    /* 元の縦線スタイルを完全にリセット */
-    position: static !important;
-    left: auto !important;
-    width: auto !important;
-    height: auto !important;
-    top: auto !important;
-    bottom: auto !important;
-    background-color: transparent !important;
-    border: none !important;
 }
 
 /* 従来の目次タイトルをスタイリング */
@@ -285,6 +274,11 @@ ul.floating-toc-list {
 }
 
 /* 元のテーマの縦線を完全に削除 */
+ul.table-of-contents::before,
+ul.floating-toc-list::before {
+    display: none !important;
+}
+
 ul.table-of-contents::after,
 ul.floating-toc-list::after {
     display: none !important;
@@ -305,22 +299,6 @@ html[data-theme="dark"] ul.floating-toc-list {
         border-color: #30363d;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
-}
-
-/* ::beforeのリセット（タイトル表示はしない） */
-ul.table-of-contents::before,
-ul.floating-toc-list::before {
-    content: '' !important;
-    display: none !important;
-    /* 元の縦線スタイルを完全にリセット */
-    position: static !important;
-    left: auto !important;
-    width: auto !important;
-    height: auto !important;
-    top: auto !important;
-    bottom: auto !important;
-    background-color: transparent !important;
-    border: none !important;
 }
 
 /* 従来の目次タイトルをスタイリング */
