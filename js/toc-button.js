@@ -4,6 +4,15 @@
 (function () {
   'use strict';
 
+  // Constants
+  const CONSTANTS = {
+    WIDE_SCREEN_WIDTH: 1540,      // Minimum width for auto-expand mode
+    SCROLL_THRESHOLD: 200,         // Scroll distance before showing TOC button
+    HEADING_ACTIVE_OFFSET: 100,    // Offset for determining active heading
+    RESIZE_DEBOUNCE: 250,          // Debounce time for resize events (ms)
+    SCROLL_THROTTLE: 100           // Throttle time for scroll events (ms)
+  };
+
   // Execute after DOM is loaded
   document.addEventListener('DOMContentLoaded', function () {
     // Get all articles with table of contents
@@ -140,7 +149,7 @@
 
     // Function to check if screen width is wide enough for auto-expand
     function isWideScreen() {
-      return window.innerWidth >= 1540;
+      return window.innerWidth >= CONSTANTS.WIDE_SCREEN_WIDTH;
     }
 
     // Function to update TOC display based on screen width
@@ -178,7 +187,7 @@
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function () {
         updateTocDisplay();
-      }, 250);
+      }, CONSTANTS.RESIZE_DEBOUNCE);
     });
 
     // Initial check on page load
@@ -195,82 +204,86 @@
       }
     });
 
-    // Set scroll event
+    // Set scroll event with throttling for performance
+    let scrollTimer = null;
     let lastScrollTop = 0;
-    const scrollThreshold = 200; // Scroll threshold (px)
 
     window.addEventListener('scroll', function () {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      // Throttle scroll events for performance
+      if (scrollTimer !== null) return;
 
-      // Determine scroll direction (up/down)
-      const isScrollingDown = scrollTop > lastScrollTop;
+      scrollTimer = setTimeout(function () {
+        scrollTimer = null;
 
-      // Get currently visible entry
-      const visibleEntry = getCurrentVisibleEntry();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-      // Update TOC content if entry changed
-      updateTocContent(visibleEntry);
+        // Get currently visible entry
+        const visibleEntry = getCurrentVisibleEntry();
 
-      // Check if any entry with TOC is visible
-      const anyEntryVisible = allEntriesWithToc.some(entry => {
-        const rect = entry.getBoundingClientRect();
-        return rect.top < window.innerHeight && rect.bottom > 0;
-      });
+        // Update TOC content if entry changed
+        updateTocContent(visibleEntry);
 
-      // Show TOC button if any entry is visible and scroll position is above threshold
-      if (anyEntryVisible && scrollTop > scrollThreshold) {
-        if (!isWideScreen()) {
-          tocButton.style.display = 'block';
-        }
-      } else {
-        tocButton.style.display = 'none';
-        floatingToc.classList.remove('show'); // Close TOC in non-visible area
-        tocButton.classList.remove('active'); // Reset button state
-      }
-
-      // Detect and highlight currently visible heading in current entry
-      if (currentActiveEntry && anyEntryVisible) {
-        // Clear all active classes
-        currentTocLinks.forEach(link => {
-          link.classList.remove('active');
-          // Remove active class from parent li element
-          if (link.parentElement) {
-            link.parentElement.classList.remove('active');
-          }
+        // Check if any entry with TOC is visible
+        const anyEntryVisible = allEntriesWithToc.some(entry => {
+          const rect = entry.getBoundingClientRect();
+          return rect.top < window.innerHeight && rect.bottom > 0;
         });
 
-        // Get headings from current entry only
-        const headings = Array.from(currentActiveEntry.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+        // Show TOC button if any entry is visible and scroll position is above threshold
+        if (anyEntryVisible && scrollTop > CONSTANTS.SCROLL_THRESHOLD) {
+          if (!isWideScreen()) {
+            tocButton.style.display = 'block';
+          }
+        } else {
+          tocButton.style.display = 'none';
+          floatingToc.classList.remove('show'); // Close TOC in non-visible area
+          tocButton.classList.remove('active'); // Reset button state
+        }
 
-        // Detect currently visible heading
-        // Get the heading closest to the top of the screen among visible headings
-        let activeHeading = null;
-        let minDistance = Infinity;
+        // Detect and highlight currently visible heading in current entry
+        if (currentActiveEntry && anyEntryVisible) {
+          // Clear all active classes
+          currentTocLinks.forEach(link => {
+            link.classList.remove('active');
+            // Remove active class from parent li element
+            if (link.parentElement) {
+              link.parentElement.classList.remove('active');
+            }
+          });
 
-        headings.forEach(heading => {
-          const rect = heading.getBoundingClientRect();
-          // Check if element is visible on screen or just above
-          if (rect.top <= 100) { // 100px is an adjustable value
-            const distance = Math.abs(rect.top);
-            if (distance < minDistance) {
-              minDistance = distance;
-              activeHeading = heading;
+          // Get headings from current entry only
+          const headings = Array.from(currentActiveEntry.querySelectorAll('h1, h2, h3, h4, h5, h6'));
+
+          // Detect currently visible heading
+          // Get the heading closest to the top of the screen among visible headings
+          let activeHeading = null;
+          let minDistance = Infinity;
+
+          headings.forEach(heading => {
+            const rect = heading.getBoundingClientRect();
+            // Check if element is visible on screen or just above
+            if (rect.top <= CONSTANTS.HEADING_ACTIVE_OFFSET) {
+              const distance = Math.abs(rect.top);
+              if (distance < minDistance) {
+                minDistance = distance;
+                activeHeading = heading;
+              }
+            }
+          });
+
+          // Activate corresponding TOC link
+          if (activeHeading && currentHeadingMap.has(activeHeading)) {
+            const activeLink = currentHeadingMap.get(activeHeading);
+            activeLink.classList.add('active');
+            // Add active class to parent li element
+            if (activeLink.parentElement) {
+              activeLink.parentElement.classList.add('active');
             }
           }
-        });
-
-        // Activate corresponding TOC link
-        if (activeHeading && currentHeadingMap.has(activeHeading)) {
-          const activeLink = currentHeadingMap.get(activeHeading);
-          activeLink.classList.add('active');
-          // Add active class to parent li element
-          if (activeLink.parentElement) {
-            activeLink.parentElement.classList.add('active');
-          }
         }
-      }
 
-      lastScrollTop = scrollTop;
+        lastScrollTop = scrollTop;
+      }, CONSTANTS.SCROLL_THROTTLE);
     });
   });
 })();
