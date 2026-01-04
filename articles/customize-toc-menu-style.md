@@ -751,7 +751,164 @@ html[data-theme="dark"] ul.floating-toc-list > li > ul li a:hover {
 
 ## カスタマイズの勘所
 
+目次のカスタマイズをより深く理解するために、以下のポイントを押さえておきましょう。
 
+### 記事内目次とフローティング目次の違い
+
+目次は2箇所に表示されます：
+
+| 目次の種類 | CSSセレクタ | 表示場所 | 特徴 |
+|-----------|------------|---------|------|
+| 記事内目次 | `ul.table-of-contents` | 記事本文中 | トグルで開閉可能、装飾フレームあり |
+| フローティング目次 | `ul.floating-toc-list` | 右上の目次ボタン内 | スクロールで追従、コンパクト表示 |
+
+**カスタマイズ時の注意点：**
+- 記事内目次だけに装飾を適用したい場合は `ul.table-of-contents` のみを指定
+- 両方に統一デザインを適用したい場合は `ul.table-of-contents, ul.floating-toc-list` のように併記
+
+### 主要なCSSプロパティとカスタマイズ効果
+
+変更したいデザイン要素ごとに、どのCSSプロパティを調整すればよいかをまとめました。
+
+#### 目次全体のフレーム
+
+```css
+ul.table-of-contents {
+    background: #ffffff;        /* 背景色 */
+    border: 1px solid #e1e4e8;  /* 枠線（太さと色） */
+    border-radius: 8px;         /* 角の丸み */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);  /* 影 */
+    padding: 0.5em 0.8em;       /* 内側の余白 */
+    margin: 0.5em auto;         /* 外側の余白 */
+}
+```
+
+#### 目次タイトル（.toc-title）
+
+```css
+.toc-title {
+    font-size: 1.2em;           /* タイトルの大きさ */
+    font-weight: bold;          /* 太字の強さ */
+    color: #8b6f47;             /* 文字色 */
+    border-bottom: 1px solid #c9a875;  /* 下線 */
+    padding-bottom: 0.8em;      /* タイトルと目次項目の間隔 */
+}
+```
+
+#### 目次項目（h1/h2見出し）
+
+```css
+/* h1項目 */
+ul.table-of-contents > li > a {
+    font-weight: 700;           /* 太字の強さ */
+    color: #333;                /* リンク色 */
+    font-size: 1.05rem;         /* 文字サイズ */
+}
+
+/* h2項目 */
+ul.table-of-contents > li > ul li a {
+    color: #666;                /* リンク色（h1より薄く） */
+    font-size: 0.95rem;         /* 文字サイズ（h1より小さく） */
+}
+```
+
+#### ホバー効果
+
+```css
+ul.table-of-contents > li > a:hover {
+    background-color: rgba(201, 168, 117, 0.15);  /* ホバー時の背景色 */
+    transform: translateX(5px);  /* ホバー時の移動量 */
+}
+```
+
+### よくあるカスタマイズパターン
+
+#### パターン1: 記事内目次だけにフレームをつける
+
+フローティング目次はシンプルに、記事内目次だけを装飾したい場合：
+
+```css
+/* 記事内目次だけにフレーム */
+ul.table-of-contents {
+    background: linear-gradient(to bottom, #fdfcfb 0%, #f7f5f0 100%);
+    border: 3px double #c9a875;
+    border-radius: 12px;
+}
+
+/* フローティング目次は透明 */
+ul.floating-toc-list {
+    background: transparent;
+    border: none;
+}
+```
+
+#### パターン2: 色だけ変更する
+
+既存スタイルの色だけを変えたい場合、色関連のプロパティだけを上書き：
+
+```css
+/* ゴールド系からブルー系に変更 */
+ul.table-of-contents {
+    border-color: #0366d6;  /* 枠線の色 */
+}
+
+.toc-title {
+    color: #0366d6;         /* タイトルの色 */
+    border-bottom-color: #0366d6;  /* タイトル下線の色 */
+}
+
+ul.table-of-contents > li::before {
+    color: #58a6ff;         /* マーカーの色 */
+}
+```
+
+#### パターン3: 余白を調整する
+
+目次が大きすぎる/小さすぎる場合：
+
+```css
+ul.table-of-contents {
+    padding: 1em 1.5em;     /* 大きく → 値を増やす */
+    padding: 0.3em 0.5em;   /* 小さく → 値を減らす */
+}
+
+ul.table-of-contents > li {
+    margin: 1em 0;          /* 項目間の間隔を広げる */
+    margin: 0.3em 0;        /* 項目間の間隔を詰める */
+}
+```
+
+### CSS詳細度について
+
+はてなブログのデザインCSSは、テーマのCSSより後に読み込まれるため、**基本的に`!important`なしでも上書きできます**。
+
+ただし、以下の場合は`!important`が必要になることがあります：
+
+- テーマが将来アップデートされ、CSS詳細度が変更された場合
+- 複数のカスタマイズCSSを組み合わせて使用する場合
+- 一部のプロパティだけが反映されない場合
+
+**推奨：** まずは`!important`なしで試し、反映されない箇所だけに追加する
+
+### ダークモード対応の仕組み
+
+CodeFocusテーマは2つの方法でダークモードに対応しています：
+
+```css
+/* 方法1: 手動切り替え（ユーザーがダークモードボタンを押した場合） */
+html[data-theme="dark"] ul.table-of-contents {
+    background: #161b22;
+}
+
+/* 方法2: 自動切り替え（OSの設定に従う場合） */
+@media (prefers-color-scheme: dark) {
+    html:not([data-theme="light"]) ul.table-of-contents {
+        background: #161b22;
+    }
+}
+```
+
+カスタマイズ時は**両方に同じスタイルを指定**することで、どちらの方法でも正しく表示されます。
 
 ## 注意事項
 
