@@ -225,15 +225,16 @@
           return rect.top < window.innerHeight && rect.bottom > 0;
         });
 
-        // Show TOC button if any entry is visible and scroll position is above threshold
-        if (anyEntryVisible && scrollTop > CONSTANTS.SCROLL_THRESHOLD) {
-          if (!isWideScreen()) {
+        // Control TOC button visibility based on scroll position (non-wide screens only)
+        // Wide screens: Always visible (controlled by updateTocDisplay())
+        if (!isWideScreen()) {
+          if (anyEntryVisible && scrollTop > CONSTANTS.SCROLL_THRESHOLD) {
             tocButton.style.display = 'block';
+          } else {
+            tocButton.style.display = 'none';
+            floatingToc.classList.remove('show'); // Close TOC in non-visible area
+            tocButton.classList.remove('active'); // Reset button state
           }
-        } else {
-          tocButton.style.display = 'none';
-          floatingToc.classList.remove('show'); // Close TOC in non-visible area
-          tocButton.classList.remove('active'); // Reset button state
         }
 
         // Detect and highlight currently visible heading in current entry
