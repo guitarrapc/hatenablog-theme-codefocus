@@ -129,9 +129,6 @@
       // Update TOC links
       currentTocLinks = Array.from(floatingToc.querySelectorAll('a'));
 
-      // Get all heading elements in this entry
-      const headings = Array.from(entry.querySelectorAll('h1, h2, h3, h4, h5, h6'));
-
       // Update heading map
       currentHeadingMap.clear();
       currentTocLinks.forEach(link => {
