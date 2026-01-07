@@ -581,6 +581,7 @@ table {
         -webkit-font-smoothing: antialiased;
     }
 
+    // コードブロックのスタイルは、.code-block-wrapper pre.code.xxxx で調整されますが、ここで基本スタイルを定義します。
     pre {
         background: var(--bg-code);
         border: none;
@@ -595,6 +596,10 @@ table {
         max-width: 100%;
         box-shadow: inset 0 0 5px var(--shadow-light);
         color: var(--codeblock-language-colors-text);
+
+        // 親要素(html/body)の改行ルールを上書き
+        word-break: normal; // 通常の単語分割ルールを適用
+        overflow-wrap: normal; // 自動改行を無効化
 
         & > code {
             margin: 0;
