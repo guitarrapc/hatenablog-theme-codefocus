@@ -34,7 +34,8 @@
     [https://github.com/guitarrapc/hatenablog-theme-codefocus:title=GitHub]で公開しています。(MITライセンス)
 
     * 変更履歴:
-    - 2026/01/05: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.9.0:title=v1.9.1] 一部CSS要素について`important!`が不要だったので削除、フローティング目次を常時表示するときのバグを修正。(customize-toc-button.htmlを更新してください)
+    - 2026/01/08: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.10.0:title=v1.10.0] テキストの折り返し動作を最適化。通常テキストは長いURLも適切に改行、コードブロックは横スクロールまたは折り返し切り替えで表示。
+    - 2026/01/05: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.9.1:title=v1.9.1] 一部CSS要素について`important!`が不要だったので削除、フローティング目次を常時表示するときのバグを修正。(customize-toc-button.htmlを更新してください)
     - 2026/01/04: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.9.0:title=v1.9.0] Zennのようにフローティング目次を常時表示するように変更(幅1540px以上のスクリーン限定)。複数記事が1ページに存在する場合、スクロール位置の記事を自動判別してフローティング目次に反映するように修正。フローティング目次のパフォーマンス改善とメモリリーク対策。目次項目が多くても現在位置を自動スクロール表示。(customize-toc-button.htmlを更新してください)
     - 2025/12/28: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.8.0:title=v1.8.0] 背景画像設定時に目次や目次トグルボタンの背景が白固定になっていたのを透明化対応。
     - 2025/12/26: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.7.0:title=v1.7.0] 本文の文字間隔を調整し読みやすさを向上。リンクに左右の余白を追加。Noto Sans JPフォント採用とプロポーショナルメトリクス有効化。
