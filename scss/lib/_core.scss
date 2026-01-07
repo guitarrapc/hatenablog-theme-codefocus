@@ -62,8 +62,8 @@ body {
     color: var(--text-body);
     background-color: var(--background);
     line-height: 1.9;
-    word-break: break-word;
-    word-wrap: break-word;
+    word-break: normal; // 通常の単語分割ルールを適用
+    overflow-wrap: anywhere; // 長いURL等も適切に改行
     line-break: strict;
     text-size-adjust: none;
 }
@@ -542,7 +542,6 @@ table {
         border-collapse: collapse;
         font-size: 0.95rem;
         line-height: 1.5;
-        word-break: normal;
         display: block;
         overflow: auto;
     }
@@ -888,7 +887,7 @@ table {
             grid-area: content;
             margin: 0;
             padding: 0;
-            word-wrap: break-word;
+            overflow-wrap: anywhere; // 長いURL等も適切に改行
             color: var(--text-body);
             font-size: 0.85rem;
 
@@ -1000,7 +999,7 @@ table {
         position: relative;
         color: var(--text-body);
         font-weight: bold;
-        overflow-wrap: break-word; // 長い単語でも折り返し
+        overflow-wrap: anywhere; // 長いURL等も適切に改行
 
         // <<や>>を非表示にする
         span {
@@ -1517,7 +1516,7 @@ table {
         flex-direction: column;
         padding: 0;
         margin: 0;
-        word-wrap: break-word;
+        overflow-wrap: anywhere; // 長いURL等も適切に改行
 
         @media #{var.$mq-sm} {
             flex-basis: 100%;
