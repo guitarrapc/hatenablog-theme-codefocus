@@ -128,12 +128,7 @@ Once completed, the theme under development will be reflected in your testing bl
 
 ### Test Development Code
 
-Start the server in a separate terminal:
-
-```shell
-$ npm start -- guitarrapc-theme.hatenablog.com
-```
-
+Start the server in a separate terminal.
 Run tests:
 
 ```shell

@@ -129,11 +129,6 @@ $ npm start -- guitarrapc-theme.hatenablog.com
 ### 開発コードをテストする
 
 別ターミナルでサーバーを起動しておきます。
-
-```shell
-$ npm start -- guitarrapc-theme.hatenablog.com
-```
-
 テストを実行します。
 
 ```shell
