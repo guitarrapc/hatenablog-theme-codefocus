@@ -22,12 +22,14 @@
     white-space: pre;
     overflow-x: auto;
     text-overflow: initial;
+    // word-breakとoverflow-wrapは_core.scssのpreから継承
 }
 
-// 折り返しありのコードブロック
+// 折り返しありのコードブロック (強制的にきれいに折り返すため、break-allを意図的に使う)
 .code-block-wrapper pre.code.wrap {
-    white-space: pre-wrap;
-    overflow-x: visible;
+    white-space: pre-wrap; // 改行コード+自然な位置で折り返し
+    overflow-x: visible; // 横スクロールを無効化
+    word-break: break-all; // 単語の途中でも折り返す
 }
 
 // コードブロックボタン共通のスタイル
