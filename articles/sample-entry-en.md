@@ -6,27 +6,27 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit ex vitae 
 
 [:contents]
 
-# 段落
+# Paragraph
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec blandit ex vitae dui euismod laoreet.
 
 Praesent quam elit, lobortis vel est et, commodo scelerisque sem. Duis et diam nec nulla fermentum laoreet eget quis nunc. Maecenas semper efficitur erat. Praesent tristique vel turpis id eleifend. Nulla bibendum quam nec dui tincidunt, a venenatis dolor feugiat. Curabitur in ornare ex, in luctus diam. Donec sed blandit felis. Proin vehicula sem eu commodo convallis. In pretium dui sed nisi blandit, nec tempus lacus hendrerit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Vivamus ultricies orci ac elementum fermentum. Etiam eget arcu sit amet nulla consequat lobortis. Suspendisse eget porta orci.
 
-#  画像（はてなフォトライフ）
+# Image (Hatena Fotolife)
 
 [f:id:guitarrapc_tech:20250518211811p:plain]
 
-# 脚注
+# Footnote
 
 Nunc eget aliquet diam. Etiam tempor velit et congue interdum. Donec elit elit, dictum in nulla id, sodales semper purus. Fusce eros nisl, vulputate nec pretium a, convallis in neque. Integer mauris ipsum, porta at tincidunt quis, ultrices ac ante. Nam aliquam pulvinar leo, quis sodales ligula consectetur non. Phasellus ultrices volutpat neque, id tincidunt ex sagittis nec. Cras luctus tincidunt lacus eget facilisis. Etiam volutpat lorem quis orci auctor dictum.[^1]
 
-# 続きを読む
+# Read more
 
 Show only on the top page, not on the article page.
 
 <!-- more -->
 
-# 罫線
+# Horizontal Rule
 
 ---
 
@@ -38,13 +38,13 @@ Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adi
 
 Nulla nec leo at mauris laoreet viverra ac a magna. Praesent sit amet dui vitae dolor lacinia malesuada quis eu risus. Vivamus auctor elit ac sem elementum, nec placerat lorem pharetra.
 
-# 引用
+# Blockquote
 
 > From November 12 to November 27, we will hold the Hatena Diary Public Design Contest "Public Design Festival 2007 Autumn".
 >
 > <cite>[Started "Public Design Festival 2007 Autumn" - Hatena Diary Diary](http://d.hatena.ne.jp/hatenadiary/20071112/1194858362)</cite>
 
-# リスト（ul,ol,dl）
+# Lists (ul, ol, dl)
 
 My two natures had memory in common.
 
@@ -69,7 +69,7 @@ The face of the moon was in shadow.
 <dd>Amazon gift card worth 10,000 yen</dd>
 </dl>
 
-# テーブル
+# Table
 
 She stared through the window at the stars.
 
@@ -80,7 +80,7 @@ She stared through the window at the stars.
 
 The recorded voice scratched in the speaker.
 
-# コードブロック
+# Code Block
 
 Code block in the middle of the text `dict`. The sky was cloudless and of a deep dark blue.
 
@@ -101,32 +101,32 @@ height: 999px;
 }
 ```
 
-# h1見出し
+# h1 Heading
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 ABCDEFGHIJKLMabcdefghijklm1234567890
 
-## h2見出し
+## h2 Heading
 
 A red flair silhouetted the jagged edge of a wing.
 
-### h3見出し
+### h3 Heading
 
 I watched the storm, so beautiful yet terrific.
 
-#### h4見出し
+#### h4 Heading
 
 Almost before we knew it, we had left the ground.
 
-##### h5見出し
+##### h5 Heading
 
 A shining crescent far beneath the flying vessel.
 
-###### h6見出し
+###### h6 Heading
 
 It was going to be a lonely trip back.
 
-# 長いセクションの名前を出してみましょう
+# Let's Try a Section with a Very Long Name
 
 Mist enveloped the ship three hours out from port.
 
