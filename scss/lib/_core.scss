@@ -62,7 +62,7 @@ body {
     color: var(--text-body);
     background-color: var(--background);
     line-height: 1.9;
-    word-break: break-word;
+    word-break: normal; // 通常の単語分割ルールを適用
     overflow-wrap: anywhere; // 長いURL等も適切に改行
     line-break: strict;
     text-size-adjust: none;
@@ -588,6 +588,7 @@ table {
         white-space: pre; // デフォルトで折り返しなし
         overflow-x: auto; // 横スクロール可能に
         text-overflow: initial;
+        word-break: break-all; // コードブロックは単語途中でも折り返す
         line-height: 1.7;
         font-size: 0.85rem;
         padding: 15px;
