@@ -13,7 +13,7 @@
     "test:report": "playwright show-report"
   },
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
+    "@playwright/test": "^1.58.0",
     "autoprefixer": "^10.4.17",
     "normalize.css": "^8.0.1",
     "sass": "^1.97.1",
