@@ -85,7 +85,7 @@
 .code-copy-button {
     @extend .code-button;
     right: 0rem;
-    background-image: fn.url-svg(var.$svg-copy-code, var.$code-copy-bg);
+    background-image: fn.url-svg(var.$svg-copy-code, var(--code-copy-bg));
 }
 
 // 折り返し切り替えボタンのスタイル
