@@ -70,14 +70,10 @@
     /* コピー成功時とエラー時のスタイル */
     &.copied {
         opacity: 1;
-        // background-color: var.$code-copy-success-bg;
-        // background-image: fn.url-svg(var.$svg-code-copy-success, #fff);
     }
 
     &.copy-error {
         opacity: 1;
-        // background-color: var.$code-copy-failed-bg;
-        // background-image: fn.url-svg(var.$svg-code-copy-failed, #fff);
     }
 }
 
@@ -85,14 +81,14 @@
 .code-copy-button {
     @extend .code-button;
     right: 0rem;
-    background-image: fn.url-svg(var.$svg-code-copy, var.$light-code-copy-bg);
+    background-image: fn.url-svg(var.$svg-code-copy, var.$svg-code-copy-bg);
 }
 
 // 折り返し切り替えボタンのスタイル
 .code-wrap-toggle {
     @extend .code-button;
     right: 2.5rem; // コピーボタンの左に配置
-    background-image: fn.url-svg(var.$svg-code-toggle, var.$light-code-copy-bg);
+    background-image: fn.url-svg(var.$svg-code-toggle, var.$svg-code-copy-bg);
 }
 
 // ツールチップのスタイル（共通）

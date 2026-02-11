@@ -44,9 +44,6 @@
     --table-th-bg: #{var.$light-table-th-bg};
     --table-border: #{var.$light-table-border};
 
-    --code-copy-success-bg: #{var.$light-code-copy-success-bg};
-    --code-copy-failed-bg: #{var.$light-code-copy-failed-bg};
-
     --codeblock-language-colors-text: #{map.get(var.$light-codeblock-language-colors, "text")};
     --codeblock-language-colors-keyword: #{map.get(var.$light-codeblock-language-colors, "keyword")};
     --codeblock-language-colors-function: #{map.get(var.$light-codeblock-language-colors, "function")};
