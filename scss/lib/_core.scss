@@ -5,55 +5,51 @@
 @use "./_table_of_contents";
 
 :root {
-    --background: #{var.$background};
-    --bg-light: #{var.$bg-light};
-    --bg-code: #{var.$bg-code};
-    --bg-code-selection: #{var.$bg-code-selection};
-    --bg-code-light: #{var.$bg-code-light};
-    --bg-span: #{var.$bg-span};
-    --bg-toc-hover: #{var.$bg-toc-hover};
-    --bg-archive-category: #{var.$bg-archive-category};
-    --bg-archive-category-hover: #{var.$bg-archive-category-hover};
-    --bg-btn-hover: #{var.$bg-btn-hover};
+    --background: #{var.$light-background};
+    --bg-light: #{var.$light-bg-light};
+    --bg-code: #{var.$light-bg-code};
+    --bg-code-selection: #{var.$light-bg-code-selection};
+    --bg-code-light: #{var.$light-bg-code-light};
+    --bg-span: #{var.$light-bg-span};
+    --bg-toc-hover: #{var.$light-bg-toc-hover};
+    --bg-archive-category: #{var.$light-bg-archive-category};
+    --bg-archive-category-hover: #{var.$light-bg-archive-category-hover};
+    --bg-btn-hover: #{var.$light-bg-btn-hover};
     --bg-semi-transparent: #{var.$light-background-semi-transparent};
 
-    --text-body: #{var.$text-body};
-    --text-low-priority: #{var.$text-low-priority};
-    --text-light: #{var.$text-light};
-    --text-header: #{var.$text-header};
-    --text-archive-category: #{var.$text-archive-category};
-    --text-header-visited: #{var.$text-header-visited};
-    --text-code-tooltip: #{var.$text-code-tooltip};
+    --text-body: #{var.$light-text-body};
+    --text-low-priority: #{var.$light-text-low-priority};
+    --text-light: #{var.$light-text-light};
+    --text-header: #{var.$light-text-header};
+    --text-archive-category: #{var.$light-text-archive-category};
+    --text-header-visited: #{var.$light-text-header-visited};
+    --text-code-tooltip: #{var.$light-text-code-tooltip};
 
-    --link: #{var.$link};
-    --link-hover: #{var.$link-hover};
-    --link-visited: #{var.$link-visited};
-    --link-bg: #{var.$link-bg};
+    --link: #{var.$light-link};
+    --link-hover: #{var.$light-link-hover};
+    --link-visited: #{var.$light-link-visited};
+    --link-bg: #{var.$light-link-bg};
 
-    --border: #{var.$border};
-    --border-light: #{var.$border-light};
-    --border-bq: #{var.$border-bq};
+    --border: #{var.$light-border};
+    --border-light: #{var.$light-border-light};
+    --border-bq: #{var.$light-border-bq};
 
-    --shadow: #{var.$shadow};
-    --shadow-light: #{var.$shadow-light};
-    --shadow-hover: #{var.$shadow-hover};
+    --shadow: #{var.$light-shadow};
+    --shadow-light: #{var.$light-shadow-light};
+    --shadow-hover: #{var.$light-shadow-hover};
 
-    --toc-border-bg: #{var.$toc-border-bg};
-    --toc-marker: #{var.$toc-marker};
+    --toc-border-bg: #{var.$light-toc-border-bg};
+    --toc-marker: #{var.$light-toc-marker};
 
-    --table-th-bg: #{var.$table-th-bg};
-    --table-border: #{var.$table-border};
+    --table-th-bg: #{var.$light-table-th-bg};
+    --table-border: #{var.$light-table-border};
 
-    --code-copy-bg: #{var.$code-copy-bg};
-    --code-copy-success-bg: #{var.$code-copy-success-bg};
-    --code-copy-failed-bg: #{var.$code-copy-failed-bg};
-
-    --codeblock-language-colors-text: #{map.get(var.$codeblock-language-colors, "text")};
-    --codeblock-language-colors-keyword: #{map.get(var.$codeblock-language-colors, "keyword")};
-    --codeblock-language-colors-function: #{map.get(var.$codeblock-language-colors, "function")};
-    --codeblock-language-colors-punctuation: #{map.get(var.$codeblock-language-colors, "punctuation")};
-    --codeblock-language-colors-number: #{map.get(var.$codeblock-language-colors, "number")};
-    --codeblock-language-colors-comment: #{map.get(var.$codeblock-language-colors, "comment")};
+    --codeblock-language-colors-text: #{map.get(var.$light-codeblock-language-colors, "text")};
+    --codeblock-language-colors-keyword: #{map.get(var.$light-codeblock-language-colors, "keyword")};
+    --codeblock-language-colors-function: #{map.get(var.$light-codeblock-language-colors, "function")};
+    --codeblock-language-colors-punctuation: #{map.get(var.$light-codeblock-language-colors, "punctuation")};
+    --codeblock-language-colors-number: #{map.get(var.$light-codeblock-language-colors, "number")};
+    --codeblock-language-colors-comment: #{map.get(var.$light-codeblock-language-colors, "comment")};
 }
 
 html,
@@ -961,7 +957,7 @@ table {
         flex-wrap: nowrap;
 
         &::before {
-            content: fn.url-svg(var.$svg-pager, var.$text-light);
+            content: fn.url-svg(var.$svg-pager, var.$light-text-light);
             flex-shrink: 0; // 矢印は縮小しない
             width: 24px;
             height: 24px;
@@ -983,7 +979,7 @@ table {
         justify-content: flex-start;
 
         &::after {
-            content: fn.url-svg(var.$svg-pager, var.$text-light);
+            content: fn.url-svg(var.$svg-pager, var.$light-text-light);
             flex-shrink: 0; // 矢印は縮小しない
             width: 24px;
             height: 24px;

@@ -70,14 +70,10 @@
     /* コピー成功時とエラー時のスタイル */
     &.copied {
         opacity: 1;
-        // background-color: var.$code-copy-success-bg;
-        // background-image: fn.url-svg(var.$svg-copy-code-success, #fff);
     }
 
     &.copy-error {
         opacity: 1;
-        // background-color: var.$code-copy-failed-bg;
-        // background-image: fn.url-svg(var.$svg-copy-code-failed, #fff);
     }
 }
 
@@ -85,14 +81,14 @@
 .code-copy-button {
     @extend .code-button;
     right: 0rem;
-    background-image: fn.url-svg(var.$svg-copy-code, var.$code-copy-bg);
+    background-image: fn.url-svg(var.$svg-code-copy, var.$svg-code-copy-bg);
 }
 
 // 折り返し切り替えボタンのスタイル
 .code-wrap-toggle {
     @extend .code-button;
     right: 2.5rem; // コピーボタンの左に配置
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255, 255, 255, 0.75)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='7 8 3 12 7 16'/%3E%3Cpolyline points='17 8 21 12 17 16'/%3E%3Cline x1='3' y1='12' x2='21' y2='12'/%3E%3C/svg%3E");
+    background-image: fn.url-svg(var.$svg-code-toggle, var.$svg-code-copy-bg);
 }
 
 // ツールチップのスタイル（共通）
