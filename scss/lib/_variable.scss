@@ -51,6 +51,12 @@ $color-gray-800: #edf2f7;
 $color-gray-900: #f5f5f5;
 $color-gray-1000: #fff;
 
+// Gray系 (Light mode - Balanced variant)
+$color-light-balanced-100: #1B1B1B;
+$color-light-balanced-800: #e6ecf2;
+$color-light-balanced-900: #efefef;
+$color-light-balanced-1000: #fafafa;
+
 // Gray系 (Dark mode)
 $color-dark-gray-100: #0d1117;
 $color-dark-gray-200: #161b22;
@@ -65,13 +71,11 @@ $color-dark-gray-1000: #c9d1d9;
 $color-dark-gray-1100: #e6edf3;
 $color-dark-gray-1200: #ffffff;
 
-// Gray系 (Dark mode - Dimmed variant)
-// GitHub Dark Dimmed風のブルーティントを持つダークグレー
-// 案Bで採用された、読みやすさと快適さを重視した配色
-$color-dark-dimmed-100: #1a1f27; // 背景色 (L=0.013461)
-$color-dark-dimmed-200: #232a34; // bg-light (L≈0.022)
-$color-dark-dimmed-300: #272f3b; // コードブロック背景 (L=0.027801)
-$color-dark-dimmed-400: #303a48; // コードブロックボタン背景 (L≈0.039)
+// Gray系 (Dark mode - Dimmed variant / GitHub Dark Dimmed風のブルーティントを持つダークグレー)
+$color-dark-dimmed-100: #1a1f27;
+$color-dark-dimmed-200: #232a34;
+$color-dark-dimmed-300: #272f3b;
+$color-dark-dimmed-400: #303a48;
 
 // Accent系
 $color-green-500: #4aaa50;
@@ -87,6 +91,7 @@ $color-yellow-500: #ffc56d;
 $color-code-dark-100: #1a2638;
 $color-code-dark-200: #1a2737;
 $color-code-dark-300: #222a20;
+$color-code-dark-400: #2a3c52;
 
 // 半透明色
 $color-alpha-gray-10: #aaaaaa40;
@@ -96,6 +101,7 @@ $color-alpha-blue-30: rgba(20, 135, 189, 0.1);
 $color-alpha-blue-40: #3b5773aa;
 $color-alpha-blue-50: rgba(56, 139, 253, 0.1);
 $color-alpha-white-95: rgba(255, 255, 255, 0.95);
+$color-alpha-light-balanced-95: rgba(250, 250, 250, 0.95);
 $color-alpha-dark-95: rgba(13, 17, 23, 0.95);
 $color-alpha-dark-dimmed-95: rgba(26, 31, 39, 0.95);
 $color-alpha-light-gray-75: rgba(225, 225, 225, 0.75);
@@ -115,19 +121,19 @@ $color-blue-special-link: #58a6ff;
 $svg-code-copy-bg: $color-alpha-light-gray-75;
 
 // ライトモード
-$light-background: $color-gray-1000;
-$light-background-semi-transparent: $color-alpha-white-95; // 背景画像対応用の半透明背景
-$light-bg-light: $color-gray-900;
+$light-background: $color-light-balanced-1000;
+$light-background-semi-transparent: $color-alpha-light-balanced-95; // 背景画像対応用の半透明背景
+$light-bg-light: $color-light-balanced-900;
 $light-bg-code: $color-code-dark-100;
 $light-bg-code-selection: $color-alpha-gray-10;
-$light-bg-code-light: $color-code-dark-200;
+$light-bg-code-light: $color-code-dark-400;
 $light-bg-span: $color-alpha-blue-10;
 $light-bg-toc-hover: $color-alpha-blue-20;
 $light-bg-archive-category: $color-code-dark-300;
 $light-bg-archive-category-hover: color.adjust($light-bg-archive-category, $lightness: +15%);
-$light-bg-btn-hover: $color-gray-900;
+$light-bg-btn-hover: $color-light-balanced-900;
 
-$light-text-body: $color-gray-100;
+$light-text-body: $color-light-balanced-100;
 $light-text-low-priority: $color-gray-300;
 $light-text-light: $color-gray-500;
 $light-text-header: $color-gray-200;
@@ -151,7 +157,7 @@ $light-shadow-hover: $color-alpha-black-12;
 $light-toc-border-bg: $color-blue-800;
 $light-toc-marker: $color-blue-700;
 
-$light-table-th-bg: $color-gray-800;
+$light-table-th-bg: $color-light-balanced-800;
 $light-table-border: $color-gray-600;
 
 $light-codeblock-language-colors: (
