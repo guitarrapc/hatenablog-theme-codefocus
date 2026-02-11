@@ -84,6 +84,7 @@ $color-red-500: #c44336;
 $color-red-600: #da3633;
 $color-pink-500: #ff8fa3;
 $color-cyan-500: #38c7ff;
+$color-purple-400: #6F2DBD;
 $color-purple-500: #939bc1;
 $color-yellow-500: #ffc56d;
 
@@ -141,9 +142,9 @@ $light-text-archive-category: $color-gray-1000;
 $light-text-header-visited: color.adjust($light-text-header, $lightness: +30%);
 $light-text-code-tooltip: $color-dark-gray-1000;
 
-$light-link: $color-blue-500;
-$light-link-hover: color.adjust($light-link, $lightness: -5%);
-$light-link-visited: color.adjust($light-link, $lightness: -15%, $saturation: -20%);
+$light-link: $color-blue-300;
+$light-link-hover: $color-blue-200;
+$light-link-visited: $color-purple-400;
 $light-link-bg: $color-alpha-blue-30;
 
 $light-border: $color-gray-700;
