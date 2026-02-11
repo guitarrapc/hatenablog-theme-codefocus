@@ -18,7 +18,8 @@ $svg-copy-code-success: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24
 $svg-copy-code-failed: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>"; // コードブロックのコピー失敗アイコン
 $svg-pager: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5 L8 12 L15 19'/></svg>"; // ページ内目次の前のページアイコン
 
-// カラースキーマ
+// カラースキーマ - 基本色定義
+// Blue系
 $color-blue-100: #f0f7ff;
 $color-blue-200: #ecf5ff;
 $color-blue-300: #e0efff;
@@ -30,116 +31,181 @@ $color-blue-700: #0868ce;
 $color-blue-800: #0656ac;
 $color-blue-900: #05458a;
 $color-blue-1000: #043467;
+
+// Dark Blue系
 $color-dark-blue-800: #09376d;
 $color-dark-blue-900: #0b2c53;
 $color-dark-blue-1000: #162c49;
 $color-dark-blue-1100: #0d223a;
 $color-dark-blue-1200: #081d35;
 
-// ライトモード
-$light-background: #fff;
-$light-background-semi-transparent: rgba(255, 255, 255, 0.95); // 背景画像対応用の半透明背景
-$light-bg-light: #f5f5f5;
-$light-bg-code: #1a2638;
-$light-bg-code-selection: #aaaaaa40;
-$light-bg-code-light: #1a2737;
-$light-bg-span: #215aa012;
-$light-bg-toc-hover: rgba(20, 135, 189, 0.05);
-$light-bg-archive-category: #222a20;
+// Gray系 (Light mode)
+$color-gray-50: #fff;
+$color-gray-100: #f5f5f5;
+$color-gray-200: #edf2f7;
+$color-gray-300: #ddd;
+$color-gray-400: #d6e3ed;
+$color-gray-500: #999;
+$color-gray-600: #8f9faa;
+$color-gray-700: #747474;
+$color-gray-800: #333;
+$color-gray-900: #08131a;
+
+// Gray系 (Dark mode)
+$color-dark-gray-100: #0d1117;
+$color-dark-gray-200: #161b22;
+$color-dark-gray-300: #1a1d21;
+$color-dark-gray-400: #1e232a;
+$color-dark-gray-500: #21262d;
+$color-dark-gray-600: #30363d;
+$color-dark-gray-700: #3b434b;
+$color-dark-gray-800: #808080;
+$color-dark-gray-900: #8b949e;
+$color-dark-gray-1000: #c9d1d9;
+$color-dark-gray-1100: #e6edf3;
+$color-dark-gray-1200: #ffffff;
+
+// Accent系
+$color-green-500: #4aaa50;
+$color-green-600: #238636;
+$color-red-500: #c44336;
+$color-red-600: #da3633;
+$color-pink-500: #ff8fa3;
+$color-cyan-500: #38c7ff;
+$color-purple-500: #939bc1;
+$color-yellow-500: #ffc56d;
+
+// Code系
+$color-code-dark-100: #1a2638;
+$color-code-dark-200: #1a2737;
+$color-code-dark-300: #222a20;
+
+// 半透明色
+$color-alpha-gray-10: #aaaaaa40;
+$color-alpha-blue-10: #215aa012;
+$color-alpha-blue-20: rgba(20, 135, 189, 0.05);
+$color-alpha-blue-30: rgba(20, 135, 189, 0.1);
+$color-alpha-blue-40: #3b5773aa;
+$color-alpha-blue-50: rgba(56, 139, 253, 0.1);
+$color-alpha-white-95: rgba(255, 255, 255, 0.95);
+$color-alpha-dark-95: rgba(13, 17, 23, 0.95);
+$color-alpha-light-gray-75: rgba(225, 225, 225, 0.75);
+$color-alpha-dark-gray-75: rgba(33, 38, 45, 0.75);
+$color-alpha-black-08: rgba(0, 0, 0, 0.08);
+$color-alpha-black-05: rgba(0, 0, 0, 0.05);
+$color-alpha-black-12: rgba(0, 0, 0, 0.12);
+$color-alpha-black-30: rgba(0, 0, 0, 0.3);
+$color-alpha-black-20: rgba(0, 0, 0, 0.2);
+$color-alpha-black-40: rgba(0, 0, 0, 0.4);
+
+// Special colors
+$color-dark-blue-special-toc: #203a5d;
+$color-blue-special-link: #58a6ff;
+
+// ライトモード - カラースキーマ変数を参照
+$light-background: $color-gray-50;
+$light-background-semi-transparent: $color-alpha-white-95; // 背景画像対応用の半透明背景
+$light-bg-light: $color-gray-100;
+$light-bg-code: $color-code-dark-100;
+$light-bg-code-selection: $color-alpha-gray-10;
+$light-bg-code-light: $color-code-dark-200;
+$light-bg-span: $color-alpha-blue-10;
+$light-bg-toc-hover: $color-alpha-blue-20;
+$light-bg-archive-category: $color-code-dark-300;
 $light-bg-archive-category-hover: color.adjust($light-bg-archive-category, $lightness: +15%);
-$light-bg-btn-hover: #f5f5f5;
+$light-bg-btn-hover: $color-gray-100;
 
-$light-text-body: #08131a;
-$light-text-low-priority: #747474;
-$light-text-light: #999;
-$light-text-header: #333;
-$light-text-archive-category: #FFFFFF;
+$light-text-body: $color-gray-900;
+$light-text-low-priority: $color-gray-700;
+$light-text-light: $color-gray-500;
+$light-text-header: $color-gray-800;
+$light-text-archive-category: $color-gray-50;
 $light-text-header-visited: color.adjust($light-text-header, $lightness: +30%);
-$light-text-code-tooltip: #c9d1d9;
+$light-text-code-tooltip: $color-dark-gray-1000;
 
-$light-link: #0f83fd;
+$light-link: $color-blue-600;
 $light-link-hover: color.adjust($light-link, $lightness: -5%);
 $light-link-visited: color.adjust($light-link, $lightness: -15%, $saturation: -20%);
-$light-link-bg: rgba(20, 135, 189, 0.1);
+$light-link-bg: $color-alpha-blue-30;
 
-$light-border: #ddd;
-$light-border-light: #d6e3ed;
-$light-border-bq: #8f9faa;
+$light-border: $color-gray-300;
+$light-border-light: $color-gray-400;
+$light-border-bq: $color-gray-600;
 
-$light-shadow: rgba(0, 0, 0, 0.08);
-$light-shadow-light: rgba(0, 0, 0, 0.05);
-$light-shadow-hover: rgba(0, 0, 0, 0.12);
+$light-shadow: $color-alpha-black-08;
+$light-shadow-light: $color-alpha-black-05;
+$light-shadow-hover: $color-alpha-black-12;
 
-$light-toc-border-bg: #e6f2ff;
-$light-toc-marker: #bfdcff;
+$light-toc-border-bg: $color-blue-300;
+$light-toc-marker: $color-blue-400;
 
-$light-table-th-bg: #edf2f7;
-$light-table-border: #d6e3ed;
+$light-table-th-bg: $color-gray-200;
+$light-table-border: $color-gray-400;
 
-$light-code-copy-bg: rgba(225, 225, 225, 0.75);
-$light-code-copy-success-bg: #4aaa50;
-$light-code-copy-failed-bg: #c44336;
+$light-code-copy-bg: $color-alpha-light-gray-75;
+$light-code-copy-success-bg: $color-green-500;
+$light-code-copy-failed-bg: $color-red-500;
 
 $light-codeblock-language-colors: (
-    "text": #fff,
-    "keyword": #ff8fa3,
-    "function": #38c7ff,
-    "punctuation": #939bc1,
-    "number": #ffc56d,
-    "comment": #94a1b3
+    "text": $color-gray-50,
+    "keyword": $color-pink-500,
+    "function": $color-cyan-500,
+    "punctuation": $color-purple-500,
+    "number": $color-yellow-500,
+    "comment": $color-dark-gray-900
 );
 
-// ダークモード
-$dark-background: #0d1117;
-$dark-background-semi-transparent: rgba(13, 17, 23, 0.95); // 背景画像対応用の半透明背景
-$dark-bg-light: #1a1d21;
-$dark-bg-code: #161b22;
-$dark-bg-code-selection: #aaaaaa40;
-$dark-bg-code-light: #1e232a;
-$dark-bg-span: #3b5773aa;
-$dark-bg-toc-hover: rgba(56, 139, 253, 0.1);
-$dark-bg-archive-category: #1a1d21;
+// ダークモード - カラースキーマ変数を参照
+$dark-background: $color-dark-gray-100;
+$dark-background-semi-transparent: $color-alpha-dark-95; // 背景画像対応用の半透明背景
+$dark-bg-light: $color-dark-gray-300;
+$dark-bg-code: $color-dark-gray-200;
+$dark-bg-code-selection: $color-alpha-gray-10;
+$dark-bg-code-light: $color-dark-gray-400;
+$dark-bg-span: $color-alpha-blue-40;
+$dark-bg-toc-hover: $color-alpha-blue-50;
+$dark-bg-archive-category: $color-dark-gray-300;
 $dark-bg-archive-category-hover: color.adjust($dark-bg-archive-category, $lightness: +15%);
-$dark-bg-btn-hover: #1a1d21;
+$dark-bg-btn-hover: $color-dark-gray-300;
 
-$dark-text-body: #ffffff;
-$dark-text-low-priority: #8b949e;
-$dark-text-light: #808080;
-$dark-text-header: #e6edf3;
-$dark-text-archive-category: #e6edf3;
+$dark-text-body: $color-dark-gray-1200;
+$dark-text-low-priority: $color-dark-gray-900;
+$dark-text-light: $color-dark-gray-800;
+$dark-text-header: $color-dark-gray-1100;
+$dark-text-archive-category: $color-dark-gray-1100;
 $dark-text-header-visited: color.adjust($dark-text-header, $lightness: -30%);
-$dark-text-code-tooltip: #c9d1d9;
+$dark-text-code-tooltip: $color-dark-gray-1000;
 
-$dark-link: #58a6ff;
+$dark-link: $color-blue-special-link;
 $dark-link-hover: color.adjust($dark-link, $lightness: +5%);
 $dark-link-visited: color.adjust($dark-link, $lightness: -10%, $saturation: -15%);
-$dark-link-bg: rgba(56, 139, 253, 0.1);
+$dark-link-bg: $color-alpha-blue-50;
 
-$dark-border: #30363d;
-$dark-border-light: #21262d;
-$dark-border-bq: #3b434b;
+$dark-border: $color-dark-gray-600;
+$dark-border-light: $color-dark-gray-500;
+$dark-border-bq: $color-dark-gray-700;
 
-$dark-shadow: rgba(0, 0, 0, 0.3);
-$dark-shadow-light: rgba(0, 0, 0, 0.2);
-$dark-shadow-hover: rgba(0, 0, 0, 0.4);
+$dark-shadow: $color-alpha-black-30;
+$dark-shadow-light: $color-alpha-black-20;
+$dark-shadow-hover: $color-alpha-black-40;
 
-$dark-toc-border-bg: #203a5d;
-$dark-toc-marker: #388bfd;
+$dark-toc-border-bg: $color-dark-blue-special-toc;
+$dark-toc-marker: $color-blue-special-link;
 
-$dark-table-th-bg: #161b22;
-$dark-table-border: #30363d;
+$dark-table-th-bg: $color-dark-gray-200;
+$dark-table-border: $color-dark-gray-600;
 
-$dark-code-copy-bg: rgba(33, 38, 45, 0.75);
-$dark-code-copy-success-bg: #238636;
-$dark-code-copy-failed-bg: #da3633;
+$dark-code-copy-bg: $color-alpha-dark-gray-75;
+$dark-code-copy-success-bg: $color-green-600;
+$dark-code-copy-failed-bg: $color-red-600;
 
 $dark-codeblock-language-colors: (
-    "text": #fff,
-    "keyword": #ff8fa3,
-    "function": #38c7ff,
-    "punctuation": #939bc1,
-    "number": #ffc56d,
-    "comment": #94a1b3
+    "text": $color-gray-50,
+    "keyword": $color-pink-500,
+    "function": $color-cyan-500,
+    "punctuation": $color-purple-500,
+    "number": $color-yellow-500,
+    "comment": $color-dark-gray-900
 );
 
 // 現在のテーマ変数を設定
