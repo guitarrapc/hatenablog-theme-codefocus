@@ -18,37 +18,38 @@ $svg-code-toggle: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' f
 $svg-pager: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5 L8 12 L15 19'/></svg>"; // ページ内目次の前のページアイコン
 
 // カラースキーマ - 基本色定義
+// 色の命名規則: GitHub Primer方式 - 番号が大きくなるほど明るくなる
 // Blue系
-$color-blue-100: #f0f7ff;
-$color-blue-200: #ecf5ff;
-$color-blue-300: #e0efff;
-$color-blue-350: #cfe5ff;
-$color-blue-400: #bfdcff;
-$color-blue-500: #3ea8ff;
-$color-blue-600: #0f83fd;
-$color-blue-700: #0868ce;
-$color-blue-800: #0656ac;
-$color-blue-900: #05458a;
-$color-blue-1000: #043467;
+$color-blue-100: #043467;
+$color-blue-200: #05458a;
+$color-blue-300: #0656ac;
+$color-blue-400: #0868ce;
+$color-blue-500: #0f83fd;
+$color-blue-600: #3ea8ff;
+$color-blue-700: #bfdcff;
+$color-blue-750: #cfe5ff;
+$color-blue-800: #e0efff;
+$color-blue-900: #ecf5ff;
+$color-blue-1000: #f0f7ff;
 
 // Dark Blue系
-$color-dark-blue-800: #09376d;
-$color-dark-blue-900: #0b2c53;
-$color-dark-blue-1000: #162c49;
-$color-dark-blue-1100: #0d223a;
-$color-dark-blue-1200: #081d35;
+$color-dark-blue-100: #081d35;
+$color-dark-blue-200: #0d223a;
+$color-dark-blue-300: #0b2c53;
+$color-dark-blue-400: #09376d;
+$color-dark-blue-500: #162c49;
 
-// Gray系 (Light mode)
-$color-gray-50: #fff;
-$color-gray-100: #f5f5f5;
-$color-gray-200: #edf2f7;
-$color-gray-300: #ddd;
-$color-gray-400: #d6e3ed;
+// Gray系
+$color-gray-100: #08131a;
+$color-gray-200: #333;
+$color-gray-300: #747474;
+$color-gray-400: #8f9faa;
 $color-gray-500: #999;
-$color-gray-600: #8f9faa;
-$color-gray-700: #747474;
-$color-gray-800: #333;
-$color-gray-900: #08131a;
+$color-gray-600: #d6e3ed;
+$color-gray-700: #ddd;
+$color-gray-800: #edf2f7;
+$color-gray-900: #f5f5f5;
+$color-gray-1000: #fff;
 
 // Gray系 (Dark mode)
 $color-dark-gray-100: #0d1117;
@@ -105,9 +106,9 @@ $color-blue-special-link: #58a6ff;
 $svg-code-copy-bg: $color-alpha-light-gray-75;
 
 // ライトモード - カラースキーマ変数を参照
-$light-background: $color-gray-50;
+$light-background: $color-gray-1000;
 $light-background-semi-transparent: $color-alpha-white-95; // 背景画像対応用の半透明背景
-$light-bg-light: $color-gray-100;
+$light-bg-light: $color-gray-900;
 $light-bg-code: $color-code-dark-100;
 $light-bg-code-selection: $color-alpha-gray-10;
 $light-bg-code-light: $color-code-dark-200;
@@ -115,37 +116,37 @@ $light-bg-span: $color-alpha-blue-10;
 $light-bg-toc-hover: $color-alpha-blue-20;
 $light-bg-archive-category: $color-code-dark-300;
 $light-bg-archive-category-hover: color.adjust($light-bg-archive-category, $lightness: +15%);
-$light-bg-btn-hover: $color-gray-100;
+$light-bg-btn-hover: $color-gray-900;
 
-$light-text-body: $color-gray-900;
-$light-text-low-priority: $color-gray-700;
+$light-text-body: $color-gray-100;
+$light-text-low-priority: $color-gray-300;
 $light-text-light: $color-gray-500;
-$light-text-header: $color-gray-800;
-$light-text-archive-category: $color-gray-50;
+$light-text-header: $color-gray-200;
+$light-text-archive-category: $color-gray-1000;
 $light-text-header-visited: color.adjust($light-text-header, $lightness: +30%);
 $light-text-code-tooltip: $color-dark-gray-1000;
 
-$light-link: $color-blue-600;
+$light-link: $color-blue-500;
 $light-link-hover: color.adjust($light-link, $lightness: -5%);
 $light-link-visited: color.adjust($light-link, $lightness: -15%, $saturation: -20%);
 $light-link-bg: $color-alpha-blue-30;
 
-$light-border: $color-gray-300;
-$light-border-light: $color-gray-400;
-$light-border-bq: $color-gray-600;
+$light-border: $color-gray-700;
+$light-border-light: $color-gray-600;
+$light-border-bq: $color-gray-400;
 
 $light-shadow: $color-alpha-black-08;
 $light-shadow-light: $color-alpha-black-05;
 $light-shadow-hover: $color-alpha-black-12;
 
-$light-toc-border-bg: $color-blue-300;
-$light-toc-marker: $color-blue-400;
+$light-toc-border-bg: $color-blue-800;
+$light-toc-marker: $color-blue-700;
 
-$light-table-th-bg: $color-gray-200;
-$light-table-border: $color-gray-400;
+$light-table-th-bg: $color-gray-800;
+$light-table-border: $color-gray-600;
 
 $light-codeblock-language-colors: (
-    "text": $color-gray-50,
+    "text": $color-gray-1000,
     "keyword": $color-pink-500,
     "function": $color-cyan-500,
     "punctuation": $color-purple-500,
@@ -197,7 +198,7 @@ $dark-code-copy-success-bg: $color-green-600;
 $dark-code-copy-failed-bg: $color-red-600;
 
 $dark-codeblock-language-colors: (
-    "text": $color-gray-50,
+    "text": $color-gray-1000,
     "keyword": $color-pink-500,
     "function": $color-cyan-500,
     "punctuation": $color-purple-500,
