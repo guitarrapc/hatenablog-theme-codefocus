@@ -236,7 +236,6 @@ CodeFocusテーマでは、コードブロックの表示をCSS変数で管理�
   --codeblock-language-colors-comment: #94a1b3;    /* コメント色 */
 
   /* コピーボタンの色 */
-  --code-copy-bg: rgba(225, 225, 225, 0.75);      /* コピーボタン背景色 */
   --code-copy-success-bg: #4aaa50;                 /* コピー成功時の色 */
   --code-copy-failed-bg: #c44336;                  /* コピー失敗時の色 */
 }
