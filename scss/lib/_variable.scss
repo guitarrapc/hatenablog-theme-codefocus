@@ -18,6 +18,24 @@ $svg-copy-code-success: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24
 $svg-copy-code-failed: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='18' y1='6' x2='6' y2='18'/><line x1='6' y1='6' x2='18' y2='18'/></svg>"; // コードブロックのコピー失敗アイコン
 $svg-pager: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5 L8 12 L15 19'/></svg>"; // ページ内目次の前のページアイコン
 
+// カラースキーマ
+$color-blue-100: #f0f7ff;
+$color-blue-200: #ecf5ff;
+$color-blue-300: #e0efff;
+$color-blue-350: #cfe5ff;
+$color-blue-400: #bfdcff;
+$color-blue-500: #3ea8ff;
+$color-blue-600: #0f83fd;
+$color-blue-700: #0868ce;
+$color-blue-800: #0656ac;
+$color-blue-900: #05458a;
+$color-blue-1000: #043467;
+$color-dark-blue-800: #09376d;
+$color-dark-blue-900: #0b2c53;
+$color-dark-blue-1000: #162c49;
+$color-dark-blue-1100: #0d223a;
+$color-dark-blue-1200: #081d35;
+
 // ライトモード
 $light-background: #fff;
 $light-background-semi-transparent: rgba(255, 255, 255, 0.95); // 背景画像対応用の半透明背景
