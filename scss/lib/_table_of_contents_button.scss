@@ -192,12 +192,12 @@ ul.floating-toc-list {
         }
 
         &:hover::before {
-            background-color: var(--link-hover);
+            background-color: var(--toc-marker-hover);
         }
 
         /* アクティブ状態の青丸マーカーのスタイル */
         &.active::before {
-            background-color: var(--link-hover);
+            background-color: var(--toc-marker-hover);
             box-shadow: 0 0 4px rgba(20, 135, 189, 0.5);
             transform: scale(1.2);
         }
@@ -277,12 +277,12 @@ ul.floating-toc-list {
                 }
 
                 &:hover::before {
-                    background-color: var(--link-hover);
+                    background-color: var(--toc-marker-hover);
                 }
 
                 /* アクティブ状態のh2の青丸マーカーのスタイル */
                 &.active::before {
-                    background-color: var(--link-hover);
+                    background-color: var(--toc-marker-hover);
                     box-shadow: 0 0 4px rgba(20, 135, 189, 0.5);
                     transform: scale(1.2);
                 }

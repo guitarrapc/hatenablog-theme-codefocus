@@ -26,6 +26,7 @@ $color-blue-300: #0656ac;
 $color-blue-400: #0868ce;
 $color-blue-500: #0f83fd;
 $color-blue-600: #3ea8ff;
+$color-blue-650: #58a6ff;
 $color-blue-700: #bfdcff;
 $color-blue-750: #cfe5ff;
 $color-blue-800: #e0efff;
@@ -38,6 +39,7 @@ $color-dark-blue-200: #0d223a;
 $color-dark-blue-300: #0b2c53;
 $color-dark-blue-400: #09376d;
 $color-dark-blue-500: #162c49;
+$color-dark-blue-600: #203a5d;
 
 // Gray系
 $color-gray-100: #08131a;
@@ -114,10 +116,6 @@ $color-alpha-black-30: rgba(0, 0, 0, 0.3);
 $color-alpha-black-20: rgba(0, 0, 0, 0.2);
 $color-alpha-black-40: rgba(0, 0, 0, 0.4);
 
-// Special colors
-$color-dark-blue-special-toc: #203a5d;
-$color-blue-special-link: #58a6ff;
-
 // fixed colors variable for svg
 $svg-code-copy-bg: $color-alpha-light-gray-75;
 
@@ -157,6 +155,7 @@ $light-shadow-hover: $color-alpha-black-12;
 
 $light-toc-border-bg: $color-blue-800;
 $light-toc-marker: $color-blue-700;
+$light-toc-marker-hover: color.adjust($color-blue-500, $lightness: -5%);
 
 $light-table-th-bg: $color-light-balanced-800;
 $light-table-border: $color-gray-600;
@@ -191,7 +190,7 @@ $dark-text-archive-category: $color-dark-gray-1100;
 $dark-text-header-visited: color.adjust($dark-text-header, $lightness: -30%);
 $dark-text-code-tooltip: $color-dark-gray-1000;
 
-$dark-link: $color-blue-special-link;
+$dark-link: $color-blue-650;
 $dark-link-hover: color.adjust($dark-link, $lightness: +5%);
 $dark-link-visited: color.adjust($dark-link, $lightness: -10%, $saturation: -15%);
 $dark-link-bg: $color-alpha-blue-50;
@@ -204,8 +203,9 @@ $dark-shadow: $color-alpha-black-30;
 $dark-shadow-light: $color-alpha-black-20;
 $dark-shadow-hover: $color-alpha-black-40;
 
-$dark-toc-border-bg: $color-dark-blue-special-toc;
-$dark-toc-marker: $color-blue-special-link;
+$dark-toc-border-bg: $color-dark-blue-600;
+$dark-toc-marker: $color-blue-650;
+$dark-toc-marker-hover: color.adjust($color-blue-650, $lightness: +10%);
 
 $dark-table-th-bg: $color-dark-gray-200;
 $dark-table-border: $color-dark-gray-600;
