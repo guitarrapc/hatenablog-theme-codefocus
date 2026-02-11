@@ -65,6 +65,14 @@ $color-dark-gray-1000: #c9d1d9;
 $color-dark-gray-1100: #e6edf3;
 $color-dark-gray-1200: #ffffff;
 
+// Gray系 (Dark mode - Dimmed variant)
+// GitHub Dark Dimmed風のブルーティントを持つダークグレー
+// 案Bで採用された、読みやすさと快適さを重視した配色
+$color-dark-dimmed-100: #1a1f27; // 背景色 (L=0.013461)
+$color-dark-dimmed-200: #232a34; // bg-light (L≈0.022)
+$color-dark-dimmed-300: #272f3b; // コードブロック背景 (L=0.027801)
+$color-dark-dimmed-400: #303a48; // コードブロックボタン背景 (L≈0.039)
+
 // Accent系
 $color-green-500: #4aaa50;
 $color-green-600: #238636;
@@ -89,6 +97,7 @@ $color-alpha-blue-40: #3b5773aa;
 $color-alpha-blue-50: rgba(56, 139, 253, 0.1);
 $color-alpha-white-95: rgba(255, 255, 255, 0.95);
 $color-alpha-dark-95: rgba(13, 17, 23, 0.95);
+$color-alpha-dark-dimmed-95: rgba(26, 31, 39, 0.95);
 $color-alpha-light-gray-75: rgba(225, 225, 225, 0.75);
 $color-alpha-dark-gray-75: rgba(33, 38, 45, 0.75);
 $color-alpha-black-08: rgba(0, 0, 0, 0.08);
@@ -105,7 +114,7 @@ $color-blue-special-link: #58a6ff;
 // fixed colors variable for svg
 $svg-code-copy-bg: $color-alpha-light-gray-75;
 
-// ライトモード - カラースキーマ変数を参照
+// ライトモード
 $light-background: $color-gray-1000;
 $light-background-semi-transparent: $color-alpha-white-95; // 背景画像対応用の半透明背景
 $light-bg-light: $color-gray-900;
@@ -154,13 +163,13 @@ $light-codeblock-language-colors: (
     "comment": $color-dark-gray-900
 );
 
-// ダークモード - カラースキーマ変数を参照
-$dark-background: $color-dark-gray-100;
-$dark-background-semi-transparent: $color-alpha-dark-95; // 背景画像対応用の半透明背景
-$dark-bg-light: $color-dark-gray-300;
-$dark-bg-code: $color-dark-gray-200;
+// ダークモード - GitHub Dark Dimmed風の配色で、読みやすさと快適さを重視
+$dark-background: $color-dark-dimmed-100;
+$dark-background-semi-transparent: $color-alpha-dark-dimmed-95; // 背景画像対応用の半透明背景
+$dark-bg-light: $color-dark-dimmed-200;
+$dark-bg-code: $color-dark-dimmed-300;
 $dark-bg-code-selection: $color-alpha-gray-10;
-$dark-bg-code-light: $color-dark-gray-400;
+$dark-bg-code-light: $color-dark-dimmed-400;
 $dark-bg-span: $color-alpha-blue-40;
 $dark-bg-toc-hover: $color-alpha-blue-50;
 $dark-bg-archive-category: $color-dark-gray-300;

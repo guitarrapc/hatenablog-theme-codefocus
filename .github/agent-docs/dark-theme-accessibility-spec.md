@@ -275,10 +275,3 @@ https://www.w3.org/TR/WCAG20-TECHS/F73.html
 Material dark theme (実務ガイド例)
 https://codelabs.developers.google.com/codelabs/design-material-darktheme
 ```
-
----
-
-## 8. 今後の拡張（任意）
-- `surface` / `surface-2`（カード背景）や `muted-fg`（補助テキスト）を追加し、階層表現をトークン化
-- コードブロックのシンタックスハイライト色を追加（色だけに依存しない設計で）
-- 色覚シミュレーション（protan/deutan/tritan）での視認性チェック手順を追記
