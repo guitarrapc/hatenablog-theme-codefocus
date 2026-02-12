@@ -28,7 +28,9 @@ title: CodeFocusテーマの目次をデザインCSSでカスタマイズする
 
 レストランメニューのような、二重線フレームとゴールドアクセントの目次デザインです。
 
-[f:id:guitarrapc_tech:20260105002647p:plain:alt=レストランメニュー目次の表示例]<!--customize-toc-menu-style-image.png-->
+[f:id:guitarrapc_tech:20260212181848p:plain:alt=レストランメニュー目次の表示例]<!--customize-toc-menu-style-image.png-->
+
+
 
 以下のCSSコードを「デザインCSS」に貼り付けてください。
 
@@ -266,7 +268,9 @@ ul.floating-toc-list > li > ul li a:hover {
 
 各セクションをカード化し、クリーンな目次デザインです。次のような見た目になります。
 
-[f:id:guitarrapc_tech:20260105002804p:plain:alt=モダンカード目次の表示例]<!--customize-toc-menu-style-image-1.png-->
+[f:id:guitarrapc_tech:20260212181809p:plain:alt=モダンカード目次の表示例]<!--customize-toc-menu-style-image-1.png-->
+
+
 
 以下のCSSコードを「デザインCSS」に貼り付けてください。
 
@@ -527,7 +531,9 @@ html[data-theme="dark"] ul.floating-toc-list > li > ul li a:hover {
 
 シンプルで読みやすい、装飾を最小限に抑えた目次デザインです。次のような見た目になります。
 
-[f:id:guitarrapc_tech:20260105002858p:plain:alt=ミニマルの適用例]<!--customize-toc-menu-style-image-2.png-->
+[f:id:guitarrapc_tech:20260212181829p:plain:alt=ミニマルの適用例]<!--customize-toc-menu-style-image-2.png-->
+
+
 
 以下のCSSコードを「デザインCSS」に貼り付けてください。
 

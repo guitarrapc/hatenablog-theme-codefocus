@@ -348,7 +348,9 @@ ul.table-of-contents {
 
 記事内のカテゴリーは丸みを帯びたタグスタイルで表示されます。
 
-[f:id:guitarrapc_tech:20260104185816p:plain:alt=記事タイトル下のカテゴリー表示のスクリーンショット] <!-- screenshots/pc-category-container.png -->
+[f:id:guitarrapc_tech:20260212181926p:plain:alt=記事タイトル下のカテゴリー表示のスクリーンショット] <!-- screenshots/pc-category-container.png -->
+
+
 
 ```css
 .categories a {
@@ -359,10 +361,14 @@ ul.table-of-contents {
 ```
 
 通常表示:
-[f:id:guitarrapc_tech:20260104185839p:plain:alt=カテゴリー表示のスクリーンショット] <!-- screenshots/pc-category-item.png -->
+[f:id:guitarrapc_tech:20260212181947p:plain:alt=カテゴリー表示のスクリーンショット] <!-- screenshots/pc-category-item.png -->
+
+
 
 ホバー時:
-[f:id:guitarrapc_tech:20260104185856p:plain:alt=カテゴリーホバーのスクリーンショット] <!-- screenshots/pc-category-item-hover.png -->
+[f:id:guitarrapc_tech:20260212181958p:plain:alt=カテゴリーホバーのスクリーンショット] <!-- screenshots/pc-category-item-hover.png -->
+
+
 
 ### サイドバーのタグクラウドカスタマイズ
 
@@ -425,7 +431,13 @@ ul.table-of-contents {
 
 CodeFocusテーマでは、コメントセクションもZennのDiscussionスタイルに似たデザインになっています。コメント関連の色もCSS変数で管理されているため、簡単にカスタマイズできます。
 
-[f:id:guitarrapc_tech:20260104185923p:plain:alt=コメントセクションのスクリーンショット] <!-- screenshots/pc-comment-section.png -->
+| PC表示 | タブレット表示 | スマートフォン表示 |
+| --- | --- | --- |
+| [f:id:guitarrapc_tech:20260212181416p:plain:alt=PC表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20260212181437p:plain:alt=タブレット表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20260212181453p:plain:alt=スマートフォン表示のコメントセクションのスクリーンショット] |
+
+<!-- | screenshots/pc-comment-section.png | screenshots/tablet-comment-section.png | screenshots/smartphone-comment-section.png | -->
+
+
 
 ### コメント関連のCSS変数
 
