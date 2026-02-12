@@ -18,66 +18,66 @@ $svg-code-toggle: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' f
 $svg-pager: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M15 5 L8 12 L15 19'/></svg>"; // ページ内目次の前のページアイコン
 
 // カラースキーマ - 基本色定義
-// 色の命名規則: GitHub Primer方式 - 番号が大きくなるほど明るくなる
+// 色の命名規則: 番号が大きくなるほど濃くなる
 // Blue系
-$color-blue-100: #043467;
-$color-blue-200: #05458a;
-$color-blue-300: #0656ac;
-$color-blue-400: #0868ce;
-$color-blue-500: #0f83fd;
-$color-blue-600: #3ea8ff;
-$color-blue-650: #58a6ff;
-$color-blue-700: #bfdcff;
-$color-blue-750: #cfe5ff;
-$color-blue-800: #e0efff;
-$color-blue-900: #ecf5ff;
-$color-blue-1000: #f0f7ff;
+$color-blue-100: #f0f7ff;
+$color-blue-200: #ecf5ff;
+$color-blue-300: #e0efff;
+$color-blue-350: #cfe5ff;
+$color-blue-400: #bfdcff;
+$color-blue-450: #58a6ff;
+$color-blue-500: #3ea8ff;
+$color-blue-600: #0f83fd;
+$color-blue-700: #0868ce;
+$color-blue-800: #0656ac;
+$color-blue-900: #05458a;
+$color-blue-1000: #043467;
 
 // Dark Blue系
-$color-dark-blue-100: #081d35;
-$color-dark-blue-200: #0d223a;
-$color-dark-blue-300: #0b2c53;
-$color-dark-blue-400: #09376d;
-$color-dark-blue-500: #162c49;
-$color-dark-blue-600: #203a5d;
+$color-dark-blue-100: #203a5d;
+$color-dark-blue-200: #162c49;
+$color-dark-blue-300: #09376d;
+$color-dark-blue-400: #0b2c53;
+$color-dark-blue-500: #0d223a;
+$color-dark-blue-600: #081d35;
 
 // Gray系
-$color-gray-100: #08131a;
-$color-gray-200: #333;
-$color-gray-300: #747474;
-$color-gray-400: #8f9faa;
-$color-gray-500: #999;
-$color-gray-600: #d6e3ed;
-$color-gray-700: #ddd;
-$color-gray-800: #edf2f7;
-$color-gray-900: #f5f5f5;
-$color-gray-1000: #fff;
+$color-gray-100: #fff;
+$color-gray-200: #f5f5f5;
+$color-gray-300: #edf2f7;
+$color-gray-400: #ddd;
+$color-gray-500: #d6e3ed;
+$color-gray-600: #999;
+$color-gray-700: #8f9faa;
+$color-gray-800: #747474;
+$color-gray-900: #333;
+$color-gray-1000: #08131a;
 
 // Gray系 (Light mode - Balanced variant)
-$color-light-balanced-100: #1B1B1B;
-$color-light-balanced-800: #e6ecf2;
-$color-light-balanced-900: #efefef;
-$color-light-balanced-1000: #fafafa;
+$color-light-balanced-100: #fafafa;
+$color-light-balanced-200: #efefef;
+$color-light-balanced-300: #e6ecf2;
+$color-light-balanced-1000: #1B1B1B;
 
 // Gray系 (Dark mode)
-$color-dark-gray-100: #0d1117;
-$color-dark-gray-200: #161b22;
-$color-dark-gray-300: #1a1d21;
-$color-dark-gray-400: #1e232a;
-$color-dark-gray-500: #21262d;
-$color-dark-gray-600: #30363d;
-$color-dark-gray-700: #3b434b;
-$color-dark-gray-800: #808080;
-$color-dark-gray-900: #8b949e;
-$color-dark-gray-1000: #c9d1d9;
-$color-dark-gray-1100: #e6edf3;
-$color-dark-gray-1200: #ffffff;
+$color-dark-gray-100: #ffffff;
+$color-dark-gray-200: #e6edf3;
+$color-dark-gray-300: #c9d1d9;
+$color-dark-gray-400: #8b949e;
+$color-dark-gray-500: #808080;
+$color-dark-gray-600: #3b434b;
+$color-dark-gray-700: #30363d;
+$color-dark-gray-800: #21262d;
+$color-dark-gray-900: #1e232a;
+$color-dark-gray-1000: #1a1d21;
+$color-dark-gray-1100: #161b22;
+$color-dark-gray-1200: #0d1117;
 
 // Gray系 (Dark mode - Dimmed variant / GitHub Dark Dimmed風のブルーティントを持つダークグレー)
-$color-dark-dimmed-100: #1a1f27;
-$color-dark-dimmed-200: #232a34;
-$color-dark-dimmed-300: #272f3b;
-$color-dark-dimmed-400: #303a48;
+$color-dark-dimmed-100: #303a48;
+$color-dark-dimmed-200: #272f3b;
+$color-dark-dimmed-300: #232a34;
+$color-dark-dimmed-400: #1a1f27;
 
 // Accent系
 $color-green-500: #4aaa50;
@@ -86,15 +86,15 @@ $color-red-500: #c44336;
 $color-red-600: #da3633;
 $color-pink-500: #ff8fa3;
 $color-cyan-500: #38c7ff;
-$color-purple-400: #6F2DBD;
-$color-purple-500: #939bc1;
+$color-purple-400: #939bc1;
+$color-purple-500: #6F2DBD;
 $color-yellow-500: #ffc56d;
 
 // Code系
-$color-code-dark-100: #1a2638;
-$color-code-dark-200: #1a2737;
-$color-code-dark-300: #222a20;
-$color-code-dark-400: #2a3c52;
+$color-code-dark-100: #2a3c52;
+$color-code-dark-200: #222a20;
+$color-code-dark-300: #1a2737;
+$color-code-dark-400: #1a2638;
 
 // 半透明色
 $color-alpha-gray-10: #aaaaaa40;
@@ -120,104 +120,104 @@ $color-alpha-black-40: rgba(0, 0, 0, 0.4);
 $svg-code-copy-bg: $color-alpha-light-gray-75;
 
 // ライトモード
-$light-background: $color-light-balanced-1000;
+$light-background: $color-light-balanced-100;
 $light-background-semi-transparent: $color-alpha-light-balanced-95; // 背景画像対応用の半透明背景
-$light-bg-light: $color-light-balanced-900;
-$light-bg-code: $color-code-dark-100;
+$light-bg-light: $color-light-balanced-200;
+$light-bg-code: $color-code-dark-400;
 $light-bg-code-selection: $color-alpha-gray-10;
-$light-bg-code-light: $color-code-dark-400;
+$light-bg-code-light: $color-code-dark-100;
 $light-bg-span: $color-alpha-blue-10;
 $light-bg-toc-hover: $color-alpha-blue-20;
-$light-bg-archive-category: $color-code-dark-300;
+$light-bg-archive-category: $color-code-dark-200;
 $light-bg-archive-category-hover: color.adjust($light-bg-archive-category, $lightness: +15%);
-$light-bg-btn-hover: $color-light-balanced-900;
+$light-bg-btn-hover: $color-light-balanced-200;
 
-$light-text-body: $color-light-balanced-100;
-$light-text-low-priority: $color-gray-300;
-$light-text-light: $color-gray-500;
-$light-text-header: $color-gray-200;
-$light-text-archive-category: $color-gray-1000;
+$light-text-body: $color-light-balanced-1000;
+$light-text-low-priority: $color-gray-800;
+$light-text-light: $color-gray-600;
+$light-text-header: $color-gray-900;
+$light-text-archive-category: $color-gray-100;
 $light-text-header-visited: color.adjust($light-text-header, $lightness: +30%);
-$light-text-code-tooltip: $color-dark-gray-1000;
+$light-text-code-tooltip: $color-dark-gray-300;
 
-$light-link: $color-blue-300;
-$light-link-hover: $color-blue-200;
-$light-link-visited: $color-purple-400;
+$light-link: $color-blue-800;
+$light-link-hover: $color-blue-900;
+$light-link-visited: $color-purple-500;
 $light-link-bg: $color-alpha-blue-30;
 
-$light-border: $color-gray-700;
-$light-border-light: $color-gray-600;
-$light-border-bq: $color-gray-400;
+$light-border: $color-gray-400;
+$light-border-light: $color-gray-500;
+$light-border-bq: $color-gray-700;
 
 $light-shadow: $color-alpha-black-08;
 $light-shadow-light: $color-alpha-black-05;
 $light-shadow-hover: $color-alpha-black-12;
 
-$light-toc-border-bg: $color-blue-800;
-$light-toc-marker: $color-blue-700;
-$light-toc-marker-hover: color.adjust($color-blue-500, $lightness: -5%);
+$light-toc-border-bg: $color-blue-300;
+$light-toc-marker: $color-blue-400;
+$light-toc-marker-hover: color.adjust($color-blue-600, $lightness: -5%);
 
-$light-table-th-bg: $color-light-balanced-800;
-$light-table-border: $color-gray-600;
+$light-table-th-bg: $color-light-balanced-300;
+$light-table-border: $color-gray-500;
 
 $light-codeblock-language-colors: (
-    "text": $color-gray-1000,
+    "text": $color-gray-100,
     "keyword": $color-pink-500,
     "function": $color-cyan-500,
-    "punctuation": $color-purple-500,
+    "punctuation": $color-purple-400,
     "number": $color-yellow-500,
-    "comment": $color-dark-gray-900
+    "comment": $color-dark-gray-400
 );
 
 // ダークモード - GitHub Dark Dimmed風の配色で、読みやすさと快適さを重視
-$dark-background: $color-dark-dimmed-100;
+$dark-background: $color-dark-dimmed-400;
 $dark-background-semi-transparent: $color-alpha-dark-dimmed-95; // 背景画像対応用の半透明背景
-$dark-bg-light: $color-dark-dimmed-200;
-$dark-bg-code: $color-dark-dimmed-300;
+$dark-bg-light: $color-dark-dimmed-300;
+$dark-bg-code: $color-dark-dimmed-200;
 $dark-bg-code-selection: $color-alpha-gray-10;
-$dark-bg-code-light: $color-dark-dimmed-400;
+$dark-bg-code-light: $color-dark-dimmed-100;
 $dark-bg-span: $color-alpha-blue-40;
 $dark-bg-toc-hover: $color-alpha-blue-50;
-$dark-bg-archive-category: $color-dark-gray-300;
+$dark-bg-archive-category: $color-dark-gray-1000;
 $dark-bg-archive-category-hover: color.adjust($dark-bg-archive-category, $lightness: +15%);
-$dark-bg-btn-hover: $color-dark-gray-300;
+$dark-bg-btn-hover: $color-dark-gray-1000;
 
-$dark-text-body: $color-dark-gray-1100;
-$dark-text-low-priority: $color-dark-gray-900;
-$dark-text-light: $color-dark-gray-800;
-$dark-text-header: $color-dark-gray-1100;
-$dark-text-archive-category: $color-dark-gray-1100;
+$dark-text-body: $color-dark-gray-200;
+$dark-text-low-priority: $color-dark-gray-400;
+$dark-text-light: $color-dark-gray-500;
+$dark-text-header: $color-dark-gray-200;
+$dark-text-archive-category: $color-dark-gray-200;
 $dark-text-header-visited: color.adjust($dark-text-header, $lightness: -30%);
-$dark-text-code-tooltip: $color-dark-gray-1000;
+$dark-text-code-tooltip: $color-dark-gray-300;
 
-$dark-link: $color-blue-650;
+$dark-link: $color-blue-450;
 $dark-link-hover: color.adjust($dark-link, $lightness: +5%);
 $dark-link-visited: color.adjust($dark-link, $lightness: -10%, $saturation: -15%);
 $dark-link-bg: $color-alpha-blue-50;
 
-$dark-border: $color-dark-gray-600;
-$dark-border-light: $color-dark-gray-500;
-$dark-border-bq: $color-dark-gray-700;
+$dark-border: $color-dark-gray-700;
+$dark-border-light: $color-dark-gray-800;
+$dark-border-bq: $color-dark-gray-600;
 
 $dark-shadow: $color-alpha-black-30;
 $dark-shadow-light: $color-alpha-black-20;
 $dark-shadow-hover: $color-alpha-black-40;
 
-$dark-toc-border-bg: $color-dark-blue-600;
-$dark-toc-marker: $color-blue-650;
-$dark-toc-marker-hover: color.adjust($color-blue-650, $lightness: +10%);
+$dark-toc-border-bg: $color-dark-blue-100;
+$dark-toc-marker: $color-blue-450;
+$dark-toc-marker-hover: color.adjust($color-blue-450, $lightness: +10%);
 
-$dark-table-th-bg: $color-dark-gray-200;
-$dark-table-border: $color-dark-gray-600;
+$dark-table-th-bg: $color-dark-gray-1100;
+$dark-table-border: $color-dark-gray-700;
 
 $dark-code-copy-success-bg: $color-green-600;
 $dark-code-copy-failed-bg: $color-red-600;
 
 $dark-codeblock-language-colors: (
-    "text": $color-gray-1000,
+    "text": $color-gray-100,
     "keyword": $color-pink-500,
     "function": $color-cyan-500,
-    "punctuation": $color-purple-500,
+    "punctuation": $color-purple-400,
     "number": $color-yellow-500,
-    "comment": $color-dark-gray-900
+    "comment": $color-dark-gray-400
 );
