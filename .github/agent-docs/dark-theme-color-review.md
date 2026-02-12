@@ -1,3 +1,9 @@
+---
+title: dark theme color spec base review
+date: 2026-02-12
+effective: actives since v1.11.0
+---
+
 # ダークテーマ背景色・コードブロック背景色の見直し検討
 
 本ドキュメントは、現在のダークテーマの背景色（`--background`）およびコードブロック背景色（`--bg-code`）を見直すための検討資料です。`dark-theme-accessibility-spec.md` のWCAGガイドラインを踏まえ、複数の改善案を比較・検討します。

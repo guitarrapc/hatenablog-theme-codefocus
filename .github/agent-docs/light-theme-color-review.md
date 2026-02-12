@@ -1,3 +1,9 @@
+---
+title: light theme color spec review
+date: 2026-02-12
+effective: actives since v1.11.0
+---
+
 # ライトテーマ背景色・コードブロック背景色の見直し検討
 
 本ドキュメントは、現在のライトテーマの背景色（`--background`）およびコードブロック背景色（`--bg-code`）を見直すための検討資料です。`light-theme-accessibility-spec.md` のWCAGガイドラインを踏まえ、複数の改善案を比較・検討します。

@@ -1,3 +1,9 @@
+---
+title: dark theme color spec base
+date: 2026-02-12
+effective: actives since v1.11.0
+---
+
 # アクセシブルなライト/ダークテーマ仕様（WCAG 2.2 + 実務知見）
 
 このドキュメントは、技術系ブログテーマの **ライトテーマ / ダークテーマ** を設計するための仕様案です。
