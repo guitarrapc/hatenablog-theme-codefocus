@@ -34,6 +34,7 @@
     [https://github.com/guitarrapc/hatenablog-theme-codefocus:title=GitHub]で公開しています。(MITライセンス)
 
     * 変更履歴:
+    - 2026/02/12: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.11.0:title=v1.11.0] 色弱アクセシビリティを考慮し、ライトテーマ/ダークテーマの背景色、コードブロック背景色、ボディテキスト、リンク色を調整。CSS変数の整理と目次のアクティブアイコン色として--toc-marker-hover変数の追加
     - 2026/01/08: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.10.0:title=v1.10.0] テキストの折り返し動作を最適化。通常テキストは長いURLも適切に改行、コードブロック折り返し切り替え時に適切に折り返します。
     - 2026/01/05: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.9.1:title=v1.9.1] 一部CSS要素について`important!`が不要だったので削除、フローティング目次を常時表示するときのバグを修正。(customize-toc-button.htmlを更新してください)
     - 2026/01/04: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.9.0:title=v1.9.0] Zennのようにフローティング目次を常時表示するように変更(幅1540px以上のスクリーン限定)。複数記事が1ページに存在する場合、スクロール位置の記事を自動判別してフローティング目次に反映するように修正。フローティング目次のパフォーマンス改善とメモリリーク対策。目次項目が多くても現在位置を自動スクロール表示。(customize-toc-button.htmlを更新してください)
