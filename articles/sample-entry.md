@@ -14,7 +14,7 @@ title: サンプルエントリー
 
 #  画像（はてなフォトライフ）
 
-[f:id:guitarrapc_tech:20250518211811p:plain]
+[f:id:guitarrapc_tech:20250518211811p:plain]<!--sample-image.png-->
 
 # 脚注
 
