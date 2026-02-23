@@ -133,6 +133,61 @@ The recorded voice scratched in the speaker.
 
 </details>
 
+<details><summary>コード部分: クリックすると展開される(折りたたみ)</summary>
+
+```cs
+private static void QuickSort<T, TComparer, TContext>(SortSpan<T, TComparer, TContext> s, int left, int right)
+    where TComparer : IComparer<T>
+    where TContext : ISortContext
+{
+    if (right <= left) return;
+
+    // Select pivot as the middle element
+    var pivot = s.Read((left + right) / 2);
+
+    // Hoare partition: two pointers moving from opposite ends
+    var i = left;
+    var j = right;
+
+    while (i <= j)
+    {
+        // Move i forward while elements are less than pivot
+        while (s.Compare(i, pivot) < 0)
+        {
+            i++;
+        }
+
+        // Move j backward while elements are greater than pivot
+        while (s.Compare(pivot, j) < 0)
+        {
+            j--;
+        }
+
+        // Swap if pointers haven't crossed
+        if (i <= j)
+        {
+            s.Swap(i, j);
+            i++;
+            j--;
+        }
+    }
+
+    // Recursively sort left and right partitions
+    // After partitioning: [left..j] <= pivot, [i..right] >= pivot
+    if (left < j)
+    {
+        SortCore<T, TComparer, TContext>(s, left, j);
+    }
+
+    if (i < right)
+    {
+        SortCore<T, TComparer, TContext>(s, i, right);
+    }
+}
+```
+
+</details>
+
 # h1見出し
 
 あのイーハトヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモーリオ市、郊外のぎらぎら光る草の波。
