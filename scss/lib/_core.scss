@@ -572,6 +572,37 @@ table {
         }
     }
 
+    details {
+        margin: 1.4rem 0;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        background-color: var(--background);
+        overflow: hidden;
+
+        > summary {
+            padding: 0.7em 1em;
+            cursor: pointer;
+
+            &:focus-visible {
+                outline: 2px solid var(--link);
+                outline-offset: 2px;
+            }
+
+            &::marker {
+                color: var(--text-low-priority);
+            }
+        }
+
+        &[open] > summary {
+            background-color: var(--bg-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        > :not(summary) {
+            padding: 0em 1em;
+        }
+    }
+
     pre,
     code {
         font-family: var.$font-family-monospace;
