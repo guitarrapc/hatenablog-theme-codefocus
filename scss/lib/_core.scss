@@ -583,6 +583,11 @@ table {
             padding: 0.7em 1em;
             cursor: pointer;
 
+            &:focus-visible {
+                outline: 2px solid var(--link);
+                outline-offset: 2px;
+            }
+
             &::marker {
                 color: var(--text-low-priority);
             }
