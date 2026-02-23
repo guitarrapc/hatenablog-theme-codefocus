@@ -119,6 +119,22 @@ Code block in the middle of the text `dict`. The sky was cloudless and of a deep
 }
 ```
 
+# details Tag for Folding
+
+<details><summary>Click to expand (folding)</summary
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed in fermentum orci, sit amet vestibulum velit. Sed et ultrices erat. Etiam pulvinar mauris sit amet diam lacinia cursus. Mauris venenatis id ex a bibendum. Fusce id sapien fringilla, consectetur enim et, finibus risus. Maecenas diam justo, sagittis et felis quis, dictum luctus metus. Integer ac augue ligula. Proin aliquet at lacus euismod pretium.
+
+Sed tortor leo, eleifend at posuere non, congue in velit. Praesent a pellentesque risus. In hac habitasse platea dictumst. Pellentesque sed pellentesque massa, eget egestas risus. Pellentesque sed dolor tempus sem sodales egestas. Nunc tempor urna nec nulla molestie laoreet. Integer leo lacus, tempor vel finibus sit amet, porttitor nec leo. Nulla posuere a metus et imperdiet.
+
+Curabitur at orci non libero vestibulum vulputate eu sit amet ex. Proin id sapien quis nibh commodo maximus. In eros nibh, volutpat vitae eleifend pharetra, pulvinar ac nulla. Mauris orci tellus, dignissim vitae dignissim eu, luctus ut ante. Maecenas luctus, diam ac hendrerit venenatis, tellus nisi placerat dolor, at facilisis ligula leo euismod orci. Duis vitae urna urna. Phasellus id nulla odio. Pellentesque volutpat elit a lacus dapibus imperdiet. Curabitur ac elementum neque. Duis eleifend tellus ac tempor placerat. Suspendisse tempus vitae sapien ut hendrerit. Phasellus arcu nisi, viverra quis velit et, porta aliquet metus. Donec quis leo at odio gravida consectetur non vitae velit. Morbi laoreet erat in enim interdum, a porta nisi suscipit. Aenean et mollis urna.
+
+Ut viverra, arcu at placerat dictum, erat justo lobortis sapien, at venenatis ex enim non nibh. Nullam lacinia nibh dui, ac tincidunt nulla rhoncus sit amet. Nulla aliquam elementum purus. Donec a nisi ac leo porttitor ultrices. Cras at est ullamcorper, imperdiet libero nec, pharetra velit. Nunc suscipit nibh at lectus commodo aliquet. Fusce eget risus eget felis vestibulum eleifend et in felis. Aliquam diam velit, lobortis eget varius vitae, ullamcorper id mi. Proin leo augue, tristique quis tellus blandit, lobortis porttitor erat. Proin hendrerit feugiat elementum. Pellentesque dictum nisl tellus, non cursus enim ullamcorper eget.
+
+Nam fermentum dui augue, eget feugiat quam dapibus vitae. Vestibulum quis interdum nisl, in rutrum felis. Donec sit amet augue eu mauris vehicula facilisis. Pellentesque commodo dui id sapien egestas, eu malesuada odio varius. Aenean elementum vel purus ac pretium. Pellentesque porttitor sapien enim, at aliquam elit ornare id. Aenean dictum eu arcu sollicitudin mattis. Sed fringilla nisl sit amet augue blandit malesuada. In lectus risus, elementum gravida mauris sit amet, accumsan hendrerit justo.
+
+</details>
+
 # h1 Heading
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
