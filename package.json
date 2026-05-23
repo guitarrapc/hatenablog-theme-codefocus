@@ -5,6 +5,9 @@
   "author": "Hatena Blog",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "start": "node server.js",
     "build": "vite build",
