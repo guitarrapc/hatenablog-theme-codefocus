@@ -5,6 +5,9 @@
   "author": "Hatena Blog",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "start": "node server.js",
     "build": "vite build",
@@ -13,10 +16,10 @@
     "test:report": "playwright show-report"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.0",
-    "autoprefixer": "^10.4.17",
+    "@playwright/test": "^1.59.1",
+    "autoprefixer": "^10.5.0",
     "normalize.css": "^8.0.1",
-    "sass": "^1.97.1",
-    "vite": "^7.3.2"
+    "sass": "^1.99.0",
+    "vite": "^8.0.10"
   }
 }
