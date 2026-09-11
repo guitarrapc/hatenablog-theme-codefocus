@@ -78,6 +78,18 @@ JavaScriptカスタマイズを利用する場合は、以下の手順で設定�
 > [!TIP]
 > [customize-toc-button.html](customize-toc-button.html)を、はてなブログの「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けます。
 
+#### アラート記法の機能
+
+GitHubのアラート記法をアラート表示にします。引用の1行目に`[!NOTE]`、`[!TIP]`、`[!IMPORTANT]`、`[!WARNING]`、`[!CAUTION]`のいずれかを書きます。同じ原稿はGitHubでもアラートとして表示され、スクリプトが動かない環境(RSSリーダーなど)では通常の引用として表示されます。
+
+```markdown
+> [!NOTE]
+> 流し読みでも把握しておいてほしい情報です。
+```
+
+> [!TIP]
+> [customize-alert.html](customize-alert.html)を、はてなブログの「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けます。
+
 ## 開発環境を構築する
 
 SCSSで開発する場合は、下記の手順でリポジトリのcloneとモジュールのインストールを行います。
@@ -114,6 +126,7 @@ $ npx playwright install
     <script type="text/javascript" src="http://localhost:5173/js/tag-cloud.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/alert.js" crossorigin="anonymous"></script>
     ```
 
 ### 開発サーバーを起動する

@@ -44,6 +44,23 @@ Nulla nec leo at mauris laoreet viverra ac a magna. Praesent sit amet dui vitae 
 >
 > <cite>[Started "Public Design Festival 2007 Autumn" - Hatena Diary Diary](http://d.hatena.ne.jp/hatenadiary/20071112/1194858362)</cite>
 
+# Alerts
+
+> [!NOTE]
+> Information readers should notice, even when skimming.
+
+> [!TIP]
+> Helpful advice for doing things better or more easily.
+
+> [!IMPORTANT]
+> Key information readers need to achieve their goal.
+
+> [!WARNING]
+> Urgent information that needs attention to avoid problems.
+
+> [!CAUTION]
+> Information about risks or negative outcomes of certain actions.
+
 # Lists (ul, ol, dl)
 
 My two natures had memory in common.

@@ -78,6 +78,18 @@ A "Table of Contents" button is fixed in the upper right corner of article pages
 > [!TIP]
 > Paste [customize-toc-button.html](customize-toc-button.html) into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
 
+#### Alert feature
+
+Renders GitHub's alert syntax as alerts. Write a quote whose first line is `[!NOTE]`, `[!TIP]`, `[!IMPORTANT]`, `[!WARNING]` or `[!CAUTION]`. The same text renders as an alert on GitHub, and as a plain quote where the script does not run (RSS readers, etc.).
+
+```markdown
+> [!NOTE]
+> Highlights information that users should take into account, even when skimming.
+```
+
+> [!TIP]
+> Paste [customize-alert.html](customize-alert.html) into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".
+
 ## Setting Up the Development Environment
 
 When developing with SCSS, follow these steps to clone the repository and install modules.
@@ -114,6 +126,7 @@ First, configure [Hatena Blog](https://blog.hatena.ne.jp/).
     <script type="text/javascript" src="http://localhost:5173/js/tag-cloud.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/alert.js" crossorigin="anonymous"></script>
     ```
 
 ### Start Development Server

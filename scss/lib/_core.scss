@@ -45,6 +45,12 @@
     --table-th-bg: #{var.$light-table-th-bg};
     --table-border: #{var.$light-table-border};
 
+    --alert-note: #{var.$light-alert-note};
+    --alert-tip: #{var.$light-alert-tip};
+    --alert-important: #{var.$light-alert-important};
+    --alert-warning: #{var.$light-alert-warning};
+    --alert-caution: #{var.$light-alert-caution};
+
     --codeblock-language-colors-text: #{map.get(var.$light-codeblock-language-colors, "text")};
     --codeblock-language-colors-keyword: #{map.get(var.$light-codeblock-language-colors, "keyword")};
     --codeblock-language-colors-function: #{map.get(var.$light-codeblock-language-colors, "function")};
