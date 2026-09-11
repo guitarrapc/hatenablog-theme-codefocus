@@ -711,9 +711,13 @@ test.describe('アラート記法', () => {
     }
   });
 
-  test('配布用のcustomize-alert.htmlはjs/alert.jsと同じ処理である', () => {
+  test('配布用のcustomize-alert.htmlはjs/alert.jsと同じ処理である', async ({ page }) => {
     const html = fs.readFileSync(path.resolve(__dirname, '../customize-alert.html'), 'utf-8');
-    const script = html.match(/<script>([\s\S]*?)<\/script>/)?.[1] ?? '';
+    // 正規表現ではなくブラウザのHTMLパーサーでscript要素を取り出す(DOMParserはスクリプトを実行しない)
+    const scripts = await page.evaluate((source) => Array.from(new DOMParser().parseFromString(source, 'text/html').scripts)
+      .map((script) => script.textContent ?? ''), html);
+    expect(scripts).toHaveLength(1);
+    const script = scripts[0];
 
     // インデントとコメント行を除いて比較する
     const normalize = (/** @type {string} */ code) => code
