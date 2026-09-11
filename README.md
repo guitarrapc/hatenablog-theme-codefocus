@@ -12,7 +12,7 @@ Responsive design ensures optimal display on all screen sizes: mobile, tablet, a
 
 Prioritizing article readability with a clean design that removes unnecessary decorations, allowing readers to focus on the content.
 Code blocks feature a clear color scheme and copy functionality, making it ideal for technical blogs that handle programming code.
-By applying JavaScript customizations, you can add distinctive table of contents features (in-page TOC and fixed TOC button) and code block copy functionality, making long articles comfortable to read.
+By applying JavaScript customizations, you can add distinctive table of contents features (in-page TOC and fixed TOC button), code block copy functionality and GitHub-style alerts, making long articles comfortable to read.
 It also supports dark mode, with automatic switching based on system settings or manual switching.
 
 Demo Page
@@ -84,8 +84,15 @@ Renders GitHub's alert syntax as alerts. Write a quote whose first line is `[!NO
 
 ```markdown
 > [!NOTE]
-> Highlights information that users should take into account, even when skimming.
+> Information readers should notice, even when skimming.
 ```
+
+As on GitHub, you can write alerts one after another separated by blank lines, and a quote with only `[!NOTE]` and no body is shown as is, not as an alert.
+
+However, Hatena Blog merges consecutive quotes separated by blank lines into one quote, so a few things differ from GitHub:
+
+- A normal quote written right after an alert, separated only by a blank line, becomes part of the alert body. Put a normal paragraph between them.
+- A paragraph inside a quote that starts with `[!NOTE]` etc. and has a body starts a new alert from there. This includes a quote with only `[!NOTE]` followed by a normal quote after a blank line, which becomes one alert.
 
 > [!TIP]
 > Paste [customize-alert.html](customize-alert.html) into Hatena Blog's "Design" -> "Customize" -> "Header" -> "Below Blog Title".

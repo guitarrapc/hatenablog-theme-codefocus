@@ -26,6 +26,14 @@
             mask-repeat: no-repeat;
             mask-position: center;
             mask-size: contain;
+            // 背景色で描くアイコンなので、背景を省略する印刷でも消えないようにする
+            print-color-adjust: exact;
+
+            // ハイコントラストモードでは背景色が背景と同じ色に強制され消えるため、文字色で描く
+            @media (forced-colors: active) {
+                forced-color-adjust: none;
+                background-color: CanvasText;
+            }
         }
 
         // タイトル直後の本文の余白は、タイトルのmarginだけにする

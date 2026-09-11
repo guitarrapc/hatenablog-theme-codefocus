@@ -15,6 +15,7 @@ CodeFocusテーマは、以下の特徴を持つ現代的なデザインテー�
 - **便利な目次機能** - 記事内の目次とフローティング目次の両方をサポート
 - **完全レスポンシブデザイン** - PC、タブレット、スマートフォンすべてで最適表示
 - **タグクラウドスタイル** - カテゴリーを記事数に応じて視覚的に分類
+- **アラート記法** - GitHubと同じ`> [!NOTE]`などの書き方で、注記や警告を目立たせて表示
 - **Zenn風コメントデザイン** - スッキリと読みやすいディスカッション表示
 
 CodeFocusテーマは、プログラミングブログに最適化されていますが、一般的なブログ用途にも十分対応します。
@@ -175,6 +176,24 @@ CodeFocusテーマはダークモード機能をサポートしています。
 
 <!-- | screenshots/pc-article-top-dark.png | screenshots/tablet-article-top-dark.png | screenshots/smartphone-article-top-dark.png | -->
 
+### アラート記法
+
+CodeFocusテーマは、GitHubのアラート記法をアラートとして表示します。引用の1行目に`[!NOTE]`、`[!TIP]`、`[!IMPORTANT]`、`[!WARNING]`、`[!CAUTION]`のいずれかを書きます。
+
+※ テーマ導入後、後述するJavaScriptの設定で有効になります。
+
+```markdown
+> [!NOTE]
+> 流し読みでも把握しておいてほしい情報です。
+
+> [!WARNING]
+> 問題を避けるためにすぐ注意してほしい情報です。
+```
+
+- **独自記法なし**: Markdownとしてはただの引用なので、同じ原稿がGitHubでもアラートとして表示され、JavaScriptが動かない環境では通常の引用として表示されます。
+- **種類の区別**: 種類ごとに色・アイコン・タイトルが変わり、ダークモードにも対応します。
+- **連続したアラート**: 空行で区切って続けて書いたアラートは、それぞれ別のアラートになります。アラートの直後に通常の引用を書くときは、間に通常の段落を書いてください。
+
 
 
 ## 便利な目次機能
@@ -295,7 +314,7 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 
 コードブロック右上に表示されるコピーボタン・折り返しボタンを利用するには、以下の設定を行ってください：
 
-1. [customize-codeblock.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-codecodeblock.html) ファイルの内容をコピー
+1. [customize-codeblock.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-codeblock.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付け
 3. 変更を保存
 
@@ -312,6 +331,14 @@ CodeFocusテーマはレスポンシブデザインに完全対応していま�
 ダークテーマを利用するには、以下の設定を行ってください：
 
 1. [customize-dark-mode.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-dark-mode.html) ファイルの内容をコピー
+2. はてなブログの管理画面から「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付け
+3. 変更を保存
+
+### アラート記法を利用する
+
+引用に書いたアラート記法(`> [!NOTE]`など)をアラート表示にするには、以下の設定を行ってください：
+
+1. [customize-alert.html](https://github.com/guitarrapc/hatenablog-theme-codefocus/blob/main/customize-alert.html) ファイルの内容をコピー
 2. はてなブログの管理画面から「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付け
 3. 変更を保存
 
@@ -350,6 +377,7 @@ CodeFocusテーマは、関連記事のレイアウトも調整しています�
 
 テーマをさらにカスタマイズしたい開発者の方々へ、CodeFocusテーマは以下のような構造でSCSSファイルが分割されています：
 
+- `_alert.scss` - アラート記法のスタイル
 - `_codeblock.scss` - コードブロックボタンのスタイル
 - `_core.scss` - 全体のベーススタイル
 - `_dark_mode.scss` - ダークモードのスタイル
@@ -389,6 +417,7 @@ npm start -- your-blog.hatenablog.com
 <script type="text/javascript" src="http://localhost:5173/js/codeblock.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="http://localhost:5173/js/tag-cloud.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="http://localhost:5173/js/dark-mode.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="http://localhost:5173/js/alert.js" crossorigin="anonymous"></script>
 ```
 
 これにより、SCSSの変更がリアルタイムでブログに反映され、即座に効果を確認できます。
