@@ -77,8 +77,10 @@ export const test = base.extend({
       const targetUrl = fullUrl || url(path);
 
       await retry(async () => {
+        // gotoはloadまで待ってからwaitForで指定した状態を待つ。1回の試行の合計がNAVIGATION_TIMEOUTに収まるよう期限を共有する
+        const deadline = Date.now() + NAVIGATION_TIMEOUT;
         await page.goto(targetUrl, { timeout: NAVIGATION_TIMEOUT });
-        await page.waitForLoadState(waitFor, { timeout: NAVIGATION_TIMEOUT });
+        await page.waitForLoadState(waitFor, { timeout: Math.max(1, deadline - Date.now()) });
       });
     };
 
