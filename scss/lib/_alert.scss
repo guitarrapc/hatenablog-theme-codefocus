@@ -1,0 +1,54 @@
+@use "./_variable" as var;
+@use "./_functions" as fn;
+
+// GitHubのアラート記法(> [!NOTE] など)をjs/alert.jsで変換した引用のスタイル
+// 種類は色だけでなくアイコンとタイトル文字でも区別する
+.entry-content blockquote.markdown-alert {
+    padding: 0.5em 1em;
+    border-left: 3px solid var(--alert-color);
+    color: var(--text-body);
+
+    > .markdown-alert-title {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        margin: 0 0 0.25em;
+        color: var(--alert-color);
+        font-weight: 600;
+
+        // アイコンはmaskで切り抜き、背景色(currentColor)で塗ることでライト/ダークに追従する
+        &::before {
+            content: "";
+            flex-shrink: 0;
+            width: 1em;
+            height: 1em;
+            background-color: currentColor;
+            mask-repeat: no-repeat;
+            mask-position: center;
+            mask-size: contain;
+            // 背景色で描くアイコンなので、背景を省略する印刷でも消えないようにする
+            print-color-adjust: exact;
+
+            // ハイコントラストモードでは背景色が背景と同じ色に強制され消えるため、文字色で描く
+            @media (forced-colors: active) {
+                forced-color-adjust: none;
+                background-color: CanvasText;
+            }
+        }
+
+        // タイトル直後の本文の余白は、タイトルのmarginだけにする
+        + * {
+            margin-top: 0;
+        }
+    }
+
+    @each $type, $svg in var.$svg-alerts {
+        &.markdown-alert-#{$type} {
+            --alert-color: var(--alert-#{$type});
+
+            > .markdown-alert-title::before {
+                mask-image: fn.url-svg($svg, #000);
+            }
+        }
+    }
+}

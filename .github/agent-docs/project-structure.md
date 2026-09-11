@@ -44,6 +44,7 @@ scssは以下のように分割して実装します。
 | `lib/_functions.scss` | SCSS関数を定義します。 |
 | `lib/_core.scss` | 全体のスタイルを定義します。 |
 | `lib/_codeblock.scss` | コードブロックのコピーボタンのスタイルを定義します。 |
+| `lib/_alert.scss` | アラート記法のスタイルを定義します。 |
 | `lib/_dark_mode.scss` | ダークモードのスタイルを定義します。 |
 | `lib/_table_of_contents.scss` | 記事本文中の目次のスタイルを定義します。 |
 | `lib/_table_of_contents_toggle.scss` | 記事本文中の目次開閉スタイルを定義します。 |

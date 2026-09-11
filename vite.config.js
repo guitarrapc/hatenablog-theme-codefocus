@@ -4,7 +4,7 @@ import autoprefixer from "autoprefixer";
 export default defineConfig({
   build: {
     rollupOptions: {
-      input: ["scss/style.scss", "js/toc-button.js", "js/toc-toggle.js", "js/codeblock.js", "js/tag-cloud.js", "js/dark-mode.js"],
+      input: ["scss/style.scss", "js/toc-button.js", "js/toc-toggle.js", "js/codeblock.js", "js/tag-cloud.js", "js/dark-mode.js", "js/alert.js"],
       output: {
         assetFileNames: ({ name }) => name ?? "assets/[name][extname]",
         entryFileNames: 'js/[name].js',

@@ -12,7 +12,7 @@
 
 記事の読みやすさを最優先に、余計な装飾を省いたデザインで文章に集中できます。
 コードブロックは見やすい配色で、コピー機能も提供しておりプログラミングコードを扱う技術ブログに最適です。
-JavaScriptカスタマイズを行うことで、特徴的な目次機能（ページ内目次・固定目次ボタン）、コードブロックコピー機能を追加して長文記事も快適に読めます。
+JavaScriptカスタマイズを行うことで、特徴的な目次機能（ページ内目次・固定目次ボタン）、コードブロックコピー機能、GitHubと同じアラート記法を追加して長文記事も快適に読めます。
 また、ダークモード対応で、システム設定に合わせた自動切り替えや手動での切り替えも可能です。
 
 デモページ
@@ -78,6 +78,25 @@ JavaScriptカスタマイズを利用する場合は、以下の手順で設定�
 > [!TIP]
 > [customize-toc-button.html](customize-toc-button.html)を、はてなブログの「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けます。
 
+#### アラート記法の機能
+
+GitHubのアラート記法をアラート表示にします。引用の1行目に`[!NOTE]`、`[!TIP]`、`[!IMPORTANT]`、`[!WARNING]`、`[!CAUTION]`のいずれかを書きます。同じ原稿はGitHubでもアラートとして表示され、スクリプトが動かない環境(RSSリーダーなど)では通常の引用として表示されます。
+
+```markdown
+> [!NOTE]
+> 流し読みでも把握しておいてほしい情報です。
+```
+
+GitHubと同じく、アラートは空行で区切って続けて書けます。また、`[!NOTE]`だけで本文のない引用はアラートにせずそのまま表示します。
+
+ただし、はてなブログは空行で区切った連続する引用を1つの引用にまとめて出力するため、次の点がGitHubと異なります。
+
+- アラートの直後に空行だけで区切って通常の引用を書くと、その引用もアラートの本文に含まれます。間に通常の段落を書いてください。
+- 引用の途中に、`[!NOTE]`などで始まり本文が続く段落があると、そこから新しいアラートになります。`[!NOTE]`だけの引用の直後に空行で区切って通常の引用を書いた場合も、1つのアラートになります。
+
+> [!TIP]
+> [customize-alert.html](customize-alert.html)を、はてなブログの「デザイン」->「カスタマイズ」->「ヘッダ」->「ブログタイトル下」に貼り付けます。
+
 ## 開発環境を構築する
 
 SCSSで開発する場合は、下記の手順でリポジトリのcloneとモジュールのインストールを行います。
@@ -114,6 +133,7 @@ $ npx playwright install
     <script type="text/javascript" src="http://localhost:5173/js/tag-cloud.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://localhost:5173/js/toc-toggle.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://localhost:5173/js/toc-button.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://localhost:5173/js/alert.js" crossorigin="anonymous"></script>
     ```
 
 ### 開発サーバーを起動する

@@ -8,6 +8,8 @@
 export const TEST_URLS = {
   /** サンプル記事（目次あり） */
   SAMPLE_ARTICLE: '/entry/2025/05/10/204601',
+  /** サンプル記事（英語版） */
+  SAMPLE_ARTICLE_EN: '/entry/2026/01/08/004234',
   /** コードハイライト記事 */
   CODE_HIGHLIGHT: '/entry/2025/05/12/131258',
   /** アーカイブページ */

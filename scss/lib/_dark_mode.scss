@@ -173,6 +173,12 @@ html[data-enable-dark-mode="true"] {
         --table-th-bg: #{var.$dark-table-th-bg};
         --table-border: #{var.$dark-table-border};
 
+        --alert-note: #{var.$dark-alert-note};
+        --alert-tip: #{var.$dark-alert-tip};
+        --alert-important: #{var.$dark-alert-important};
+        --alert-warning: #{var.$dark-alert-warning};
+        --alert-caution: #{var.$dark-alert-caution};
+
         --codeblock-language-colors-text: #{map.get(var.$dark-codeblock-language-colors, "text")};
         --codeblock-language-colors-keyword: #{map.get(var.$dark-codeblock-language-colors, "keyword")};
         --codeblock-language-colors-function: #{map.get(var.$dark-codeblock-language-colors, "function")};
@@ -224,6 +230,12 @@ html[data-enable-dark-mode="true"] {
 
         --table-th-bg: #{var.$dark-table-th-bg};
         --table-border: #{var.$dark-table-border};
+
+        --alert-note: #{var.$dark-alert-note};
+        --alert-tip: #{var.$dark-alert-tip};
+        --alert-important: #{var.$dark-alert-important};
+        --alert-warning: #{var.$dark-alert-warning};
+        --alert-caution: #{var.$dark-alert-caution};
 
         --codeblock-language-colors-text: #{map.get(var.$dark-codeblock-language-colors, "text")};
         --codeblock-language-colors-keyword: #{map.get(var.$dark-codeblock-language-colors, "keyword")};
