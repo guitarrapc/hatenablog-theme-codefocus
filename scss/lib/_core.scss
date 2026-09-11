@@ -569,12 +569,20 @@ table {
         padding: 2px 0 2px 0.7em;
         color: var(--text-low-priority);
 
-        p:first-of-type {
+        // 段落に限らず最初と最後の要素(リストやコードブロックなど)の外側の余白をなくし、枠線の上下の余白を揃える
+        > :first-child {
             margin-top: 0;
         }
 
-        p:last-of-type {
+        // はてなブログがホバー時に末尾へ追加する引用ボタン(.js-requote-button)は除いて最後の要素を数える
+        > :nth-last-child(1 of :not(.js-requote-button)) {
             margin-bottom: 0;
+
+            // 最後がリストのとき、最後の項目の余白がリストを突き抜けて下端に残らないようにする
+            li:last-child,
+            dd:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 
