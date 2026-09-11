@@ -14,8 +14,9 @@
   };
 
   // Marker must be alone on its line: "[!NOTE]" followed by newline, <br> or end of paragraph.
-  // Only ASCII whitespace is allowed around it, same as GitHub (not full-width space or &nbsp;)
-  const MARKER_PATTERN = /^[ \t\r\n]*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\][ \t]*(\r?\n|$)/i;
+  // Only spaces and tabs are allowed around it, same as GitHub (not full-width space or &nbsp;),
+  // and it must be on the first line of the paragraph (no newline before it)
+  const MARKER_PATTERN = /^[ \t]*\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\][ \t]*(\r?\n|$)/i;
 
   // Blockquotes already handled while the page was loading
   const processed = new WeakSet();

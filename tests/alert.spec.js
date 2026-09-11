@@ -80,6 +80,10 @@ brで改行されたケース</p></blockquote>
 <blockquote id="alert-leading-space">
 <p>[!CAUTION]<br />
 段落の前に空白があるケース</p></blockquote>
+<blockquote id="alert-leading-space-in-p"><p> [!WARNING]<br />
+マーカーの前に半角スペースがあるケース</p></blockquote>
+<blockquote id="alert-leading-tab-in-p"><p>\t[!TIP]
+マーカーの前にタブがあるケース</p></blockquote>
 <blockquote id="alert-marker-like-body"><p>[!NOTE]
 [!TIP]
 本文の1行目がマーカーのケース</p></blockquote>
@@ -152,6 +156,9 @@ brで2行目が続くケース</p></blockquote>
 <blockquote id="neg-comment"><p>[!NOTE]</p><!-- コメントだけのケース --></blockquote>
 <blockquote id="neg-middle"><p>書き方は [!NOTE]
 のように書くケース</p></blockquote>
+<blockquote id="neg-leading-newline"><p>
+[!NOTE]
+マーカーの前に改行があるケース</p></blockquote>
 <blockquote id="neg-later-line"><p>GitHubでは次の2行で書く
 [!NOTE]
 マーカーが2行目にあるケース</p></blockquote>
@@ -285,6 +292,9 @@ test.describe('アラート記法', () => {
       { id: 'alert-mixed-case', type: 'note', title: 'Note', body: '大文字小文字が混ざったケース' },
       { id: 'alert-image', type: 'warning', title: 'Warning', body: '<span itemscope=""><img src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="画像"></span>' },
       { id: 'alert-leading-space', type: 'caution', title: 'Caution', body: '段落の前に空白があるケース' },
+      // マーカーの前の半角スペースとタブは許す(GitHubと同じ)
+      { id: 'alert-leading-space-in-p', type: 'warning', title: 'Warning', body: 'マーカーの前に半角スペースがあるケース' },
+      { id: 'alert-leading-tab-in-p', type: 'tip', title: 'Tip', body: 'マーカーの前にタブがあるケース' },
       // GitHubと同じく、本文の1行目は2つ目のマーカーでも本文として扱う
       { id: 'alert-marker-like-body', type: 'note', title: 'Note', body: '[!TIP]\n本文の1行目がマーカーのケース' },
     ];
@@ -399,6 +409,8 @@ test.describe('アラート記法', () => {
       'neg-inline': '[!NOTE]強調が直後に続くケース',
       'neg-inline-text': '[!NOTE]強調の後に本文が続くケース',
       'neg-middle': '書き方は [!NOTE]\nのように書くケース',
+      // マーカーは段落の1行目に書く(前に改行がある段落は1行目が空)
+      'neg-leading-newline': '[!NOTE]\nマーカーの前に改行があるケース',
       'neg-later-line': 'GitHubでは次の2行で書く\n[!NOTE]\nマーカーが2行目にあるケース',
       'neg-pre': '[!NOTE]\nコードブロックのケース',
       'neg-heading': '[!NOTE]見出しのケース',
