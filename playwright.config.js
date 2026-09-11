@@ -5,7 +5,8 @@ import { defineConfig } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
-  timeout: 60 * 1000, // メイン全体のタイムアウトを60秒に拡張
+  // テスト全体のタイムアウト。helpers.jsのnavigateToが1回20秒のナビゲーションを3回試せるよう90秒にする
+  timeout: 90 * 1000,
   expect: {
     timeout: 10000 // 期待値の検証タイムアウトを10秒に拡張
   },
