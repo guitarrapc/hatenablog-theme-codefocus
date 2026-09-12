@@ -41,6 +41,11 @@
 
     --scrollbar-thumb: #{var.$light-scrollbar-thumb};
 
+    // モジュールタイトルの下線。デザインCSSから色と太さを変えられるようにしている。
+    // 既定値は本文の見出し(h1/h2)の下線と揃える。--module-title-border-width: 0 で線を消せる
+    --module-title-border: var(--border-light);
+    --module-title-border-width: 1px;
+
     --toc-border-bg: #{var.$light-toc-border-bg};
     --toc-marker: #{var.$light-toc-marker};
     --toc-marker-hover: #{var.$light-toc-marker-hover};
@@ -1490,6 +1495,8 @@ table {
 .hatena-module-title {
     margin-bottom: .6em;
     padding-bottom: .2em;
+    // 本文の見出し(h1/h2)と同じく、padding-bottomと下線をセットで使う
+    border-bottom: var(--module-title-border-width) solid var(--module-title-border);
     font-size: 1rem;
     font-weight: bold;
     text-align: left;
