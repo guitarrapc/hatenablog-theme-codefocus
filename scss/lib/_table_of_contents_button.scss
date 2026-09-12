@@ -348,3 +348,16 @@ ul.floating-toc-list {
         }
     }
 }
+
+// 視差効果を減らす設定では、フロート目次をスライドさせずその場でフェードさせる。
+// transformを打ち消すため、後から効く.showや.auto-expanded、スマートフォンの下方向も含めて上書きする。
+// (スクロールに追随する押し下げ --hatena-ui-band-offset はposition: stickyと同じ性質なので対象外。_core.scssを参照)
+@media (prefers-reduced-motion: reduce) {
+
+    .floating-toc,
+    .floating-toc.show,
+    .floating-toc.auto-expanded {
+        transform: none;
+        transition: opacity 0.3s;
+    }
+}

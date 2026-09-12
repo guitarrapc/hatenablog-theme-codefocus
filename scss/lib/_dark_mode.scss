@@ -150,6 +150,14 @@
     }
 }
 
+// 視差効果を減らす設定では、ドロップダウンを移動させずその場に出す。
+// ボタンのすぐ下に開く小さなメニューなので、フェードを残さず即時表示でも違和感はない
+@media (prefers-reduced-motion: reduce) {
+    .theme-toggle-dropdown.show {
+        animation: none;
+    }
+}
+
 // ダークモードのスタイルを一括で適用（JavaScriptが有効化した場合のみ）
 html[data-enable-dark-mode="true"] {
 

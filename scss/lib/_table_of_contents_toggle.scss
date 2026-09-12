@@ -112,3 +112,11 @@ ul.table-of-contents {
 .toc-container .table-of-contents {
     border-radius: 0 0 10px 10px;
 }
+
+// 視差効果を減らす設定では、記事内目次の開閉を即座に行う。
+// 開くと以降の本文が540px前後まとめて下がるため、テーマ内で最も移動量が大きい
+@media (prefers-reduced-motion: reduce) {
+    .toc-content {
+        transition: none;
+    }
+}
