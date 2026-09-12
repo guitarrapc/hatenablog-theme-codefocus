@@ -4,14 +4,63 @@
 @use "./_functions" as fn;
 
 // ダークモード切り替えコンテナ
+//
+// 既定値でははてなのUI帯を避けた位置に置く。
+// :has()が使えないブラウザではこの既定値のまま(＝ボタンが隠れない安全側)になるようにしている。
 .theme-toggle-container {
     position: fixed;
-    top: 1rem;
+    top: var.$floating-ui-top-avoid;
     right: 1rem;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+
+    // はてなのUI帯はスクロールで流れるため、流れ切ったら本来の位置へ戻す。
+    // スクロール量に1:1で連動するのでposition: stickyと同じ性質であり、モーションとしては扱わない。
+    @supports (animation-timeline: scroll(root block)) {
+        animation: theme-toggle-avoid-hatena-ui linear both;
+        animation-timeline: scroll(root block);
+        animation-range: 0 var.$hatena-ui-band-height;
+    }
+
+    @media #{var.$mq-xs} {
+        top: var.$floating-ui-top-avoid-xs;
+
+        @supports (animation-timeline: scroll(root block)) {
+            animation-name: theme-toggle-avoid-hatena-ui-xs;
+            animation-range: 0 var.$hatena-ui-band-height-xs;
+        }
+    }
+}
+
+// はてなのUI帯が存在しないブログ(はてなブログProでヘッダを非表示にしている場合など)では、
+// 避ける必要がないので本来の位置に固定する。
+body:not(:has(> #globalheader-container)):not(:has(> .blog-controlls)) {
+    .theme-toggle-container {
+        top: var.$floating-ui-top;
+        animation: none;
+    }
+}
+
+@keyframes theme-toggle-avoid-hatena-ui {
+    from {
+        top: var.$floating-ui-top-avoid;
+    }
+
+    to {
+        top: var.$floating-ui-top;
+    }
+}
+
+@keyframes theme-toggle-avoid-hatena-ui-xs {
+    from {
+        top: var.$floating-ui-top-avoid-xs;
+    }
+
+    to {
+        top: var.$floating-ui-top;
+    }
 }
 
 // メインボタン
