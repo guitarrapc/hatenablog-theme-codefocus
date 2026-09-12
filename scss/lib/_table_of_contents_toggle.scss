@@ -16,7 +16,7 @@
     user-select: none;
 
     &:hover {
-        border-color: #aaa;
+        border-color: var(--border-hover);
     }
 
     /* 開閉アイコンのスタイル */

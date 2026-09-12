@@ -179,6 +179,7 @@ $light-link-visited: $color-purple-500;
 $light-link-bg: $color-alpha-blue-30;
 
 $light-border: $color-gray-400;
+$light-border-hover: color.adjust($light-border, $lightness: -20%); // ホバーでボーダーを一段濃くする
 $light-border-light: $color-gray-500;
 $light-border-bq: $color-gray-700;
 
@@ -235,6 +236,7 @@ $dark-link-visited: color.adjust($dark-link, $lightness: -10%, $saturation: -15%
 $dark-link-bg: $color-alpha-blue-50;
 
 $dark-border: $color-dark-gray-700;
+$dark-border-hover: color.adjust($dark-border, $lightness: +20%); // 暗い背景では逆に一段明るくする
 $dark-border-light: $color-dark-gray-800;
 $dark-border-bq: $color-dark-gray-600;
 
