@@ -20,6 +20,14 @@ $hatena-ui-band-height-xs: 117px;
 $hatena-ui-band-offset: 6rem; // 96px: 本来位置(1rem)との合計112pxでPCのUI帯(105px)を避ける
 $hatena-ui-band-offset-xs: 7rem; // 112px: 合計128pxでSPのUI帯(117px)を避ける
 
+// 固定表示UI(目次ボタン / ダークモードボタン)の横方向の配置
+// 目次ボタンとダークモードボタンはそれぞれ独立して導入できるため、
+// 目次ボタンの位置はダークモードボタンの有無に応じて算出する(_dark_mode.scssを参照)
+$floating-ui-right: 1rem; // 画面右端からの余白
+$floating-ui-gap: 0.5rem; // ボタン同士の間隔
+$theme-toggle-size: 2.5rem; // ダークモードボタンの直径
+$theme-toggle-size-xs: 2.2rem;
+
 // Font
 $font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', "Noto Sans JP", 'Meiryo', sans-serif, "Segoe UI Emoji";
 $font-family-monospace: 'Monaco', 'Consolas', 'Courier New', Courier, monospace, sans-serif;

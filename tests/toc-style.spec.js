@@ -567,4 +567,75 @@ test.describe('目次スタイルの詳細テスト', () => {
       .join('\n');
     expect(normalize(script)).toBe(normalize(tocButtonJs));
   });
+
+  // 目次ボタンとダークモードボタンはそれぞれ独立して導入できるため、
+  // 目次ボタンの右端位置はダークモードボタンの有無で変わる。
+  // 画面端からの余白とボタン間隔は_variable.scssの$floating-ui-right / $floating-ui-gapに対応する。
+  const FLOATING_UI_RIGHT = 16; // 1rem
+  const FLOATING_UI_GAP = 8; // 0.5rem
+
+  /** 目次ボタンとダークモードボタンの配置を測る */
+  const measureFloatingButtons = (/** @type {any} */ page) => page.evaluate(() => {
+    const box = (/** @type {string} */ s) => {
+      const el = document.querySelector(s);
+      return el ? el.getBoundingClientRect() : null;
+    };
+    const tocButton = box('.toc-button');
+    const toggle = box('.theme-toggle-container');
+    return {
+      enableDarkMode: document.documentElement.getAttribute('data-enable-dark-mode'),
+      hasToggle: !!toggle,
+      // 画面右端からの余白
+      tocButtonRight: tocButton ? window.innerWidth - tocButton.right : null,
+      toggleRight: toggle ? window.innerWidth - toggle.right : null,
+      // ダークモードボタンの実寸(ビューポートで2.5rem/2.2remと変わる)
+      toggleWidth: toggle ? toggle.width : null,
+      // 目次ボタンとダークモードボタンの間隔
+      buttonGap: tocButton && toggle ? toggle.left - tocButton.right : null,
+    };
+  });
+
+  for (const viewport of [
+    { name: 'デスクトップ', width: 1366, height: 768 },
+    { name: 'スマートフォン', width: 430, height: 932 },
+  ]) {
+    test(`ダークモードボタンがあるとき目次ボタンはその左隣に置かれる(${viewport.name})`, async ({ page }) => {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+      await expect(page.locator(SELECTORS.TOC_BUTTON)).toBeVisible({ timeout: 15000 });
+      await expect(page.locator(SELECTORS.THEME_TOGGLE_CONTAINER)).toBeVisible({ timeout: 15000 });
+
+      const placement = await measureFloatingButtons(page);
+
+      // 前提: ダークモードのJavaScriptが読み込まれていること
+      expect(placement.enableDarkMode).toBe('true');
+      // ダークモードボタンは画面右端に置かれる
+      expect(placement.toggleRight).toBeCloseTo(FLOATING_UI_RIGHT, 0);
+      // 目次ボタンのオフセットが「画面端 + ダークモードボタンの幅 + 間隔」であること。
+      // 期待値はデスクトップ64px(16+40+8)、スマートフォン59.2px(16+35.2+8)になる。
+      // ボタン幅を実測値から求めるのは、$theme-toggle-sizeを意図的に変えたときに
+      // レイアウトが正しいまま落ちるのを避けるため
+      expect(placement.tocButtonRight).toBeCloseTo(
+        FLOATING_UI_RIGHT + (placement.toggleWidth ?? 0) + FLOATING_UI_GAP, 0);
+      // 上の計算の結果として、2つのボタンは一定の間隔で隣り合う
+      expect(placement.buttonGap).toBeCloseTo(FLOATING_UI_GAP, 0);
+    });
+
+    test(`ダークモードボタンがないとき目次ボタンは画面右端に置かれる(${viewport.name})`, async ({ page }) => {
+      // ダークモードのJavaScriptが未導入の状態を再現する
+      await page.route('**/js/dark-mode.js', (route) => route.abort());
+
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+      await expect(page.locator(SELECTORS.TOC_BUTTON)).toBeVisible({ timeout: 15000 });
+
+      const placement = await measureFloatingButtons(page);
+
+      // 前提: ダークモードが未導入であること(ここが崩れると下の検証が意味を失う)
+      expect(placement.enableDarkMode).toBeNull();
+      expect(placement.hasToggle).toBe(false);
+      // ダークモードボタンのぶんの余白を空けず、画面右端に寄せる
+      expect(placement.tocButtonRight).toBeCloseTo(FLOATING_UI_RIGHT, 0);
+    });
+  }
 });

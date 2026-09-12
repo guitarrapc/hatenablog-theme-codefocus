@@ -3,6 +3,19 @@
 @use "./_variable" as var;
 @use "./_functions" as fn;
 
+// 目次ボタンとダークモードボタンはそれぞれ独立して導入できるため、
+// 目次ボタンの位置を「ダークモードボタンがある前提」で決め打ちにはできない。
+// ダークモードのJavaScriptがhtmlへdata-enable-dark-mode="true"を付けるので、
+// それをフックにして目次ボタンをダークモードボタンのぶんだけ左へずらす。
+// 既定値(ダークモードボタンなし)は_core.scssの:rootにある。
+html[data-enable-dark-mode="true"] {
+    --toc-button-right: calc(#{var.$floating-ui-right} + #{var.$theme-toggle-size} + #{var.$floating-ui-gap});
+
+    @media #{var.$mq-xs} {
+        --toc-button-right: calc(#{var.$floating-ui-right} + #{var.$theme-toggle-size-xs} + #{var.$floating-ui-gap});
+    }
+}
+
 // ダークモード切り替えコンテナ
 //
 // ページ最上部ではてなのUI帯の裏に隠れないよう、--hatena-ui-band-offsetのぶん押し下げる
@@ -10,7 +23,7 @@
 .theme-toggle-container {
     position: fixed;
     top: calc(1rem + var(--hatena-ui-band-offset));
-    right: 1rem;
+    right: var.$floating-ui-right;
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -32,8 +45,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: var.$theme-toggle-size;
+    height: var.$theme-toggle-size;
     border: 1px solid var(--border);
     border-radius: 50%;
     box-shadow: 0 2px 4px var(--shadow);
@@ -59,8 +72,8 @@
     }
 
     @media #{var.$mq-xs} {
-        width: 2.2rem;
-        height: 2.2rem;
+        width: var.$theme-toggle-size-xs;
+        height: var.$theme-toggle-size-xs;
 
         .current-mode-icon svg {
             width: 1rem;

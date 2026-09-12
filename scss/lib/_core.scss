@@ -46,6 +46,10 @@
     --module-title-border: var(--border-light);
     --module-title-border-width: 1px;
 
+    // 目次ボタンの右端位置。既定はダークモードボタンがない前提で画面右端に置く。
+    // ダークモードのJavaScriptを導入した場合のみ、その幅ぶん左へずらす(_dark_mode.scssを参照)
+    --toc-button-right: #{var.$floating-ui-right};
+
     --toc-border-bg: #{var.$light-toc-border-bg};
     --toc-marker: #{var.$light-toc-marker};
     --toc-marker-hover: #{var.$light-toc-marker-hover};
