@@ -188,6 +188,8 @@ html[data-enable-dark-mode="true"] {
         --shadow-light: #{var.$dark-shadow-light};
         --shadow-hover: #{var.$dark-shadow-hover};
 
+        --scrollbar-thumb: #{var.$dark-scrollbar-thumb};
+
         --toc-border-bg: #{var.$dark-toc-border-bg};
         --toc-marker: #{var.$dark-toc-marker};
         --toc-marker-hover: #{var.$dark-toc-marker-hover};
@@ -246,6 +248,8 @@ html[data-enable-dark-mode="true"] {
         --shadow: #{var.$dark-shadow};
         --shadow-light: #{var.$dark-shadow-light};
         --shadow-hover: #{var.$dark-shadow-hover};
+
+        --scrollbar-thumb: #{var.$dark-scrollbar-thumb};
 
         --toc-border-bg: #{var.$dark-toc-border-bg};
         --toc-marker: #{var.$dark-toc-marker};

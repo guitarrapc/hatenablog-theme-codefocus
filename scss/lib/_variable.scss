@@ -136,6 +136,7 @@ $color-alpha-blue-20: rgba(20, 135, 189, 0.05);
 $color-alpha-blue-30: rgba(20, 135, 189, 0.1);
 $color-alpha-blue-40: #3b5773aa;
 $color-alpha-blue-50: rgba(56, 139, 253, 0.1);
+$color-alpha-white-25: rgba(255, 255, 255, 0.25);
 $color-alpha-white-95: rgba(255, 255, 255, 0.95);
 $color-alpha-light-balanced-95: rgba(250, 250, 250, 0.95);
 $color-alpha-dark-95: rgba(13, 17, 23, 0.95);
@@ -190,6 +191,9 @@ $light-border-bq: $color-gray-700;
 $light-shadow: $color-alpha-black-08;
 $light-shadow-light: $color-alpha-black-05;
 $light-shadow-hover: $color-alpha-black-12;
+
+// スクロールバーのつまみ。パネルの背景に対して見える色を選ぶ (明るい背景なので黒の半透明)
+$light-scrollbar-thumb: $color-alpha-black-20;
 
 $light-toc-border-bg: $color-blue-300;
 $light-toc-marker: $color-blue-400;
@@ -247,6 +251,9 @@ $dark-border-bq: $color-dark-gray-600;
 $dark-shadow: $color-alpha-black-30;
 $dark-shadow-light: $color-alpha-black-20;
 $dark-shadow-hover: $color-alpha-black-40;
+
+// 暗いパネルの上では黒の半透明は見えないため、白の半透明にする
+$dark-scrollbar-thumb: $color-alpha-white-25;
 
 $dark-toc-border-bg: $color-dark-blue-100;
 $dark-toc-marker: $color-blue-450;
