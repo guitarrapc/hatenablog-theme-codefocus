@@ -8,7 +8,8 @@
     position: fixed;
     // ページ最上部から表示されるため、はてなのUI帯の裏に隠れないよう押し下げる (_core.scssを参照)
     top: calc(1.1rem + var(--hatena-ui-band-offset));
-    right: 4rem;
+    // ダークモードボタンの有無で位置が変わる (_dark_mode.scssを参照)
+    right: var(--toc-button-right);
     z-index: 1000;
     display: inline-flex; // インラインフレックスに変更
     align-items: center; // 縦方向の中央揃え
