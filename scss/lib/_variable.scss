@@ -152,6 +152,10 @@ $color-alpha-black-40: rgba(0, 0, 0, 0.4);
 // fixed colors variable for svg
 $svg-code-copy-bg: $color-alpha-light-gray-75;
 
+// コードブロックはライト/ダークどちらのテーマでも背景が暗いため、フォーカスリングは明るい色で固定する
+// (--linkはライトテーマだと暗すぎてコードブロック上で見えない)
+$code-button-focus-ring: $color-blue-450;
+
 // ライトモード
 $light-background: $color-light-balanced-100;
 $light-background-semi-transparent: $color-alpha-light-balanced-95; // 背景画像対応用の半透明背景

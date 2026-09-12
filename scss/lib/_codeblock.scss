@@ -7,8 +7,18 @@
     margin: 1em 0;
 
     // ホバー時にのみボタンを表示
-    &:hover .code-button {
+    // キーボード操作時も同様に表示する。ボタンはopacity: 0で隠れているため、
+    // これがないとフォーカスが当たっても何も見えない
+    &:hover .code-button,
+    &:focus-within .code-button {
         opacity: 0.75;
+    }
+
+    // キーボードフォーカスはホバーできない環境での唯一の導線なので、確実に見えるようにする
+    .code-button:focus-visible {
+        opacity: 1;
+        outline: 2px solid var.$code-button-focus-ring;
+        outline-offset: 2px;
     }
 }
 
@@ -62,11 +72,6 @@
         background-color: var(--bg-code);
     }
 
-    // フォーカス時のスタイル
-    &:focus {
-        outline: none;
-    }
-
     /* コピー成功時とエラー時のスタイル */
     &.copied {
         opacity: 1;
@@ -92,7 +97,10 @@
 }
 
 // ツールチップのスタイル（共通）
-.code-button[title]:hover::after {
+// キーボード操作ではホバーが発生しないため、フォーカス時にも表示する。
+// コピーの成否はJavaScriptがtitle属性に書き込むので、CSS側は表示条件を足すだけでよい
+.code-button[title]:hover::after,
+.code-button[title]:focus-visible::after {
     content: attr(title);
     position: absolute;
     top: -40px;
