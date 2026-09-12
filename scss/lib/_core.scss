@@ -96,6 +96,14 @@
 
     // スクロール駆動アニメーションが使えるブラウザでのみ0へ戻す。
     // 使えない場合は押し下げたままになり、ボタンが隠れる側には倒れない。
+    //
+    // このアニメーションは上の@propertyによる--hatena-ui-band-progressの登録に依存する。
+    // 未登録だと数値として補間されず離散補間になり、範囲の50%地点(=UI帯が半分残っている位置)で
+    // 押し下げが一気に0になってボタンがUI帯の裏へ入る。
+    // ただしどのエンジンも@propertyの方が先に搭載しており(Chrome 85 < 115 / Safari 16.4 < 26 /
+    // Firefox 128 < 144)、スクロール駆動が使えて@propertyが使えない組み合わせは存在しない。
+    // @supportsで@propertyの有無を判定する手段(at-rule())は普及していないため条件には含めない。
+    // 代わりに「押し下げが実際に補間されること」をE2Eテストで検証している。
     @supports (animation-timeline: scroll(root block)) {
         animation: hatena-ui-band-release linear both;
         animation-timeline: scroll(root block);

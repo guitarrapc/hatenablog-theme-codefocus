@@ -2,6 +2,13 @@
 import { test, getHatenaUiBand } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS } from './constants.js';
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const tocButtonJs = fs.readFileSync(path.resolve(__dirname, '../js/toc-button.js'), 'utf-8');
 
 test.describe('目次スタイルの詳細テスト', () => {
   test('目次のマーカーと縦線が仕様通りに表示される', async ({ page }) => {
@@ -249,6 +256,35 @@ test.describe('目次スタイルの詳細テスト', () => {
     }
   });
 
+  test('押し下げの解除がUI帯の途中で一気に0にならず連続的に減る', async ({ page }) => {
+    // 押し下げ量は@propertyで登録した数値をスクロール駆動アニメーションで補間して導出している。
+    // 登録が効いていないと数値ではなく離散補間になり、範囲の50%地点(UI帯がまだ半分残っている位置)で
+    // 押し下げが0に飛んでボタンがUI帯の裏に入る。中間地点で中間値を取ることを確認して検出する。
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+    const band = await getHatenaUiBand(page);
+    test.skip(!band.exists, 'はてなのUI帯が描画されていないため押し下げが発生しない');
+
+    const readOffset = async (/** @type {number} */ scrollY) => {
+      await page.evaluate((y) => window.scrollTo(0, y), scrollY);
+      await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+      return page.evaluate(() => {
+        // calc()のままでは比較できないので、実要素のtopから本来位置を引いて押し下げ量を求める
+        const button = /** @type {HTMLElement} */ (document.querySelector('.toc-button'));
+        return parseFloat(getComputedStyle(button).top);
+      });
+    };
+
+    const atTop = await readOffset(0);
+    const atMiddle = await readOffset(Math.round(band.bottom / 2));
+    const settled = await readOffset(band.bottom + 200);
+
+    // 中間地点の押し下げが両端のどちらとも一致しない = 数値として補間されている
+    expect(atMiddle).toBeLessThan(atTop);
+    expect(atMiddle).toBeGreaterThan(settled);
+  });
+
   test('はてなのUI帯を通過するときの位置変化がスクロールに遅れず追随する', async ({ page }) => {
     // 1540px未満: 目次ボタンとフロート目次の両方を対象にする
     await page.setViewportSize({ width: 1366, height: 768 });
@@ -442,5 +478,22 @@ test.describe('目次スタイルの詳細テスト', () => {
     if (itemCount > 0) {
       await floatingTocItems.first().screenshot({ path: 'screenshots/floating-toc-first-item.png' });
     }
+  });
+
+  test('配布用のcustomize-toc-button.htmlはjs/toc-button.jsと同じ処理である', async ({ page }) => {
+    const html = fs.readFileSync(path.resolve(__dirname, '../customize-toc-button.html'), 'utf-8');
+    // 正規表現ではなくブラウザのHTMLパーサーでscript要素を取り出す(DOMParserはスクリプトを実行しない)
+    const scripts = await page.evaluate((source) => Array.from(new DOMParser().parseFromString(source, 'text/html').scripts)
+      .map((script) => script.textContent ?? ''), html);
+    expect(scripts).toHaveLength(1);
+    const script = scripts[0];
+
+    // インデントとコメント行を除いて比較する
+    const normalize = (/** @type {string} */ code) => code
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('//') && !line.startsWith('/**') && !line.startsWith('*'))
+      .join('\n');
+    expect(normalize(script)).toBe(normalize(tocButtonJs));
   });
 });
