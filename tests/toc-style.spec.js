@@ -238,6 +238,7 @@ test.describe('目次スタイルの詳細テスト', () => {
       const hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
       return {
         visible: style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0,
+        display: style.display,
         top: rect.top,
         // ボタンの中心をヒットテストして、はてなのUIに覆われていないことを確認する
         clickable: !!(hit && hit.closest('.toc-button')),
@@ -247,6 +248,10 @@ test.describe('目次スタイルの詳細テスト', () => {
     // スクロールしなくても最初から表示され、クリックできること
     expect(state.visible).toBe(true);
     expect(state.clickable).toBe(true);
+
+    // 表示制御でdisplayをインライン指定すると、SCSS側のinline-flex(+ align-items: center)が死ぬ。
+    // position: fixedによりinline-flexはflexへblockifyされるため、期待値はflex。
+    expect(state.display).toBe('flex');
 
     // UI帯があるブログでは帯より下に、ないブログでは本来の位置(top: 1.1rem)にあること
     if (band.exists) {
@@ -283,6 +288,72 @@ test.describe('目次スタイルの詳細テスト', () => {
     // 中間地点の押し下げが両端のどちらとも一致しない = 数値として補間されている
     expect(atMiddle).toBeLessThan(atTop);
     expect(atMiddle).toBeGreaterThan(settled);
+  });
+
+  test('はてなのUI帯の有無で押し下げが切り替わる', async ({ page }) => {
+    // テストブログ側の設定に依存しないよう、UI帯のある状態とない状態をDOM上で作って検証する。
+    // 本来位置は top: 1.1rem (17.6px)。押し下げが効いていればそれより下に来る。
+    const NATURAL_TOP = 17.6;
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+    /**
+     * はてなのUI帯の状態を作る
+     * @param {'present' | 'hidden-by-pro' | 'absent'} state
+     */
+    const applyBandState = (state) => page.evaluate((s) => {
+      const header = /** @type {HTMLElement | null} */ (document.querySelector('#globalheader-container'));
+      const controlls = document.querySelector('.blog-controlls');
+      if (s === 'present') {
+        document.body.classList.remove('globalheader-off');
+        if (header) header.style.display = '';
+        if (!controlls) {
+          const nav = document.createElement('nav');
+          nav.className = 'blog-controlls';
+          document.body.insertBefore(nav, document.querySelector('#container'));
+        }
+        return;
+      }
+      // どちらの非表示パターンでもブログコントロールは無くなる
+      if (controlls) controlls.remove();
+      if (s === 'hidden-by-pro') {
+        // はてなブログProの「ヘッダを表示しない」設定の再現:
+        // #globalheader-container はDOMに残ったまま display: none になり、bodyにクラスが付く
+        document.body.classList.add('globalheader-off');
+        if (header) header.style.display = 'none';
+      } else {
+        // 要素そのものが無いパターン
+        document.body.classList.remove('globalheader-off');
+        if (header) header.remove();
+      }
+    }, state);
+
+    const measure = async () => {
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+      return page.evaluate(() => ({
+        buttonTop: parseFloat(getComputedStyle(/** @type {HTMLElement} */(document.querySelector('.toc-button'))).top),
+        rootAnimation: getComputedStyle(document.documentElement).animationName,
+      }));
+    };
+
+    // UI帯がある: 押し下げが効き、:rootのアニメーションも動いている
+    await applyBandState('present');
+    const withBand = await measure();
+    expect(withBand.buttonTop).toBeGreaterThan(NATURAL_TOP);
+    expect(withBand.rootAnimation).toBe('hatena-ui-band-release');
+
+    // Proの「ヘッダを表示しない」: 押し下げが解除され、アニメーションも止まる
+    await applyBandState('hidden-by-pro');
+    const hiddenByPro = await measure();
+    expect(hiddenByPro.buttonTop).toBeCloseTo(NATURAL_TOP, 0);
+    expect(hiddenByPro.rootAnimation).toBe('none');
+
+    // 要素自体が無いブログでも同じ結果になる
+    await applyBandState('absent');
+    const absent = await measure();
+    expect(absent.buttonTop).toBeCloseTo(NATURAL_TOP, 0);
+    expect(absent.rootAnimation).toBe('none');
   });
 
   test('はてなのUI帯を通過するときの位置変化がスクロールに遅れず追随する', async ({ page }) => {
