@@ -74,9 +74,11 @@
     display: none;
     flex-direction: column;
     background-color: var(--background);
-    // border: 1px solid var(--border);
-    // border-radius: 8px;
-    // box-shadow: 0 2px 10px var(--shadow);
+    // 枠線と影がないと本文の上に開いたときにメニューの範囲が分からないため、
+    // フロート目次(.floating-toc)と同じ表現に揃える
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px var(--shadow);
     margin-top: 0.5rem;
     padding: 0.5rem 0;
     min-width: 150px;

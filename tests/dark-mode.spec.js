@@ -161,6 +161,38 @@ test.describe('ダークモード機能のテスト', () => {
     expect(overlaps).toBe(false);
   });
 
+  test('ドロップダウンに枠線と影が付いて本文と区別できる', async ({ page }) => {
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+    const jsPath = path.resolve(__dirname, '../js/dark-mode.js');
+    await page.evaluate(fs.readFileSync(jsPath, 'utf-8'));
+    await page.waitForTimeout(TIMEOUTS.SHORT);
+    await page.waitForSelector(SELECTORS.THEME_TOGGLE_CONTAINER);
+
+    await page.locator(SELECTORS.THEME_TOGGLE_MAIN).click();
+    await page.waitForTimeout(TIMEOUTS.SHORT);
+
+    const style = await page.evaluate(() => {
+      const el = document.querySelector('.theme-toggle-dropdown');
+      if (!el) return null;
+      const s = getComputedStyle(el);
+      return {
+        borderWidth: parseFloat(s.borderTopWidth),
+        borderStyle: s.borderTopStyle,
+        borderRadius: parseFloat(s.borderTopLeftRadius),
+        boxShadow: s.boxShadow,
+        backgroundColor: s.backgroundColor,
+      };
+    });
+
+    // 本文の上に開くメニューなので、範囲が分かる枠線・角丸・影と不透明な背景が必要
+    expect(style?.borderWidth).toBeGreaterThan(0);
+    expect(style?.borderStyle).not.toBe('none');
+    expect(style?.borderRadius).toBeGreaterThan(0);
+    expect(style?.boxShadow).not.toBe('none');
+    expect(style?.backgroundColor).not.toMatch(/rgba\(.*,\s*0\)/);
+  });
+
   test('スマートフォンではダークモードボタンを画面下部に置きコンテンツに重ねない', async ({ page }) => {
     await page.setViewportSize({ width: 430, height: 932 });
     await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
