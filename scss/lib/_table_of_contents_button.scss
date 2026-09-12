@@ -6,7 +6,8 @@
 /* 目次ボタン */
 .toc-button {
     position: fixed;
-    top: 1.1rem;
+    // ページ最上部から表示されるため、はてなのUI帯の裏に隠れないよう押し下げる (_core.scssを参照)
+    top: calc(1.1rem + var(--hatena-ui-band-offset));
     right: 4rem;
     z-index: 1000;
     display: inline-flex; // インラインフレックスに変更
@@ -17,12 +18,20 @@
     background-color: var(--bg-semi-transparent); // 背景画像との互換性のため半透明の白背景に設定
     font-size: 14px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    // allにするとtopもトランジション対象になり、スクロールに追随して動くはずの押し下げが遅れて滑る。
+    // ホバーで変わるborder-colorだけを対象にする
+    transition: border-color 0.3s ease;
     white-space: nowrap; // テキスト折り返しを防止
 
     // Wide screen (1540px+): Hide button as TOC is always visible
     @media (min-width: 1540px) {
         display: none; // Hide button on wide screens
+    }
+
+    // スマートフォンはダークモードボタンと揃えて画面下部に置く (_dark_mode.scssを参照)
+    @media #{var.$mq-xs} {
+        top: auto;
+        bottom: 1rem;
     }
 
     &:hover {
@@ -59,7 +68,9 @@
 /* フローティング目次コンテナ */
 .floating-toc {
     position: fixed;
-    top: 5em;
+    // ワイド画面では常時表示になるため、ページ最上部では「読者になる」ボタンと重なる。
+    // はてなのUI帯のぶん押し下げて回避する (_core.scssを参照)
+    top: calc(5em + var(--hatena-ui-band-offset));
     right: 1em;
     width: 250px;
     max-width: 80vw;
@@ -76,9 +87,18 @@
     font-size: 0.9em;
 
     // スクロールバーの出現条件
-    max-height: 70vh; // 画面の高さの70%までに制限
+    max-height: calc(70vh - var(--hatena-ui-band-offset)); // 画面の高さの70%までに制限(押し下げ中は下端がはみ出さないよう差し引く)
     overflow-y: auto;
     overflow-x: hidden; // 横方向のスクロールを非表示に
+
+    // スマートフォンでは画面下部の目次ボタンの上へ開く (_dark_mode.scssを参照)
+    @media #{var.$mq-xs} {
+        top: auto;
+        bottom: 4rem; // 目次ボタン(高さ約34px)とその余白のぶん空ける
+        // 上端がはてなのUI帯に潜らない高さに抑える。下部配置では押し下げがないため差し引きも不要
+        max-height: 60vh;
+        transform: translateY(10px); // 下から開くので初期位置を下にずらす
+    }
 
     // スクロールバーのスタイリング
     &::-webkit-scrollbar {
@@ -112,7 +132,7 @@
             opacity: 1;
             transform: translateY(0);
             width: 250px; // Slightly wider for better readability
-            max-height: 80vh; // More vertical space on large screens
+            max-height: calc(80vh - var(--hatena-ui-band-offset)); // More vertical space on large screens
         }
     }
 

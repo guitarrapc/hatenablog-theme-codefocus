@@ -7,7 +7,6 @@
   // Constants
   const CONSTANTS = {
     WIDE_SCREEN_WIDTH: 1540,      // Minimum width for auto-expand mode
-    SCROLL_THRESHOLD: 200,         // Scroll distance before showing TOC button
     HEADING_ACTIVE_OFFSET: 100,    // Offset for determining active heading
     RESIZE_DEBOUNCE: 250,          // Debounce time for resize events (ms)
     SCROLL_THROTTLE: 100           // Throttle time for scroll events (ms)
@@ -148,6 +147,15 @@
       return window.innerWidth >= CONSTANTS.WIDE_SCREEN_WIDTH;
     }
 
+    // Function to check if any entry with a table of contents is on screen.
+    // The button is only useful while such an entry is in view.
+    function isAnyEntryVisible() {
+      return allEntriesWithToc.some(entry => {
+        const rect = entry.getBoundingClientRect();
+        return rect.top < window.innerHeight && rect.bottom > 0;
+      });
+    }
+
     // Function to update TOC display based on screen width
     function updateTocDisplay() {
       if (isWideScreen()) {
@@ -161,7 +169,7 @@
         floatingToc.classList.remove('auto-expanded', 'show');
         tocButton.classList.remove('active');
         // Show button on smaller screens
-        tocButton.style.display = '';
+        tocButton.style.display = isAnyEntryVisible() ? 'block' : 'none';
       }
     }
 
@@ -202,7 +210,6 @@
 
     // Set scroll event with throttling for performance
     let scrollTimer = null;
-    let lastScrollTop = 0;
 
     window.addEventListener('scroll', function () {
       // Throttle scroll events for performance
@@ -211,8 +218,6 @@
       scrollTimer = setTimeout(function () {
         scrollTimer = null;
 
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
         // Get currently visible entry
         const visibleEntry = getCurrentVisibleEntry();
 
@@ -220,15 +225,12 @@
         updateTocContent(visibleEntry);
 
         // Check if any entry with TOC is visible
-        const anyEntryVisible = allEntriesWithToc.some(entry => {
-          const rect = entry.getBoundingClientRect();
-          return rect.top < window.innerHeight && rect.bottom > 0;
-        });
+        const anyEntryVisible = isAnyEntryVisible();
 
-        // Control TOC button visibility based on scroll position (non-wide screens only)
+        // Control TOC button visibility based on entry visibility (non-wide screens only)
         // Wide screens: Always visible (controlled by updateTocDisplay())
         if (!isWideScreen()) {
-          if (anyEntryVisible && scrollTop > CONSTANTS.SCROLL_THRESHOLD) {
+          if (anyEntryVisible) {
             tocButton.style.display = 'block';
           } else {
             tocButton.style.display = 'none';
@@ -286,8 +288,6 @@
             });
           }
         }
-
-        lastScrollTop = scrollTop;
       }, CONSTANTS.SCROLL_THROTTLE);
     });
   });

@@ -5,61 +5,25 @@
 
 // ダークモード切り替えコンテナ
 //
-// 既定値でははてなのUI帯を避けた位置に置く。
-// :has()が使えないブラウザではこの既定値のまま(＝ボタンが隠れない安全側)になるようにしている。
+// ページ最上部ではてなのUI帯の裏に隠れないよう、--hatena-ui-band-offsetのぶん押し下げる
+// (_core.scssを参照)。
 .theme-toggle-container {
     position: fixed;
-    top: var.$floating-ui-top-avoid;
+    top: calc(1rem + var(--hatena-ui-band-offset));
     right: 1rem;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 
-    // はてなのUI帯はスクロールで流れるため、流れ切ったら本来の位置へ戻す。
-    // スクロール量に1:1で連動するのでposition: stickyと同じ性質であり、モーションとしては扱わない。
-    @supports (animation-timeline: scroll(root block)) {
-        animation: theme-toggle-avoid-hatena-ui linear both;
-        animation-timeline: scroll(root block);
-        animation-range: 0 var.$hatena-ui-band-height;
-    }
-
+    // スマートフォンは本文が全幅のため、上部の右端に置くとブログタイトルや見出しに必ず重なる。
+    // Zennが浮遊メニューを画面下部に置いているのと同じ考え方で、下部に逃がす。
+    // 下部にははてなのUI帯がないため押し下げも不要になる。
     @media #{var.$mq-xs} {
-        top: var.$floating-ui-top-avoid-xs;
-
-        @supports (animation-timeline: scroll(root block)) {
-            animation-name: theme-toggle-avoid-hatena-ui-xs;
-            animation-range: 0 var.$hatena-ui-band-height-xs;
-        }
-    }
-}
-
-// はてなのUI帯が存在しないブログ(はてなブログProでヘッダを非表示にしている場合など)では、
-// 避ける必要がないので本来の位置に固定する。
-body:not(:has(> #globalheader-container)):not(:has(> .blog-controlls)) {
-    .theme-toggle-container {
-        top: var.$floating-ui-top;
-        animation: none;
-    }
-}
-
-@keyframes theme-toggle-avoid-hatena-ui {
-    from {
-        top: var.$floating-ui-top-avoid;
-    }
-
-    to {
-        top: var.$floating-ui-top;
-    }
-}
-
-@keyframes theme-toggle-avoid-hatena-ui-xs {
-    from {
-        top: var.$floating-ui-top-avoid-xs;
-    }
-
-    to {
-        top: var.$floating-ui-top;
+        top: auto;
+        bottom: 1rem;
+        // ドロップダウンをボタンの上に開く
+        flex-direction: column-reverse;
     }
 }
 
@@ -116,6 +80,12 @@ body:not(:has(> #globalheader-container)):not(:has(> .blog-controlls)) {
     margin-top: 0.5rem;
     padding: 0.5rem 0;
     min-width: 150px;
+
+    // スマートフォンではボタンの上に開くため、余白も上下を入れ替える
+    @media #{var.$mq-xs} {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
 
     &.show {
         display: flex;

@@ -15,10 +15,10 @@ $mq-lg: "(min-width: 1200px)"; // Full HD以上
 $hatena-ui-band-height: 105px;
 $hatena-ui-band-height-xs: 117px;
 
-// 固定表示UIの配置
-$floating-ui-top: 1rem; // はてなのUI帯がないときの位置
-$floating-ui-top-avoid: 7rem; // 112px: PCのUI帯(105px)を避ける位置
-$floating-ui-top-avoid-xs: 8rem; // 128px: SPのUI帯(117px)を避ける位置
+// はてなのUI帯を避けるために固定表示UIを押し下げる量
+// 各UIは本来のtopにこの値を足す。UI帯がスクロールで流れたら0に戻る(_core.scssを参照)。
+$hatena-ui-band-offset: 6rem; // 96px: 本来位置(1rem)との合計112pxでPCのUI帯(105px)を避ける
+$hatena-ui-band-offset-xs: 7rem; // 112px: 合計128pxでSPのUI帯(117px)を避ける
 
 // Font
 $font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', "Noto Sans JP", 'Meiryo', sans-serif, "Segoe UI Emoji";
