@@ -586,10 +586,12 @@ test.describe('目次スタイルの詳細テスト', () => {
       enableDarkMode: document.documentElement.getAttribute('data-enable-dark-mode'),
       hasToggle: !!toggle,
       // 画面右端からの余白
-      tocButtonRight: tocButton ? Math.round(window.innerWidth - tocButton.right) : null,
-      toggleRight: toggle ? Math.round(window.innerWidth - toggle.right) : null,
+      tocButtonRight: tocButton ? window.innerWidth - tocButton.right : null,
+      toggleRight: toggle ? window.innerWidth - toggle.right : null,
+      // ダークモードボタンの実寸(ビューポートで2.5rem/2.2remと変わる)
+      toggleWidth: toggle ? toggle.width : null,
       // 目次ボタンとダークモードボタンの間隔
-      buttonGap: tocButton && toggle ? Math.round(toggle.left - tocButton.right) : null,
+      buttonGap: tocButton && toggle ? toggle.left - tocButton.right : null,
     };
   });
 
@@ -608,11 +610,15 @@ test.describe('目次スタイルの詳細テスト', () => {
       // 前提: ダークモードのJavaScriptが読み込まれていること
       expect(placement.enableDarkMode).toBe('true');
       // ダークモードボタンは画面右端に置かれる
-      expect(placement.toggleRight).toBe(FLOATING_UI_RIGHT);
-      // 目次ボタンはその左隣に一定の間隔で並ぶ
-      expect(placement.buttonGap).toBe(FLOATING_UI_GAP);
-      // ダークモードボタンのぶん左にずれていること
-      expect(placement.tocButtonRight).toBeGreaterThan(FLOATING_UI_RIGHT);
+      expect(placement.toggleRight).toBeCloseTo(FLOATING_UI_RIGHT, 0);
+      // 目次ボタンのオフセットが「画面端 + ダークモードボタンの幅 + 間隔」であること。
+      // 期待値はデスクトップ64px(16+40+8)、スマートフォン59.2px(16+35.2+8)になる。
+      // ボタン幅を実測値から求めるのは、$theme-toggle-sizeを意図的に変えたときに
+      // レイアウトが正しいまま落ちるのを避けるため
+      expect(placement.tocButtonRight).toBeCloseTo(
+        FLOATING_UI_RIGHT + (placement.toggleWidth ?? 0) + FLOATING_UI_GAP, 0);
+      // 上の計算の結果として、2つのボタンは一定の間隔で隣り合う
+      expect(placement.buttonGap).toBeCloseTo(FLOATING_UI_GAP, 0);
     });
 
     test(`ダークモードボタンがないとき目次ボタンは画面右端に置かれる(${viewport.name})`, async ({ page }) => {
@@ -629,7 +635,7 @@ test.describe('目次スタイルの詳細テスト', () => {
       expect(placement.enableDarkMode).toBeNull();
       expect(placement.hasToggle).toBe(false);
       // ダークモードボタンのぶんの余白を空けず、画面右端に寄せる
-      expect(placement.tocButtonRight).toBe(FLOATING_UI_RIGHT);
+      expect(placement.tocButtonRight).toBeCloseTo(FLOATING_UI_RIGHT, 0);
     });
   }
 });
