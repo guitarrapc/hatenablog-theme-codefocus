@@ -103,9 +103,16 @@
     }
 }
 
-// はてなのUI帯がないブログ(はてなブログProでヘッダを非表示にしている場合など)では押し下げ不要。
+// はてなのUI帯が描画されないブログでは押し下げ不要。
+//
+// はてなブログProの「ヘッダを表示しない」設定では #globalheader-container はDOMに残り
+// display: none になるだけなので、要素の有無だけでは判定できない。
+// 設定が有効なときbodyへ付く globalheader-off クラスも判定に使う。
+// (--hatena-ui-band-offsetは:rootで既にvar()が解決されるため、上書きも:rootで行う必要がある。
+//  また:root上のアニメーションは通常宣言より強いため、animation: noneで無効化する)
 // :has()非対応ブラウザではこのルールごと無効になり、押し下げた安全側の既定値が残る。
-:root:not(:has(#globalheader-container)):not(:has(.blog-controlls)) {
+:root:not(:has(#globalheader-container)):not(:has(.blog-controlls)),
+:root:has(body.globalheader-off):not(:has(.blog-controlls)) {
     --hatena-ui-band-progress: 0;
     animation: none;
 }

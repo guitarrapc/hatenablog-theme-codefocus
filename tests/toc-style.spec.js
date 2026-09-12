@@ -1,5 +1,5 @@
 // @ts-check
-import { test } from './helpers.js';
+import { test, getHatenaUiBand } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS } from './constants.js';
 
@@ -222,18 +222,14 @@ test.describe('目次スタイルの詳細テスト', () => {
     }
 
     // 意図的にスクロールせず、初回ロード直後の状態を評価する
+    // UI帯の有無はブログの設定(Proの「ヘッダを表示しない」)で変わるため実際の描画から判定する
+    const band = await getHatenaUiBand(page);
     const state = await page.evaluate(() => {
-      const bottomOf = (/** @type {string} */ s) => {
-        const el = document.querySelector(s);
-        return el ? el.getBoundingClientRect().bottom : 0;
-      };
       const button = /** @type {HTMLElement} */ (document.querySelector('.toc-button'));
       const style = getComputedStyle(button);
       const rect = button.getBoundingClientRect();
       const hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
       return {
-        // はてなのグローバルヘッダと「読者になる」ボタンの帯の下端
-        bandBottom: Math.max(bottomOf('#globalheader-container'), bottomOf('.blog-controlls')),
         visible: style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0,
         top: rect.top,
         // ボタンの中心をヒットテストして、はてなのUIに覆われていないことを確認する
@@ -241,14 +237,16 @@ test.describe('目次スタイルの詳細テスト', () => {
       };
     });
 
-    expect(state.bandBottom).toBeGreaterThan(0); // UI帯が存在する前提のテスト
-
-    // スクロールしなくても最初から表示されること
+    // スクロールしなくても最初から表示され、クリックできること
     expect(state.visible).toBe(true);
-
-    // UI帯より下にあり、実際にクリックできること
-    expect(state.top).toBeGreaterThanOrEqual(state.bandBottom);
     expect(state.clickable).toBe(true);
+
+    // UI帯があるブログでは帯より下に、ないブログでは本来の位置(top: 1.1rem)にあること
+    if (band.exists) {
+      expect(state.top).toBeGreaterThanOrEqual(band.bottom);
+    } else {
+      expect(state.top).toBeCloseTo(17.6, 0);
+    }
   });
 
   test('はてなのUI帯を通過するときの位置変化がスクロールに遅れず追随する', async ({ page }) => {
@@ -260,6 +258,10 @@ test.describe('目次スタイルの詳細テスト', () => {
     if (!hasToc) {
       throw new Error('サンプル記事に目次が存在しません。テストデータを確認してください。');
     }
+
+    // 押し下げが起きないブログ設定(Proの「ヘッダを表示しない」)では位置が動かず検証対象がない
+    const band = await getHatenaUiBand(page);
+    test.skip(!band.exists, 'はてなのUI帯が描画されていないため押し下げが発生しない');
 
     const result = await page.evaluate(async () => {
       const targets = { tocButton: '.toc-button', floatingToc: '.floating-toc' };
@@ -358,34 +360,32 @@ test.describe('目次スタイルの詳細テスト', () => {
 
     await expect(page.locator('.floating-toc.auto-expanded')).toBeVisible({ timeout: 5000 });
 
-    /** フロート目次とはてなのUI帯の位置関係を取得する */
+    /** フロート目次の位置と画面内に収まっているかを取得する */
     const geometry = () => page.evaluate(() => {
-      const bottomOf = (/** @type {string} */ s) => {
-        const el = document.querySelector(s);
-        return el ? el.getBoundingClientRect().bottom : 0;
-      };
       const rect = /** @type {HTMLElement} */ (document.querySelector('.floating-toc')).getBoundingClientRect();
-      return {
-        bandBottom: Math.max(bottomOf('#globalheader-container'), bottomOf('.blog-controlls')),
-        top: rect.top,
-        bottom: rect.bottom,
-        viewportHeight: window.innerHeight,
-      };
+      return { top: rect.top, bottom: rect.bottom, viewportHeight: window.innerHeight };
     });
 
     // 意図的にスクロールせず、初回ロード直後の状態を評価する
+    // UI帯の有無はブログの設定(Proの「ヘッダを表示しない」)で変わるため実際の描画から判定する
+    const band = await getHatenaUiBand(page);
     const atTop = await geometry();
-    expect(atTop.bandBottom).toBeGreaterThan(0); // UI帯が存在する前提のテスト
-    expect(atTop.top).toBeGreaterThanOrEqual(atTop.bandBottom);
-    // 押し下げても下端が画面外にはみ出さないこと
+
+    // UI帯があってもなくても、上端が隠れず下端が画面内に収まっていること
+    expect(atTop.top).toBeGreaterThanOrEqual(band.bottom);
     expect(atTop.bottom).toBeLessThanOrEqual(atTop.viewportHeight);
 
-    // UI帯を通り過ぎたら本来の位置(top: 5em)に戻ること
-    await page.evaluate((y) => window.scrollTo(0, y), atTop.bandBottom + 200);
-    await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
-    const afterScroll = await geometry();
-    expect(afterScroll.top).toBeLessThan(atTop.top);
-    expect(afterScroll.bottom).toBeLessThanOrEqual(afterScroll.viewportHeight);
+    if (band.exists) {
+      // UI帯を通り過ぎたら本来の位置(top: 5em)に戻ること
+      await page.evaluate((y) => window.scrollTo(0, y), band.bottom + 200);
+      await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+      const afterScroll = await geometry();
+      expect(afterScroll.top).toBeLessThan(atTop.top);
+      expect(afterScroll.bottom).toBeLessThanOrEqual(afterScroll.viewportHeight);
+    } else {
+      // UI帯がないブログでは押し下げず本来の位置(top: 5em)のままであること
+      expect(atTop.top).toBeCloseTo(72, 0);
+    }
   });
 
   test('ページ右上の目次ボタンが仕様通りに表示される', async ({ page }) => {

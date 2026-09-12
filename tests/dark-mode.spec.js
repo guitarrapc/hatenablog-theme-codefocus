@@ -1,5 +1,5 @@
 // @ts-check
-import { test } from './helpers.js';
+import { test, getHatenaUiBand } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS, TIMEOUTS } from './constants.js';
 import * as fs from 'fs';
@@ -97,16 +97,10 @@ test.describe('ダークモード機能のテスト', () => {
       // スクロール駆動アニメーションの反映を待つ
       await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
       return page.evaluate((selector) => {
-        const bottomOf = (/** @type {string} */ s) => {
-          const el = document.querySelector(s);
-          return el ? el.getBoundingClientRect().bottom : 0;
-        };
         const container = /** @type {HTMLElement} */ (document.querySelector(selector));
         const rect = container.getBoundingClientRect();
         const hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
         return {
-          // はてなのグローバルヘッダと「読者になる」ボタンの帯の下端
-          bandBottom: Math.max(bottomOf('#globalheader-container'), bottomOf('.blog-controlls')),
           top: rect.top,
           // ボタンの中心をヒットテストして、はてなのUIに覆われていないことを確認する
           clickable: !!(hit && hit.closest(selector)),
@@ -115,23 +109,37 @@ test.describe('ダークモード機能のテスト', () => {
       }, SELECTORS.THEME_TOGGLE_CONTAINER);
     };
 
-    // ページ最上部: はてなのUI帯を避けた位置にあり、クリックできる
+    // UI帯の有無はブログの設定(Proの「ヘッダを表示しない」)で変わるため、実際の描画から判定する
+    await page.evaluate(() => window.scrollTo(0, 0));
+    const band = await getHatenaUiBand(page);
+
     const atTop = await measure(0);
-    expect(atTop.bandBottom).toBeGreaterThan(0); // UI帯が存在する前提のテスト
-    expect(atTop.top).toBeGreaterThanOrEqual(atTop.bandBottom);
+    // どちらの設定でも、ページ最上部でクリックできることは必須
     expect(atTop.clickable).toBe(true);
 
-    // UI帯をスクロールで通り過ぎたあと: 本来の位置(top: 1rem)に戻り、引き続きクリックできる
-    const afterScroll = await measure(atTop.bandBottom + 200);
-    expect(afterScroll.clickable).toBe(true);
-    if (afterScroll.supportsScrollTimeline) {
-      expect(afterScroll.top).toBeCloseTo(16, 0);
-    }
+    if (band.exists) {
+      // UI帯があるブログ: 帯を避けた位置に押し下がる
+      expect(atTop.top).toBeGreaterThanOrEqual(band.bottom);
 
-    // 最上部に戻すと再び退避すること（アニメーションが一方向に振り切らない）
-    const backToTop = await measure(0);
-    expect(backToTop.top).toBeCloseTo(atTop.top, 0);
-    expect(backToTop.clickable).toBe(true);
+      // UI帯をスクロールで通り過ぎたあと: 本来の位置(top: 1rem)に戻り、引き続きクリックできる
+      const afterScroll = await measure(band.bottom + 200);
+      expect(afterScroll.clickable).toBe(true);
+      if (afterScroll.supportsScrollTimeline) {
+        expect(afterScroll.top).toBeCloseTo(16, 0);
+      }
+
+      // 最上部に戻すと再び退避すること（アニメーションが一方向に振り切らない）
+      const backToTop = await measure(0);
+      expect(backToTop.top).toBeCloseTo(atTop.top, 0);
+      expect(backToTop.clickable).toBe(true);
+    } else {
+      // UI帯がないブログ: 押し下げず本来の位置(top: 1rem)のままであること
+      expect(atTop.top).toBeCloseTo(16, 0);
+
+      const afterScroll = await measure(300);
+      expect(afterScroll.top).toBeCloseTo(16, 0);
+      expect(afterScroll.clickable).toBe(true);
+    }
   });
 
   test('ワイドスクリーンでダークモードボタンが常時表示の目次と重ならない', async ({ page }) => {
