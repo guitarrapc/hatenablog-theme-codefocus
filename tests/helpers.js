@@ -98,6 +98,29 @@ export const test = base.extend({
   },
 });
 
+/**
+ * はてなのUI帯(グローバルヘッダ + ブログコントロール)の描画状態を返す。
+ *
+ * はてなブログProの「ヘッダを表示しない」設定では #globalheader-container がDOMに残り
+ * display: none になるだけなので、要素の有無ではなく実際の描画高さで判定する。
+ * テストブログの設定に関係なく動かせるよう、UI帯があるときだけ押し下げを期待する分岐に使う。
+ *
+ * @param {import('@playwright/test').Page} page
+ * @returns {Promise<{bottom: number, exists: boolean}>}
+ */
+export const getHatenaUiBand = (page) => page.evaluate(() => {
+  const renderedBottom = (/** @type {string} */ selector) => {
+    const el = document.querySelector(selector);
+    if (!el) return 0;
+    const style = getComputedStyle(el);
+    if (style.display === 'none' || style.visibility === 'hidden') return 0;
+    const rect = el.getBoundingClientRect();
+    return rect.height > 0 ? rect.bottom : 0;
+  };
+  const bottom = Math.max(renderedBottom('#globalheader-container'), renderedBottom('.blog-controlls'));
+  return { bottom, exists: bottom > 0 };
+});
+
 // テストブログのURLを生成するヘルパー関数
 export const url = (path = '/') => {
   // テストブログのベースURL

@@ -7,6 +7,19 @@ $mq-sm: "(min-width: 768px)"; // タブレット
 $mq-md: "(min-width: 992px)"; // PC (大き目タブレット)
 $mq-lg: "(min-width: 1200px)"; // Full HD以上
 
+// はてなのUI帯
+// ページ最上部に、はてなのグローバルヘッダ(#globalheader-container, z-index: 9997)と
+// ブログコントロール(.blog-controlls, 「読者になる」ボタン)が描画される。
+// どちらもテーマ側のz-indexでは上に出せないため、固定表示のUIは縦に避ける必要がある。
+// 実測値(記事/アーカイブ/トップの全ページ共通): グローバルヘッダは0-56px、UI帯の下端はPC 105px / SP 117px。
+$hatena-ui-band-height: 105px;
+$hatena-ui-band-height-xs: 117px;
+
+// はてなのUI帯を避けるために固定表示UIを押し下げる量
+// 各UIは本来のtopにこの値を足す。UI帯がスクロールで流れたら0に戻る(_core.scssを参照)。
+$hatena-ui-band-offset: 6rem; // 96px: 本来位置(1rem)との合計112pxでPCのUI帯(105px)を避ける
+$hatena-ui-band-offset-xs: 7rem; // 112px: 合計128pxでSPのUI帯(117px)を避ける
+
 // Font
 $font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', "Noto Sans JP", 'Meiryo', sans-serif, "Segoe UI Emoji";
 $font-family-monospace: 'Monaco', 'Consolas', 'Courier New', Courier, monospace, sans-serif;

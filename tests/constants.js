@@ -103,10 +103,8 @@ export const TIMEOUTS = {
 
 // スクロール量
 export const SCROLL = {
-  /** 目次ボタンを表示するためのスクロール量 */
+  /** 目次のアクティブ表示などを動かすためのスクロール量(目次ボタンは最上部から表示される) */
   TO_SHOW_TOC_BUTTON: 250,
-  /** 目次ボタン表示の最小スクロール量 */
-  MIN_FOR_TOC_BUTTON: 200,
   /** トップと判断するスクロール位置 */
   TOP_THRESHOLD: 100,
 };

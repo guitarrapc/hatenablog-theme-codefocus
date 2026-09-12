@@ -4,14 +4,27 @@
 @use "./_functions" as fn;
 
 // ダークモード切り替えコンテナ
+//
+// ページ最上部ではてなのUI帯の裏に隠れないよう、--hatena-ui-band-offsetのぶん押し下げる
+// (_core.scssを参照)。
 .theme-toggle-container {
     position: fixed;
-    top: 1rem;
+    top: calc(1rem + var(--hatena-ui-band-offset));
     right: 1rem;
     z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+
+    // スマートフォンは本文が全幅のため、上部の右端に置くとブログタイトルや見出しに必ず重なる。
+    // Zennが浮遊メニューを画面下部に置いているのと同じ考え方で、下部に逃がす。
+    // 下部にははてなのUI帯がないため押し下げも不要になる。
+    @media #{var.$mq-xs} {
+        top: auto;
+        bottom: 1rem;
+        // ドロップダウンをボタンの上に開く
+        flex-direction: column-reverse;
+    }
 }
 
 // メインボタン
@@ -61,12 +74,20 @@
     display: none;
     flex-direction: column;
     background-color: var(--background);
-    // border: 1px solid var(--border);
-    // border-radius: 8px;
-    // box-shadow: 0 2px 10px var(--shadow);
+    // 枠線と影がないと本文の上に開いたときにメニューの範囲が分からないため、
+    // フロート目次(.floating-toc)と同じ表現に揃える
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px var(--shadow);
     margin-top: 0.5rem;
     padding: 0.5rem 0;
     min-width: 150px;
+
+    // スマートフォンではボタンの上に開くため、余白も上下を入れ替える
+    @media #{var.$mq-xs} {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
 
     &.show {
         display: flex;

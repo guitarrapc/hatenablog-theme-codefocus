@@ -1,7 +1,14 @@
 // @ts-check
-import { test } from './helpers.js';
+import { test, getHatenaUiBand } from './helpers.js';
 import { expect } from '@playwright/test';
 import { TEST_URLS, SELECTORS } from './constants.js';
+import * as fs from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const tocButtonJs = fs.readFileSync(path.resolve(__dirname, '../js/toc-button.js'), 'utf-8');
 
 test.describe('目次スタイルの詳細テスト', () => {
   test('目次のマーカーと縦線が仕様通りに表示される', async ({ page }) => {
@@ -211,6 +218,283 @@ test.describe('目次スタイルの詳細テスト', () => {
     console.log('解像度変更時の目次自動クローズテストが完了しました');
   });
 
+  test('ページ最上部から目次ボタンが表示され、はてなのUI帯の裏に隠れない', async ({ page }) => {
+    // 通常の解像度に設定（1540px未満なので目次ボタンが使われる）
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+    const hasToc = await page.locator('.entry-content .table-of-contents').isVisible();
+    if (!hasToc) {
+      throw new Error('サンプル記事に目次が存在しません。テストデータを確認してください。');
+    }
+
+    // 意図的にスクロールせず、初回ロード直後の状態を評価する
+    // UI帯の有無はブログの設定(Proの「ヘッダを表示しない」)で変わるため実際の描画から判定する
+    const band = await getHatenaUiBand(page);
+    const state = await page.evaluate(() => {
+      const button = /** @type {HTMLElement} */ (document.querySelector('.toc-button'));
+      const style = getComputedStyle(button);
+      const rect = button.getBoundingClientRect();
+      const hit = document.elementFromPoint(rect.x + rect.width / 2, rect.y + rect.height / 2);
+      return {
+        visible: style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) > 0,
+        display: style.display,
+        top: rect.top,
+        // ボタンの中心をヒットテストして、はてなのUIに覆われていないことを確認する
+        clickable: !!(hit && hit.closest('.toc-button')),
+      };
+    });
+
+    // スクロールしなくても最初から表示され、クリックできること
+    expect(state.visible).toBe(true);
+    expect(state.clickable).toBe(true);
+
+    // 表示制御でdisplayをインライン指定すると、SCSS側のinline-flex(+ align-items: center)が死ぬ。
+    // position: fixedによりinline-flexはflexへblockifyされるため、期待値はflex。
+    expect(state.display).toBe('flex');
+
+    // UI帯があるブログでは帯より下に、ないブログでは本来の位置(top: 1.1rem)にあること
+    if (band.exists) {
+      expect(state.top).toBeGreaterThanOrEqual(band.bottom);
+    } else {
+      expect(state.top).toBeCloseTo(17.6, 0);
+    }
+  });
+
+  test('押し下げの解除がUI帯の途中で一気に0にならず連続的に減る', async ({ page }) => {
+    // 押し下げ量は@propertyで登録した数値をスクロール駆動アニメーションで補間して導出している。
+    // 登録が効いていないと数値ではなく離散補間になり、範囲の50%地点(UI帯がまだ半分残っている位置)で
+    // 押し下げが0に飛んでボタンがUI帯の裏に入る。中間地点で中間値を取ることを確認して検出する。
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+    const band = await getHatenaUiBand(page);
+    test.skip(!band.exists, 'はてなのUI帯が描画されていないため押し下げが発生しない');
+
+    const readOffset = async (/** @type {number} */ scrollY) => {
+      await page.evaluate((y) => window.scrollTo(0, y), scrollY);
+      await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+      return page.evaluate(() => {
+        // calc()のままでは比較できないので、実要素のtopから本来位置を引いて押し下げ量を求める
+        const button = /** @type {HTMLElement} */ (document.querySelector('.toc-button'));
+        return parseFloat(getComputedStyle(button).top);
+      });
+    };
+
+    const atTop = await readOffset(0);
+    const atMiddle = await readOffset(Math.round(band.bottom / 2));
+    const settled = await readOffset(band.bottom + 200);
+
+    // 中間地点の押し下げが両端のどちらとも一致しない = 数値として補間されている
+    expect(atMiddle).toBeLessThan(atTop);
+    expect(atMiddle).toBeGreaterThan(settled);
+  });
+
+  test('はてなのUI帯の有無で押し下げが切り替わる', async ({ page }) => {
+    // テストブログ側の設定に依存しないよう、UI帯のある状態とない状態をDOM上で作って検証する。
+    // 本来位置は top: 1.1rem (17.6px)。押し下げが効いていればそれより下に来る。
+    const NATURAL_TOP = 17.6;
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+    /**
+     * はてなのUI帯の状態を作る
+     * @param {'present' | 'hidden-by-pro' | 'absent'} state
+     */
+    const applyBandState = (state) => page.evaluate((s) => {
+      const header = /** @type {HTMLElement | null} */ (document.querySelector('#globalheader-container'));
+      const controlls = document.querySelector('.blog-controlls');
+      if (s === 'present') {
+        document.body.classList.remove('globalheader-off');
+        if (header) header.style.display = '';
+        if (!controlls) {
+          const nav = document.createElement('nav');
+          nav.className = 'blog-controlls';
+          document.body.insertBefore(nav, document.querySelector('#container'));
+        }
+        return;
+      }
+      // どちらの非表示パターンでもブログコントロールは無くなる
+      if (controlls) controlls.remove();
+      if (s === 'hidden-by-pro') {
+        // はてなブログProの「ヘッダを表示しない」設定の再現:
+        // #globalheader-container はDOMに残ったまま display: none になり、bodyにクラスが付く
+        document.body.classList.add('globalheader-off');
+        if (header) header.style.display = 'none';
+      } else {
+        // 要素そのものが無いパターン
+        document.body.classList.remove('globalheader-off');
+        if (header) header.remove();
+      }
+    }, state);
+
+    const measure = async () => {
+      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+      return page.evaluate(() => ({
+        buttonTop: parseFloat(getComputedStyle(/** @type {HTMLElement} */(document.querySelector('.toc-button'))).top),
+        rootAnimation: getComputedStyle(document.documentElement).animationName,
+      }));
+    };
+
+    // UI帯がある: 押し下げが効き、:rootのアニメーションも動いている
+    await applyBandState('present');
+    const withBand = await measure();
+    expect(withBand.buttonTop).toBeGreaterThan(NATURAL_TOP);
+    expect(withBand.rootAnimation).toBe('hatena-ui-band-release');
+
+    // Proの「ヘッダを表示しない」: 押し下げが解除され、アニメーションも止まる
+    await applyBandState('hidden-by-pro');
+    const hiddenByPro = await measure();
+    expect(hiddenByPro.buttonTop).toBeCloseTo(NATURAL_TOP, 0);
+    expect(hiddenByPro.rootAnimation).toBe('none');
+
+    // 要素自体が無いブログでも同じ結果になる
+    await applyBandState('absent');
+    const absent = await measure();
+    expect(absent.buttonTop).toBeCloseTo(NATURAL_TOP, 0);
+    expect(absent.rootAnimation).toBe('none');
+  });
+
+  test('はてなのUI帯を通過するときの位置変化がスクロールに遅れず追随する', async ({ page }) => {
+    // 1540px未満: 目次ボタンとフロート目次の両方を対象にする
+    await page.setViewportSize({ width: 1366, height: 768 });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+    const hasToc = await page.locator('.entry-content .table-of-contents').isVisible();
+    if (!hasToc) {
+      throw new Error('サンプル記事に目次が存在しません。テストデータを確認してください。');
+    }
+
+    // 押し下げが起きないブログ設定(Proの「ヘッダを表示しない」)では位置が動かず検証対象がない
+    const band = await getHatenaUiBand(page);
+    test.skip(!band.exists, 'はてなのUI帯が描画されていないため押し下げが発生しない');
+
+    const result = await page.evaluate(async () => {
+      const targets = { tocButton: '.toc-button', floatingToc: '.floating-toc' };
+      const readTops = () => Object.fromEntries(
+        Object.entries(targets).map(([key, selector]) => {
+          const el = document.querySelector(selector);
+          return [key, el ? parseFloat(getComputedStyle(el).top) : null];
+        })
+      );
+
+      window.scrollTo(0, 0);
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      const atTop = readTops();
+
+      // UI帯を一気に通過させ、直後のフレームと落ち着いたあとの値を比べる
+      window.scrollTo(0, 400);
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      const nextFrame = readTops();
+      await new Promise((r) => setTimeout(r, 500));
+      const settled = readTops();
+
+      return { atTop, nextFrame, settled };
+    });
+
+    for (const key of ['tocButton', 'floatingToc']) {
+      // 押し下げが効いていること(通過前後で位置が変わる)を前提として確認する
+      expect(result.atTop[key]).toBeGreaterThan(result.settled[key]);
+
+      // topにトランジションが掛かっていると数フレームかけて滑るため、
+      // 直後のフレームで最終値に到達していることを確認する
+      expect(Math.abs(result.nextFrame[key] - result.settled[key])).toBeLessThanOrEqual(1);
+    }
+  });
+
+  test('スマートフォンでは目次ボタンを画面下部に置き、目次は上方向に開く', async ({ page }) => {
+    await page.setViewportSize({ width: 430, height: 932 });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+    const hasToc = await page.locator('.entry-content .table-of-contents').isVisible();
+    if (!hasToc) {
+      throw new Error('サンプル記事に目次が存在しません。テストデータを確認してください。');
+    }
+
+    const placement = await page.evaluate(() => {
+      const box = (/** @type {string} */ s) => {
+        const el = document.querySelector(s);
+        return el ? el.getBoundingClientRect() : null;
+      };
+      const overlaps = (/** @type {DOMRect|null} */ a, /** @type {DOMRect|null} */ b) =>
+        !!(a && b && a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom);
+      const button = box('.toc-button');
+      return {
+        inLowerHalf: !!button && button.top > window.innerHeight / 2,
+        inViewport: !!button && button.bottom <= window.innerHeight,
+        // ブログタイトルやパンくず、記事タイトルに重ならないこと
+        hitsHeader: ['#blog-title', '.breadcrumb', '.entry-title'].some((s) => overlaps(button, box(s))),
+      };
+    });
+
+    expect(placement.inLowerHalf).toBe(true);
+    expect(placement.inViewport).toBe(true);
+    expect(placement.hitsHeader).toBe(false);
+
+    // 目次を開くとボタンの上に展開し、はてなのUI帯にも画面外にもかからないこと
+    await page.evaluate(() => {
+      const button = /** @type {HTMLElement | null} */ (document.querySelector('.toc-button'));
+      if (button) button.click();
+    });
+    await expect(page.locator('.floating-toc.show')).toBeVisible({ timeout: 5000 });
+
+    const panel = await page.evaluate(() => {
+      const bottomOf = (/** @type {string} */ s) => {
+        const el = document.querySelector(s);
+        return el ? el.getBoundingClientRect().bottom : 0;
+      };
+      const toc = /** @type {HTMLElement} */ (document.querySelector('.floating-toc')).getBoundingClientRect();
+      const button = /** @type {HTMLElement} */ (document.querySelector('.toc-button')).getBoundingClientRect();
+      return {
+        bandBottom: Math.max(bottomOf('#globalheader-container'), bottomOf('.blog-controlls')),
+        opensUpward: toc.bottom <= button.top + 1,
+        top: toc.top,
+        bottom: toc.bottom,
+        viewportHeight: window.innerHeight,
+      };
+    });
+
+    expect(panel.opensUpward).toBe(true);
+    expect(panel.top).toBeGreaterThanOrEqual(panel.bandBottom);
+    expect(panel.bottom).toBeLessThanOrEqual(panel.viewportHeight);
+  });
+
+  test('ワイドスクリーンでフロート目次がはてなのUI帯に重ならない', async ({ page }) => {
+    // ワイドスクリーンでは目次が常時表示されるため、ページ最上部でUI帯と衝突しうる
+    await page.setViewportSize({ width: 1600, height: 900 });
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+
+    await expect(page.locator('.floating-toc.auto-expanded')).toBeVisible({ timeout: 5000 });
+
+    /** フロート目次の位置と画面内に収まっているかを取得する */
+    const geometry = () => page.evaluate(() => {
+      const rect = /** @type {HTMLElement} */ (document.querySelector('.floating-toc')).getBoundingClientRect();
+      return { top: rect.top, bottom: rect.bottom, viewportHeight: window.innerHeight };
+    });
+
+    // 意図的にスクロールせず、初回ロード直後の状態を評価する
+    // UI帯の有無はブログの設定(Proの「ヘッダを表示しない」)で変わるため実際の描画から判定する
+    const band = await getHatenaUiBand(page);
+    const atTop = await geometry();
+
+    // UI帯があってもなくても、上端が隠れず下端が画面内に収まっていること
+    expect(atTop.top).toBeGreaterThanOrEqual(band.bottom);
+    expect(atTop.bottom).toBeLessThanOrEqual(atTop.viewportHeight);
+
+    if (band.exists) {
+      // UI帯を通り過ぎたら本来の位置(top: 5em)に戻ること
+      await page.evaluate((y) => window.scrollTo(0, y), band.bottom + 200);
+      await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+      const afterScroll = await geometry();
+      expect(afterScroll.top).toBeLessThan(atTop.top);
+      expect(afterScroll.bottom).toBeLessThanOrEqual(afterScroll.viewportHeight);
+    } else {
+      // UI帯がないブログでは押し下げず本来の位置(top: 5em)のままであること
+      expect(atTop.top).toBeCloseTo(72, 0);
+    }
+  });
+
   test('ページ右上の目次ボタンが仕様通りに表示される', async ({ page }) => {
     // 通常の解像度に設定（1540px未満）
     await page.setViewportSize({ width: 1366, height: 768 });
@@ -265,5 +549,22 @@ test.describe('目次スタイルの詳細テスト', () => {
     if (itemCount > 0) {
       await floatingTocItems.first().screenshot({ path: 'screenshots/floating-toc-first-item.png' });
     }
+  });
+
+  test('配布用のcustomize-toc-button.htmlはjs/toc-button.jsと同じ処理である', async ({ page }) => {
+    const html = fs.readFileSync(path.resolve(__dirname, '../customize-toc-button.html'), 'utf-8');
+    // 正規表現ではなくブラウザのHTMLパーサーでscript要素を取り出す(DOMParserはスクリプトを実行しない)
+    const scripts = await page.evaluate((source) => Array.from(new DOMParser().parseFromString(source, 'text/html').scripts)
+      .map((script) => script.textContent ?? ''), html);
+    expect(scripts).toHaveLength(1);
+    const script = scripts[0];
+
+    // インデントとコメント行を除いて比較する
+    const normalize = (/** @type {string} */ code) => code
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('//') && !line.startsWith('/**') && !line.startsWith('*'))
+      .join('\n');
+    expect(normalize(script)).toBe(normalize(tocButtonJs));
   });
 });
