@@ -35,6 +35,9 @@ test.describe('印刷スタイルのテスト', () => {
         globalHeader: displayOf('#globalheader-container'),
         blogControlls: displayOf('.blog-controlls'),
         entryHeaderMenu: displayOf('.entry-header-menu'),
+        star: displayOf('.hatena-star-container'),
+        socialButtons: displayOf('.social-buttons'),
+        pager: displayOf('.pager'),
       },
     };
   });

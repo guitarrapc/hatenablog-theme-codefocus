@@ -40,18 +40,24 @@
     }
 
     /* はてなが置く操作専用のUI。紙では押せないうえ、記事の内容でもない。
-       実測でグローバルヘッダ56px、「読者になる」の帯55pxを占める。
-       .entry-header-menu(記事の編集ボタン)はブログ主にログイン時のみ描画される */
+       実測でグローバルヘッダ56px、「読者になる」の帯55px、シェアボタン55px、スター30px。
+       .entry-header-menu(記事の編集ボタン)はブログ主にログイン時のみ描画される。
+       コメント欄(.comment-box)は投稿フォームと既存コメントが同居しており、
+       既存コメントは記事の一部とも読めるため対象にしていない */
     #globalheader-container,
     .blog-controlls,
-    .entry-header-menu {
+    .entry-header-menu,
+    .hatena-star-container,
+    .social-buttons {
         display: none;
     }
 
-    /* モジュール群はナビゲーションであり記事の一部ではない。
-       サイドバーは実測でページ全体の16%(1502px)、記事下の関連記事は271pxを占める */
+    /* ナビゲーションであり記事の一部ではない。
+       サイドバーは実測でページ全体の16%(1502px)、記事下の関連記事は271px、
+       ページャー(前の記事/次の記事)は96pxを占める */
     #box2,
-    #entry-footer-secondary-modules {
+    #entry-footer-secondary-modules,
+    .pager {
         display: none;
     }
 
