@@ -9,6 +9,8 @@
 @use "./lib/_alert";
 @use "./lib/_tag_cloud";
 @use "./lib/_dark_mode";
+// 印刷用スタイルは各コンポーネントを上書きするため最後に読み込む
+@use "./lib/_print";
 
 /*
   Theme: CodeFocus
