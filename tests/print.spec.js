@@ -12,9 +12,11 @@ import { TEST_URLS } from './constants.js';
 test.describe('印刷スタイルのテスト', () => {
   /** 印刷時に問題になる箇所をまとめて測る */
   const measure = (/** @type {any} */ page) => page.evaluate(() => {
+    // 要素が無いときはnullを返す。'none'などの文字列を返すとセレクタの誤りが
+    // 「隠れている」と区別できず、間違ったセレクタのまま通ってしまう
     const displayOf = (/** @type {string} */ selector) => {
       const el = document.querySelector(selector);
-      return el ? getComputedStyle(el).display : 'なし';
+      return el ? getComputedStyle(el).display : null;
     };
     const codeBlocks = [...document.querySelectorAll('.entry-content pre.code')];
     const details = [...document.querySelectorAll('.entry-content details:not([open])')];
@@ -87,9 +89,11 @@ test.describe('印刷スタイルのテスト', () => {
       document.querySelector('.entry-header')?.appendChild(el);
     });
 
-    // 前提: 画面では表示されていること
+    // 前提: 対象がページに存在し、画面では表示されていること。
+    // 存在チェックを先に置くことで、セレクタを間違えたときに印刷側ではなくここで落ちる
     const screen = await measure(page);
     Object.entries(screen.hidden).forEach(([name, display]) => {
+      expect(display, `${name}がページに存在しない(セレクタの誤り、またはこのブログの構成に無い)`).not.toBeNull();
       expect(display, `画面で${name}が表示されていない`).not.toBe('none');
     });
 
