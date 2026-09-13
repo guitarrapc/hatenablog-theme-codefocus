@@ -108,6 +108,20 @@ const measure = (/** @type {any} */ page, /** @type {Record<string,string>} */ t
   return { result, arrow, background: getComputedStyle(document.body).backgroundColor };
 }, targets);
 
+/**
+ * テストブログ側の背景設定を打ち消して、テーマ本来の背景に戻す。
+ *
+ * はてなの「デザイン > カスタマイズ > 背景」で背景色を設定すると、テーマの配色は
+ * その色の上に載る (ユーザーが自由に決められるのが正しい挙動。背景の項目を参照)。
+ * ただしここで見たいのは「テーマが持つ配色がAAを満たすか」なので、
+ * ブログの設定に左右されないようテーマの既定背景へ戻してから測る。
+ *
+ * head末尾に足すのでusercssより後になり、確実に勝つ。
+ *
+ * @param {any} page
+ */
+const resetToThemeBackground = (page) => page.addStyleTag({ content: 'html, body { background: var(--background); }' });
+
 /** ダークモードのJavaScriptがテーマを適用し終えるまで待つ */
 const waitForDarkTheme = (/** @type {any} */ page) =>
   page.waitForFunction(() => document.documentElement.getAttribute('data-theme') === 'dark',
@@ -122,6 +136,7 @@ test.describe('補助テキストのコントラスト', () => {
       await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
       await expect(page.locator('#footer').first()).toBeAttached({ timeout: TIMEOUTS.VERY_LONG });
       if (theme === 'dark') await waitForDarkTheme(page);
+      await resetToThemeBackground(page);
 
       const { result, arrow } = await measure(page, TARGETS);
 

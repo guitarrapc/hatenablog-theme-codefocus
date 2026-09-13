@@ -91,12 +91,33 @@ html,
 body {
     font-family: var.$font-family-base;
     color: var(--text-body);
-    background-color: var(--background);
     line-height: 1.9;
     word-break: normal; // 通常の単語分割ルールを適用
     overflow-wrap: anywhere; // 長いURL等も適切に改行
     line-break: strict;
     text-size-adjust: none;
+}
+
+/*
+ * 既定(ライト)の背景色。
+ *
+ * はてなの「デザイン > カスタマイズ > 背景」やデザインCSSで背景を指定したとき、
+ * テーマがそれを潰さないようカスケードレイヤーに入れる。
+ * レイヤー内の宣言はレイヤーなしの宣言に必ず負けるため、読み込み順や詳細度に関係なく
+ * ユーザーの指定が勝つ。
+ *
+ * (レイヤーを使わない場合、はてなが出すCSSがテーマより前に置かれると
+ *  同じ詳細度でテーマが勝ってしまい、設定しても反映されない。実測で確認済み)
+ *
+ * @layer非対応ブラウザではこのブロックごと無視され、背景はブラウザ既定の白になる。
+ * 文字色は明るい背景を前提にした色なので、読めなくなる側には倒れない。
+ */
+@layer codefocus-background {
+
+    html,
+    body {
+        background-color: var(--background);
+    }
 }
 
 a {

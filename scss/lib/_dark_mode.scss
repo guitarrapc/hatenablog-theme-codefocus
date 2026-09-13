@@ -309,3 +309,24 @@ html[data-enable-dark-mode="true"] {
         --codeblock-language-colors-comment: #{map.get(var.$dark-codeblock-language-colors, "comment")};
     }
 }
+
+/*
+ * ダークテーマのときは背景をテーマが支配する。
+ *
+ * ライトの背景色はカスケードレイヤーに入れてユーザーの設定に譲るが(_core.scssを参照)、
+ * ダークでは譲れない。本文が明るい色になるため、ユーザーが設定した明るい背景が残ると
+ * 白地に白文字のような状態になり読めなくなる。
+ * レイヤーに入れず、htmlの属性セレクタ込みの詳細度で上書きする。
+ */
+html[data-enable-dark-mode="true"][data-theme="dark"],
+html[data-enable-dark-mode="true"][data-theme="dark"] body {
+    background-color: var(--background);
+}
+
+@media (prefers-color-scheme: dark) {
+
+    html[data-enable-dark-mode="true"]:not([data-theme="light"]):not([data-theme="dark"]),
+    html[data-enable-dark-mode="true"]:not([data-theme="light"]):not([data-theme="dark"]) body {
+        background-color: var(--background);
+    }
+}
