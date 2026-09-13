@@ -32,6 +32,9 @@ test.describe('印刷スタイルのテスト', () => {
         codeWrapToggle: displayOf('.code-wrap-toggle'),
         sidebar: displayOf('#box2'),
         entryFooterModules: displayOf('#entry-footer-secondary-modules'),
+        globalHeader: displayOf('#globalheader-container'),
+        blogControlls: displayOf('.blog-controlls'),
+        entryHeaderMenu: displayOf('.entry-header-menu'),
       },
     };
   });
@@ -73,6 +76,13 @@ test.describe('印刷スタイルのテスト', () => {
   test('印刷時に操作専用のUIとサイドバーが出力されない', async ({ page }) => {
     await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
     await expect(page.locator('.toc-button')).toBeVisible({ timeout: 15000 });
+
+    // 記事の編集ボタンはブログ主のログイン時のみ描画されるため、同じclassのダミーで代替する
+    await page.evaluate(() => {
+      const el = document.createElement('div');
+      el.className = 'entry-header-menu';
+      document.querySelector('.entry-header')?.appendChild(el);
+    });
 
     // 前提: 画面では表示されていること
     const screen = await measure(page);

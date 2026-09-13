@@ -27,7 +27,7 @@
         @include var.light-theme-variables;
     }
 
-    /* 操作専用のUI。position: fixedの要素はChromeの印刷では全ページに繰り返し出力される。
+    /* テーマが置く操作専用のUI。position: fixedの要素はChromeの印刷では全ページに繰り返し出力される。
        .code-copy-button / .code-wrap-toggle は @extend .code-button だが、
        @extendは@useのモジュール境界を越えないため個別に指定する */
     .toc-button,
@@ -36,6 +36,15 @@
     .code-button,
     .code-copy-button,
     .code-wrap-toggle {
+        display: none;
+    }
+
+    /* はてなが置く操作専用のUI。紙では押せないうえ、記事の内容でもない。
+       実測でグローバルヘッダ56px、「読者になる」の帯55pxを占める。
+       .entry-header-menu(記事の編集ボタン)はブログ主にログイン時のみ描画される */
+    #globalheader-container,
+    .blog-controlls,
+    .entry-header-menu {
         display: none;
     }
 
