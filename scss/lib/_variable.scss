@@ -29,6 +29,15 @@ $floating-ui-gap: 0.5rem; // ボタン同士の間隔
 $theme-toggle-size: 2.5rem; // ダークモードボタンの直径
 $theme-toggle-size-xs: 2.2rem;
 
+// コードブロックのボタン (コピー / 折り返し切り替え)
+//
+// ボタンはpreの上に重ねて置くため、余白はpreのpadding(15px, _core.scssを参照)と揃える。
+// タッチ端末ではホバーがなく常時表示にするので、この寸法からコード1行目を逃がす
+// 上余白を算出する(_codeblock.scssを参照)
+$code-button-size: 28px;
+$code-button-margin: 15px;
+$code-button-gap: 5px; // 常時表示のとき、ボタンの下端とコード1行目の間に空ける距離
+
 // Font
 $font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', "Noto Sans JP", 'Meiryo', sans-serif, "Segoe UI Emoji";
 $font-family-monospace: 'Monaco', 'Consolas', 'Courier New', Courier, monospace, sans-serif;

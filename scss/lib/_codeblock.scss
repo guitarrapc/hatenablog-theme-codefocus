@@ -14,6 +14,26 @@
         opacity: 0.75;
     }
 
+    // 主たる入力機構がホバーできない端末(スマートフォン / タブレット)ではボタンを常時表示する。
+    //
+    // ホバーが起点だと、タッチ端末ではページを開いた時点でボタンが見えず、
+    // 「そこに何かある」という手がかりもないため発見できない。
+    // 折り返しトグルが最も要るのは横スクロールが起きるスマートフォンなので、
+    // ちょうど必要な環境で導線が消えていることになる。
+    //
+    // any-hoverではなくhoverで判定する。any-hoverは「どの入力機構もホバーできない」を意味し、
+    // マウスを繋いだ端末で条件から外れてしまう。hoverは主たる入力機構だけを見るため、
+    // タッチ対応のノートPC(主入力はトラックパッド)は従来どおりホバー表示のまま残る。
+    //
+    // 紙にボタンは要らないので screen に限定する。印刷用スタイルはボタンを display: none に
+    // するため表示自体は変わらないが、対になる下のpadding指定(紙では余白が浮く)と
+    // 条件を揃えておく
+    @media screen and (hover: none) {
+        .code-button {
+            opacity: 0.75;
+        }
+    }
+
     // キーボードフォーカスはホバーできない環境での唯一の導線なので、確実に見えるようにする
     .code-button:focus-visible {
         opacity: 1;
@@ -25,6 +45,23 @@
 // コードブロック自体のスタイル調整
 .code-block-wrapper pre.code {
     margin: 0; // ラッパーがマージンを担当するので、内部のpreのマージンをリセット
+
+    // ボタンを常時表示する端末では、ボタンがコードの1行目に永久に重なってしまうため、
+    // ボタンの下端までを空けて1行目を逃がす。
+    //
+    // ホバーできる端末では重なりが一時的なので余白は取らない。
+    // 横スクロールするコードブロックなら左へスクロールして読み直せるが、
+    // 横スクロールしないコードブロックでは隠れた文字を読む手段が残らない。
+    //
+    // .code-block-wrapper はjs/codeblock.jsが生成する要素なので、
+    // このセレクタは「ボタンが実在するとき」とちょうど一致する。
+    // コードブロックのJavaScriptを導入していないブログには余白が出ない。
+    //
+    // 印刷ではボタンが消える(_print.scssを参照)ため、この余白だけが残ると
+    // コードブロックの上に理由のない空白が刷られる。screenに限定して避ける
+    @media screen and (hover: none) {
+        padding-top: calc(#{var.$code-button-margin} + #{var.$code-button-size} + #{var.$code-button-gap});
+    }
 }
 
 // 折り返しなしのコードブロック (デフォルト)
@@ -46,9 +83,9 @@
 .code-button {
     position: absolute;
     top: 0rem;
-    margin: 15px;
-    width: 28px;
-    height: 28px;
+    margin: var.$code-button-margin;
+    width: var.$code-button-size;
+    height: var.$code-button-size;
     padding: 0;
     background-color: var(--bg-code);
     background-repeat: no-repeat;
@@ -60,11 +97,10 @@
     opacity: 0;
     transition: opacity 0.2s, background-color 0.2s;
 
-    @media (max-width: 768px) {
-        width: 24px;
-        height: 24px;
-        background-size: 20px 20px;
-    }
+    // 画面幅で小さくする指定はしない。
+    // 以前は狭い画面で24pxへ縮めていたが、これはボタンがコードに重なる面積を減らすためだった。
+    // 常時表示する端末では上に余白を確保して重なりをなくしたので、縮める理由がなくなる。
+    // 指で押す端末ほど大きいほうがよく、WCAG 2.5.8のTarget Size (Minimum)の24pxにも余裕ができる
 
     // ホバー時のスタイル
     &:hover {
