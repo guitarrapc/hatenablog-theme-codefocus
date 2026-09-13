@@ -5,41 +5,11 @@
 @use "./_table_of_contents";
 
 :root {
-    --background: #{var.$light-background};
-    --bg-light: #{var.$light-bg-light};
-    --bg-code: #{var.$light-bg-code};
-    --bg-code-selection: #{var.$light-bg-code-selection};
-    --bg-code-light: #{var.$light-bg-code-light};
-    --bg-span: #{var.$light-bg-span};
-    --bg-toc-hover: #{var.$light-bg-toc-hover};
-    --bg-archive-category: #{var.$light-bg-archive-category};
-    --bg-archive-category-hover: #{var.$light-bg-archive-category-hover};
-    --bg-btn-hover: #{var.$light-bg-btn-hover};
-    --bg-semi-transparent: #{var.$light-background-semi-transparent};
+    // ライトテーマの色はmixinに一本化している。
+    // 紙は白地固定なので、印刷時はこれと同じ値へ戻す(_print.scssを参照)
+    @include var.light-theme-variables;
 
-    --text-body: #{var.$light-text-body};
-    --text-low-priority: #{var.$light-text-low-priority};
-    --text-light: #{var.$light-text-light};
-    --text-header: #{var.$light-text-header};
-    --text-archive-category: #{var.$light-text-archive-category};
-    --text-header-visited: #{var.$light-text-header-visited};
-    --text-code-tooltip: #{var.$light-text-code-tooltip};
-
-    --link: #{var.$light-link};
-    --link-hover: #{var.$light-link-hover};
-    --link-visited: #{var.$light-link-visited};
-    --link-bg: #{var.$light-link-bg};
-
-    --border: #{var.$light-border};
-    --border-hover: #{var.$light-border-hover};
-    --border-light: #{var.$light-border-light};
-    --border-bq: #{var.$light-border-bq};
-
-    --shadow: #{var.$light-shadow};
-    --shadow-light: #{var.$light-shadow-light};
-    --shadow-hover: #{var.$light-shadow-hover};
-
-    --scrollbar-thumb: #{var.$light-scrollbar-thumb};
+    // 以下はテーマで切り替わらない変数
 
     // モジュールタイトルの下線。デザインCSSから色と太さを変えられるようにしている。
     // 既定値は本文の見出し(h1/h2)の下線と揃える。--module-title-border-width: 0 で線を消せる
@@ -49,26 +19,6 @@
     // 目次ボタンの右端位置。既定はダークモードボタンがない前提で画面右端に置く。
     // ダークモードのJavaScriptを導入した場合のみ、その幅ぶん左へずらす(_dark_mode.scssを参照)
     --toc-button-right: #{var.$floating-ui-right};
-
-    --toc-border-bg: #{var.$light-toc-border-bg};
-    --toc-marker: #{var.$light-toc-marker};
-    --toc-marker-hover: #{var.$light-toc-marker-hover};
-
-    --table-th-bg: #{var.$light-table-th-bg};
-    --table-border: #{var.$light-table-border};
-
-    --alert-note: #{var.$light-alert-note};
-    --alert-tip: #{var.$light-alert-tip};
-    --alert-important: #{var.$light-alert-important};
-    --alert-warning: #{var.$light-alert-warning};
-    --alert-caution: #{var.$light-alert-caution};
-
-    --codeblock-language-colors-text: #{map.get(var.$light-codeblock-language-colors, "text")};
-    --codeblock-language-colors-keyword: #{map.get(var.$light-codeblock-language-colors, "keyword")};
-    --codeblock-language-colors-function: #{map.get(var.$light-codeblock-language-colors, "function")};
-    --codeblock-language-colors-punctuation: #{map.get(var.$light-codeblock-language-colors, "punctuation")};
-    --codeblock-language-colors-number: #{map.get(var.$light-codeblock-language-colors, "number")};
-    --codeblock-language-colors-comment: #{map.get(var.$light-codeblock-language-colors, "comment")};
 }
 
 /*

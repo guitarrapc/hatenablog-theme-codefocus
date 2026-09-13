@@ -1,5 +1,6 @@
 // Variables
 @use "sass:color";
+@use "sass:map";
 
 // Media Queries
 $mq-xs: "(max-width: 767px)"; // スマホ(小型タブレット)
@@ -279,6 +280,23 @@ $dark-alert-caution: $color-alert-red-300;
 $dark-code-copy-success-bg: $color-green-600;
 $dark-code-copy-failed-bg: $color-red-600;
 
+// 印刷用
+// 紙は白地で、印刷ダイアログの「背景のグラフィック」は既定でオフのため、
+// 暗い背景に載る前提のコード配色は使えない。
+// 色はライト背景で4.5:1以上を満たすことが確認済みのAlert系を流用する。
+$print-code-bg: $color-gray-100;
+$print-code-text: $color-light-balanced-1000;
+$print-code-border: $color-gray-600;
+
+$print-codeblock-language-colors: (
+    "text": $color-light-balanced-1000,
+    "keyword": $color-alert-purple-500,
+    "function": $color-alert-blue-500,
+    "punctuation": $color-light-balanced-1000,
+    "number": $color-alert-yellow-500,
+    "comment": $color-gray-800
+);
+
 $dark-codeblock-language-colors: (
     "text": $color-gray-100,
     "keyword": $color-pink-500,
@@ -287,3 +305,66 @@ $dark-codeblock-language-colors: (
     "number": $color-yellow-500,
     "comment": $color-dark-gray-400
 );
+
+// ライトテーマのCSS変数一式。
+//
+// :root(_core.scss)と印刷用(_print.scss)の両方から使う。
+// 紙は白地固定なので、印刷時は画面のテーマに関わらずこの値へ戻す必要があるが、
+// 定義を2箇所に書くと片方だけ更新されて崩れるため、mixinで一本化している。
+@mixin light-theme-variables {
+    --background: #{$light-background};
+    --bg-light: #{$light-bg-light};
+    --bg-code: #{$light-bg-code};
+    --bg-code-selection: #{$light-bg-code-selection};
+    --bg-code-light: #{$light-bg-code-light};
+    --bg-span: #{$light-bg-span};
+    --bg-toc-hover: #{$light-bg-toc-hover};
+    --bg-archive-category: #{$light-bg-archive-category};
+    --bg-archive-category-hover: #{$light-bg-archive-category-hover};
+    --bg-btn-hover: #{$light-bg-btn-hover};
+    --bg-semi-transparent: #{$light-background-semi-transparent};
+
+    --text-body: #{$light-text-body};
+    --text-low-priority: #{$light-text-low-priority};
+    --text-light: #{$light-text-light};
+    --text-header: #{$light-text-header};
+    --text-archive-category: #{$light-text-archive-category};
+    --text-header-visited: #{$light-text-header-visited};
+    --text-code-tooltip: #{$light-text-code-tooltip};
+
+    --link: #{$light-link};
+    --link-hover: #{$light-link-hover};
+    --link-visited: #{$light-link-visited};
+    --link-bg: #{$light-link-bg};
+
+    --border: #{$light-border};
+    --border-hover: #{$light-border-hover};
+    --border-light: #{$light-border-light};
+    --border-bq: #{$light-border-bq};
+
+    --shadow: #{$light-shadow};
+    --shadow-light: #{$light-shadow-light};
+    --shadow-hover: #{$light-shadow-hover};
+
+    --scrollbar-thumb: #{$light-scrollbar-thumb};
+
+    --toc-border-bg: #{$light-toc-border-bg};
+    --toc-marker: #{$light-toc-marker};
+    --toc-marker-hover: #{$light-toc-marker-hover};
+
+    --table-th-bg: #{$light-table-th-bg};
+    --table-border: #{$light-table-border};
+
+    --alert-note: #{$light-alert-note};
+    --alert-tip: #{$light-alert-tip};
+    --alert-important: #{$light-alert-important};
+    --alert-warning: #{$light-alert-warning};
+    --alert-caution: #{$light-alert-caution};
+
+    --codeblock-language-colors-text: #{map.get($light-codeblock-language-colors, "text")};
+    --codeblock-language-colors-keyword: #{map.get($light-codeblock-language-colors, "keyword")};
+    --codeblock-language-colors-function: #{map.get($light-codeblock-language-colors, "function")};
+    --codeblock-language-colors-punctuation: #{map.get($light-codeblock-language-colors, "punctuation")};
+    --codeblock-language-colors-number: #{map.get($light-codeblock-language-colors, "number")};
+    --codeblock-language-colors-comment: #{map.get($light-codeblock-language-colors, "comment")};
+}
