@@ -865,11 +865,16 @@ table {
     }
 
     /* コメント */
+    //
+    // 記事下はセクションが縦に積み重なるため、各セクションが上にも下にも線を引くと
+    // 境界で二重になり、下に行くほど線の間隔が詰まって見える。
+    // 「セクションの境界に1本だけ」を原則にして、色もサイドバーのモジュールタイトルと
+    // 同じ--border-lightに揃える(近接する線で色が違うとノイズになる)
     .comment-box {
         position: relative;
         margin: 1em 0;
-        // 関連記事との間に薄い灰色線を引く（上部）
-        border-top: 1px solid var(--border);
+        // 関連記事との境界
+        border-top: 1px solid var(--border-light);
         padding: 0 10px 0 10px; // 関連記事と合わせる
 
         .comment {
@@ -907,11 +912,21 @@ table {
                 "content content";
             gap: 5px 10px; // 行間と列間の余白
             padding: 12px 0;
-            // 次のコメントとの間に薄い灰色線を引く（下部）
-            border-bottom: 1px dotted var(--border);
             width: 90%;
             margin: 0;
             transition: all 0.2s ease;
+
+            // コメント同士の区切り線。
+            //
+            // 各コメントのborder-bottomではなく、隣接するコメントのborder-topで引く。
+            // border-bottomだと最後のコメントにも線が付き、直後の「コメントを書く」との間に
+            // 区切りの意味を持たない線が1本増える。
+            // :last-childでは消せない: はてなが末尾に非表示の li.read-more-comments
+            // (「もっと読む」)を置いているため、:last-childはそちらに当たる。
+            // 隣接兄弟セレクタならDOMの事情に依存しない
+            + .entry-comment {
+                border-top: 1px dotted var(--border-light);
+            }
         }
 
         .read-more-comments {
@@ -1003,9 +1018,12 @@ table {
     position: relative;
     padding: 2em 0;
     margin-bottom: 20px;
-    // コメントとの間に薄い灰色線を引く（上部）
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+    // 前のセクション(コメント欄)との境界。
+    //
+    // 下には引かない。上下に引くとページャーが囲まれた帯に見えて重くなるうえ、
+    // すぐ下(実測55px)にサイドバー先頭のモジュールタイトルの下線が来て二重になる。
+    // サイドバーの始まりは太字のモジュール名とその下線で十分に分かる
+    border-top: 1px solid var(--border-light);
 
     // 最初のページ(pager-nextだけの場合)に右寄せにする
     &:has(.pager-next:only-child) {

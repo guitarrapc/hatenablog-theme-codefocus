@@ -113,6 +113,10 @@ $color-dark-gray-450: #868686;
 $color-dark-gray-500: #808080;
 $color-dark-gray-600: #3b434b;
 $color-dark-gray-700: #30363d;
+// 暗い背景(#1a1f27)に対して1.25:1。ライトの--border-light(#d6e3ed on #fafafa)と同じ見え方で、
+// --border(#30363d, 1.36:1)よりは控えめという関係をダークでも保つための値。
+// #21262dは1.09:1で背景とほぼ同色になり、線を引いても見えなかった
+$color-dark-gray-750: #2a3039;
 $color-dark-gray-800: #21262d;
 $color-dark-gray-900: #1e232a;
 $color-dark-gray-1000: #1a1d21;
@@ -275,9 +279,9 @@ $dark-link-hover: color.adjust($dark-link, $lightness: +5%);
 $dark-link-visited: color.adjust($dark-link, $lightness: -10%, $saturation: -15%);
 $dark-link-bg: $color-alpha-blue-50;
 
-$dark-border: $color-dark-gray-700;
+$dark-border: $color-dark-gray-700; // 1.36:1
 $dark-border-hover: color.adjust($dark-border, $lightness: +20%); // 暗い背景では逆に一段明るくする
-$dark-border-light: $color-dark-gray-800;
+$dark-border-light: $color-dark-gray-750; // 1.25:1
 $dark-border-bq: $color-dark-gray-600;
 
 $dark-shadow: $color-alpha-black-30;
