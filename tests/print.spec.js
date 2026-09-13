@@ -106,8 +106,16 @@ test.describe('印刷スタイルのテスト', () => {
   // ダークモードの本文色は白に近く、背景が印刷されないと白紙に白文字になる。
   const CONTRAST_MIN = 4.5; // WCAG AAの本文コントラスト比
 
-  /** 白紙(白背景)に対するコントラスト比を測る */
-  const measureContrastOnPaper = (/** @type {any} */ page) => page.evaluate(() => {
+  /** ダークモードのJavaScriptがテーマを適用し終えるまで待つ */
+  const waitForDarkTheme = (/** @type {any} */ target) =>
+    target.waitForFunction(() => document.documentElement.getAttribute('data-theme') === 'dark',
+      null, { timeout: 15000 });
+
+  /**
+   * 紙に乗る色を測る。
+   * コントラスト比だけだと輝度が同じ別の色を見分けられないため、算出された色そのものも返す。
+   */
+  const measurePrintColors = (/** @type {any} */ page) => page.evaluate(() => {
     const relativeLuminance = (/** @type {string} */ rgb) => {
       const [r, g, b] = (rgb.match(/\d+(\.\d+)?/g) || []).slice(0, 3).map(Number)
         .map((v) => {
@@ -121,22 +129,37 @@ test.describe('印刷スタイルのテスト', () => {
       const b = relativeLuminance('rgb(255,255,255)') + 0.05;
       return Number((Math.max(a, b) / Math.min(a, b)).toFixed(2));
     };
-    const colorOf = (/** @type {string} */ selector) => {
-      const el = document.querySelector(selector);
-      return el ? getComputedStyle(el).color : null;
-    };
-    /** @type {Record<string, number|null>} */
-    const out = {};
+
+    /** @type {Record<string, {color: string, ratioOnWhite: number} | null>} */
+    const text = {};
     for (const [name, selector] of Object.entries({
       本文: '.entry-content p',
       見出し: '.entry-content h1',
       コード: '.entry-content pre.code',
       テーブル見出し: '.entry-content table th',
+      カテゴリ: '.entry-categories a',
     })) {
-      const color = colorOf(selector);
-      out[name] = color ? ratioOnWhite(color) : null;
+      const el = document.querySelector(selector);
+      const color = el ? getComputedStyle(el).color : null;
+      text[name] = color ? { color, ratioOnWhite: ratioOnWhite(color) } : null;
     }
-    return out;
+
+    // 印刷用に差し替えている6種のシンタックスハイライト色。
+    // 変数の値は色名や記法がテーマ側と揃わないことがあるので、描画色に正規化して比較する
+    const pre = document.querySelector('.entry-content pre.code');
+    const probe = document.createElement('span');
+    if (pre) pre.appendChild(probe);
+    /** @type {Record<string, {color: string, ratioOnWhite: number} | null>} */
+    const codeTokens = {};
+    for (const token of ['text', 'keyword', 'function', 'punctuation', 'number', 'comment']) {
+      if (!pre) { codeTokens[token] = null; continue; }
+      probe.style.color = `var(--codeblock-language-colors-${token})`;
+      const color = getComputedStyle(probe).color;
+      codeTokens[token] = { color, ratioOnWhite: ratioOnWhite(color) };
+    }
+    probe.remove();
+
+    return { text, codeTokens, codeBackground: pre ? getComputedStyle(pre).backgroundColor : null };
   });
 
   test('ダークモードでも印刷はライトの配色になり白紙で読める', async ({ page }) => {
@@ -145,34 +168,38 @@ test.describe('印刷スタイルのテスト', () => {
     await expect(page.locator('.entry-content p').first()).toBeVisible({ timeout: 15000 });
 
     // 前提: 画面はダークモードになっていること(ここが崩れると以降の検証が意味を失う)
-    const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
-    expect(theme).toBe('dark');
+    await waitForDarkTheme(page);
     // 前提: 画面のままでは白紙に対して読めない配色であること
-    const screen = await measureContrastOnPaper(page);
-    expect(screen.本文).toBeLessThan(CONTRAST_MIN);
+    const screen = await measurePrintColors(page);
+    expect(screen.text.本文?.ratioOnWhite).toBeLessThan(CONTRAST_MIN);
 
     await page.emulateMedia({ media: 'print' });
-    const print = await measureContrastOnPaper(page);
+    const print = await measurePrintColors(page);
 
-    Object.entries(print).forEach(([name, ratio]) => {
-      expect(ratio, `印刷時に${name}が白紙で読めない`).toBeGreaterThanOrEqual(CONTRAST_MIN);
+    Object.entries(print.text).forEach(([name, measured]) => {
+      expect(measured?.ratioOnWhite, `印刷時に${name}が白紙で読めない`).toBeGreaterThanOrEqual(CONTRAST_MIN);
+    });
+    // 印刷用のハイライト色も白地で読めること
+    Object.entries(print.codeTokens).forEach(([token, measured]) => {
+      expect(measured?.ratioOnWhite, `印刷時にコードの${token}が白紙で読めない`).toBeGreaterThanOrEqual(CONTRAST_MIN);
     });
   });
 
-  test('印刷の配色はライトモードとダークモードで一致する', async ({ page, browser }) => {
+  test('印刷の配色はライトモードとダークモードで一致する', async ({ page }) => {
     await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
     await page.emulateMedia({ media: 'print' });
-    const light = await measureContrastOnPaper(page);
+    const light = await measurePrintColors(page);
 
-    const darkContext = await browser.newContext({ permissions: ['local-network-access'] });
-    const darkPage = await darkContext.newPage();
-    await darkPage.addInitScript(() => localStorage.setItem('codefocus-theme-preference', 'dark'));
-    await darkPage.goto(`https://guitarrapc-theme.hatenablog.com${TEST_URLS.SAMPLE_ARTICLE}`, { waitUntil: 'load' });
-    await darkPage.waitForTimeout(3000);
-    await darkPage.emulateMedia({ media: 'print' });
-    const dark = await measureContrastOnPaper(darkPage);
-    await darkContext.close();
+    // 同じページでテーマだけを切り替える。別コンテキストを立てるより待ち合わせが確実
+    await page.evaluate(() => localStorage.setItem('codefocus-theme-preference', 'dark'));
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+    await waitForDarkTheme(page);
+    const dark = await measurePrintColors(page);
 
+    // 色そのものを比較する。コントラスト比だけでは輝度が同じ別の色を見分けられない
     expect(dark).toEqual(light);
+    // 比較対象が本当に取れていること(全部nullでも一致してしまうため)
+    expect(light.text.本文?.color).toBeTruthy();
+    expect(Object.values(light.codeTokens).every((t) => !!t?.color)).toBe(true);
   });
 });

@@ -97,8 +97,12 @@
             display: block;
         }
 
+        // block-sizeはChromium 151では閉じているときのcontent-visibility: hiddenによる結果で、
+        // content-visibilityを戻すと高さも復帰する(実測で0px→619px)。
+        // ただしUA側でblock-size: 0を独立して当てる実装もありうるため、あわせて戻しておく
         details::details-content {
             content-visibility: visible;
+            block-size: auto;
         }
     }
 }
