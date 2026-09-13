@@ -945,16 +945,19 @@ table {
         }
 
         // 日付のスタイル
+        //
+        // 記事の投稿日時(.entry-date)と同じ「日時」なので同じ変数を使う。
+        // 以前は--text-lightで、同じ種類の情報が記事とコメントで違う色になっていた
         .comment-metadata {
             grid-area: metadata;
-            color: var(--text-light);
+            color: var(--text-low-priority);
             align-self: center; // 中央揃え
             padding: 0;
             font-size: 0.9rem;
             line-height: 1.3; // ユーザー名と同じ行高
 
             a {
-                color: var(--text-light);
+                color: var(--text-low-priority);
             }
         }
 
@@ -1407,10 +1410,17 @@ table {
                     grid-area: title;
                 }
 
+                // 日時。薄さは色(--text-low-priority)で表現するので、opacityは自分で持つ。
+                //
+                // はてな側のCSSが.recent-comment-timeにopacity: 0.7を当てており、
+                // このclassは括弧のspanと中身のtimeの両方に付くため0.49まで乗算される。
+                // 指定色は5.03:1でも実際に描かれるのは1.99:1で、AA Large(3:1)すら下回っていた。
+                // このセレクタはspanとtimeの両方に当たるので、1つ書けば入れ子ごと打ち消せる
                 .recent-comment-time {
                     grid-area: date;
                     color: var(--text-low-priority);
                     font-size: .7rem;
+                    opacity: 1;
                 }
             }
         }

@@ -89,6 +89,10 @@ $color-gray-500: #d6e3ed;
 $color-gray-600: #999;
 $color-gray-700: #8f9faa;
 $color-gray-800: #747474;
+// 明るい背景(#fafafa)でWCAG AAの4.5:1を満たす最も薄いグレー(実測4.54:1)。
+// #747474は4.48:1でわずかに届かないため、本文より下の階層はここから下を使う
+$color-gray-820: #737373;
+$color-gray-850: #6c6c6c; // 上に対して一段濃い(5.03:1)
 $color-gray-900: #333;
 $color-gray-1000: #08131a;
 
@@ -103,6 +107,9 @@ $color-dark-gray-100: #ffffff;
 $color-dark-gray-200: #e6edf3;
 $color-dark-gray-300: #c9d1d9;
 $color-dark-gray-400: #8b949e;
+// 暗い背景(#1a1f27)でWCAG AAの4.5:1を満たす最も暗いグレー(実測4.54:1)。
+// #808080は4.19:1で届かない
+$color-dark-gray-450: #868686;
 $color-dark-gray-500: #808080;
 $color-dark-gray-600: #3b434b;
 $color-dark-gray-700: #30363d;
@@ -188,9 +195,16 @@ $light-bg-archive-category: $color-code-dark-200;
 $light-bg-archive-category-hover: color.adjust($light-bg-archive-category, $lightness: +15%);
 $light-bg-btn-hover: $color-light-balanced-200;
 
+// 本文より下の階層は2つある。
+//   --text-low-priority: 記事内の補助テキスト (引用 / 投稿日時 / ページ内目次のリンク など)
+//   --text-light:        ページの付帯情報 (記事下フッタ / ページ末尾フッタ / ページャーの矢印)
+//
+// どちらも小さい文字(12.8-14.4px)でWCAGの大きなテキストの例外に当たらないため、4.5:1以上が要る。
+// 本文(16.5:1)と4.5:1の間に区別できる2段を置く余地はなく、2色のΔL*は2.8しかない。
+// 「階層が色で見える」ことは狙わず、意味の切り分けと文字サイズ(本文16pxに対し12.8-14.4px)に任せる
 $light-text-body: $color-light-balanced-1000;
-$light-text-low-priority: $color-gray-800;
-$light-text-light: $color-gray-600;
+$light-text-low-priority: $color-gray-850; // 5.03:1
+$light-text-light: $color-gray-820; // 4.54:1 (AAの下限)
 $light-text-header: $color-gray-900;
 $light-text-archive-category: $color-gray-100;
 $light-text-header-visited: color.adjust($light-text-header, $lightness: +30%);
@@ -249,8 +263,8 @@ $dark-bg-archive-category-hover: color.adjust($dark-bg-archive-category, $lightn
 $dark-bg-btn-hover: $color-dark-gray-1000;
 
 $dark-text-body: $color-dark-gray-200;
-$dark-text-low-priority: $color-dark-gray-400;
-$dark-text-light: $color-dark-gray-500;
+$dark-text-low-priority: $color-dark-gray-400; // 5.38:1
+$dark-text-light: $color-dark-gray-450; // 4.54:1 (AAの下限)
 $dark-text-header: $color-dark-gray-200;
 $dark-text-archive-category: $color-dark-gray-200;
 $dark-text-header-visited: color.adjust($dark-text-header, $lightness: -30%);
