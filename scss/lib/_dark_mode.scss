@@ -20,6 +20,17 @@ html[data-enable-dark-mode="true"] {
 //
 // ページ最上部ではてなのUI帯の裏に隠れないよう、--hatena-ui-band-offsetのぶん押し下げる
 // (_core.scssを参照)。
+//
+// コンテナ自身はクリックを受け取らない。
+// ドロップダウンを開くとコンテナの幅がドロップダウン(150px以上)に合わせて広がるが、
+// 背景を持たないため見た目は変わらず当たり判定だけが伸びる。
+// このコンテナはz-index: 1000で目次ボタン(同じく1000)より後ろのDOMにあるため、
+// 広がった透明な領域が目次ボタンや本文の上に乗ってクリックを奪ってしまう。
+// pointer-events: noneで透明な部分を素通りさせ、実体のある子だけがautoに戻す。
+//
+// ドロップダウン外クリックでの自動クローズはdocumentのclickをcontainer.contains()で
+// 判定しており(js/dark-mode.js)、ヒットテストではなくイベントターゲットを見ているため
+// この変更の影響を受けない。目次ボタンを押せばドロップダウンが閉じて目次が開く。
 .theme-toggle-container {
     position: fixed;
     top: calc(1rem + var(--hatena-ui-band-offset));
@@ -28,6 +39,11 @@ html[data-enable-dark-mode="true"] {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    pointer-events: none;
+
+    > * {
+        pointer-events: auto;
+    }
 
     // スマートフォンは本文が全幅のため、上部の右端に置くとブログタイトルや見出しに必ず重なる。
     // Zennが浮遊メニューを画面下部に置いているのと同じ考え方で、下部に逃がす。

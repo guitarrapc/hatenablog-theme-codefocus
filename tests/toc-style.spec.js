@@ -1,7 +1,7 @@
 // @ts-check
 import { test, getHatenaUiBand } from './helpers.js';
 import { expect } from '@playwright/test';
-import { TEST_URLS, SELECTORS } from './constants.js';
+import { TEST_URLS, SELECTORS, TIMEOUTS } from './constants.js';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
@@ -636,6 +636,65 @@ test.describe('目次スタイルの詳細テスト', () => {
       expect(placement.hasToggle).toBe(false);
       // ダークモードボタンのぶんの余白を空けず、画面右端に寄せる
       expect(placement.tocButtonRight).toBeCloseTo(FLOATING_UI_RIGHT, 0);
+    });
+
+    // .theme-toggle-containerはドロップダウンを開くと幅がドロップダウンに合わせて広がる。
+    // 背景を持たないため見た目は変わらないが、当たり判定だけが目次ボタンの上まで伸びて
+    // クリックを奪ってしまっていた。透明な部分を素通りさせる指定(_dark_mode.scss)の検証。
+    test(`ダークモードのドロップダウンを開いても目次ボタンを操作できる(${viewport.name})`, async ({ page }) => {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+      await expect(page.locator(SELECTORS.TOC_BUTTON)).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
+      await expect(page.locator(SELECTORS.THEME_TOGGLE_MAIN)).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
+
+      await page.locator(SELECTORS.THEME_TOGGLE_MAIN).click();
+      await expect(page.locator(SELECTORS.THEME_TOGGLE_DROPDOWN)).toHaveClass(/show/);
+
+      // ドロップダウンを開いた状態で、目次ボタンの矩形がヒットテストで自分自身を返すこと。
+      // 中央だけだと端の欠けを見逃すため、対角の2点も見る
+      const hits = await page.evaluate((selector) => {
+        const button = document.querySelector(selector);
+        if (!button) return null;
+        const box = button.getBoundingClientRect();
+        /** @type {[number, number][]} */
+        const points = [
+          [box.left + box.width / 2, box.top + box.height / 2],
+          [box.left + 5, box.top + 5],
+          [box.right - 5, box.bottom - 5],
+        ];
+        return points.map(([x, y]) => {
+          const hit = document.elementFromPoint(x, y);
+          return !!hit && !!button.contains(hit);
+        });
+      }, SELECTORS.TOC_BUTTON);
+
+      expect(hits).toEqual([true, true, true]);
+
+      // 実際にクリックが通り、目次が開くこと(ここが本来の不具合)
+      await page.locator(SELECTORS.TOC_BUTTON).click();
+      await expect(page.locator(SELECTORS.FLOATING_TOC)).toHaveClass(/show/);
+
+      // 浮遊するパネルは1つだけにする。両方開くと重なって目次の先頭が読めなくなる
+      await expect(page.locator(SELECTORS.THEME_TOGGLE_DROPDOWN)).not.toHaveClass(/show/);
+    });
+
+    test(`目次を開いた状態でダークモードボタンを押すと目次が閉じる(${viewport.name})`, async ({ page }) => {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+      await expect(page.locator(SELECTORS.TOC_BUTTON)).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
+      await expect(page.locator(SELECTORS.THEME_TOGGLE_MAIN)).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
+
+      await page.locator(SELECTORS.TOC_BUTTON).click();
+      await expect(page.locator(SELECTORS.FLOATING_TOC)).toHaveClass(/show/);
+
+      await page.locator(SELECTORS.THEME_TOGGLE_MAIN).click();
+      await expect(page.locator(SELECTORS.THEME_TOGGLE_DROPDOWN)).toHaveClass(/show/);
+      await expect(page.locator(SELECTORS.FLOATING_TOC)).not.toHaveClass(/show/);
+
+      // 回帰確認: ドロップダウンの選択肢はこれまで通り操作できる
+      await page.locator(SELECTORS.THEME_TOGGLE_OPTION).nth(1).click();
+      await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+      await expect(page.locator(SELECTORS.THEME_TOGGLE_DROPDOWN)).not.toHaveClass(/show/);
     });
   }
 });

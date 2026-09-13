@@ -175,10 +175,13 @@
       }
     }
 
-    // Set click event
+    // Set click event.
+    // Deliberately let the event bubble to document. The outside-click handler below already
+    // excludes this button and the panel via contains(), so stopping propagation buys nothing
+    // here - it only prevents the dark mode script's outside-click handler from closing its
+    // dropdown, leaving both floating panels open on top of each other.
     tocButton.addEventListener('click', function (e) {
       e.preventDefault();
-      e.stopPropagation();
 
       // Don't allow toggle on wide screens (always show)
       if (!isWideScreen()) {

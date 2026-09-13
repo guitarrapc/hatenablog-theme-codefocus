@@ -60,6 +60,8 @@ export const SELECTORS = {
   // ダークモード関連
   THEME_TOGGLE_CONTAINER: '.theme-toggle-container',
   THEME_TOGGLE_MAIN: '.theme-toggle-main',
+  THEME_TOGGLE_DROPDOWN: '.theme-toggle-dropdown',
+  THEME_TOGGLE_OPTION: '.theme-toggle-option',
 
   // レイアウト関連
   CONTAINER: '#container',

@@ -140,9 +140,12 @@
       dropdown.appendChild(button);
     });
 
-    // Main button click event
-    mainButton.addEventListener('click', (e) => {
-      e.stopPropagation();
+    // Main button click event.
+    // Deliberately let the event bubble to document. The outside-click handler below already
+    // excludes the container via contains(), so stopping propagation buys nothing here - it
+    // only prevents the TOC button script's outside-click handler from closing the floating
+    // TOC, leaving both floating panels open on top of each other.
+    mainButton.addEventListener('click', () => {
       toggleDropdown();
     });
 

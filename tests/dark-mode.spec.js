@@ -248,4 +248,21 @@ test.describe('ダークモード機能のテスト', () => {
     expect(dropdown?.opensUpward).toBe(true);
     expect(dropdown?.inViewport).toBe(true);
   });
+
+  test('配布用のcustomize-dark-mode.htmlはjs/dark-mode.jsと同じ処理である', async ({ page }) => {
+    const html = fs.readFileSync(path.resolve(__dirname, '../customize-dark-mode.html'), 'utf-8');
+    const js = fs.readFileSync(path.resolve(__dirname, '../js/dark-mode.js'), 'utf-8');
+    // 正規表現ではなくブラウザのHTMLパーサーでscript要素を取り出す(DOMParserはスクリプトを実行しない)
+    const scripts = await page.evaluate((source) => Array.from(new DOMParser().parseFromString(source, 'text/html').scripts)
+      .map((script) => script.textContent ?? ''), html);
+    expect(scripts).toHaveLength(1);
+
+    // インデントとコメント行を除いて比較する
+    const normalize = (/** @type {string} */ code) => code
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('//') && !line.startsWith('/**') && !line.startsWith('*'))
+      .join('\n');
+    expect(normalize(scripts[0])).toBe(normalize(js));
+  });
 });
