@@ -868,13 +868,17 @@ table {
     //
     // 記事下はセクションが縦に積み重なるため、各セクションが上にも下にも線を引くと
     // 境界で二重になり、下に行くほど線の間隔が詰まって見える。
-    // 「セクションの境界に1本だけ」を原則にして、色もサイドバーのモジュールタイトルと
-    // 同じ--border-lightに揃える(近接する線で色が違うとノイズになる)
+    // 「セクションの境界に1本だけ」を原則にし、色も--border-lightに揃える
+    // (近接する線で色が違うとノイズになる)。
+    //
+    // 境界の示し方は、テーマで支配的な「見出しの下に線」に合わせる。
+    // 記事内のh1/h2、関連記事、サイドバーのモジュールタイトルはすべてborder-bottomで、
+    // ブロックの上に線を引いているのはここだけだった。
+    // 見出しを持たないページャーだけは上線で境界を示す(他に手がないため)
     .comment-box {
         position: relative;
-        margin: 1em 0;
-        // 関連記事との境界
-        border-top: 1px solid var(--border-light);
+        // 上に線を引かない代わりに、関連記事との間を余白で空ける
+        margin: 2.5em 0 1em;
         padding: 0 10px 0 10px; // 関連記事と合わせる
 
         .comment {
@@ -887,14 +891,17 @@ table {
                 font-size: 0.9rem;
             }
 
+            // セクションの見出し。関連記事やサイドバーのモジュールタイトルと同じく、
+            // 見出しの下に線を引いて境界を示す
             &::before {
                 content: "Discussion";
                 display: flex; // フレックスボックスを使用して中央配置
                 width: 100%;
                 font-weight: bold;
                 font-size: 1.2em;
-                padding-top: 15px;
-                padding-bottom: 10px;
+                padding-bottom: 8px;
+                margin-bottom: 6px;
+                border-bottom: 1px solid var(--border-light);
             }
         }
 
