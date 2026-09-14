@@ -44,7 +44,7 @@ PCでは、コンテンツを中心に配置し、サイドバーが下部に移
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| [f:id:guitarrapc_tech:20260914165617p:plainalt=PC表示] | [f:id:guitarrapc_tech:20260914165643p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20260914165703p:plain:alt=スマートフォン表示] |
+| [f:id:guitarrapc_tech:20260914165617p:plain:alt=PC表示] | [f:id:guitarrapc_tech:20260914165643p:plain:alt=タブレット表示] | [f:id:guitarrapc_tech:20260914165703p:plain:alt=スマートフォン表示] |
 
 <!-- | screenshots/pc-article-top.png | screenshots/tablet-article-top.png | screenshots/smartphone-article-top.png | -->
 
