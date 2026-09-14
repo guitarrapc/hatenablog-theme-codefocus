@@ -1,13 +1,16 @@
 [![Build](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/build.yaml/badge.svg)](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/build.yaml)
 [![Release](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/release.yaml/badge.svg)](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/release.yaml)
 
+<div align="center">
+
+# <img src="./assets/logo_mark.png" alt="" height="32"> CodeFocus
+
+**A single-column theme designed to make technical articles easy to write.**
+
 English | [日本語](README-ja.md)
 
-## CodeFocus
+</div>
 
-![logo](./logo.png)
-
-A single-column theme designed to make technical articles easy to write.
 Responsive design ensures optimal display on all screen sizes: mobile, tablet, and PC.
 
 Prioritizing article readability with a clean design that removes unnecessary decorations, allowing readers to focus on the content.

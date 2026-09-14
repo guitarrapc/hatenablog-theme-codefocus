@@ -22,8 +22,9 @@
 | capture-theme-store-catch.js | テーマストアキャッチ画像をキャプチャするスクリプト |
 | customize-*.html | はてなブログのカスタマイズ用HTML |
 | LICENSE | ライセンスファイル |
-| logo.png | テーマのロゴ画像 |
-| logo_large.png | テーマのロゴ画像(大) |
+| assets/logo.png | テーマのロゴ画像 |
+| assets/logo_large.png | テーマのロゴ画像(大) |
+| assets/logo_mark.png | テーマのロゴ画像(READMEの見出し用に余白を除去) |
 | package-lock.json | npmのパッケージロックファイル |
 | package.json | npmのパッケージファイル |
 | playwright.config.js | Playwrightの設定ファイル |

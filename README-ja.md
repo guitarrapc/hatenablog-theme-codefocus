@@ -1,13 +1,16 @@
 [![Build](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/build.yaml/badge.svg)](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/build.yaml)
 [![Release](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/release.yaml/badge.svg)](https://github.com/guitarrapc/hatenablog-theme-codefocus/actions/workflows/release.yaml)
 
+<div align="center">
+
+# <img src="./assets/logo_mark.png" alt="" height="32"> CodeFocus
+
+**技術記事の執筆しやすさを追求したシングルカラムのテーマ**
+
 [English](README.md) | 日本語
 
-## CodeFocus
+</div>
 
-![logo](./logo.png)
-
-技術記事の執筆しやすさを追求したシングルカラムのテーマです。
 レスポンシブデザインで、モバイル・タブレット・PCすべての画面サイズで最適表示されます。
 
 記事の読みやすさを最優先に、余計な装飾を省いたデザインで文章に集中できます。
