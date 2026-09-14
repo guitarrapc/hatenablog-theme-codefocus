@@ -345,7 +345,7 @@ const __dirname = path.dirname(__filename);
 
                 // アクティブアイテムのハイライトが適用されるのを確認
                 const isActiveHighlighted = await page.evaluate(() => {
-                  const activeItem = document.querySelector('.floating-toc-list .toc-active');
+                  const activeItem = document.querySelector('.floating-toc-list .active');
                   return activeItem != null;
                 });
 
@@ -514,6 +514,86 @@ const __dirname = path.dirname(__filename);
       }
     } else {
       console.log('コードブロックが見つかりませんでした');
+    }
+
+    // アラート記法のスクリーンショット
+    console.log('アラート記法のスクリーンショット取得中...');
+    await page.goto('https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601');
+    await page.waitForLoadState('networkidle');
+
+    try {
+      // アラートはブログ側に貼ったcustomize-alert.htmlが引用を変換して作るため、変換後の要素を待つ
+      const firstAlert = page.locator('.entry-content .markdown-alert').first();
+      await firstAlert.waitFor({ state: 'visible', timeout: 10000 });
+
+      // 5種類のアラートを1枚に収める。先頭を画面中央に寄せてから、
+      // 先頭と末尾の位置からクリップ範囲を組み立てる
+      await page.evaluate(() => {
+        const first = document.querySelector('.entry-content .markdown-alert');
+        if (first) first.scrollIntoView({ behavior: 'instant', block: 'center' });
+      });
+      await page.waitForTimeout(500);
+
+      const alertClip = await page.evaluate(() => {
+        const items = document.querySelectorAll('.entry-content .markdown-alert');
+        if (items.length === 0) return null;
+
+        const first = items[0].getBoundingClientRect();
+        const last = items[items.length - 1].getBoundingClientRect();
+        const padding = 16;
+        // クリップがビューポートをはみ出すとスクリーンショットが失敗するため、画面内に収める
+        const top = Math.max(first.top - padding, 0);
+        const bottom = Math.min(last.bottom + padding, window.innerHeight);
+        return {
+          x: Math.max(first.left - padding, 0),
+          y: top,
+          width: first.width + padding * 2,
+          height: bottom - top
+        };
+      });
+
+      if (alertClip) {
+        await page.screenshot({ path: 'articles/screenshots/pc-alert.png', clip: alertClip });
+        console.log('✓ アラート記法のスクリーンショットを撮影しました');
+
+        // ダークモードのアラート
+        console.log('ダークモードのアラート記法のスクリーンショット取得中...');
+        await page.evaluate(() => {
+          // @ts-ignore
+          if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+            // @ts-ignore
+            window.darkModeJs.applyTheme('dark');
+            return true;
+          }
+          return false;
+        }).then(result => {
+          if (!result) console.log('警告: ダークモードのJavaScript関数が見つかりませんでした');
+        });
+        await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
+
+        // テーマを変えても要素の位置は変わらないため、同じクリップ範囲を使う
+        await page.screenshot({ path: 'articles/screenshots/pc-alert-dark.png', clip: alertClip });
+        console.log('✓ ダークモードのアラート記法のスクリーンショットを撮影しました');
+
+        // 以降のスクリーンショットに影響しないようライトモードに戻す
+        console.log('ライトモードに戻しています...');
+        await page.evaluate(() => {
+          // @ts-ignore
+          if (window.darkModeJs && typeof window.darkModeJs.applyTheme === 'function') {
+            // @ts-ignore
+            window.darkModeJs.applyTheme('light');
+            return true;
+          }
+          return false;
+        }).then(result => {
+          if (!result) console.log('警告: ライトモードのJavaScript関数が見つかりませんでした');
+        });
+        await page.waitForTimeout(1000); // テーマ切り替えのアニメーションを待つ
+      } else {
+        console.log('アラートが見つかりませんでした');
+      }
+    } catch (error) {
+      console.error('アラート記法のスクリーンショット取得中にエラーが発生しました:', error);
     }
 
     // コメントセクションのスクリーンショット
@@ -827,6 +907,8 @@ const __dirname = path.dirname(__filename);
  * - pc-code-block-with-copy-button.png: コピーボタン表示状態
  * - pc-code-block-tooltip.png: ツールチップ表示状態
  * - pc-code-block-copied.png: コピー成功状態
+ * - pc-alert.png: アラート記法
+ * - pc-alert-dark.png: ダークモードのアラート記法
  * - pc-comment-section.png: コメントセクション
  * - pc-related-entries.png: 関連記事
  * - pc-archive-grid.png: アーカイブページのグリッド
