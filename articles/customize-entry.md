@@ -573,7 +573,7 @@ CodeFocusテーマでは、コメントセクションもZennのDiscussionスタ
 
 | PC表示 | タブレット表示 | スマートフォン表示 |
 | --- | --- | --- |
-| [f:id:guitarrapc_tech:20260212181416p:plain:alt=PC表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20260212181437p:plain:alt=タブレット表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20260212181453p:plain:alt=スマートフォン表示のコメントセクションのスクリーンショット] |
+| [f:id:guitarrapc_tech:20260914165346p:plain:alt=PC表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20260914165420p:plain:alt=タブレット表示のコメントセクションのスクリーンショット] | [f:id:guitarrapc_tech:20260914165436p:plain:alt=スマートフォン表示のコメントセクションのスクリーンショット] |
 
 <!-- | screenshots/pc-comment-section.png | screenshots/tablet-comment-section.png | screenshots/smartphone-comment-section.png | -->
 
