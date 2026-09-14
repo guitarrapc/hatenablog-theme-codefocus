@@ -20,8 +20,6 @@ CodeFocusテーマは、基本的なスタイリングからアニメーショ�
 
 CodeFocusテーマは、CSS変数（カスタムプロパティ）を使用して色を管理しています。これにより、簡単にテーマ全体の色を統一的に変更できます。
 
-テーマ側で色を設定しているため、残念ながらはてなブログの「デザイン設定」→「カスタマイズ」→「背景色」からの色変更は反映されません。色をカスタマイズするには、以下の方法でCSS変数を上書きしてください。
-
 ### CSS変数の上書き方法
 
 色をカスタマイズする最も効率的な方法は、`:root`セレクタでCSS変数を上書きすることです。以下に主要なCSS変数の一覧を示します：
@@ -86,7 +84,7 @@ CodeFocusテーマは、CSS変数（カスタムプロパティ）を使用し�
 
 ### 背景色の変更例
 
-背景色を変更するには、以下のようにCSS変数を上書きします：
+テーマの背景色を変更するには、以下のようにCSS変数を上書きします：
 
 ```css
 :root {
@@ -94,7 +92,149 @@ CodeFocusテーマは、CSS変数（カスタムプロパティ）を使用し�
 }
 ```
 
-**注意**: CodeFocusテーマは、はてなブログの「デザイン設定」→「カスタマイズ」→「背景画像」で設定した背景画像にも対応しています。目次などの要素は半透明または透明の背景になっており、背景画像が透けて見えるようになっています。
+**注意**: 上記の`--background`は、はてなブログの「デザイン」→「カスタマイズ」→背景で背景色/背景画像を設定していない場合に使われます。背景を設定した場合はそちらが優先されます(ダークモード時のみ、本文が読めなくならないようテーマ側の背景色が優先されます)。目次などの要素は半透明または透明の背景になっており、背景が透けて見えるようになっています。
+
+### 背景画像・背景色を設定したときのフローティングUIの色調整
+
+はてなブログの「デザイン」→「カスタマイズ」→背景画像や背景色を設定すると、記事本文の背後にも背景が表示されます。このとき、画面右上（スマートフォンでは右下）に浮いているUIは既定のままなので、背景によっては浮いて見えます。
+
+| 要素 | セレクタ | 既定の背景色 |
+| --- | --- | --- |
+| フローティング目次ボタン | `.toc-button` | `--bg-semi-transparent`（半透明） |
+| フローティング目次 | `.floating-toc` | `--bg-semi-transparent`（半透明） |
+| ダークモードボタン | `.theme-toggle-main` | `--background`（不透明） |
+| ダークモードのメニュー | `.theme-toggle-dropdown` | `--background`（不透明） |
+
+目次側は半透明、ダークモードボタン側は不透明なので、2つが並んだときに透け具合が揃えると見やすくなります。
+
+#### 透け具合を揃える
+
+ダークモードボタンも目次と同じ半透明の変数に揃えると、透け具合が統一できます。
+
+```css
+:root {
+  --bg-semi-transparent: rgba(250, 250, 250, 0.75); /* 透け具合を調整 */
+}
+
+.theme-toggle-main,
+.theme-toggle-dropdown {
+  background-color: var(--bg-semi-transparent);
+}
+```
+
+#### 背景になじませる（すりガラス）
+
+背後をぼかして透かすすりガラス表現もできます。
+
+```css
+.toc-button,
+.floating-toc,
+.theme-toggle-main,
+.theme-toggle-dropdown {
+  background-color: rgba(255, 255, 255, 0.45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+```
+
+#### 暗い背景画像に合わせる
+
+暗い背景画像では、ライトテーマの暗い文字が背景に沈んで読めなくなります。記事本文とフローティングUIの両方を明るい配色へ振り替えます。以下の値はテーマのダークテーマの配色に揃えてあります。
+
+記事本文は`:root`でまとめて上書きします。
+
+```css
+:root {
+  /* 文字 */
+  --text-body: #e6edf3;               /* 本文 */
+  --text-header: #e6edf3;             /* 見出し */
+  --text-low-priority: #a9b3bd;       /* 投稿日時・引用・ページ内目次 */
+  --text-light: #9aa4ae;              /* 記事下フッタ・ページャー */
+
+  /* リンク */
+  --link: #58a6ff;
+  --link-hover: #72b4ff;
+  --link-visited: #b392f0;
+  --link-bg: rgba(56, 139, 253, 0.1);
+
+  /* 罫線 */
+  --border: #545c66;
+  --border-hover: #6e7883;
+  --border-light: #4a525c;
+  --border-bq: #5a636e;
+
+  /* 背景を持つパーツ */
+  --bg-light: #232a34;                /* 薄い背景 */
+  --bg-code: #272f3b;                 /* コードブロック */
+  --bg-code-light: #303a48;
+  --bg-span: rgba(59, 87, 115, 0.67); /* インラインコード */
+  --bg-btn-hover: #1a1d21;
+  --bg-archive-category: #1a1d21;     /* サイドバーのカテゴリー */
+  --text-archive-category: #e6edf3;
+  --table-th-bg: #161b22;
+  --table-border: #545c66;
+
+  /* 目次 */
+  --toc-border-bg: #203a5d;
+  --toc-marker: #58a6ff;
+  --bg-toc-hover: rgba(56, 139, 253, 0.1);
+}
+```
+
+フローティングUIは、変数を3つの要素の中だけで上書きすると、背景・枠線・文字・アイコンがまとめて反転します。記事本文の色には影響しません。
+
+```css
+.toc-button,
+.floating-toc,
+.theme-toggle-container {
+  --bg-semi-transparent: rgba(26, 31, 39, 0.75); /* 目次ボタン・フローティング目次の背景 */
+  --background: rgba(26, 31, 39, 0.75);          /* ダークモードボタン・メニューの背景 */
+  --bg-btn-hover: rgba(48, 54, 61, 0.85);        /* ホバー時の背景 */
+  --bg-toc-hover: rgba(48, 54, 61, 0.85);        /* 選択中の目次項目の背景 */
+  --border: rgba(255, 255, 255, 0.3);            /* 枠線 */
+  --border-hover: rgba(255, 255, 255, 0.5);      /* ホバー時の枠線 */
+  --text-body: #e6edf3;                          /* 文字とアイコン */
+  --text-low-priority: #b9c3cd;                  /* 目次の非アクティブ項目 */
+}
+```
+
+文字色を変えたくない場合は、背景画像を飾りとして残し、本文だけ明るい下地の上に置く方法もあります。
+
+```css
+#content-inner {
+  background-color: rgba(250, 250, 250, 0.94);
+  border-radius: 8px;
+}
+```
+
+下地の外にあるブログタイトルやパンくずは背景画像の上に残るため、必要に応じて文字色を調整してください。
+
+```css
+#title a,
+#blog-description {
+  color: #e6edf3;
+}
+```
+
+#### ダークモードと背景画像を併用するときの注意
+
+はてなブログの背景画像は`body`の`background-image`として設定されます。テーマがダークモードで指定するのは`background-color`なので、ダークモードにしても背景画像は消えません。明るい背景画像のままダークモードにすると、明るい画像の上に明るい文字が乗って本文が読みづらくなります。
+
+ダークモードのときだけ背景画像を消すには、以下を追加します。
+
+```css
+/* ダークモードを明示的に選んだとき */
+html[data-enable-dark-mode="true"][data-theme="dark"] body {
+  background-image: none;
+}
+
+/* テーマを明示的に選んでおらず、システム設定がダークのとき */
+@media (prefers-color-scheme: dark) {
+  html[data-enable-dark-mode="true"]:not([data-theme="light"]):not([data-theme="dark"]) body {
+    background-image: none;
+  }
+}
+```
 
 ### リンク色の変更例
 
@@ -680,21 +820,31 @@ html[data-theme="dark"] {
 
 ### ダークモードボタンの位置調整
 
-ダークモードの切り替えボタンの位置を調整したい場合は、以下のようなCSSを追加できます：
+ダークモードの切り替えボタンの位置を調整したい場合は、ボタンとメニューを包む`.theme-toggle-container`を指定します。
+
+PCでは画面上部に固定されており、ページ最上部ではてなのUI帯に隠れないよう`--hatena-ui-band-offset`のぶん押し下げています。位置を変えるときもこの変数を残してください。スマートフォンでは本文が全幅になるため、ボタンは画面下部に配置されます。`top`ではなく`bottom`で調整します。
 
 ```css
 /* ダークモード切り替えボタンの位置調整 */
-.theme-switch-container {
-  top: 5rem;         /* 上からの位置を調整 */
-  right: 2rem;       /* 右からの位置を調整 */
+.theme-toggle-container {
+  top: calc(3rem + var(--hatena-ui-band-offset)); /* 上からの位置を調整 */
+  right: 2rem;                                    /* 右からの位置を調整 */
 }
 
-/* モバイル向けの調整 */
+/* スマートフォンでは画面下部に出るため、下からの位置で調整する */
 @media (max-width: 767px) {
-  .theme-switch-container {
-    top: 4rem;
+  .theme-toggle-container {
+    bottom: 2rem;
     right: 1rem;
   }
+}
+```
+
+フローティング目次ボタンは、ダークモードボタンと重ならないよう`--toc-button-right`（既定はダークモードボタンの直径2.5rem + 間隔0.5rem + 右余白1rem）で左にずらしています。`right`を変えたときは、目次ボタン側も合わせて調整してください。
+
+```css
+:root {
+  --toc-button-right: 5rem; /* ダークモードボタンのrightを2remにした場合の例 */
 }
 ```
 
