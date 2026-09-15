@@ -144,7 +144,7 @@ First, configure [Hatena Blog](https://blog.hatena.ne.jp/).
 Start the development server with the following command. Replace `BLOG_DOMAIN_NAME` with the domain name of the blog you prepared for testing (e.g., `example.hatenablog.com`).
 
 ```shell
-$ npm start -- guitarrapc-theme.hatenablog.com
+npm start -- guitarrapc-theme.hatenablog.com
 ```
 
 Once completed, the theme under development will be reflected in your testing blog. Access the blog and develop the theme while checking the display.
@@ -155,7 +155,7 @@ Start the server in a separate terminal.
 Run tests:
 
 ```shell
-$ npm run test
+npm run test
 ```
 
 ### Compile for Production
@@ -163,7 +163,7 @@ $ npm run test
 When theme development is complete, compile SCSS with the following command. The compilation result is output to `build/style.css`.
 
 ```shell
-$ npm run build
+npm run build
 ```
 
 The compiled CSS can be used by pasting it into Hatena Blog's "Design" -> "Customize" -> "Design CSS".
