@@ -20,7 +20,7 @@
     "autoprefixer": "^10.5.0",
     "baseline-browser-mapping": "2.11.20",
     "normalize.css": "^8.0.1",
-    "sass": "^1.103.1",
+    "sass": "^1.104.0",
     "vite": "^8.2.0"
   }
 }
