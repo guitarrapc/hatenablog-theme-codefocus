@@ -168,3 +168,27 @@ npm run build
 
 The compiled CSS can be used by pasting it into Hatena Blog's "Design" -> "Customize" -> "Design CSS".
 Use the content of `build/style.css` for CSS uploaded to the store as well.
+
+### Measure with Lighthouse
+
+Run Lighthouse against an entry of the development blog and write the scores and reports to `lighthouse-report/`. Chrome is required.
+
+```shell
+npm run lighthouse
+```
+
+By default it measures a production-equivalent page. Without changing any Hatena Blog settings, a local HTTPS proxy rewrites the development blog's responses as follows:
+
+- Removes the `http://localhost:5173` tags added to the `head` element
+- Replaces the "Design CSS" content with `build/style.css`
+- Inserts `customize-*.html` below the blog title
+
+The development server does not need to be running. `openssl` is used to create a self-signed certificate for the proxy (it ships with Git for Windows).
+
+You can specify the URL, device, and number of runs. With multiple runs, the report of the run with the median Performance score is saved.
+
+```shell
+npm run lighthouse -- https://guitarrapc-theme.hatenablog.com/entry/2025/05/17/015533 --form=desktop --runs=3
+```
+
+To measure the page as loaded from the development server, use `npm run lighthouse:dev`. Its Performance score does not match production because it loads unminified SCSS/JS and `@vite/client`.

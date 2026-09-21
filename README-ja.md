@@ -168,3 +168,27 @@ $ npm run build
 
 コンパイルされたCSSは、はてなブログの「デザイン」->「カスタマイズ」->「デザインCSS」に貼り付けて利用することができます。
 ストアにアップロードするCSSも同様に `build/style.css` の内容を利用してください。
+
+### Lighthouseで計測する
+
+開発用ブログの記事に対してLighthouseを実行し、スコアとレポートを `lighthouse-report/` に出力します。Chromeが必要です。
+
+```shell
+$ npm run lighthouse
+```
+
+既定では本番相当の状態を計測します。はてなブログの設定は変更せず、ローカルのHTTPSプロキシで開発用ブログの応答を次のように書き換えます。
+
+- `head`要素に追加した `http://localhost:5173` のタグを取り除く
+- 「デザインCSS」の中身を `build/style.css` に差し替える
+- `customize-*.html` を「ブログタイトル下」に挿入する
+
+開発サーバーを起動しておく必要はありません。プロキシの自己署名証明書を作るため`openssl`を使います(Git for Windowsに同梱されています)。
+
+計測するURL、端末、回数を指定できます。複数回実行した場合は、Performanceスコアが中央値の回のレポートを保存します。
+
+```shell
+$ npm run lighthouse -- https://guitarrapc-theme.hatenablog.com/entry/2025/05/17/015533 --form=desktop --runs=3
+```
+
+開発サーバーから読み込んだ状態をそのまま計測する場合は `npm run lighthouse:dev` を使います。ただし未圧縮のSCSS/JSや`@vite/client`を読み込むため、Performanceは本番と一致しません。
