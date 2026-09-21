@@ -29,11 +29,7 @@ $floating-ui-gap: 0.5rem; // ボタン同士の間隔
 $theme-toggle-size: 2.5rem; // ダークモードボタンの直径
 $theme-toggle-size-xs: 2.2rem;
 
-// コードブロックのボタン (コピー / 折り返し切り替え)
-//
-// ボタンはpreの上に重ねて置くため、余白はpreのpadding(15px, _core.scssを参照)と揃える。
-// タッチ端末ではホバーがなく常時表示にするので、この寸法からコード1行目を逃がす
-// 上余白を算出する(_codeblock.scssを参照)
+// コードブロックのボタン (コピー / 折り返し切り替え)。配置の考え方は component-specs.md の「コードブロックコピー機能」を参照
 $code-button-size: 28px;
 $code-button-margin: 15px;
 $code-button-gap: 5px; // 常時表示のとき、ボタンの下端とコード1行目の間に空ける距離
@@ -118,7 +114,7 @@ $color-dark-gray-1000: #1a1d21;
 $color-dark-gray-1100: #161b22;
 $color-dark-gray-1200: #0d1117;
 
-// Gray系 (Dark mode - Dimmed variant / GitHub Dark Dimmed風のブルーティントを持つダークグレー)
+// Gray系 (Dark mode - Dimmed variant)
 $color-dark-dimmed-100: #303a48;
 $color-dark-dimmed-200: #272f3b;
 $color-dark-dimmed-300: #232a34;
@@ -211,7 +207,7 @@ $light-link-visited: $color-alert-purple-500;
 $light-link-bg: $color-alpha-blue-30;
 
 $light-border: $color-gray-400;
-$light-border-hover: color.adjust($light-border, $lightness: -20%); // ホバーでボーダーを一段濃くする
+$light-border-hover: color.adjust($light-border, $lightness: -20%);
 $light-border-light: $color-gray-500;
 $light-border-bq: $color-gray-700;
 
@@ -274,7 +270,7 @@ $dark-link-visited: $color-purple-470;
 $dark-link-bg: $color-alpha-blue-50;
 
 $dark-border: $color-dark-gray-700;
-$dark-border-hover: color.adjust($dark-border, $lightness: +20%); // 暗い背景では逆に一段明るくする
+$dark-border-hover: color.adjust($dark-border, $lightness: +20%);
 $dark-border-light: $color-dark-gray-750;
 $dark-border-bq: $color-dark-gray-600;
 
@@ -326,11 +322,8 @@ $dark-codeblock-language-colors: (
     "comment": $color-dark-gray-420
 );
 
-// ライトテーマのCSS変数一式。
-//
-// :root(_core.scss)と印刷用(_print.scss)の両方から使う。
-// 紙は白地固定なので、印刷時は画面のテーマに関わらずこの値へ戻す必要があるが、
-// 定義を2箇所に書くと片方だけ更新されて崩れるため、mixinで一本化している。
+// ライトテーマのCSS変数一式。:root(_core.scss)と印刷用(_print.scss)の両方から使う
+// (light-theme-accessibility-spec.md の「印刷」を参照)
 @mixin light-theme-variables {
     --background: #{$light-background};
     --bg-light: #{$light-bg-light};

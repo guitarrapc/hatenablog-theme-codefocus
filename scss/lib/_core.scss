@@ -882,7 +882,7 @@ table {
                 a {
                     font-size: 0.85em;
                     color: var(--text-low-priority);
-                    // サイドバーの日付リンクと同じく、WCAG 2.5.8(24x24px)のタップ領域を確保する
+                    // タップ領域を24px確保する(theme-design-spec.md の「タップ領域」を参照)
                     display: inline-flex;
                     align-items: center;
                     min-height: 24px;
@@ -1249,9 +1249,7 @@ table {
         .urllist-date-link a {
             font-size: 0.85em;
             color: var(--text-low-priority);
-            // 文字が小さくインラインのままだとタップ領域が高さ11px程度しかなく、
-            // スマホでは隣接リンクと近接してWCAG 2.5.8(24x24px)の間隔例外も満たせない。
-            // 記事下の関連記事(.entry-footer)も同じ指定をしている
+            // タップ領域を24px確保する(theme-design-spec.md の「タップ領域」を参照)
             display: inline-flex;
             align-items: center;
             min-height: 24px;
@@ -1473,12 +1471,7 @@ table {
                     grid-area: title;
                 }
 
-                // 日時。薄さは色(--text-low-priority)で表現するので、opacityは自分で持つ。
-                //
-                // はてな側のCSSが.recent-comment-timeにopacity: 0.7を当てており、
-                // このclassは括弧のspanと中身のtimeの両方に付くため0.49まで乗算される。
-                // 指定色は5.03:1でも実際に描かれるのは1.99:1で、AA Large(3:1)すら下回っていた。
-                // このセレクタはspanとtimeの両方に当たるので、1つ書けば入れ子ごと打ち消せる
+                // 日時。はてな側のopacityを打ち消し、薄さは色で表現する(light-theme-accessibility-spec.md の「補助テキスト」を参照)
                 .recent-comment-time {
                     grid-area: date;
                     color: var(--text-low-priority);
@@ -1739,8 +1732,7 @@ table {
 
         @media #{var.$mq-xs} {
             margin: 0 10px 0 0; // 右に余白を与える
-            // width: 100%だと余白ぶん右にはみ出し、画像の右に見えないリンク領域が10pxでき、
-            // 右隣の小さなリンク(ブックマーク数)に接してしまう。画像の幅に合わせる
+            // 画像の幅に合わせる(theme-design-spec.md の「タップ領域」を参照)
             width: auto;
             padding: 0;
         }
@@ -1777,8 +1769,7 @@ table {
         a {
             color: var(--text-low-priority);
             text-decoration: none;
-            // .7remの文字のままだとタップ領域が高さ12px程度になり、
-            // "test"のような短いカテゴリ名は幅も24pxに届かない(WCAG 2.5.8)
+            // タップ領域を24px確保する(theme-design-spec.md の「タップ領域」を参照)
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -1810,13 +1801,7 @@ table {
             margin-top: .2em;
             line-height: 1em;
 
-            // ブックマーク0件だとカウンター画像が1x1pxになり、幅5.5pxほどのリンクだけが残る。
-            // 透明なリンクがスターに密着していると、スターを押したつもりでブックマークへ飛んでしまう。
-            // 幅を24px確保すると0件時に空白ができてスターが23pxずれる(0件かはCSSで判定できない)ため、
-            // 高さだけ24pxにし、周囲との間隔でWCAG 2.5.8の間隔例外を満たす(中心から半径12pxに他のリンクを置かない)。
-            // - 右のスターとは8px空ける(境目は7px前後なので端数の誤差を見込む)
-            // - スマホでは左に10px離れてサムネイルがあるので、0件時の1pxのリンクを4pxに広げて中心を右に寄せる。
-            //   件数画像がある時は4pxより広いので、本文の左端と揃ったままになる
+            // 高さだけ24pxにし、周囲との間隔で間隔の例外を満たす(theme-design-spec.md の「タップ領域」を参照)
             .bookmark-widget-counter {
                 display: inline-flex;
                 align-items: center;
