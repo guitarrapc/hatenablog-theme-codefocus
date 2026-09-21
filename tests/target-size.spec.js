@@ -45,7 +45,8 @@ test.describe('タップ領域のサイズ (WCAG 2.5.8)', () => {
     await page.navigateTo(TEST_URLS.HOME, { waitFor: 'networkidle' });
 
     const results = await page.locator('.archive-entry').evaluateAll(entries => entries.flatMap(entry => {
-      const counter = entry.querySelector('.social-buttons .bookmark-widget-counter')?.getBoundingClientRect();
+      // .bookmark-widget-counterはラッパーではなく<a>そのもの(<a class="bookmark-widget-counter"><img></a>)
+      const counter = entry.querySelector('.social-buttons a.bookmark-widget-counter')?.getBoundingClientRect();
       if (!counter || counter.width === 0) {
         return [];
       }
