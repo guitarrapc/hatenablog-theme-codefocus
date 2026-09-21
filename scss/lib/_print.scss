@@ -84,6 +84,7 @@
 
             --codeblock-language-colors-text: #{map.get(var.$print-codeblock-language-colors, "text")};
             --codeblock-language-colors-keyword: #{map.get(var.$print-codeblock-language-colors, "keyword")};
+            --codeblock-language-colors-preproc: #{map.get(var.$print-codeblock-language-colors, "preproc")};
             --codeblock-language-colors-function: #{map.get(var.$print-codeblock-language-colors, "function")};
             --codeblock-language-colors-punctuation: #{map.get(var.$print-codeblock-language-colors, "punctuation")};
             --codeblock-language-colors-number: #{map.get(var.$print-codeblock-language-colors, "number")};

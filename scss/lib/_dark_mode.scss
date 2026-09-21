@@ -242,6 +242,7 @@ html[data-enable-dark-mode="true"] {
 
         --codeblock-language-colors-text: #{map.get(var.$dark-codeblock-language-colors, "text")};
         --codeblock-language-colors-keyword: #{map.get(var.$dark-codeblock-language-colors, "keyword")};
+        --codeblock-language-colors-preproc: #{map.get(var.$dark-codeblock-language-colors, "preproc")};
         --codeblock-language-colors-function: #{map.get(var.$dark-codeblock-language-colors, "function")};
         --codeblock-language-colors-punctuation: #{map.get(var.$dark-codeblock-language-colors, "punctuation")};
         --codeblock-language-colors-number: #{map.get(var.$dark-codeblock-language-colors, "number")};
@@ -303,6 +304,7 @@ html[data-enable-dark-mode="true"] {
 
         --codeblock-language-colors-text: #{map.get(var.$dark-codeblock-language-colors, "text")};
         --codeblock-language-colors-keyword: #{map.get(var.$dark-codeblock-language-colors, "keyword")};
+        --codeblock-language-colors-preproc: #{map.get(var.$dark-codeblock-language-colors, "preproc")};
         --codeblock-language-colors-function: #{map.get(var.$dark-codeblock-language-colors, "function")};
         --codeblock-language-colors-punctuation: #{map.get(var.$dark-codeblock-language-colors, "punctuation")};
         --codeblock-language-colors-number: #{map.get(var.$dark-codeblock-language-colors, "number")};

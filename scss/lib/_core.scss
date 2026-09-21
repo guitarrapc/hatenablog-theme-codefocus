@@ -514,12 +514,14 @@ table {
     }
 
     /* リンクのスタイルを改善 */
+    // ZennやNoteに倣い下線は引かず色で示し、ホバーとフォーカスで下線を出す(light-theme-accessibility-spec.mdを参照)
     a {
         text-decoration: none;
         transition: color 0.2s ease;
         padding: 0 2px;
 
-        &:hover {
+        &:hover,
+        &:focus-visible {
             text-decoration: underline;
             text-decoration-thickness: 1px;
         }
@@ -719,6 +721,11 @@ table {
     .token.keyword,
     .token.selector {
         color: var(--codeblock-language-colors-keyword);
+    }
+
+    // import / #include など。キーワードと別の色にする(light-theme-accessibility-spec.mdを参照)
+    .synPreProc {
+        color: var(--codeblock-language-colors-preproc);
     }
 
     .synIdentifier,
