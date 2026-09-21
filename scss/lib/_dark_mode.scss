@@ -3,11 +3,7 @@
 @use "./_variable" as var;
 @use "./_functions" as fn;
 
-// 目次ボタンとダークモードボタンはそれぞれ独立して導入できるため、
-// 目次ボタンの位置を「ダークモードボタンがある前提」で決め打ちにはできない。
-// ダークモードのJavaScriptがhtmlへdata-enable-dark-mode="true"を付けるので、
-// それをフックにして目次ボタンをダークモードボタンのぶんだけ左へずらす。
-// 既定値(ダークモードボタンなし)は_core.scssの:rootにある。
+// ダークモードボタンがあるときは、目次ボタンをそのぶん左へずらす (theme-design-spec.md の「固定表示UI」を参照)
 html[data-enable-dark-mode="true"] {
     --toc-button-right: calc(#{var.$floating-ui-right} + #{var.$theme-toggle-size} + #{var.$floating-ui-gap});
 
@@ -17,20 +13,8 @@ html[data-enable-dark-mode="true"] {
 }
 
 // ダークモード切り替えコンテナ
-//
-// ページ最上部ではてなのUI帯の裏に隠れないよう、--hatena-ui-band-offsetのぶん押し下げる
-// (_core.scssを参照)。
-//
-// コンテナ自身はクリックを受け取らない。
-// ドロップダウンを開くとコンテナの幅がドロップダウン(150px以上)に合わせて広がるが、
-// 背景を持たないため見た目は変わらず当たり判定だけが伸びる。
-// このコンテナはz-index: 1000で目次ボタン(同じく1000)より後ろのDOMにあるため、
-// 広がった透明な領域が目次ボタンや本文の上に乗ってクリックを奪ってしまう。
-// pointer-events: noneで透明な部分を素通りさせ、実体のある子だけがautoに戻す。
-//
-// ドロップダウン外クリックでの自動クローズはdocumentのclickをcontainer.contains()で
-// 判定しており(js/dark-mode.js)、ヒットテストではなくイベントターゲットを見ているため
-// この変更の影響を受けない。目次ボタンを押せばドロップダウンが閉じて目次が開く。
+// はてなのUI帯を避けて押し下げる。コンテナ自身はクリックを受け取らず、実体のある子だけが受け取る
+// (component-specs.md の「ダークモード機能」を参照)
 .theme-toggle-container {
     position: fixed;
     top: calc(1rem + var(--hatena-ui-band-offset));
@@ -45,9 +29,7 @@ html[data-enable-dark-mode="true"] {
         pointer-events: auto;
     }
 
-    // スマートフォンは本文が全幅のため、上部の右端に置くとブログタイトルや見出しに必ず重なる。
-    // Zennが浮遊メニューを画面下部に置いているのと同じ考え方で、下部に逃がす。
-    // 下部にははてなのUI帯がないため押し下げも不要になる。
+    // スマートフォンでは画面右下に置く
     @media #{var.$mq-xs} {
         top: auto;
         bottom: 1rem;
@@ -103,8 +85,7 @@ html[data-enable-dark-mode="true"] {
     display: none;
     flex-direction: column;
     background-color: var(--background);
-    // 枠線と影がないと本文の上に開いたときにメニューの範囲が分からないため、
-    // フロート目次(.floating-toc)と同じ表現に揃える
+    // 枠線と影はフロート目次(.floating-toc)と揃える (component-specs.md の「ダークモード機能」を参照)
     border: 1px solid var(--border);
     border-radius: 4px;
     box-shadow: 0 2px 10px var(--shadow);
@@ -179,8 +160,7 @@ html[data-enable-dark-mode="true"] {
     }
 }
 
-// 視差効果を減らす設定では、ドロップダウンを移動させずその場に出す。
-// ボタンのすぐ下に開く小さなメニューなので、フェードを残さず即時表示でも違和感はない
+// 視差効果を減らす設定では、ドロップダウンをその場に即時表示する
 @media (prefers-reduced-motion: reduce) {
     .theme-toggle-dropdown.show {
         animation: none;
@@ -313,12 +293,8 @@ html[data-enable-dark-mode="true"] {
 }
 
 /*
- * ダークテーマのときは背景をテーマが支配する。
- *
- * ライトの背景色はカスケードレイヤーに入れてユーザーの設定に譲るが(_core.scssを参照)、
- * ダークでは譲れない。本文が明るい色になるため、ユーザーが設定した明るい背景が残ると
- * 白地に白文字のような状態になり読めなくなる。
- * レイヤーに入れず、htmlの属性セレクタ込みの詳細度で上書きする。
+ * ダークテーマのときは背景色をテーマが決める (component-specs.md の「ダークモード機能」を参照)。
+ * ライトはカスケードレイヤーでユーザー設定に譲るが、ダークはレイヤーに入れず詳細度で上書きする。
  */
 html[data-enable-dark-mode="true"][data-theme="dark"],
 html[data-enable-dark-mode="true"][data-theme="dark"] body {

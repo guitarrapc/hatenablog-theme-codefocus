@@ -5,30 +5,22 @@
 @use "./_table_of_contents";
 
 :root {
-    // ライトテーマの色はmixinに一本化している。
-    // 紙は白地固定なので、印刷時はこれと同じ値へ戻す(_print.scssを参照)
+    // ライトテーマの色。印刷用と共通のmixin(light-theme-accessibility-spec.md の「印刷」を参照)
     @include var.light-theme-variables;
 
     // 以下はテーマで切り替わらない変数
 
-    // モジュールタイトルの下線。デザインCSSから色と太さを変えられるようにしている。
-    // 既定値は本文の見出し(h1/h2)の下線と揃える。--module-title-border-width: 0 で線を消せる
+    // モジュールタイトルの下線。デザインCSSから変えられる(theme-design-spec.md の「ブログフッター」を参照)
     --module-title-border: var(--border-light);
     --module-title-border-width: 1px;
 
-    // 目次ボタンの右端位置。既定はダークモードボタンがない前提で画面右端に置く。
-    // ダークモードのJavaScriptを導入した場合のみ、その幅ぶん左へずらす(_dark_mode.scssを参照)
+    // 目次ボタンの右端位置。ダークモードボタンがあると_dark_mode.scssで上書きする
     --toc-button-right: #{var.$floating-ui-right};
 }
 
 /*
- * はてなのUI帯(グローバルヘッダ / 「読者になる」ボタン)を避けるための押し下げ量。
- *
- * UI帯はz-index 9997でテーマ側からは上に出せないため、固定表示のUIは本来のtopに
- * --hatena-ui-band-offset を足して縦に避ける。UI帯はスクロールで流れるので、
- * スクロール量に応じて0へ戻し本来の位置に復帰させる。
- * スクロール量に1:1で連動する位置変化であり、position: stickyと同じ性質のため
- * prefers-reduced-motionの対象とはしない。
+ * はてなのUI帯を避けるための押し下げ量。スクロールに応じて0へ戻す
+ * (theme-design-spec.md の「固定表示UI」を参照)
  */
 @property --hatena-ui-band-progress {
     syntax: "<number>";
@@ -57,15 +49,7 @@
     }
 
     // スクロール駆動アニメーションが使えるブラウザでのみ0へ戻す。
-    // 使えない場合は押し下げたままになり、ボタンが隠れる側には倒れない。
-    //
-    // このアニメーションは上の@propertyによる--hatena-ui-band-progressの登録に依存する。
-    // 未登録だと数値として補間されず離散補間になり、範囲の50%地点(=UI帯が半分残っている位置)で
-    // 押し下げが一気に0になってボタンがUI帯の裏へ入る。
-    // ただしどのエンジンも@propertyの方が先に搭載しており(Chrome 85 < 115 / Safari 16.4 < 26 /
-    // Firefox 128 < 144)、スクロール駆動が使えて@propertyが使えない組み合わせは存在しない。
-    // @supportsで@propertyの有無を判定する手段(at-rule())は普及していないため条件には含めない。
-    // 代わりに「押し下げが実際に補間されること」をE2Eテストで検証している。
+    // 上の@propertyによる登録に依存する(theme-design-spec.md の「固定表示UI」を参照)
     @supports (animation-timeline: scroll(root block)) {
         animation: hatena-ui-band-release linear both;
         animation-timeline: scroll(root block);
@@ -73,14 +57,9 @@
     }
 }
 
-// はてなのUI帯が描画されないブログでは押し下げ不要。
-//
-// はてなブログProの「ヘッダを表示しない」設定では #globalheader-container はDOMに残り
-// display: none になるだけなので、要素の有無だけでは判定できない。
-// 設定が有効なときbodyへ付く globalheader-off クラスも判定に使う。
-// (--hatena-ui-band-offsetは:rootで既にvar()が解決されるため、上書きも:rootで行う必要がある。
-//  また:root上のアニメーションは通常宣言より強いため、animation: noneで無効化する)
-// :has()非対応ブラウザではこのルールごと無効になり、押し下げた安全側の既定値が残る。
+// はてなのUI帯が描画されないブログでは押し下げない(theme-design-spec.md の「固定表示UI」を参照)。
+// --hatena-ui-band-offsetは:rootで既にvar()が解決されるため、上書きも:rootで行う。
+// また:root上のアニメーションは通常宣言より強いため、animation: noneで無効化する
 :root:not(:has(#globalheader-container)):not(:has(.blog-controlls)),
 :root:has(body.globalheader-off):not(:has(.blog-controlls)) {
     --hatena-ui-band-progress: 0;
@@ -99,18 +78,8 @@ body {
 }
 
 /*
- * 既定(ライト)の背景色。
- *
- * はてなの「デザイン > カスタマイズ > 背景」やデザインCSSで背景を指定したとき、
- * テーマがそれを潰さないようカスケードレイヤーに入れる。
- * レイヤー内の宣言はレイヤーなしの宣言に必ず負けるため、読み込み順や詳細度に関係なく
- * ユーザーの指定が勝つ。
- *
- * (レイヤーを使わない場合、はてなが出すCSSがテーマより前に置かれると
- *  同じ詳細度でテーマが勝ってしまい、設定しても反映されない。実測で確認済み)
- *
- * @layer非対応ブラウザではこのブロックごと無視され、背景はブラウザ既定の白になる。
- * 文字色は明るい背景を前提にした色なので、読めなくなる側には倒れない。
+ * 既定(ライト)の背景色。ユーザーの背景設定が勝つようカスケードレイヤーに入れる
+ * (theme-design-spec.md の「背景色・背景画像」を参照)
  */
 @layer codefocus-background {
 
@@ -839,7 +808,7 @@ table {
                 "thumbnail date";
             gap: 5px 12px;
             border-radius: 4px;
-            background-color: transparent; // 背景画像との互換性のため透明に設定
+            background-color: transparent; // 背景画像の上でも読めるよう透明にする
             transition: all 0.2s ease;
 
             // サムネイル画像共通スタイル
@@ -897,16 +866,7 @@ table {
     }
 
     /* コメント */
-    //
-    // 記事下はセクションが縦に積み重なるため、各セクションが上にも下にも線を引くと
-    // 境界で二重になり、下に行くほど線の間隔が詰まって見える。
-    // 「セクションの境界に1本だけ」を原則にし、色も--border-lightに揃える
-    // (近接する線で色が違うとノイズになる)。
-    //
-    // 境界の示し方は、テーマで支配的な「見出しの下に線」に合わせる。
-    // 記事内のh1/h2、関連記事、サイドバーのモジュールタイトルはすべてborder-bottomで、
-    // ブロックの上に線を引いているのはここだけだった。
-    // 見出しを持たないページャーだけは上線で境界を示す(他に手がないため)
+    // 区切り線の考え方は theme-design-spec.md の「記事下のセクションの区切り線」を参照
     .comment-box {
         position: relative;
         // 上に線を引かない代わりに、関連記事との間を余白で空ける
@@ -923,8 +883,7 @@ table {
                 font-size: 0.9rem;
             }
 
-            // セクションの見出し。関連記事やサイドバーのモジュールタイトルと同じく、
-            // 見出しの下に線を引いて境界を示す
+            // セクションの見出し。下に線を引いて境界を示す
             &::before {
                 content: "Discussion";
                 display: flex; // フレックスボックスを使用して中央配置
@@ -955,14 +914,7 @@ table {
             margin: 0;
             transition: all 0.2s ease;
 
-            // コメント同士の区切り線。
-            //
-            // 各コメントのborder-bottomではなく、隣接するコメントのborder-topで引く。
-            // border-bottomだと最後のコメントにも線が付き、直後の「コメントを書く」との間に
-            // 区切りの意味を持たない線が1本増える。
-            // :last-childでは消せない: はてなが末尾に非表示の li.read-more-comments
-            // (「もっと読む」)を置いているため、:last-childはそちらに当たる。
-            // 隣接兄弟セレクタならDOMの事情に依存しない
+            // コメント同士の区切り線。隣接するコメントの上に引く(theme-design-spec.md の「コメント」を参照)
             + .entry-comment {
                 border-top: 1px dotted var(--border-light);
             }
@@ -998,10 +950,7 @@ table {
             }
         }
 
-        // 日付のスタイル
-        //
-        // 記事の投稿日時(.entry-date)と同じ「日時」なので同じ変数を使う。
-        // 以前は--text-lightで、同じ種類の情報が記事とコメントで違う色になっていた
+        // 日付のスタイル。記事の投稿日時と同じ色
         .comment-metadata {
             grid-area: metadata;
             color: var(--text-low-priority);
@@ -1057,11 +1006,7 @@ table {
     position: relative;
     padding: 2em 0;
     margin-bottom: 20px;
-    // 前のセクション(コメント欄)との境界。
-    //
-    // 下には引かない。上下に引くとページャーが囲まれた帯に見えて重くなるうえ、
-    // すぐ下(実測55px)にサイドバー先頭のモジュールタイトルの下線が来て二重になる。
-    // サイドバーの始まりは太字のモジュール名とその下線で十分に分かる
+    // 前のセクション(コメント欄)との境界。下には引かない(theme-design-spec.md の「ページャー」を参照)
     border-top: 1px solid var(--border-light);
 
     // 最初のページ(pager-nextだけの場合)に右寄せにする
@@ -1390,10 +1335,7 @@ table {
                 box-shadow: 0 2px 5px var(--shadow-hover);
             }
 
-            // 入力欄は自前の枠線を持たないため、フォーム全体を囲んでフォーカス位置を示す。
-            // :focus-withinでは入力欄と検索ボタンのどちらにフォーカスがあるか区別できないので、
-            // 入力欄のフォーカスだけを対象にする。
-            // (:has()非対応ブラウザでは上のbox-shadowだけが残る)
+            // 入力欄のキーボードフォーカスはフォーム全体を囲んで示す(theme-design-spec.md の「ブログフッター」を参照)
             &:has(.search-module-input:focus-visible) {
                 outline: 2px solid var(--link);
                 outline-offset: 2px;
@@ -1428,8 +1370,7 @@ table {
                 opacity: .85;
             }
 
-            // 入力欄からTabで移ってきたことが分かるよう、ボタン自身にも枠を出す。
-            // 通常は半透明なので、あわせて不透明にする
+            // ボタン自身にもフォーカスの枠を出し、不透明にする
             &:focus-visible {
                 outline: 2px solid var(--link);
                 outline-offset: 2px;
@@ -1515,7 +1456,7 @@ table {
 .hatena-module-title {
     margin-bottom: .6em;
     padding-bottom: .2em;
-    // 本文の見出し(h1/h2)と同じく、padding-bottomと下線をセットで使う
+    // 本文の見出し(h1/h2)と同じく下線を引く
     border-bottom: var(--module-title-border-width) solid var(--module-title-border);
     font-size: 1rem;
     font-weight: bold;
@@ -1642,7 +1583,7 @@ table {
         margin-bottom: .5em;
         padding-bottom: .5em;
         box-sizing: content-box;
-        background-color: transparent; // 背景画像との互換性のため透明に設定
+        background-color: transparent; // 背景画像の上でも読めるよう透明にする
 
         // スマホではサブグリッドを用いて2列
         grid-template-columns: auto 1fr;

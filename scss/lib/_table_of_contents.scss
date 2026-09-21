@@ -4,7 +4,7 @@
 /* 目次のスタイル */
 ul.table-of-contents {
     position: relative;
-    background-color: transparent; // 背景画像との互換性のため透明に設定
+    background-color: transparent; // 背景画像の上でも読めるよう透明にする
     border-radius: 10px;
     border: none;
     transition: all 0.3s ease;
