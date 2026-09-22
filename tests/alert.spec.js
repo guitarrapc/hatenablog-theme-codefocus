@@ -203,21 +203,17 @@ const setupFixture = async (page) => {
  * @param {string} type
  */
 const isIconPainted = async (page, type) => {
+  // タイトル要素そのものを撮って比べる。fullPageで座標を切り取ると、ビューポートが広がった時点で
+  // 画面外の要素の描画後回し(content-visibility: auto)が解けて位置がずれ、別の場所を撮ってしまう
   const title = page.locator(`.entry-content > .markdown-alert-${type} > .markdown-alert-title`).first();
-  await title.scrollIntoViewIfNeeded();
-  const clip = await title.evaluate((el) => {
-    const rect = el.getBoundingClientRect();
-    const size = parseFloat(getComputedStyle(el).fontSize);
-    return { x: rect.left + window.scrollX, y: rect.top + window.scrollY + (rect.height - size) / 2, width: size, height: size };
-  });
-  const withIcon = await page.screenshot({ clip, fullPage: true });
+  const withIcon = await title.screenshot();
   await page.evaluate(() => {
     const style = document.createElement('style');
     style.id = 'hide-alert-icon';
     style.textContent = '.markdown-alert-title::before { visibility: hidden; }';
     document.head.appendChild(style);
   });
-  const withoutIcon = await page.screenshot({ clip, fullPage: true });
+  const withoutIcon = await title.screenshot();
   await page.evaluate(() => document.getElementById('hide-alert-icon')?.remove());
   return !withIcon.equals(withoutIcon);
 };
