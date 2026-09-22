@@ -1,8 +1,7 @@
 @use "./_variable" as var;
 @use "./_functions" as fn;
 
-// GitHubのアラート記法(> [!NOTE] など)をjs/alert.jsで変換した引用のスタイル
-// 種類は色だけでなくアイコンとタイトル文字でも区別する
+// GitHubのアラート記法(> [!NOTE] など)をjs/alert.jsで変換した引用のスタイル (component-specs.md の「アラート記法」を参照)
 .entry-content blockquote.markdown-alert {
     padding: 0.5em 1em;
     border-left: 3px solid var(--alert-color);
@@ -16,7 +15,7 @@
         color: var(--alert-color);
         font-weight: 600;
 
-        // アイコンはmaskで切り抜き、背景色(currentColor)で塗ることでライト/ダークに追従する
+        // アイコンはmaskで切り抜き、currentColorで塗る
         &::before {
             content: "";
             flex-shrink: 0;
@@ -26,10 +25,9 @@
             mask-repeat: no-repeat;
             mask-position: center;
             mask-size: contain;
-            // 背景色で描くアイコンなので、背景を省略する印刷でも消えないようにする
             print-color-adjust: exact;
 
-            // ハイコントラストモードでは背景色が背景と同じ色に強制され消えるため、文字色で描く
+            // ハイコントラストモードでは文字色で描く
             @media (forced-colors: active) {
                 forced-color-adjust: none;
                 background-color: CanvasText;

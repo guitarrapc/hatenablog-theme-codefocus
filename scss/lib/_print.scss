@@ -2,32 +2,21 @@
 @use "./_variable" as var;
 
 /*
- * 印刷用スタイル
- *
- * 紙は横スクロールも開閉操作もできないため、画面と同じ描画では内容が欠落する。
- * 実測ではコードブロックが紙幅を3957px超過して85%が切れ、閉じたdetailsの中身は
- * まったく印刷されなかった。
- * また印刷ダイアログの「背景のグラフィック」は既定でオフのため、暗い背景に載る
- * 前提のコード配色は白地ではほとんど読めない。
- *
- * このファイルはstyle.scssの最後に読み込み、各コンポーネントの指定を
- * !importantなしで上書きできるようにしている。
+ * 印刷用スタイル (theme-design-spec.md の「印刷」を参照)
+ * style.scssの最後に読み込み、各コンポーネントの指定を!importantなしで上書きする
  */
 @media print {
 
-    /* 紙は白地固定なので、画面がダークモードでも印刷はライトの配色で刷る。
-       ダークモードの本文色は白に近く(#e6edf3)、背景が印刷されないと白紙に白文字になり
-       本文がまるごと読めなくなる(実測でコントラスト比1.18)。
-
+    /* 画面がダークモードでもライトの配色で刷る。
        ダークの値は_dark_mode.scssの2つのセレクタに乗っているため、同じ形のセレクタを
-       並べて詳細度を揃え、読み込み順(style.scssの最後)で後勝ちさせる */
+       並べて詳細度を揃え、読み込み順で後勝ちさせる */
     :root,
     html[data-enable-dark-mode="true"][data-theme="dark"],
     html[data-enable-dark-mode="true"]:not([data-theme="light"]):not([data-theme="dark"]) {
         @include var.light-theme-variables;
     }
 
-    /* テーマが置く操作専用のUI。position: fixedの要素はChromeの印刷では全ページに繰り返し出力される。
+    /* テーマが置く操作専用のUI。
        .code-copy-button / .code-wrap-toggle は @extend .code-button だが、
        @extendは@useのモジュール境界を越えないため個別に指定する */
     .toc-button,
@@ -39,11 +28,7 @@
         display: none;
     }
 
-    /* はてなが置く操作専用のUI。紙では押せないうえ、記事の内容でもない。
-       実測でグローバルヘッダ56px、「読者になる」の帯55px、シェアボタン55px、スター30px。
-       .entry-header-menu(記事の編集ボタン)はブログ主にログイン時のみ描画される。
-       コメント欄(.comment-box)は投稿フォームと既存コメントが同居しており、
-       既存コメントは記事の一部とも読めるため対象にしていない */
+    /* はてなが置く操作専用のUI */
     #globalheader-container,
     .blog-controlls,
     .entry-header-menu,
@@ -52,9 +37,7 @@
         display: none;
     }
 
-    /* ナビゲーションであり記事の一部ではない。
-       サイドバーは実測でページ全体の16%(1502px)、記事下の関連記事は271px、
-       ページャー(前の記事/次の記事)は96pxを占める */
+    /* ナビゲーション */
     #box2,
     #entry-footer-secondary-modules,
     .pager {
@@ -63,9 +46,7 @@
 
     .entry-content {
 
-        // 紙は横スクロールできないため必ず折り返す。
-        // .nowrap / .wrap はコードブロックのJavaScriptが付けるクラスで、
-        // JavaScriptを導入していないブログでは素のpreのままになる
+        // 必ず折り返す。.nowrap / .wrap はコードブロックのJavaScriptが付けるクラス
         pre,
         .code-block-wrapper pre.code,
         .code-block-wrapper pre.code.nowrap,
@@ -84,25 +65,26 @@
 
             --codeblock-language-colors-text: #{map.get(var.$print-codeblock-language-colors, "text")};
             --codeblock-language-colors-keyword: #{map.get(var.$print-codeblock-language-colors, "keyword")};
+            --codeblock-language-colors-preproc: #{map.get(var.$print-codeblock-language-colors, "preproc")};
             --codeblock-language-colors-function: #{map.get(var.$print-codeblock-language-colors, "function")};
             --codeblock-language-colors-punctuation: #{map.get(var.$print-codeblock-language-colors, "punctuation")};
             --codeblock-language-colors-number: #{map.get(var.$print-codeblock-language-colors, "number")};
             --codeblock-language-colors-comment: #{map.get(var.$print-codeblock-language-colors, "comment")};
         }
 
-        // 閉じたdetailsは中身が印刷されない。
-        // Chromeが::details-content擬似要素に移行したため、子要素へのdisplay指定だけでは
-        // 開かなくなっている(実測で高さが55pxのまま変わらない)。両方の書き方を残す
+        // 閉じたdetailsの中身も印刷する。古い書き方と::details-contentの両方を残す
         details:not([open]) > *:not(summary) {
             display: block;
         }
 
-        // block-sizeはChromium 151では閉じているときのcontent-visibility: hiddenによる結果で、
-        // content-visibilityを戻すと高さも復帰する(実測で0px→619px)。
-        // ただしUA側でblock-size: 0を独立して当てる実装もありうるため、あわせて戻しておく
         details::details-content {
             content-visibility: visible;
             block-size: auto;
         }
+    }
+
+    // 画面外の描画の後回し(_core.scss)を解除し、すべて描いてから刷る
+    #{var.$deferred-content} {
+        content-visibility: visible;
     }
 }

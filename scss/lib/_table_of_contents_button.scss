@@ -6,9 +6,9 @@
 /* 目次ボタン */
 .toc-button {
     position: fixed;
-    // ページ最上部から表示されるため、はてなのUI帯の裏に隠れないよう押し下げる (_core.scssを参照)
+    // はてなのUI帯を避けて押し下げる (theme-design-spec.md の「ページ右上の目次ボタンで展開される目次」を参照)
     top: calc(1.1rem + var(--hatena-ui-band-offset));
-    // ダークモードボタンの有無で位置が変わる (_dark_mode.scssを参照)
+    // ダークモードボタンの有無で位置が変わる
     right: var(--toc-button-right);
     z-index: 1000;
     display: inline-flex; // インラインフレックスに変更
@@ -16,11 +16,10 @@
     padding: 8px 12px;
     border: 1px solid var(--border);
     border-radius: 4px;
-    background-color: var(--bg-semi-transparent); // 背景画像との互換性のため半透明の白背景に設定
+    background-color: var(--bg-semi-transparent); // 背景画像の上でも読めるよう半透明にする
     font-size: 14px;
     cursor: pointer;
-    // allにするとtopもトランジション対象になり、スクロールに追随して動くはずの押し下げが遅れて滑る。
-    // ホバーで変わるborder-colorだけを対象にする
+    // ホバーで変わる枠線色だけをトランジションする (theme-design-spec.md の「ページ右上の目次ボタンで展開される目次」を参照)
     transition: border-color 0.3s ease;
     white-space: nowrap; // テキスト折り返しを防止
 
@@ -29,7 +28,7 @@
         display: none; // Hide button on wide screens
     }
 
-    // スマートフォンはダークモードボタンと揃えて画面下部に置く (_dark_mode.scssを参照)
+    // スマートフォンでは画面下部に置く
     @media #{var.$mq-xs} {
         top: auto;
         bottom: 1rem;
@@ -69,13 +68,12 @@
 /* フローティング目次コンテナ */
 .floating-toc {
     position: fixed;
-    // ワイド画面では常時表示になるため、ページ最上部では「読者になる」ボタンと重なる。
-    // はてなのUI帯のぶん押し下げて回避する (_core.scssを参照)
+    // ワイド画面では常時表示になるため、はてなのUI帯を避けて押し下げる (theme-design-spec.md の「ページ右上の目次ボタンで展開される目次」を参照)
     top: calc(5em + var(--hatena-ui-band-offset));
     right: 1em;
     width: 250px;
     max-width: 80vw;
-    background-color: var(--bg-semi-transparent); // 背景画像との互換性のため半透明の白背景に設定
+    background-color: var(--bg-semi-transparent); // 背景画像の上でも読めるよう半透明にする
     border: 1px solid var(--border);
     border-radius: 4px;
     box-shadow: 0 2px 10px var(--shadow);
@@ -92,11 +90,11 @@
     overflow-y: auto;
     overflow-x: hidden; // 横方向のスクロールを非表示に
 
-    // スマートフォンでは画面下部の目次ボタンの上へ開く (_dark_mode.scssを参照)
+    // スマートフォンでは画面下部の目次ボタンの上へ開く
     @media #{var.$mq-xs} {
         top: auto;
         bottom: 4rem; // 目次ボタン(高さ約34px)とその余白のぶん空ける
-        // 上端がはてなのUI帯に潜らない高さに抑える。下部配置では押し下げがないため差し引きも不要
+        // 上端がはてなのUI帯に潜らない高さに抑える
         max-height: 60vh;
         transform: translateY(10px); // 下から開くので初期位置を下にずらす
     }
@@ -149,7 +147,7 @@
         width: 100%;
         margin: 0;
         padding: 0;
-        background-color: transparent; // 背景画像との互換性のため透明に設定
+        background-color: transparent; // 背景画像の上でも読めるよう透明にする
         color: var(--text-low-priority);
         border: none;
         border-radius: 4px;
@@ -350,9 +348,8 @@ ul.floating-toc-list {
     }
 }
 
-// 視差効果を減らす設定では、フロート目次をスライドさせずその場でフェードさせる。
-// transformを打ち消すため、後から効く.showや.auto-expanded、スマートフォンの下方向も含めて上書きする。
-// (スクロールに追随する押し下げ --hatena-ui-band-offset はposition: stickyと同じ性質なので対象外。_core.scssを参照)
+// 視差効果を減らす設定では、フロート目次をスライドさせずその場でフェードさせる (theme-design-spec.md の「ページ右上の目次ボタンで展開される目次」を参照)。
+// transformを打ち消すため、後から効く.showや.auto-expanded、スマートフォンの下方向も含めて上書きする
 @media (prefers-reduced-motion: reduce) {
 
     .floating-toc,

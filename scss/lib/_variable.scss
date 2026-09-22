@@ -8,35 +8,27 @@ $mq-sm: "(min-width: 768px)"; // タブレット
 $mq-md: "(min-width: 992px)"; // PC (大き目タブレット)
 $mq-lg: "(min-width: 1200px)"; // Full HD以上
 
-// はてなのUI帯
-// ページ最上部に、はてなのグローバルヘッダ(#globalheader-container, z-index: 9997)と
-// ブログコントロール(.blog-controlls, 「読者になる」ボタン)が描画される。
-// どちらもテーマ側のz-indexでは上に出せないため、固定表示のUIは縦に避ける必要がある。
-// 実測値(記事/アーカイブ/トップの全ページ共通): グローバルヘッダは0-56px、UI帯の下端はPC 105px / SP 117px。
+// はてなのUI帯の高さと、固定表示UIの押し下げ量 (theme-design-spec.md の「固定表示UI」を参照)
 $hatena-ui-band-height: 105px;
 $hatena-ui-band-height-xs: 117px;
 
-// はてなのUI帯を避けるために固定表示UIを押し下げる量
-// 各UIは本来のtopにこの値を足す。UI帯がスクロールで流れたら0に戻る(_core.scssを参照)。
-$hatena-ui-band-offset: 6rem; // 96px: 本来位置(1rem)との合計112pxでPCのUI帯(105px)を避ける
-$hatena-ui-band-offset-xs: 7rem; // 112px: 合計128pxでSPのUI帯(117px)を避ける
+$hatena-ui-band-offset: 6rem;
+$hatena-ui-band-offset-xs: 7rem;
 
 // 固定表示UI(目次ボタン / ダークモードボタン)の横方向の配置
-// 目次ボタンとダークモードボタンはそれぞれ独立して導入できるため、
-// 目次ボタンの位置はダークモードボタンの有無に応じて算出する(_dark_mode.scssを参照)
 $floating-ui-right: 1rem; // 画面右端からの余白
 $floating-ui-gap: 0.5rem; // ボタン同士の間隔
 $theme-toggle-size: 2.5rem; // ダークモードボタンの直径
 $theme-toggle-size-xs: 2.2rem;
 
-// コードブロックのボタン (コピー / 折り返し切り替え)
-//
-// ボタンはpreの上に重ねて置くため、余白はpreのpadding(15px, _core.scssを参照)と揃える。
-// タッチ端末ではホバーがなく常時表示にするので、この寸法からコード1行目を逃がす
-// 上余白を算出する(_codeblock.scssを参照)
+// コードブロックのボタン (コピー / 折り返し切り替え)。配置の考え方は component-specs.md の「コードブロックコピー機能」を参照
 $code-button-size: 28px;
 $code-button-margin: 15px;
 $code-button-gap: 5px; // 常時表示のとき、ボタンの下端とコード1行目の間に空ける距離
+
+// 画面外の描画を後回しにする要素 (theme-design-spec.md の「描画の後回し」を参照)。
+// 印刷で戻すときは詳細度を揃える必要があるため、同じセレクタを使う
+$deferred-content: ".entry-content > :not(.code-block-wrapper, .footnotes, :empty), #box2";
 
 // Font
 $font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', "Noto Sans JP", 'Meiryo', sans-serif, "Segoe UI Emoji";
@@ -66,6 +58,7 @@ $color-blue-350: #cfe5ff;
 $color-blue-400: #bfdcff;
 $color-blue-450: #58a6ff;
 $color-blue-500: #3ea8ff;
+$color-blue-550: #1a85ff;
 $color-blue-600: #0f83fd;
 $color-blue-700: #0868ce;
 $color-blue-800: #0656ac;
@@ -89,10 +82,8 @@ $color-gray-500: #d6e3ed;
 $color-gray-600: #999;
 $color-gray-700: #8f9faa;
 $color-gray-800: #747474;
-// 明るい背景(#fafafa)でWCAG AAの4.5:1を満たす最も薄いグレー(実測4.54:1)。
-// #747474は4.48:1でわずかに届かないため、本文より下の階層はここから下を使う
 $color-gray-820: #737373;
-$color-gray-850: #6c6c6c; // 上に対して一段濃い(5.03:1)
+$color-gray-850: #6c6c6c;
 $color-gray-900: #333;
 $color-gray-1000: #08131a;
 
@@ -107,15 +98,11 @@ $color-dark-gray-100: #ffffff;
 $color-dark-gray-200: #e6edf3;
 $color-dark-gray-300: #c9d1d9;
 $color-dark-gray-400: #8b949e;
-// 暗い背景(#1a1f27)でWCAG AAの4.5:1を満たす最も暗いグレー(実測4.54:1)。
-// #808080は4.19:1で届かない
+$color-dark-gray-420: #959ea8;
 $color-dark-gray-450: #868686;
 $color-dark-gray-500: #808080;
 $color-dark-gray-600: #3b434b;
 $color-dark-gray-700: #30363d;
-// 暗い背景(#1a1f27)に対して1.25:1。ライトの--border-light(#d6e3ed on #fafafa)と同じ見え方で、
-// --border(#30363d, 1.36:1)よりは控えめという関係をダークでも保つための値。
-// #21262dは1.09:1で背景とほぼ同色になり、線を引いても見えなかった
 $color-dark-gray-750: #2a3039;
 $color-dark-gray-800: #21262d;
 $color-dark-gray-900: #1e232a;
@@ -123,7 +110,7 @@ $color-dark-gray-1000: #1a1d21;
 $color-dark-gray-1100: #161b22;
 $color-dark-gray-1200: #0d1117;
 
-// Gray系 (Dark mode - Dimmed variant / GitHub Dark Dimmed風のブルーティントを持つダークグレー)
+// Gray系 (Dark mode - Dimmed variant)
 $color-dark-dimmed-100: #303a48;
 $color-dark-dimmed-200: #272f3b;
 $color-dark-dimmed-300: #232a34;
@@ -138,9 +125,11 @@ $color-pink-500: #ff8fa3;
 $color-cyan-500: #38c7ff;
 $color-purple-400: #939bc1;
 $color-purple-500: #6F2DBD;
+$color-purple-450: #bc8cff;
+$color-purple-470: #9e69f7;
 $color-yellow-500: #ffc56d;
 
-// Alert系 (GitHubのアラート配色。ライト/ダーク背景とも4.5:1以上)
+// Alert系
 $color-alert-blue-500: #0969da;
 $color-alert-green-500: #1a7f37;
 $color-alert-purple-500: #8250df;
@@ -182,8 +171,7 @@ $color-alpha-black-40: rgba(0, 0, 0, 0.4);
 // fixed colors variable for svg
 $svg-code-copy-bg: $color-alpha-light-gray-75;
 
-// コードブロックはライト/ダークどちらのテーマでも背景が暗いため、フォーカスリングは明るい色で固定する
-// (--linkはライトテーマだと暗すぎてコードブロック上で見えない)
+// 選定理由は light-theme-accessibility-spec.md の「コードブロック上のフォーカスリング」を参照
 $code-button-focus-ring: $color-blue-450;
 
 // ライトモード
@@ -199,28 +187,23 @@ $light-bg-archive-category: $color-code-dark-200;
 $light-bg-archive-category-hover: color.adjust($light-bg-archive-category, $lightness: +15%);
 $light-bg-btn-hover: $color-light-balanced-200;
 
-// 本文より下の階層は2つある。
-//   --text-low-priority: 記事内の補助テキスト (引用 / 投稿日時 / ページ内目次のリンク など)
-//   --text-light:        ページの付帯情報 (記事下フッタ / ページ末尾フッタ / ページャーの矢印)
-//
-// どちらも小さい文字(12.8-14.4px)でWCAGの大きなテキストの例外に当たらないため、4.5:1以上が要る。
-// 本文(16.5:1)と4.5:1の間に区別できる2段を置く余地はなく、2色のΔL*は2.8しかない。
-// 「階層が色で見える」ことは狙わず、意味の切り分けと文字サイズ(本文16pxに対し12.8-14.4px)に任せる
+// 本文より下の階層(--text-low-priority / --text-light)の使い分けと選定理由は light-theme-accessibility-spec.md の「補助テキスト」を参照
 $light-text-body: $color-light-balanced-1000;
-$light-text-low-priority: $color-gray-850; // 5.03:1
-$light-text-light: $color-gray-820; // 4.54:1 (AAの下限)
+$light-text-low-priority: $color-gray-850;
+$light-text-light: $color-gray-820;
 $light-text-header: $color-gray-900;
 $light-text-archive-category: $color-gray-100;
 $light-text-header-visited: color.adjust($light-text-header, $lightness: +30%);
 $light-text-code-tooltip: $color-dark-gray-300;
 
-$light-link: $color-blue-800;
+// リンク色の選定理由は light-theme-accessibility-spec.md の「採用値」を参照
+$light-link: $color-alert-blue-500;
 $light-link-hover: $color-blue-900;
-$light-link-visited: $color-purple-500;
+$light-link-visited: $color-alert-purple-500;
 $light-link-bg: $color-alpha-blue-30;
 
 $light-border: $color-gray-400;
-$light-border-hover: color.adjust($light-border, $lightness: -20%); // ホバーでボーダーを一段濃くする
+$light-border-hover: color.adjust($light-border, $lightness: -20%);
 $light-border-light: $color-gray-500;
 $light-border-bq: $color-gray-700;
 
@@ -228,7 +211,6 @@ $light-shadow: $color-alpha-black-08;
 $light-shadow-light: $color-alpha-black-05;
 $light-shadow-hover: $color-alpha-black-12;
 
-// スクロールバーのつまみ。パネルの背景に対して見える色を選ぶ (明るい背景なので黒の半透明)
 $light-scrollbar-thumb: $color-alpha-black-20;
 
 $light-toc-border-bg: $color-blue-300;
@@ -244,16 +226,18 @@ $light-alert-important: $color-alert-purple-500;
 $light-alert-warning: $color-alert-yellow-500;
 $light-alert-caution: $color-alert-red-500;
 
+// コードハイライト色の選定理由は light-theme-accessibility-spec.md の「コードハイライト」を参照
 $light-codeblock-language-colors: (
     "text": $color-gray-100,
     "keyword": $color-pink-500,
+    "preproc": $color-purple-450,
     "function": $color-cyan-500,
     "punctuation": $color-purple-400,
     "number": $color-yellow-500,
-    "comment": $color-dark-gray-400
+    "comment": $color-dark-gray-420
 );
 
-// ダークモード - GitHub Dark Dimmed風の配色で、読みやすさと快適さを重視
+// ダークモード (配色の検討経緯は dark-theme-color-review.md を参照)
 $dark-background: $color-dark-dimmed-400;
 $dark-background-semi-transparent: $color-alpha-dark-dimmed-95; // 背景画像対応用の半透明背景
 $dark-bg-light: $color-dark-dimmed-300;
@@ -267,28 +251,29 @@ $dark-bg-archive-category-hover: color.adjust($dark-bg-archive-category, $lightn
 $dark-bg-btn-hover: $color-dark-gray-1000;
 
 $dark-text-body: $color-dark-gray-200;
-$dark-text-low-priority: $color-dark-gray-400; // 5.38:1
-$dark-text-light: $color-dark-gray-450; // 4.54:1 (AAの下限)
+// 補助テキスト・境界線・スクロールバーの選定理由は dark-theme-accessibility-spec.md の「補助テキスト」を参照
+$dark-text-low-priority: $color-dark-gray-400;
+$dark-text-light: $color-dark-gray-450;
 $dark-text-header: $color-dark-gray-200;
 $dark-text-archive-category: $color-dark-gray-200;
 $dark-text-header-visited: color.adjust($dark-text-header, $lightness: -30%);
 $dark-text-code-tooltip: $color-dark-gray-300;
 
-$dark-link: $color-blue-450;
-$dark-link-hover: color.adjust($dark-link, $lightness: +5%);
-$dark-link-visited: color.adjust($dark-link, $lightness: -10%, $saturation: -15%);
+// リンク色の選定理由は dark-theme-accessibility-spec.md の「採用値」を参照
+$dark-link: $color-blue-550;
+$dark-link-hover: $color-blue-450;
+$dark-link-visited: $color-purple-470;
 $dark-link-bg: $color-alpha-blue-50;
 
-$dark-border: $color-dark-gray-700; // 1.36:1
-$dark-border-hover: color.adjust($dark-border, $lightness: +20%); // 暗い背景では逆に一段明るくする
-$dark-border-light: $color-dark-gray-750; // 1.25:1
+$dark-border: $color-dark-gray-700;
+$dark-border-hover: color.adjust($dark-border, $lightness: +20%);
+$dark-border-light: $color-dark-gray-750;
 $dark-border-bq: $color-dark-gray-600;
 
 $dark-shadow: $color-alpha-black-30;
 $dark-shadow-light: $color-alpha-black-20;
 $dark-shadow-hover: $color-alpha-black-40;
 
-// 暗いパネルの上では黒の半透明は見えないため、白の半透明にする
 $dark-scrollbar-thumb: $color-alpha-white-25;
 
 $dark-toc-border-bg: $color-dark-blue-100;
@@ -307,10 +292,7 @@ $dark-alert-caution: $color-alert-red-300;
 $dark-code-copy-success-bg: $color-green-600;
 $dark-code-copy-failed-bg: $color-red-600;
 
-// 印刷用
-// 紙は白地で、印刷ダイアログの「背景のグラフィック」は既定でオフのため、
-// 暗い背景に載る前提のコード配色は使えない。
-// 色はライト背景で4.5:1以上を満たすことが確認済みのAlert系を流用する。
+// 印刷用 (選定理由は light-theme-accessibility-spec.md の「印刷」を参照)
 $print-code-bg: $color-gray-100;
 $print-code-text: $color-light-balanced-1000;
 $print-code-border: $color-gray-600;
@@ -318,26 +300,26 @@ $print-code-border: $color-gray-600;
 $print-codeblock-language-colors: (
     "text": $color-light-balanced-1000,
     "keyword": $color-alert-purple-500,
+    "preproc": $color-alert-red-500,
     "function": $color-alert-blue-500,
     "punctuation": $color-light-balanced-1000,
     "number": $color-alert-yellow-500,
     "comment": $color-gray-800
 );
 
+// コードハイライト色の選定理由は dark-theme-accessibility-spec.md の「コードハイライト」を参照
 $dark-codeblock-language-colors: (
     "text": $color-gray-100,
     "keyword": $color-pink-500,
+    "preproc": $color-purple-450,
     "function": $color-cyan-500,
     "punctuation": $color-purple-400,
     "number": $color-yellow-500,
-    "comment": $color-dark-gray-400
+    "comment": $color-dark-gray-420
 );
 
-// ライトテーマのCSS変数一式。
-//
-// :root(_core.scss)と印刷用(_print.scss)の両方から使う。
-// 紙は白地固定なので、印刷時は画面のテーマに関わらずこの値へ戻す必要があるが、
-// 定義を2箇所に書くと片方だけ更新されて崩れるため、mixinで一本化している。
+// ライトテーマのCSS変数一式。:root(_core.scss)と印刷用(_print.scss)の両方から使う
+// (light-theme-accessibility-spec.md の「印刷」を参照)
 @mixin light-theme-variables {
     --background: #{$light-background};
     --bg-light: #{$light-bg-light};
@@ -390,6 +372,7 @@ $dark-codeblock-language-colors: (
 
     --codeblock-language-colors-text: #{map.get($light-codeblock-language-colors, "text")};
     --codeblock-language-colors-keyword: #{map.get($light-codeblock-language-colors, "keyword")};
+    --codeblock-language-colors-preproc: #{map.get($light-codeblock-language-colors, "preproc")};
     --codeblock-language-colors-function: #{map.get($light-codeblock-language-colors, "function")};
     --codeblock-language-colors-punctuation: #{map.get($light-codeblock-language-colors, "punctuation")};
     --codeblock-language-colors-number: #{map.get($light-codeblock-language-colors, "number")};

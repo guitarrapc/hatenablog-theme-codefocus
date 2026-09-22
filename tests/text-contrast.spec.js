@@ -26,9 +26,9 @@ const TARGETS = {
   // 指定色ではなく実際に描かれる色で見ないと見逃す
   最近のコメントの日時: '.hatena-module-recent-comments time.recent-comment-time',
   ページ末尾フッタ: '#footer p',
-  // #footerの最初のリンクははてなが置く「はてなブログをはじめる(無料)」ボタンで、
-  // 白文字に緑背景をはてな側のCSSが当てている。テーマが色を決めていないので対象にしない
   ページ末尾フッタのリンク: '#footer .services a',
+  // はてなが置くボタン。はてな既定の白文字に緑背景(2.97:1)をテーマが丸囲みのボタンに上書きしている
+  はてなブログをはじめるボタン: '#footer .guest-footer-btn a.btn',
 };
 
 const measure = (/** @type {any} */ page, /** @type {Record<string,string>} */ targets) => page.evaluate((targets) => {

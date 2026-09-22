@@ -78,6 +78,32 @@ test.describe('印刷スタイルのテスト', () => {
     });
   });
 
+  test('印刷時は画面外の本文も描画される', async ({ page }) => {
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+    // 画面外にある最後の段落を測る。描画を後回しにしている間は仮の高さ(contain-intrinsic-size)になる。
+    // 中身のテキストにRangeを張っても高さが返ってくる(実測17px)ので、要素自身の高さで見分ける
+    const measureLast = () => page.evaluate(() => {
+      const paragraphs = [...document.querySelectorAll('.entry-content > p')].filter((el) => el.textContent?.trim());
+      const el = paragraphs[paragraphs.length - 1];
+      return {
+        offscreen: el.getBoundingClientRect().top > innerHeight,
+        contentVisibility: getComputedStyle(el).contentVisibility,
+        height: el.getBoundingClientRect().height,
+      };
+    });
+    const screen = await measureLast();
+    // 前提: 画面では画面外の段落の描画を後回しにしていること
+    expect(screen.offscreen).toBe(true);
+    expect(screen.contentVisibility).toBe('auto');
+
+    await page.emulateMedia({ media: 'print' });
+    const print = await measureLast();
+    // 画面用のセレクタより詳細度が低いと戻せない(theme-design-spec.md の「描画の後回し」を参照)
+    expect(print.contentVisibility).toBe('visible');
+    // 仮の高さから実際の高さに変わっていること
+    expect(print.height).not.toBe(screen.height);
+  });
+
   test('印刷時に操作専用のUIとサイドバーが出力されない', async ({ page }) => {
     await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
     await expect(page.locator('.toc-button')).toBeVisible({ timeout: 15000 });

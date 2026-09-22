@@ -10,7 +10,7 @@
     margin: 0;
     font-weight: bold;
     color: var(--text-body);
-    background-color: transparent; // 背景画像との互換性のため透明に設定
+    background-color: transparent; // 背景画像の上でも読めるよう透明にする
     border-radius: 10px 10px 0 0;
     border-bottom: 1px solid var(--border);
     user-select: none;
@@ -71,7 +71,7 @@
 .toc-content {
     transition: max-height 0.3s ease;
 
-    // スクロールバーの出現条件 (table-of-contentsの上位で設定しないと、縦線がスクロールバーの範囲までしか描画されない)
+    // スクロールバーの出現条件。table-of-contentsの上位で設定する (theme-design-spec.md の「記事本文中の目次」を参照)
     max-height: 70vh; // 画面の高さの70%までに制限 - toggleと同じ大きさに調整する
     overflow-y: auto; // 縦方向にスクロール可能に
     overflow-x: hidden; // 横方向のスクロールを非表示に
@@ -113,8 +113,7 @@ ul.table-of-contents {
     border-radius: 0 0 10px 10px;
 }
 
-// 視差効果を減らす設定では、記事内目次の開閉を即座に行う。
-// 開くと以降の本文が540px前後まとめて下がるため、テーマ内で最も移動量が大きい
+// 視差効果を減らす設定では、記事内目次の開閉を即座に行う (theme-design-spec.md の「記事本文中の目次」を参照)
 @media (prefers-reduced-motion: reduce) {
     .toc-content {
         transition: none;
