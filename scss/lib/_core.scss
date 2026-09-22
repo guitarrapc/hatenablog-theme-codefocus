@@ -1774,3 +1774,24 @@ table {
         margin: .5em auto;
     }
 }
+
+/*
+ * 画面外の描画を後回しにして、最初の表示を軽くする
+ * (theme-design-spec.md の「描画の後回し」を参照)
+ */
+#{var.$deferred-content} {
+    content-visibility: auto;
+    // まだ描いていない要素の仮の高さ。本文直下の要素の平均(実測42〜126px)に合わせる
+    contain-intrinsic-size: auto 100px;
+}
+
+#box2 {
+    contain-intrinsic-size: auto 2000px; // サイドバー全体で1要素なので大きめにする(実測2173px)
+}
+
+// 包含により末尾の子のマージンがリストの外へ相殺されなくなるため、リスト自身のマージンに任せる
+.entry-content > :is(ul, ol) li:last-child,
+.entry-content > :is(ul, ol) li:last-child > :last-child,
+.entry-content > dl > :last-child {
+    margin-bottom: 0;
+}

@@ -82,4 +82,9 @@
             block-size: auto;
         }
     }
+
+    // 画面外の描画の後回し(_core.scss)を解除し、すべて描いてから刷る
+    #{var.$deferred-content} {
+        content-visibility: visible;
+    }
 }

@@ -38,6 +38,9 @@ test.describe('引用の余白', () => {
     await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'domcontentloaded' });
     await page.waitForFunction(() => getComputedStyle(document.documentElement).getPropertyValue('--border-bq') !== '');
     await page.evaluate((html) => document.querySelector('.entry-content')?.insertAdjacentHTML('beforeend', html), FIXTURE);
+    // 本文の要素は画面外にある間はレイアウトされない(content-visibility: auto)ため、測る前に画面内へ入れる
+    await page.locator('#bq-end').scrollIntoViewIfNeeded();
+    await page.locator('#bq-paragraph').scrollIntoViewIfNeeded();
   });
 
   test('最後の要素が段落以外でも、引用の上下の余白が揃う', async ({ page }) => {
