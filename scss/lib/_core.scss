@@ -1773,6 +1773,25 @@ table {
     p {
         margin: .5em auto;
     }
+
+    // はてなが置く「はてなブログをはじめる(無料)」ボタン。
+    // はてな既定の緑地に白文字は2.97:1で読みにくいため、記事のカテゴリと同じ丸囲みのボタンにする
+    // (theme-design-spec.md の「ブログフッター」を参照)
+    .guest-footer-btn a.btn {
+        display: inline-block;
+        padding: .5em 1.4em;
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        background-color: var(--background);
+        // はてな側が文字色を !important で当てている(#footer .guest-footer .btn と .btn-register)ため、
+        // 詳細度では勝てず !important が要る
+        color: var(--text-body) !important;
+
+        &:hover {
+            border-color: var(--border-hover);
+            background-color: var(--bg-btn-hover);
+        }
+    }
 }
 
 /*
