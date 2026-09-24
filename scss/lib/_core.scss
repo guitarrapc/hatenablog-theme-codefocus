@@ -1809,8 +1809,6 @@ table {
 }
 
 // 包含により末尾の子のマージンがリストの外へ相殺されなくなるため、リスト自身のマージンに任せる
-.entry-content > :is(ul, ol) li:last-child,
-.entry-content > :is(ul, ol) li:last-child > :last-child,
 .entry-content > dl > :last-child {
     margin-bottom: 0;
 }
