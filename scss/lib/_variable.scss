@@ -28,7 +28,7 @@ $code-button-gap: 5px; // 常時表示のとき、ボタンの下端とコード
 
 // 画面外の描画を後回しにする要素 (theme-design-spec.md の「描画の後回し」を参照)。
 // 印刷で戻すときは詳細度を揃える必要があるため、同じセレクタを使う
-$deferred-content: ".entry-content > :not(.code-block-wrapper, .footnotes, :empty), #box2";
+$deferred-content: ".entry-content > :not(.code-block-wrapper, .footnotes, ul, ol, :empty), #box2";
 
 // Font
 $font-family-base: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", 'Helvetica Neue', 'Helvetica', "Noto Sans JP", 'Meiryo', sans-serif, "Segoe UI Emoji";
