@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
-    "autoprefixer": "^10.5.0",
+    "autoprefixer": "^10.6.1",
     "baseline-browser-mapping": "2.11.20",
     "chrome-launcher": "^1.2.1",
     "lighthouse": "^13.4.1",
