@@ -37,7 +37,7 @@ If you want to use JavaScript customizations, follow the setup instructions belo
 
 Download the latest version of `theme-VERSION.zip`. For example, if the version is v1.6.1, it will be `theme-1.6.1.zip`.
 
-- https://github.com/guitarrapc/HatenaBlog-Theme/releases/latest
+- https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/latest
 
 The package contains the stylesheet `style.css` and HTML files for theme configuration. The stylesheet is automatically applied when you install the theme from the theme store, so you don't need to manually paste style.css.
 
