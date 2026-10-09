@@ -22,9 +22,9 @@
     "autoprefixer": "^10.6.1",
     "baseline-browser-mapping": "2.11.20",
     "chrome-launcher": "^1.2.1",
-    "lighthouse": "^13.4.1",
+    "lighthouse": "^13.5.0",
     "normalize.css": "^8.0.1",
-    "sass": "^1.104.0",
+    "sass": "^1.105.0",
     "vite": "^8.3.0"
   }
 }
