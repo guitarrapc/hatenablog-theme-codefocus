@@ -56,13 +56,18 @@ test.describe('タップ領域のサイズ (WCAG 2.5.8)', () => {
         ['スター', entry.querySelector('.social-buttons .star-container')],
         ['サムネイル', entry.querySelector('.entry-thumb-link')],
       ].flatMap(([neighbor, el]) => {
-        const r = el?.getBoundingClientRect();
-        if (!r || r.width === 0) {
+        // 行ごとの矩形で測る。スターが多くて折り返すと、インラインの.star-containerのgetBoundingClientRect()は
+        // 行をまたいだ外接矩形になり、スターのない場所(1行目の行頭にあるブックマーク数)まで覆ってしまう
+        const rects = el ? [...el.getClientRects()].filter(r => r.width > 0) : [];
+        if (rects.length === 0) {
           return [];
         }
-        const dx = Math.max(r.left - cx, 0, cx - r.right);
-        const dy = Math.max(r.top - cy, 0, cy - r.bottom);
-        return [{ neighbor, width: counter.width, height: counter.height, distance: Math.hypot(dx, dy) }];
+        const distance = Math.min(...rects.map(r => {
+          const dx = Math.max(r.left - cx, 0, cx - r.right);
+          const dy = Math.max(r.top - cy, 0, cy - r.bottom);
+          return Math.hypot(dx, dy);
+        }));
+        return [{ neighbor, width: counter.width, height: counter.height, distance }];
       });
     }));
 

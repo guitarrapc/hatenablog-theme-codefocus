@@ -12,6 +12,8 @@ export const TEST_URLS = {
   SAMPLE_ARTICLE_EN: '/entry/2026/01/08/004234',
   /** コードハイライト記事 */
   CODE_HIGHLIGHT: '/entry/2025/05/12/131258',
+  /** 段落の中にリンクのある記事（Fixture: 文字と段落） */
+  ARTICLE_WITH_LINKS: '/entry/2026/10/08/224737',
   /** アーカイブページ */
   ARCHIVE: '/archive/author/guitarrapc_tech',
   /** トップページ */

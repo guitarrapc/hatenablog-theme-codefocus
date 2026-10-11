@@ -22,7 +22,7 @@ import * as chromeLauncher from "chrome-launcher";
 import lighthouse from "lighthouse";
 import desktopConfig from "lighthouse/core/config/desktop-config.js";
 
-const DEFAULT_URL = "https://guitarrapc-theme.hatenablog.com/entry/2025/05/17/015533";
+const DEFAULT_URL = "https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601";
 const DEV_SERVER = "http://localhost:5173";
 const USERCSS_HOST = "usercss.blog.st-hatena.com";
 const CUSTOMIZE_FILES = [

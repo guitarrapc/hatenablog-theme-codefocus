@@ -156,6 +156,30 @@
       });
     }
 
+    // Function to scroll the TOC panel (never the page) so the given link is inside its visible area.
+    // Element.scrollIntoView() is not used here: it also scrolls the page. When the panel is not fixed
+    // to the screen (e.g. this script is left on a blog whose theme has no styles for the panel, so the
+    // panel sits at the bottom of the page), that drags the page down to the panel on every scroll.
+    function scrollTocToLink(link) {
+      // Nothing to do unless the panel scrolls inside
+      if (floatingToc.scrollHeight <= floatingToc.clientHeight) return;
+
+      const visibleTop = floatingToc.getBoundingClientRect().top + floatingToc.clientTop;
+      const visibleBottom = visibleTop + floatingToc.clientHeight;
+      const linkRect = link.getBoundingClientRect();
+
+      // Scroll only as far as needed, and only when the link is outside the visible area
+      let delta = 0;
+      if (linkRect.top < visibleTop) {
+        delta = linkRect.top - visibleTop;
+      } else if (linkRect.bottom > visibleBottom) {
+        delta = linkRect.bottom - visibleBottom;
+      }
+      if (Math.abs(delta) >= 1) {
+        floatingToc.scrollBy({ top: delta, behavior: 'smooth' });
+      }
+    }
+
     // Function to update TOC display based on screen width
     function updateTocDisplay() {
       if (isWideScreen()) {
@@ -285,13 +309,8 @@
               activeLink.parentElement.classList.add('active');
             }
 
-            // Auto-scroll TOC to show active item if it's outside viewport
-            // Use 'nearest' to only scroll when necessary
-            activeLink.scrollIntoView({
-              behavior: 'smooth',
-              block: 'nearest',
-              inline: 'nearest'
-            });
+            // Auto-scroll TOC to show active item if it's outside the panel's visible area
+            scrollTocToLink(activeLink);
           }
         }
       }, CONSTANTS.SCROLL_THROTTLE);
