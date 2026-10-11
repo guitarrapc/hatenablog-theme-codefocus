@@ -188,7 +188,7 @@ The development server does not need to be running. `openssl` is used to create 
 You can specify the URL, device, and number of runs. With multiple runs, the report of the run with the median Performance score is saved.
 
 ```shell
-npm run lighthouse -- https://guitarrapc-theme.hatenablog.com/entry/2025/05/17/015533 --form=desktop --runs=3
+npm run lighthouse -- https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601 --form=desktop --runs=3
 ```
 
 To measure the page as loaded from the development server, use `npm run lighthouse:dev`. Its Performance score does not match production because it loads unminified SCSS/JS and `@vite/client`.

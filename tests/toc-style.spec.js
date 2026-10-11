@@ -314,8 +314,9 @@ test.describe('目次スタイルの詳細テスト', () => {
         }
         return;
       }
-      // どちらの非表示パターンでもブログコントロールは無くなる
-      if (controlls) controlls.remove();
+      // どちらの非表示パターンでもブログコントロールは無くなる。
+      // ブログが「ブログタイトル下」などに同じ要素を貼っていると2つ以上あるので、すべて取り除く
+      document.querySelectorAll('.blog-controlls').forEach((el) => el.remove());
       if (s === 'hidden-by-pro') {
         // はてなブログProの「ヘッダを表示しない」設定の再現:
         // #globalheader-container はDOMに残ったまま display: none になり、bodyにクラスが付く

@@ -1,7 +1,7 @@
 // @ts-check
 import { test } from './helpers.js';
 import { expect } from '@playwright/test';
-import { TIMEOUTS } from './constants.js';
+import { TEST_URLS, TIMEOUTS } from './constants.js';
 
 /**
  * 本文中のリンクが周りの文字と区別できるかを検証する (WCAG 1.4.1 / 達成方法G183)。
@@ -15,7 +15,12 @@ import { TIMEOUTS } from './constants.js';
 
 const AA_TEXT = 4.5;
 const DISTINCT_FROM_TEXT = 3.0;
-const ARTICLE = '/entry/2025/05/17/015533';
+const ARTICLE = TEST_URLS.ARTICLE_WITH_LINKS;
+const LINK = '.entry-content p > a';
+
+/** 記事が消えたり本文が変わったりしてリンクがなくなると、測る前に分かるようにする */
+const expectLink = (/** @type {import('@playwright/test').Page} */ page) =>
+  expect(page.locator(LINK).first(), `前提: ${ARTICLE} の段落の中にリンクがあること`).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
 
 const measure = (/** @type {any} */ page) => page.evaluate(() => {
   const channels = (/** @type {string} */ c) => {
@@ -63,6 +68,7 @@ test.describe('本文中のリンクの見分けやすさ', () => {
       await page.navigateTo(ARTICLE, { waitFor: 'networkidle' });
       await page.waitForFunction((t) => document.documentElement.getAttribute('data-theme') === t,
         theme, { timeout: TIMEOUTS.VERY_LONG });
+      await expectLink(page);
 
       const { decoration, results } = await measure(page);
       expect(decoration, 'Zenn / Noteに倣い、通常時は下線を引かない').toBe('none');
@@ -75,7 +81,8 @@ test.describe('本文中のリンクの見分けやすさ', () => {
 
   test('ホバーすると下線が出る', async ({ page }) => {
     await page.navigateTo(ARTICLE, { waitFor: 'networkidle' });
-    const link = page.locator('.entry-content p > a').first();
+    await expectLink(page);
+    const link = page.locator(LINK).first();
     await link.hover();
     await expect(link).toHaveCSS('text-decoration-line', 'underline');
   });

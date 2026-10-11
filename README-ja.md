@@ -188,7 +188,7 @@ $ npm run lighthouse
 計測するURL、端末、回数を指定できます。複数回実行した場合は、Performanceスコアが中央値の回のレポートを保存します。
 
 ```shell
-$ npm run lighthouse -- https://guitarrapc-theme.hatenablog.com/entry/2025/05/17/015533 --form=desktop --runs=3
+$ npm run lighthouse -- https://guitarrapc-theme.hatenablog.com/entry/2025/05/10/204601 --form=desktop --runs=3
 ```
 
 開発サーバーから読み込んだ状態をそのまま計測する場合は `npm run lighthouse:dev` を使います。ただし未圧縮のSCSS/JSや`@vite/client`を読み込むため、Performanceは本番と一致しません。
