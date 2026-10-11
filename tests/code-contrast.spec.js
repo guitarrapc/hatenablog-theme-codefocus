@@ -15,7 +15,7 @@ import { TEST_URLS, TIMEOUTS } from './constants.js';
 const AA_TEXT = 4.5;
 
 /** synPreProc(import等)とsynCommentを含む記事を両方見る */
-const URLS = [TEST_URLS.CODE_HIGHLIGHT, '/entry/2025/05/17/015533'];
+const URLS = [TEST_URLS.CODE_HIGHLIGHT, TEST_URLS.SAMPLE_ARTICLE];
 
 const measure = (/** @type {any} */ page) => page.evaluate(() => {
   const channels = (/** @type {string} */ rgb) => (rgb.match(/\d+(\.\d+)?/g) || []).slice(0, 3).map(Number);
