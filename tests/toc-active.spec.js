@@ -118,3 +118,80 @@ test.describe('目次アクティブハイライトのテスト', () => {
     await page.screenshot({ path: 'screenshots/toc-active-test-complete.png', fullPage: true });
   });
 });
+
+test.describe('アクティブな目次項目への自動スクロール', () => {
+  // 目次が画面の高さの上限(広い画面は80vh)を超えて、目次の中でスクロールする大きさ
+  const SHORT_WIDE = { width: 1600, height: 360 };
+
+  /** 画面外の本文の描画後回し(content-visibility: auto)が解けて高さが変わると、ブラウザがページのスクロール位置を直すので、先に全部描く */
+  const RENDER_ALL = '.entry-content > * { content-visibility: visible !important; }';
+
+  /** フロート目次の項目のうち、目次の中での位置(0〜1)にあるものが指す見出しへ、ページをスクロールする */
+  const readSection = async (/** @type {import('@playwright/test').Page} */ page, /** @type {number} */ position) => {
+    const scrolledTo = await page.evaluate((position) => {
+      const links = [...document.querySelectorAll('.floating-toc-list > li > a')];
+      const link = links[Math.min(links.length - 1, Math.floor(links.length * position))];
+      const heading = document.getElementById((link.getAttribute('href') ?? '').substring(1));
+      if (!heading) return null;
+      heading.scrollIntoView({ behavior: 'instant', block: 'start' });
+      return Math.round(window.scrollY);
+    }, position);
+    expect(scrolledTo, '前提: 目次の項目が指す見出しが本文にあること').not.toBeNull();
+    return /** @type {number} */ (scrolledTo);
+  };
+
+  const followState = (/** @type {import('@playwright/test').Page} */ page) => page.evaluate(() => {
+    const panel = /** @type {HTMLElement} */ (document.querySelector('.floating-toc'));
+    const active = panel.querySelector('a.active');
+    const top = panel.getBoundingClientRect().top + panel.clientTop;
+    const rect = active?.getBoundingClientRect();
+    return {
+      hasActive: !!active,
+      activeVisible: !!rect && rect.top >= top - 1 && rect.bottom <= top + panel.clientHeight + 1,
+      panelScrollTop: Math.round(panel.scrollTop),
+      panelOverflows: panel.scrollHeight > panel.clientHeight,
+      panelBelowScreen: panel.getBoundingClientRect().top >= window.innerHeight,
+      scrollY: Math.round(window.scrollY),
+    };
+  });
+
+  test.beforeEach(async ({ page }) => {
+    await page.setViewportSize(SHORT_WIDE);
+    await page.navigateTo(TEST_URLS.SAMPLE_ARTICLE, { waitFor: 'networkidle' });
+    await expect(page.locator('.floating-toc.show .floating-toc-list > li > a').first()).toBeVisible({ timeout: TIMEOUTS.VERY_LONG });
+    await page.addStyleTag({ content: RENDER_ALL });
+  });
+
+  test('目次の中だけをスクロールして項目を見せ、ページは動かさない', async ({ page }) => {
+    expect((await followState(page)).panelOverflows, '前提: 目次が中でスクロールする長さであること').toBe(true);
+
+    // 最後の節まで読み進めると、目次の中が下へスクロールして、その項目が見える
+    const last = await readSection(page, 1);
+    await expect.poll(async () => (await followState(page)).activeVisible).toBe(true);
+    const atLast = await followState(page);
+    expect(atLast.panelScrollTop).toBeGreaterThan(0);
+    expect(atLast.scrollY).toBe(last);
+
+    // 最初の節へ戻ると、目次の中も上へ戻る
+    const first = await readSection(page, 0);
+    await expect.poll(async () => (await followState(page)).panelScrollTop).toBeLessThan(atLast.panelScrollTop);
+    await expect.poll(async () => (await followState(page)).activeVisible).toBe(true);
+    expect((await followState(page)).scrollY).toBe(first);
+  });
+
+  // フロート目次のスタイルを持たないテーマに切り替えても、ブログに貼ったスクリプトは残る(テーマストアのプレビューなど)。
+  // 目次は画面に固定されずページの最下部に並ぶので、項目を scrollIntoView で見せると、スクロールするたびにページごと最下部へ流れる
+  test('フロート目次が画面に固定されていなくても、ページを目次まで流さない', async ({ page }) => {
+    await page.addStyleTag({
+      content: '.floating-toc { position: static !important; max-height: none !important; overflow: visible !important; }',
+    });
+    expect((await followState(page)).panelBelowScreen, '前提: 目次が画面の外(ページの最下部)にあること').toBe(true);
+
+    const scrolledTo = await readSection(page, 0.5);
+    await expect.poll(async () => (await followState(page)).hasActive, { message: '前提: 読んでいる節の項目がアクティブになること' }).toBe(true);
+    // なめらかなスクロールが始まっていれば、この間に動く
+    await page.waitForTimeout(TIMEOUTS.SHORT);
+
+    expect((await followState(page)).scrollY).toBe(scrolledTo);
+  });
+});
