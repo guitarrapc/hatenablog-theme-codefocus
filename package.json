@@ -18,7 +18,7 @@
     "lighthouse:dev": "node lighthouse.js --mode=dev"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.64.0",
     "autoprefixer": "^10.6.1",
     "baseline-browser-mapping": "2.11.20",
     "chrome-launcher": "^1.2.1",
