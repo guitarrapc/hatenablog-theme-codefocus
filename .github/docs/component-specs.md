@@ -274,3 +274,36 @@ JavaScriptは次のように変換する。
 * SCSS: `scss/lib/_alert.scss` - アラートのスタイル
 * 変数定義: `scss/lib/_variable.scss` - アラートの色(`$light-alert-*`/`$dark-alert-*`)とアイコン(`$svg-alerts`)
 * ユーザー設定用: `customize-alert.html` - はてなブログの「デザイン」→「カスタマイズ」→「ヘッダ」→「ブログタイトル下」に貼り付けるコード。`js/alert.js` と同じ処理であることをE2Eテストで確認する
+
+## Gist埋め込み
+
+GitHub Gistの埋め込み(`<script src="https://gist.github.com/xxx.js">`)を、テーマのライト/ダークと本文の書体になじませる機能です。CSSだけで実装し、カスタマイズ用HTMLは不要です。
+
+### 1. 何が崩れていたか
+
+Gistのスクリプトは本文中に `.gist` を書き出し、GitHubのCSS(`gist-embed-*.css`)を `<body>` 内に読み込む。対策前は次の問題があった。
+
+* GitHubのCSSはライト配色しか持たず、`data-color-mode="light"` も固定で書き出される。ダークモードでも白い箱が浮き、Markdownの見出しはテーマのダークの文字色(白に近い)が当たって白地に白文字になった
+* シンタックスハイライト(`.pl-*`)は古いライト配色の固定値で、変数で差し替えられない
+* GitHubのCSSは `--borderWidth-thin` や `--borderRadius-medium` などを定義せずに参照しているため、枠線と角丸が消える
+* MarkdownのGistは `article.markdown-body.entry-content` を持つため、本文用の `.entry-content` のスタイル(見出し・表・段落)がGistの中にも当たる。コードのGistでも、本文の表の罫線が行番号に、本文の字間がコードに混ざった
+
+### 2. 設計方針
+
+| 対象 | 方針 |
+| ---- | ---- |
+| コードのファイル | GitHubの配色をモードに追従させる。ライトはGitHub light、ダークはGitHub dark(Primerの値をテーマが補う) |
+| Markdownのファイル | 本文と同じ書体・文字色・リンク色・表の配色で、枠付きのカードとして見せる。中のコードブロックはコードのファイルと同じGitHubの配色 |
+| 行番号 | 表示する。罫線なし・小さめ・薄めの色で控えめにし、コピー時には選択されない(GitHubのCSSの `user-select: none` のまま) |
+| 高さ | 制限しない。本文のコードブロックと同じく全部表示し、ページ内スクロールの入れ子を作らない |
+| 画像 | 本文と同じく `max-width: 100%` で枠内に収める |
+| 見出し | 記事の見出しより一段小さくし、入れ子の文書だとわかるようにする。GitHub上のパーマリンク(`.anchor`)は出さない |
+
+* GitHubのCSSはテーマより後に読み込まれるため、テーマの指定はすべて `.entry-content .gist` から始めて詳細度を1段上げて上書きする
+* ダークの配色は `.gist-file` に `--fgColor-*` / `--bgColor-*` / `--prettylights-syntax-*` を設定して切り替える。`.pl-*` はテーマが変数に付け直す(対応はGitHub本体のCSSに合わせる)
+* ダークの変数は `@media screen` に限る。印刷はGitHubのライト配色で刷り、コードは折り返してすべて刷る
+
+### 3. ファイル構成
+
+* `scss/lib/_gist.scss`: Gist埋め込みのスタイル
+* `tests/gist.spec.js`: サンプル記事のMarkdownのGistと、差し込んだコードのGistの配色・枠線・本文スタイルの混入を検証する
