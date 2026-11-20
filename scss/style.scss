@@ -38,6 +38,7 @@
     [https://github.com/guitarrapc/hatenablog-theme-codefocus:title=GitHub]で公開しています。(MITライセンス)
 
     * 変更履歴:
+    - 2026/11/20: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.15.0:title=v1.15.0] GitHub Gistの埋め込みに対応。コードのGistはGitHubの配色をライト/ダークモードに追従させ、MarkdownのGistは本文と同じ書体・配色のカードで表示します。本文のスタイルがGistの中に混ざって崩れる問題も修正。(customize-*.htmlの更新は不要です)
     - 2026/10/12: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.14.2:title=v1.14.2] 目次ボタンの目次で、読んでいる見出しの項目を見せるときに、目次の中だけをスクロールするよう修正。(customize-toc-button.htmlの更新が必要です)
     - 2026/09/25: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.14.1:title=v1.14.1] v1.14.0で本文の箇条書き(ul/ol)の先頭が欠けて表示される問題を修正。
     - 2026/09/22: [https://github.com/guitarrapc/hatenablog-theme-codefocus/releases/tag/v1.14.0:title=v1.14.0] 表示速度とアクセシビリティを改善。画面外の本文の描画を後回しにして最初の表示を早くしました。コードブロックのコメントとimport文、本文リンク、フッターの「はてなブログをはじめる」ボタンの色をWCAG AAのコントラストに合わせて調整。関連記事の日付や記事一覧のカテゴリなど小さいリンクのタップ領域を24px以上に拡大。(customize-*.htmlの更新は不要です)
