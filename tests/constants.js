@@ -42,7 +42,8 @@ export const VIEWPORTS = {
 export const SELECTORS = {
   // 記事関連
   ENTRY_TITLE: '.entry-title',
-  ENTRY_CONTENT: '.entry-content',
+  // MarkdownのGist埋め込みも article.markdown-body.entry-content を持つため、記事本文に絞る
+  ENTRY_CONTENT: '.entry-content.hatenablog-entry',
   ENTRY_DATE: '.entry-date',
   ENTRY_CATEGORIES: '.entry-categories',
   ENTRY_HEADER: '.entry-header',

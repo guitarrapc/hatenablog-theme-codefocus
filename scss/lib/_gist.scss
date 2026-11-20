@@ -1,0 +1,596 @@
+@use "./_variable" as var;
+
+/*
+ * GitHub Gistの埋め込み (component-specs.md の「Gist埋め込み」を参照)
+ *
+ * Gistのスクリプトは本文中に .gist を書き出し、GitHubのCSS(gist-embed-*.css)を<body>内に読み込む。
+ * GitHubのCSSはテーマより後に読み込まれるため、同じ詳細度ではGitHub側が勝つ。
+ * テーマの指定はすべて .entry-content .gist から始め、GitHub側(.gist ...)より詳細度を1段上げて上書きする。
+ *
+ * - コードのファイル: GitHubの配色をライト/ダークのモードに追従させる
+ * - Markdownのファイル: 本文と同じ書体・文字色・リンク色のカードとして見せる
+ */
+
+// コードの文字サイズは本文のコードブロックと同じ。行の高さは行番号と共有するため絶対値にする
+$gist-code-font-size: 0.85rem;
+$gist-code-line-height: $gist-code-font-size * 1.75;
+
+// GitHubのダーク配色(Primer dark)。GitHubのCSSはライトの値しか持たないため、テーマが補う
+@mixin gist-dark-variables {
+    --fgColor-default: #f0f6fc;
+    --fgColor-muted: #9198a1;
+    --fgColor-accent: #4493f8;
+    --fgColor-attention: #d29922;
+    --fgColor-danger: #f85149;
+    --fgColor-done: #ab7df8;
+    --fgColor-success: #3fb950;
+    --fgColor-disabled: #656c76;
+    --fgColor-onEmphasis: #ffffff;
+
+    --bgColor-default: #0d1117;
+    --bgColor-muted: #151b23;
+    --bgColor-neutral-muted: #656c7633;
+    --bgColor-accent-muted: #388bfd1a;
+    --bgColor-accent-emphasis: #1f6feb;
+    --bgColor-attention-muted: #bb800926;
+    --bgColor-danger-muted: #f851491a;
+    --bgColor-success-muted: #2ea04326;
+    --bgColor-done-muted: #ab7df826;
+
+    --borderColor-default: #3d444d;
+    --borderColor-muted: #3d444db3;
+    --borderColor-translucent: #ffffff26;
+    --borderColor-attention-muted: #bb800966;
+
+    --selection-bgColor: #1f6feb66;
+
+    --prettylights-syntax-comment: #9198a1;
+    --prettylights-syntax-constant: #79c0ff;
+    --prettylights-syntax-constantOtherReferenceLink: #a5d6ff;
+    --prettylights-syntax-entity: #d2a8ff;
+    --prettylights-syntax-storageModifierImport: #f0f6fc;
+    --prettylights-syntax-entityTag: #7ee787;
+    --prettylights-syntax-keyword: #ff7b72;
+    --prettylights-syntax-string: #a5d6ff;
+    --prettylights-syntax-variable: #ffa657;
+    --prettylights-syntax-bracketHighlighterUnmatched: #f85149;
+    --prettylights-syntax-bracketHighlighterAngle: #9198a1;
+    --prettylights-syntax-invalidIllegal-text: #f0f6fc;
+    --prettylights-syntax-invalidIllegal-bg: #8e1519;
+    --prettylights-syntax-carriageReturn-text: #f0f6fc;
+    --prettylights-syntax-carriageReturn-bg: #b62324;
+    --prettylights-syntax-stringRegexp: #7ee787;
+    --prettylights-syntax-markup-list: #f2cc60;
+    --prettylights-syntax-markup-heading: #1f6feb;
+    --prettylights-syntax-markup-italic: #f0f6fc;
+    --prettylights-syntax-markup-bold: #f0f6fc;
+    --prettylights-syntax-markup-deleted-text: #ffdcd7;
+    --prettylights-syntax-markup-deleted-bg: #67060c;
+    --prettylights-syntax-markup-inserted-text: #aff5b4;
+    --prettylights-syntax-markup-inserted-bg: #033a16;
+    --prettylights-syntax-markup-changed-text: #ffdfb6;
+    --prettylights-syntax-markup-changed-bg: #5a1e02;
+    --prettylights-syntax-markup-ignored-text: #f0f6fc;
+    --prettylights-syntax-markup-ignored-bg: #1158c7;
+    --prettylights-syntax-metaDiffRange: #d2a8ff;
+    --prettylights-syntax-sublimeLinterGutterMark: #3d444d;
+}
+
+.entry-content .gist {
+    // GitHubのCSSが定義せずに参照している変数。未定義のままだと枠線や余白が消える
+    --borderWidth-thin: 1px;
+    --borderWidth-default: 1px;
+    --borderRadius-medium: 6px;
+    --base-size-4: 4px;
+    --base-size-8: 8px;
+    --base-size-16: 16px;
+    --base-size-20: 20px;
+    --base-size-24: 24px;
+    --base-size-32: 32px;
+    --base-size-80: 80px;
+    --focus-outline-width: 2px;
+
+    margin: 1.5em 0;
+    color: var(--text-body);
+    font-size: 1rem;
+    // 本文の字間はコードや行番号の桁揃えを崩すため、Gistの中では使わない(Markdownは下で本文に合わせて戻す)
+    letter-spacing: normal;
+
+    .gist-file {
+        margin: 0;
+        overflow: hidden;
+        font-family: var.$font-family-monospace;
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        background-color: var(--bgColor-default);
+
+        // 同じGistを続けて埋め込んだときの間隔
+        + .gist-file {
+            margin-top: 1.5em;
+        }
+    }
+
+    .gist-data {
+        border-bottom: 1px solid var(--border);
+        border-radius: 0;
+        background-color: var(--bgColor-default);
+    }
+
+    // 複数ファイルのGistでは、ファイルの境目に線を引く
+    .file {
+        margin: 0;
+
+        + .file {
+            border-top: 1px solid var(--border);
+        }
+    }
+
+    // フッター(ファイル名 / hosted with ❤ by GitHub / view raw)
+    .gist-meta {
+        padding: 0.5em 0.9em;
+        font-family: var.$font-family-base;
+        font-size: 0.75rem;
+        line-height: 1.6;
+        color: var(--fgColor-muted);
+        background-color: var(--bgColor-muted);
+
+        a {
+            padding: 0;
+            color: var(--fgColor-muted);
+
+            &:hover,
+            &:focus-visible {
+                color: var(--fgColor-accent);
+                text-decoration: underline;
+            }
+        }
+    }
+
+    /* コードのファイル */
+
+    // テーマの表のスタイル(.entry-content table)を打ち消す
+    .blob-wrapper {
+        margin: 0;
+        overflow-x: auto;
+
+        table {
+            display: table;
+            width: 100%;
+            margin: 0;
+            border-collapse: collapse;
+            font-size: inherit;
+            line-height: inherit;
+        }
+
+        tr {
+            background-color: transparent;
+        }
+
+        td {
+            border: 0;
+        }
+
+        // 先頭行と末尾行の上下に余白を取る。コードのセルはGitHubのCSSが余白の四辺を!importantで指定しているため、
+        // こちらも!importantにして行番号のセルと同じ余白にそろえる(詳細度は .blob-code より高い)
+        tr:first-child td {
+            padding-top: 10px !important;
+        }
+
+        tr:last-child td {
+            padding-bottom: 10px !important;
+        }
+    }
+
+    .highlight {
+        background-color: var(--bgColor-default);
+        color: var(--fgColor-default);
+    }
+
+    // 行番号は小さめの文字と補助テキストの色で控えめに見せる。
+    // 透明度は下げない(ダークで実効色が#696f78になりコントラスト比が3.7:1まで落ちる)。muted色のままならライト/ダークとも4.5:1以上
+    // コピー時に選択されないのはGitHubのCSSのまま(user-select: none)
+    .blob-num {
+        min-width: 3em;
+        padding: 0 0.6em 0 0.9em;
+        font-family: var.$font-family-monospace;
+        font-size: 0.75rem;
+        // 行番号はコードより小さい文字なので、倍率でなく行の高さそのものをコードとそろえて縦位置を合わせる
+        line-height: $gist-code-line-height;
+        color: var(--fgColor-muted);
+
+        &:hover {
+            color: var(--fgColor-default);
+        }
+    }
+
+    .blob-code {
+        // GitHubのCSSが四辺を!importantで指定しているため。上下は .blob-wrapper の先頭行・末尾行の指定に任せる
+        padding: 0 1em 0 0.6em !important;
+        line-height: $gist-code-line-height;
+    }
+
+    .blob-code-inner {
+        font-family: var.$font-family-monospace;
+        font-size: $gist-code-font-size;
+        color: var(--fgColor-default);
+    }
+
+    // シンタックスハイライト。GitHubのCSSは古いライト配色を固定値で持つため、
+    // モードで切り替わる変数(--prettylights-syntax-*)に付け直す。対応はGitHub本体のCSSに合わせる
+    .pl-c {
+        color: var(--prettylights-syntax-comment);
+    }
+
+    .pl-c1,
+    .pl-s .pl-v {
+        color: var(--prettylights-syntax-constant);
+    }
+
+    .pl-e,
+    .pl-en {
+        color: var(--prettylights-syntax-entity);
+    }
+
+    .pl-smi,
+    .pl-s .pl-s1 {
+        color: var(--prettylights-syntax-storageModifierImport);
+    }
+
+    .pl-ent {
+        color: var(--prettylights-syntax-entityTag);
+    }
+
+    .pl-k {
+        color: var(--prettylights-syntax-keyword);
+    }
+
+    .pl-s,
+    .pl-pds,
+    .pl-s .pl-pse .pl-s1,
+    .pl-sr,
+    .pl-sr .pl-cce,
+    .pl-sr .pl-sre,
+    .pl-sr .pl-sra {
+        color: var(--prettylights-syntax-string);
+    }
+
+    .pl-v,
+    .pl-smw {
+        color: var(--prettylights-syntax-variable);
+    }
+
+    .pl-bu {
+        color: var(--prettylights-syntax-bracketHighlighterUnmatched);
+    }
+
+    .pl-ii {
+        color: var(--prettylights-syntax-invalidIllegal-text);
+        background-color: var(--prettylights-syntax-invalidIllegal-bg);
+    }
+
+    .pl-c2 {
+        color: var(--prettylights-syntax-carriageReturn-text);
+        background-color: var(--prettylights-syntax-carriageReturn-bg);
+    }
+
+    .pl-sr .pl-cce {
+        font-weight: bold;
+        color: var(--prettylights-syntax-stringRegexp);
+    }
+
+    .pl-ml {
+        color: var(--prettylights-syntax-markup-list);
+    }
+
+    .pl-mh,
+    .pl-mh .pl-en,
+    .pl-ms {
+        font-weight: bold;
+        color: var(--prettylights-syntax-markup-heading);
+    }
+
+    .pl-mi {
+        font-style: italic;
+        color: var(--prettylights-syntax-markup-italic);
+    }
+
+    .pl-mb {
+        font-weight: bold;
+        color: var(--prettylights-syntax-markup-bold);
+    }
+
+    .pl-md {
+        color: var(--prettylights-syntax-markup-deleted-text);
+        background-color: var(--prettylights-syntax-markup-deleted-bg);
+    }
+
+    .pl-mi1 {
+        color: var(--prettylights-syntax-markup-inserted-text);
+        background-color: var(--prettylights-syntax-markup-inserted-bg);
+    }
+
+    .pl-mc {
+        color: var(--prettylights-syntax-markup-changed-text);
+        background-color: var(--prettylights-syntax-markup-changed-bg);
+    }
+
+    .pl-mi2 {
+        color: var(--prettylights-syntax-markup-ignored-text);
+        background-color: var(--prettylights-syntax-markup-ignored-bg);
+    }
+
+    .pl-mdr {
+        font-weight: bold;
+        color: var(--prettylights-syntax-metaDiffRange);
+    }
+
+    .pl-ba {
+        color: var(--prettylights-syntax-bracketHighlighterAngle);
+    }
+
+    .pl-sg {
+        color: var(--prettylights-syntax-sublimeLinterGutterMark);
+    }
+
+    .pl-corl {
+        text-decoration: underline;
+        color: var(--prettylights-syntax-constantOtherReferenceLink);
+    }
+
+    /* Markdownのファイル: 本文と同じ書体のカードにする */
+
+    .Box-body.readme {
+        padding: 1em 1.4em;
+        background-color: var(--background);
+
+        @media #{var.$mq-xs} {
+            padding: 0.8em 1em;
+        }
+    }
+
+    .markdown-body {
+        padding: 0;
+        font-family: var.$font-family-base;
+        font-size: 1rem;
+        line-height: 1.9;
+        letter-spacing: 0.05em;
+        color: var(--text-body);
+        background-color: transparent;
+
+        > :first-child,
+        > .markdown-heading:first-child > :first-child {
+            margin-top: 0;
+        }
+
+        > :last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: var(--link);
+
+            &:hover {
+                color: var(--link-hover);
+            }
+        }
+
+        p {
+            margin: 0 0 1em;
+        }
+
+        // GitHubの見出しは本文より大きいため、記事の見出しより一段小さくして入れ子の文書だとわかるようにする
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 1.4em 0 0.5em;
+            padding: 0;
+            font-weight: 700;
+            line-height: 1.5;
+            color: var(--text-header);
+            border: 0;
+        }
+
+        h1 {
+            font-size: 1.3rem;
+            padding-bottom: 0.2em;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        h2 {
+            font-size: 1.15rem;
+            padding-bottom: 0.2em;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        h3 {
+            font-size: 1.05rem;
+        }
+
+        h4 {
+            font-size: 1rem;
+        }
+
+        h5 {
+            font-size: 0.95rem;
+        }
+
+        h6 {
+            font-size: 0.9rem;
+            color: var(--text-low-priority);
+        }
+
+        // 見出し横のパーマリンクはGitHub上のページ内リンクなので、埋め込み先では出さない
+        .anchor {
+            display: none;
+        }
+
+        ul,
+        ol {
+            margin: 0 0 1em;
+            padding-left: 1.6em;
+
+            li + li {
+                margin-top: 0.25em;
+            }
+
+            ul,
+            ol {
+                margin: 0.25em 0 0;
+            }
+        }
+
+        li {
+            margin-bottom: 0;
+        }
+
+        blockquote {
+            margin: 0 0 1em;
+            padding: 2px 0 2px 0.7em;
+            font-size: 0.95em;
+            color: var(--text-low-priority);
+            border-left: 3px solid var(--border-bq);
+
+            > :first-child {
+                margin-top: 0;
+            }
+
+            // はてなブログは本文中の引用の末尾に引用ボタン(.js-requote-button)を足し、Gistの中の引用にも付く。
+            // ボタンを除いた最後の要素の下余白をなくし、引用の下に空きが出ないようにする(_core.scss の引用と同じ)
+            > :nth-last-child(1 of :not(.js-requote-button)) {
+                margin-bottom: 0;
+            }
+        }
+
+        hr {
+            height: 0;
+            margin: 2em 0;
+            background: none;
+            border: 0;
+            border-top: 2px solid var(--border-light);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+
+        // 表は本文の表と同じ配色にする
+        table {
+            margin: 0 0 1em;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            letter-spacing: normal;
+
+            tr,
+            tr:nth-child(2n) {
+                background-color: transparent;
+                border-top: 0;
+            }
+
+            // 本文の表の text-align: left が align属性(Markdownの :---: / ---:)より優先されるため、属性どおりに戻す
+            th,
+            td {
+                padding: 0.5rem;
+                text-align: start;
+                border: 1px solid var(--table-border);
+
+                &[align="left"] {
+                    text-align: left;
+                }
+
+                &[align="center"] {
+                    text-align: center;
+                }
+
+                &[align="right"] {
+                    text-align: right;
+                }
+            }
+
+            th {
+                background: var(--table-th-bg);
+                color: var(--text-body);
+            }
+        }
+
+        // インラインコードは本文と同じ見た目
+        code {
+            padding: 0.2em 0.4em;
+            font-family: var.$font-family-monospace;
+            font-size: 0.85em;
+            letter-spacing: normal;
+            color: inherit;
+            background: var(--bg-span);
+            border-radius: 4px;
+        }
+
+        // コードブロックはコードのファイルと同じGitHubの配色
+        .highlight,
+        pre {
+            margin: 0 0 1em;
+        }
+
+        .highlight pre,
+        pre {
+            padding: 0.9em 1em;
+            font-size: 0.85rem;
+            line-height: 1.7;
+            letter-spacing: normal;
+            color: var(--fgColor-default);
+            background-color: var(--bgColor-muted);
+            border: 1px solid var(--borderColor-muted);
+            border-radius: 5px;
+            box-shadow: none;
+
+            code {
+                padding: 0;
+                font-size: inherit;
+                background: transparent;
+            }
+        }
+
+        // タスクリストのチェックボックスと文字の位置を揃える
+        .task-list-item {
+            list-style-type: none;
+
+            .task-list-item-checkbox {
+                margin: 0 0.4em 0 -1.4em;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+// ダークモード。印刷ではGitHubのライト配色のまま刷るため、画面表示に限る
+@media screen {
+    html[data-enable-dark-mode="true"][data-theme="dark"] .entry-content .gist .gist-file {
+        @include gist-dark-variables;
+        color-scheme: dark;
+    }
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    html[data-enable-dark-mode="true"]:not([data-theme="light"]):not([data-theme="dark"]) .entry-content .gist .gist-file {
+        @include gist-dark-variables;
+        color-scheme: dark;
+    }
+}
+
+// 印刷: 紙は横スクロールできないため、コードを折り返してすべて刷る (theme-design-spec.md の「印刷」を参照)
+@media print {
+    .entry-content .gist {
+        .blob-wrapper {
+            overflow: visible;
+        }
+
+        .blob-code-inner {
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+    }
+}
