@@ -11,6 +11,10 @@
  * - Markdownのファイル: 本文と同じ書体・文字色・リンク色のカードとして見せる
  */
 
+// コードの文字サイズは本文のコードブロックと同じ。行の高さは行番号と共有するため絶対値にする
+$gist-code-font-size: 0.85rem;
+$gist-code-line-height: $gist-code-font-size * 1.75;
+
 // GitHubのダーク配色(Primer dark)。GitHubのCSSはライトの値しか持たないため、テーマが補う
 @mixin gist-dark-variables {
     --fgColor-default: #f0f6fc;
@@ -190,7 +194,8 @@
         padding: 0 0.6em 0 0.9em;
         font-family: var.$font-family-monospace;
         font-size: 0.75rem;
-        line-height: 1.75;
+        // 行番号はコードより小さい文字なので、倍率でなく行の高さそのものをコードとそろえて縦位置を合わせる
+        line-height: $gist-code-line-height;
         color: var(--fgColor-muted);
 
         &:hover {
@@ -201,12 +206,12 @@
     .blob-code {
         // GitHubのCSSが四辺を!importantで指定しているため。上下は .blob-wrapper の先頭行・末尾行の指定に任せる
         padding: 0 1em 0 0.6em !important;
-        line-height: 1.75;
+        line-height: $gist-code-line-height;
     }
 
     .blob-code-inner {
         font-family: var.$font-family-monospace;
-        font-size: 0.85rem;
+        font-size: $gist-code-font-size;
         color: var(--fgColor-default);
     }
 
@@ -493,6 +498,10 @@
                 padding: 0.5rem;
                 text-align: start;
                 border: 1px solid var(--table-border);
+
+                &[align="left"] {
+                    text-align: left;
+                }
 
                 &[align="center"] {
                     text-align: center;

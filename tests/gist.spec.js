@@ -120,12 +120,19 @@ const collectStyles = async (page) => {
       string: style('#file-fixture-cs-LC3 .pl-s').color,
       lineNumberBorder: style('#file-fixture-cs-L1').borderTopWidth,
       lineNumberUserSelect: style('#file-fixture-cs-L1').userSelect,
+      lineNumberOpacity: style('#file-fixture-cs-L1').opacity,
+      lineNumberLineHeight: style('#file-fixture-cs-L1').lineHeight,
+      codeLineHeight: style('#file-fixture-cs-LC1').lineHeight,
+      firstLineNumberPaddingTop: style('#file-fixture-cs-L1').paddingTop,
+      firstLineCodePaddingTop: style('#file-fixture-cs-LC1').paddingTop,
+      lastLineCodePaddingBottom: style('#file-fixture-cs-LC4').paddingBottom,
       markdownText: style(`${markdownGist} .markdown-body`).color,
       markdownBackground: style(`${markdownGist} .Box-body.readme`).backgroundColor,
       markdownFrameBorder: style(`${markdownGist} .gist-file`).borderTopWidth,
       markdownH1Size: parseFloat(style(`${markdownGist} .markdown-body h1`).fontSize),
       articleH2Size: parseFloat(style('.entry-content > h2').fontSize),
       anchorDisplay: style(`${markdownGist} .markdown-body .anchor`).display,
+      tableAligns: [...document.querySelectorAll(`${markdownGist} .markdown-body th`)].map((th) => getComputedStyle(th).textAlign),
       themeBackground: root.getPropertyValue('--background').trim(),
     };
   });
@@ -161,6 +168,14 @@ test.describe('Gist埋め込み', () => {
       expect(styles.codeLetterSpacing).toBe('normal');
       // 行番号はコピー時に選択されない
       expect(styles.lineNumberUserSelect).toBe('none');
+      // 行番号は透明度で薄くしない(ダークで実効コントラスト比が4.5:1を下回るため)
+      expect(styles.lineNumberOpacity).toBe('1');
+      // 行番号はコードより小さい文字でも、行の高さがそろって各行と同じ高さに並ぶ
+      expect(styles.lineNumberLineHeight).toBe(styles.codeLineHeight);
+      // 先頭行・末尾行の上下の余白は、行番号とコードのセルでそろう(GitHubのCSSの!importantに負けない)
+      expect(styles.firstLineCodePaddingTop).toBe('10px');
+      expect(styles.firstLineCodePaddingTop).toBe(styles.firstLineNumberPaddingTop);
+      expect(styles.lastLineCodePaddingBottom).toBe('10px');
 
       await page.locator('#gist-fixture').screenshot({ path: `screenshots/gist-code-${theme}.png` });
     });
@@ -179,6 +194,22 @@ test.describe('Gist埋め込み', () => {
       expect(styles.markdownH1Size).toBeLessThan(styles.articleH2Size);
       // GitHub上のページ内リンク(パーマリンク)は出さない
       expect(styles.anchorDisplay).toBe('none');
+      // Markdownの表の列揃え(:--- / :---: / ---:)が本文の表の左揃えに負けない
+      expect(styles.tableAligns).toEqual(['left', 'center', 'right']);
+
+      // はてなブログが引用の末尾に足す引用ボタンがあっても、引用の下に余白が残らない
+      const quoteGap = await page.evaluate(() => {
+        const quote = document.querySelector('.entry-content .gist:not(#gist-fixture) .markdown-body blockquote');
+        const last = quote?.lastElementChild;
+        if (!quote || !last) throw new Error('Gistに引用がありません');
+        const button = document.createElement('span');
+        button.className = 'js-requote-button';
+        quote.appendChild(button);
+        const gap = getComputedStyle(last).marginBottom;
+        button.remove();
+        return gap;
+      });
+      expect(quoteGap).toBe('0px');
 
       await markdownGist.screenshot({ path: `screenshots/gist-markdown-${theme}.png` });
     });
