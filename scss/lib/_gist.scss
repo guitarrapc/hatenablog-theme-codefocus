@@ -166,12 +166,14 @@
             border: 0;
         }
 
+        // 先頭行と末尾行の上下に余白を取る。コードのセルはGitHubのCSSが余白の四辺を!importantで指定しているため、
+        // こちらも!importantにして行番号のセルと同じ余白にそろえる(詳細度は .blob-code より高い)
         tr:first-child td {
-            padding-top: 10px;
+            padding-top: 10px !important;
         }
 
         tr:last-child td {
-            padding-bottom: 10px;
+            padding-bottom: 10px !important;
         }
     }
 
@@ -180,7 +182,9 @@
         color: var(--fgColor-default);
     }
 
-    // 行番号は控えめに見せる。コピー時に選択されないのはGitHubのCSSのまま(user-select: none)
+    // 行番号は小さめの文字と補助テキストの色で控えめに見せる。
+    // 透明度は下げない(ダークで実効色が#696f78になりコントラスト比が3.7:1まで落ちる)。muted色のままならライト/ダークとも4.5:1以上
+    // コピー時に選択されないのはGitHubのCSSのまま(user-select: none)
     .blob-num {
         min-width: 3em;
         padding: 0 0.6em 0 0.9em;
@@ -188,16 +192,15 @@
         font-size: 0.75rem;
         line-height: 1.75;
         color: var(--fgColor-muted);
-        opacity: 0.7;
 
         &:hover {
-            color: var(--fgColor-muted);
-            opacity: 1;
+            color: var(--fgColor-default);
         }
     }
 
     .blob-code {
-        padding: 0 1em 0 0.6em !important; // GitHubのCSSが!importantで余白を指定しているため
+        // GitHubのCSSが四辺を!importantで指定しているため。上下は .blob-wrapper の先頭行・末尾行の指定に任せる
+        padding: 0 1em 0 0.6em !important;
         line-height: 1.75;
     }
 
@@ -444,6 +447,16 @@
             font-size: 0.95em;
             color: var(--text-low-priority);
             border-left: 3px solid var(--border-bq);
+
+            > :first-child {
+                margin-top: 0;
+            }
+
+            // はてなブログは本文中の引用の末尾に引用ボタン(.js-requote-button)を足し、Gistの中の引用にも付く。
+            // ボタンを除いた最後の要素の下余白をなくし、引用の下に空きが出ないようにする(_core.scss の引用と同じ)
+            > :nth-last-child(1 of :not(.js-requote-button)) {
+                margin-bottom: 0;
+            }
         }
 
         hr {
@@ -474,10 +487,20 @@
                 border-top: 0;
             }
 
+            // 本文の表の text-align: left が align属性(Markdownの :---: / ---:)より優先されるため、属性どおりに戻す
             th,
             td {
                 padding: 0.5rem;
+                text-align: start;
                 border: 1px solid var(--table-border);
+
+                &[align="center"] {
+                    text-align: center;
+                }
+
+                &[align="right"] {
+                    text-align: right;
+                }
             }
 
             th {
